@@ -129,4 +129,7 @@ dmypy.json
 .pyre/
 
 # Production settings file
-sele/settings/production.py
+config/settings/production.py
+
+# Other
+99_other/
