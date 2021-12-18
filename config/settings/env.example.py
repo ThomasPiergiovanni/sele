@@ -16,6 +16,8 @@ ENV_DATABASES = {
         'PORT': '5432',
     }
 }
-ENV_STATIC_URL = '/static/'
 ENV_SECURE_SSL_REDIRECT = False
+ENV_SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+ENV_STATIC_URL = '/static/'
 ENV_STATIC_ROOT = None
+
