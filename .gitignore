@@ -130,6 +130,7 @@ dmypy.json
 
 # Production settings file
 config/settings/production.py
+config/settings/env.py
 
 # Other
 99_other/

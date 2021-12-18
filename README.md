@@ -1,3 +1,6 @@
 # sele
 
-## 1. introduction
+## 1. Introduction.
+
+## 2. Prerequisite.
+
