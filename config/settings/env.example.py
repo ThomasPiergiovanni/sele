@@ -1,8 +1,12 @@
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 ENV = 'test'
-SECRET_KEY = 'django-insecure-+f^i^1jx+g5*k$2a13t)^x-0b6$2@nbgd8v$ggufbyh62h*)gc'
-DEBUG = True
-ALLOWED_HOSTS = []
-DATABASES = {
+ENV_SECRET_KEY = 'django-insecure-+f^i^1jx+g5*k$2a13t)^x-0b6$2@nbgd8v$ggufbyh62h*)gc'
+ENV_DEBUG = True
+ENV_ALLOWED_HOSTS = []
+ENV_DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sele_db',  # le nom de notre base de données créée précédemment
@@ -12,5 +16,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-STATIC_URL = '/static/'
-STATIC_ROOT = None
+ENV_STATIC_URL = '/static/'
+ENV_SECURE_SSL_REDIRECT = False
+ENV_STATIC_ROOT = None

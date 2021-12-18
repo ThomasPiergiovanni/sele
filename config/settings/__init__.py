@@ -15,7 +15,7 @@ import os
 
 from config.settings.env import (
     ENV, ENV_SECRET_KEY, ENV_DEBUG, ENV_ALLOWED_HOSTS, ENV_DATABASES, 
-    ENV_STATIC_URL, ENV_STATIC_ROOT
+    ENV_STATIC_URL, ENV_STATIC_ROOT, ENV_SECURE_SSL_REDIRECT
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,6 +33,7 @@ if ENV == 'production':
     DATABASES = ENV_DATABASES
     STATIC_URL = ENV_STATIC_URL
     STATIC_ROOT = ENV_STATIC_ROOT
+    SECURE_SSL_REDIRECT = ENV_SECURE_SSL_REDIRECT
 else:
     SECRET_KEY = 'django-insecure-+f^i^1jx+g5*k$2a13t)^x-0b6$2@nbgd8v$ggufbyh62h*)gc'
     DEBUG = True
@@ -48,6 +49,7 @@ else:
         }
     }
     STATIC_URL = '/static/'
+    SECURE_SSL_REDIRECT = False
 
 # Application definition
 
