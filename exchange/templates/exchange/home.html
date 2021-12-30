@@ -139,7 +139,6 @@
             <a href="{% url 'exchange:home'%}" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>Acceuil</p>
-              
             </a>
           </li>
           <li class="nav-item menu-close">
@@ -246,39 +245,24 @@
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           </div>
 
-
-          <li class="nav-item menu-close">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-sign-in-alt"></i>
-              <p>
-                Authentification
-                <i class="right fas fa-angle-left"></i>
-              </p>
+          <li class="nav-item">
+            <a href="{% url 'exchange:home'%}" class="nav-link">
+              <i class="nav-icon fas fa-user-plus"></i>
+              <p>Créer un compte</p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Connexion</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Déconnexion</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Créer un compte</p>
-                </a>
-              </li>
-
-            </ul>
           </li>
-
-
+          <li class="nav-item">
+            <a href="{% url 'exchange:home'%}" class="nav-link">
+              <i class="nav-icon fas fa-sign-in-alt"></i>
+              <p>Connexion</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'exchange:home'%}" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>Déconnexion</p>
+            </a>
+          </li>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -291,15 +275,17 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
+            <h1 class="m-0">sel-e</h1>
+            <h5 class="m-0">système d'échange local électronique</h5>
           </div><!-- /.col -->
         </div><!-- /.row -->
+        <div class="row mb-2">
+          <div class="col-5 col-sm-4 col-md-3 col-xl-2">
+            <a href="#">
+              <button type="button" class=" mb-2 mt-3 btn btn-block btn-outline-primary">Connexion</button>
+            </a>
+          </div><!-- /.col -->
+         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -311,14 +297,14 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
+            <div class="small-box bg-primary">
               <div class="inner">
                 <h3>150</h3>
 
-                <p>New Orders</p>
+                <p>Nombre de propositions</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="fas fa-bullseye"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -326,14 +312,14 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-primary ">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>53</h3>
 
-                <p>Bounce Rate</p>
+                <p>Nombre d'utilisateurs</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fas fa-user"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -341,14 +327,14 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-primary">
               <div class="inner">
                 <h3>44</h3>
 
-                <p>User Registrations</p>
+                <p>Nombre de groupes</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="fas fa-users"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -356,14 +342,14 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-primary">
               <div class="inner">
-                <h3>65</h3>
+                <h3>12</h3>
 
-                <p>Unique Visitors</p>
+                <p>Nombre de votes</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-vote-yea"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
