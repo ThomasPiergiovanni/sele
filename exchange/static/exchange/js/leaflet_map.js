@@ -13,7 +13,7 @@ function getUrl(data) {
 var jsonData = loadJson('#map');
 var t_url = getUrl(jsonData);
 
-var map = L.map('map').setView([48.85, 2.35], 12);
+var map = L.map('map').setView([46.50, 2.21], 5);
 
 var tiles = L.tileLayer(t_url, {
     maxZoom: 18,
