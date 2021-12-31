@@ -14,9 +14,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 
 from config.settings.env import (
-    ENV, ENV_SECRET_KEY, ENV_DEBUG, ENV_ALLOWED_HOSTS, ENV_DATABASES, 
+    ENV_SECRET_KEY, ENV_DEBUG, ENV_ALLOWED_HOSTS, ENV_DATABASES, 
     ENV_STATIC_URL, ENV_STATIC_ROOT, ENV_SECURE_SSL_REDIRECT,
-    ENV_SECURE_PROXY_SSL_HEADER
+    ENV_SECURE_PROXY_SSL_HEADER, ENV_MAPBOX_TOKEN
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,17 +26,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+ENV = 'test'
 
-if ENV == 'production':
-    SECRET_KEY = ENV_SECRET_KEY
-    DEBUG = ENV_DEBUG
-    ALLOWED_HOSTS = ENV_ALLOWED_HOSTS
-    DATABASES = ENV_DATABASES
-    STATIC_URL = ENV_STATIC_URL
-    STATIC_ROOT = ENV_STATIC_ROOT
-    SECURE_SSL_REDIRECT = ENV_SECURE_SSL_REDIRECT
-    SECURE_PROXY_SSL_HEADER = ENV_SECURE_PROXY_SSL_HEADER
-else:
+if ENV == 'test':
     SECRET_KEY = 'django-insecure-+f^i^1jx+g5*k$2a13t)^x-0b6$2@nbgd8v$ggufbyh62h*)gc'
     DEBUG = True
     ALLOWED_HOSTS = []
@@ -52,6 +44,18 @@ else:
     }
     STATIC_URL = '/static/'
     SECURE_SSL_REDIRECT = False
+    MAPBOX_TOKEN = ENV_MAPBOX_TOKEN
+
+elif ENV == 'production':
+    SECRET_KEY = ENV_SECRET_KEY
+    DEBUG = ENV_DEBUG
+    ALLOWED_HOSTS = ENV_ALLOWED_HOSTS
+    DATABASES = ENV_DATABASES
+    STATIC_URL = ENV_STATIC_URL
+    STATIC_ROOT = ENV_STATIC_ROOT
+    SECURE_SSL_REDIRECT = ENV_SECURE_SSL_REDIRECT
+    SECURE_PROXY_SSL_HEADER = ENV_SECURE_PROXY_SSL_HEADER
+    MAPBOX_TOKEN = ENV_MAPBOX_TOKEN
 
 # Application definition
 
