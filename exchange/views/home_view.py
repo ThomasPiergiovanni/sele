@@ -4,6 +4,7 @@ from django.shortcuts import render
 from json import dumps
 
 from config.settings import MAPBOX_TOKEN
+from config.settings.data.communes_idf_3 import VECTOR_LAYER
 from exchange.forms.navbar_search_form import NavbarSearchForm
 
 
@@ -15,7 +16,8 @@ class HomeView(View):
         self.render = 'exchange/home.html'
         self.context = {
             'navbar_search_form': NavbarSearchForm(),
-            'mapbox_url': self.__makejson()
+            'mapbox_url': self.__makejson(),
+            'vector_layer': self.__getgeojson()
         }
 
     def get(self, request):
@@ -29,6 +31,11 @@ class HomeView(View):
             'kryyu79j17ptmgsmg9c9/tiles/{z}/{x}/{y}?access_token=' +
             MAPBOX_TOKEN
         }
+        data_json = dumps(data)
+        return data_json
+    
+    def __getgeojson(self):
+        data = VECTOR_LAYER
         data_json = dumps(data)
         return data_json
 

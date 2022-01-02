@@ -739,11 +739,12 @@
           <section class="col-lg-5 connectedSortable">
 
             <!-- Map card -->
-            <div class="card bg-gradient-primary">
-              <div class="card-header border-0">
+            <!-- <div class="card bg-gradient-primary"> -->
+            <div class="card">
+              <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-map-marker-alt mr-1"></i>
-                  Groupes locaux
+                  Groupes locaux actifs
                 </h3>
                 <!-- card tools -->
                 <div class="card-tools">
@@ -756,7 +757,7 @@
               </div>
               <div class="card-body">
                 <!-- <div id="world-map" style="height: 250px; width: 100%;"></div> -->
-                <div id="map" style="height: 350px; width: 100%;" data-json="{{ mapbox_url }}"></div>
+                <div id="map" style="height: 350px; width: 100%;" data-json="{{ mapbox_url }}" data-geojson="{{ vector_layer }}"></div>
               </div>
               <!-- /.card-body-->
               <div class="card-footer bg-transparent">
