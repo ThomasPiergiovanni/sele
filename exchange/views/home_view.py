@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from json import dumps
 
+from collectivity.models.collectivity import Collectivity
 from config.settings import MAPBOX_TOKEN
 from config.settings.data.communes_idf_3 import VECTOR_LAYER
 from exchange.forms.navbar_search_form import NavbarSearchForm

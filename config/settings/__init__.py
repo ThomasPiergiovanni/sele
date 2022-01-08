@@ -34,7 +34,8 @@ if ENV == 'test':
     ALLOWED_HOSTS = []
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
+            # 'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
             'NAME': 'sele_db',
             'USER': 'postgres',
             'PASSWORD': 'postgres',
@@ -61,6 +62,7 @@ elif ENV == 'production':
 
 INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
+    'collectivity.apps.CollectivityConfig',
     'exchange.apps.ExchangeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
