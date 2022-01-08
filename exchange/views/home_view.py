@@ -1,5 +1,6 @@
 from django.views import View
 from django.shortcuts import render
+from django.core.serializers import serialize
 
 from json import dumps
 
@@ -18,7 +19,9 @@ class HomeView(View):
         self.context = {
             'navbar_search_form': NavbarSearchForm(),
             'mapbox_url': self.__makejson(),
-            'vector_layer': self.__getgeojson()
+            #'vector_layer': self.__getgeojson(),
+            'vector_layer': self.__getgeojson_from_model(),
+
         }
 
     def get(self, request):
@@ -38,5 +41,14 @@ class HomeView(View):
     def __getgeojson(self):
         data = VECTOR_LAYER
         data_json = dumps(data)
+        return data_json
+    
+    def __getgeojson_from_model(self):
+        data_json = serialize(
+            'geojson', 
+            Collectivity.objects.all(),
+            geometry_field='feat_geom',
+            fields=('name','insee_code', 'activity')
+        )
         return data_json
 
