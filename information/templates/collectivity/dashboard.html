@@ -2,8 +2,6 @@
 {% extends 'information/base.html' %}
 {% block content %}
   {% load static %}
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -215,182 +213,210 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-bullseye mr-1"></i>
-                  Dernières propositions
+                  Propositions
                 </h3>
               </div>
               <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-3 col-6">
-                    <div class="small-box bg-white border-right border-secondary ">
-                      <div class="inner">
-                        <div class="text-truncate">
-                          <h5>1 kg de pommes de terres</h5>
-                          Type:
-                          <span class="text-secondary">
-                            Offre
-                          </span></br>
-                          Nature:
-                          <span class="text-secondary">
-                            Produit
-                          </span></br>
-                          Catégorie:
-                          <span class="text-secondary">
-                            Agricole
-                          </span></br>
-                          Durée de travail:
-                          <span class="text-secondary">
-                            240 minutes
-                          </span></br>
-                          Description:
-                          <span class="text-secondary">
-                            Je propose 1 kg de pommes de terres récoltées la
-                            semaine dernière dans ma ferme des
-                          </span></br>
-                          Créateur(type):
-                          <span class="text-secondary">
-                            Utilisateur
-                          </span></br>
-                          Groupe local:
-                          <span class="text-secondary">
-                            Bourg-la-Reine
-                          </span></br>
+                <!-- Form -->
+                <form action="enhanced-results.html">
+                  <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label>Type de proposition:</label>
+                            <select class="select2" style="width: 100%;">
+                              <option selected>Toutes</option>
+                              <option>Offre</option>
+                              <option>Demande</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <div class="form-group">
+                            <label>Ordre de tri:</label>
+                            <select class="select2" style="width: 100%;">
+                              <option selected>Ascendant</option>
+                              <option>Descendant</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <div class="form-group">
+                            <label>Order par:</label>
+                            <select class="select2" style="width: 100%;">
+                              <option selected>Date</option>
+                              <option>Nom</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
-                      <a href="#" class="small-box-footer bg-primary text-white">
-                        <span class="text-white">
-                          Plus d'info 
-                          <i class="fas fa-arrow-circle-right"></i>
-                        </span>
-                      </a>
+                      <div class="form-group">
+                        <div class="input-group input-group-md">
+                          <input type="search" class="form-control form-control-md" placeholder="Saisir vos mots clés ici"
+                            value="Votre recherche...">
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-md btn-default">
+                              <i class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-lg-3 col-6">
-                    <div class="small-box bg-white border-right border-secondary ">
-                      <div class="inner">
-                        <div class="text-truncate">
-                        <h5>Cours de python</h5>
-                          Type:
-                          <span class="text-secondary">
-                            Demande
-                          </span></br>
-                          Nature:
-                          <span class="text-secondary">
-                            Activité
-                          </span></br>
-                          Catégorie:
-                          <span class="text-secondary">
-                            Education
-                          </span></br>
-                            Durée de travail:
-                          <span class="text-secondary">
-                            45 minutes
-                          </span></br>
-                          Description:
-                          <span class="text-secondary">
-                            Je cherche à apprendre le languague python pendant
-                            1h heure.
-                          </span></br>
-                          Créateur(type):
-                          <span class="text-secondary">
-                            Utilisateur
-                          </span></br>
-                          Groupe local:
-                          <span class="text-secondary">
-                            Bagneux
-                          </span></br>
-                        </div>
-                      </div>
-                      <a href="#" class="small-box-footer bg-primary text-white">
-                        <span class="text-white">
-                          Plus d'info
-                          <i class="fas fa-arrow-circle-right"></i>
-                        </span>
+                </form>
+              </div>
+                <!-- /Form -->
+              
+              <!-- /.card-body-->
+
+              <!-- Table . 2nd card-body-->
+              <div class="card-body">
+                <div class="table-responsive table-hover">
+                  <table class="table">
+                    <thead class="text-center">
+                      <tr>
+                        <th >#</th>
+                        <th >Nom</th>
+                        <th>Type</th>
+                        <th>Catégorie</th>
+                        <th>Effort(min.)</th>
+                        <th>Statut</th>
+                        <th>Créateur</th>
+                        <th>Preneur</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-center">
+                      <tr>
+                        <td>1</td>
+                        <td>1 kg de pommes de terres</td>
+                        <td class="font-weight-bold font-italic">Offre</td>
+                        <td>Agricole</td>
+                        <td>240</td>
+                        <td class="h5"><span class="badge bg-light ">Nouveau</span></td>
+                        <td>ThoPie</td>
+                        <td>-</td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                          </a>
+                        </td>
+                    </tbody>
+                    <tbody class="text-center">
+                      <tr>
+                        <td>2</td>
+                        <td>Cours de python</td>
+                        <td class="font-weight-bold font-italic">Demande</td>
+                        <td>Education</td>
+                        <td>45</td>
+                        <td class="h5"><span class="badge bg-warning ">En progression</span></td>
+                        <td>LeNoob</td>
+                        <td>TheBest</td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                          </a>
+                        </td>
+                    </tbody>
+                    <tbody class="text-center">
+                      <tr>
+                        <td>3</td>
+                        <td>Nettoyage du mur Rue du Bac</td>
+                        <td class="font-weight-bold font-italic">Demande</td>
+                        <td>Nettoyage</td>
+                        <td>60</td>
+                        <td class="h5"><span class="badge bg-success ">Terminé</span></td>
+                        <td>Bourg-la-Reine(Gr.)</td>
+                        <td>ThoPie</td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                          </a>
+                        </td>
+                    </tbody>
+                    <tbody class="text-center">
+                      <tr>
+                        <td>4</td>
+                        <td>Aide au devoirs</td>
+                        <td class="font-weight-bold font-italic">Offre</td>
+                        <td>Education</td>
+                        <td>45</td>
+                        <td class="h5"><span class="badge bg-secondary">Annulé</span></td>
+                        <td>TheNoob</td>
+                        <td>TheBest</td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                          </a>
+                        </td>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row mb-4 mt-4 mr-2">
+                  <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10"></div>
+                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <a href="#" role="button">
+                      <button type="button" class="btn btn-block btn-success btn-sm ">Ajouter une proposition</button>
                     </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-6">
-                    <div class="small-box bg-white border-right border-secondary">
-                      <div class="inner">
-                        <div class="text-truncate">
-                          <h5>Nettoyage du mur Rue du Bac</h5>
-                  
-                          Type:
-                          <span class="text-secondary">
-                            Demande
-                          </span></br>
-                          Nature:
-                          <span class="text-secondary">
-                            Activité
-                          </span></br>
-                          Catégorie:
-                          <span class="text-secondary">
-                            Nettoyage
-                          </span></br>
-                          Durée de travail:
-                          <span class="text-secondary">
-                            60 minutes
-                          </span></br>
-                          Description:
-                          <span class="text-secondary">
-                            Nous cherchons des volontaires pour nettoyer le 
-                            mur dégradé à la Rue du Bac.
-                          </span></br>
-                          Créateur(type):
-                          <span class="text-secondary">
-                            Groupe
-                          </span></br>
-                          Groupe local:
-                          <span class="text-secondary">
-                            Suresnes
-                          </span></br>
-                        </div>
-                      </div>
-                      <a href="#" class="small-box-footer bg-primary text-white"><span class="text-white">Plus d'info <i
-                            class="fas fa-arrow-circle-right"></i></span></a>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-6">
-                    <div class="small-box bg-white border-right border-secondary ">
-                      <div class="inner">
-                        <div class="text-truncate">
-                          <h5>Aide au devoirs</h5>
-                          Type:
-                          <span class="text-secondary">
-                            Offre
-                          </span></br>
-                          Nature:
-                          <span class="text-secondary">
-                            Activité
-                          </span></br>
-                          Catégorie:
-                          <span class="text-secondary">
-                            Education
-                          </span></br>
-                          Durée de travail:
-                          <span class="text-secondary">
-                            45 minutes
-                          </span></br>
-                          Description:
-                          <span class="text-secondary">
-                            Je propose de l'aide au devoir.
-                          </span></br>
-                          Créateur(type):
-                          <span class="text-secondary">
-                            Utilsateur
-                          </span></br>
-                          Groupe local:
-                          <span class="text-secondary">
-                            Montreuil
-                          </span></br>
-                        </div>
-                      </div>
-                      <a href="#" class="small-box-footer bg-primary text-white"><span class="text-white">Plus d'info <i
-                            class="fas fa-arrow-circle-right"></i></span></a>
-                    </div>
                   </div>
                 </div>
               </div>
-              <!-- /.card-body-->
+
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+              </div>
+              <!-- /.card-footer-->
+
+
 
             </div>
             <!-- /.card -->
@@ -400,5 +426,4 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-  </div>
 {% endblock %}
