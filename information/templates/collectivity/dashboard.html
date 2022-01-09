@@ -1,0 +1,404 @@
+
+{% extends 'information/base.html' %}
+{% block content %}
+  {% load static %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Tableau de bord - <span class="text-primary font-weight-bold font-italic"> Bourg-la-Reine</span></h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>17</h3>
+
+                <p>Nombre de propositions</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-bullseye"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary ">
+              <div class="inner">
+                <h3>9</h3>
+
+                <p>Nombre d'utilisateurs</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-user"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>3</h3>
+
+                <p>Nombre de discussions</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-comments"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>2</h3>
+
+                <p>Nombre de votes</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-vote-yea"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+        <div class="row">
+          <!-- Left col -->
+          <section class="col-lg-6">
+            <!-- Custom tabs (Charts with tabs)-->
+            <div class="card" style="height: 450px;">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Propositions (évolution)
+                </h3>
+                <div class="card-tools">
+                  <ul class="nav nav-pills ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Lignes</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Secteurs</a>
+                    </li>
+                  </ul>
+                </div>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content p-0">
+                  <!-- Morris chart - Sales -->
+                  <div class="chart tab-pane active" id="revenue-chart"
+                      style="position: relative; height: 350px;">
+                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                  </div>
+                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                  </div>
+                </div>
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+          </section>
+          <!-- /.Left col -->
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+          <section class="col-lg-6">
+
+            <!-- User card -->
+            <div class="card" style="height: 450px;">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-user mr-1"></i>
+                  Utilisateurs
+                </h3>
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Nom d'utilisateur</th>
+                      <th>Nombre de propositions</th>
+                      <th>Evaluation moyenne</th>
+                      <th style="width: 60px">Balance(min)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1.</td>
+                      <td>ThPi</td>
+                      <td>12</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar bg-warning" style="width: 60%"></div>
+                        </div>
+                      </td>
+                      <td class=" text-center"><span class="badge bg-danger">- 180</span></td>
+                    </tr>
+                    <tr>
+                      <td>2.</td>
+                      <td>LeNoob</td>
+                      <td>3</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar bg-danger" style="width: 45%"></div>
+                        </div>
+                      </td>
+                      <td class=" text-center"><span class="badge bg-danger">- 40</span></td>
+                    </tr>
+                    <tr>
+                      <td>3.</td>
+                      <td>Thebest</td>
+                      <td>23</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar bg-success" style="width: 95%"></div>
+                        </div>
+                      </td>
+                      <td class=" text-center"><span class="badge bg-success">+ 280</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body-->
+
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+              </div>
+              <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+          </section>
+          
+          <!-- right col -->
+          <!-- one col (We are only adding the ID to make the widgets sortable)-->
+          <section class="col">
+          
+            <!-- Last poposals cards -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-bullseye mr-1"></i>
+                  Dernières propositions
+                </h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-3 col-6">
+                    <div class="small-box bg-white border-right border-secondary ">
+                      <div class="inner">
+                        <div class="text-truncate">
+                          <h5>1 kg de pommes de terres</h5>
+                          Type:
+                          <span class="text-secondary">
+                            Offre
+                          </span></br>
+                          Nature:
+                          <span class="text-secondary">
+                            Produit
+                          </span></br>
+                          Catégorie:
+                          <span class="text-secondary">
+                            Agricole
+                          </span></br>
+                          Durée de travail:
+                          <span class="text-secondary">
+                            240 minutes
+                          </span></br>
+                          Description:
+                          <span class="text-secondary">
+                            Je propose 1 kg de pommes de terres récoltées la
+                            semaine dernière dans ma ferme des
+                          </span></br>
+                          Créateur(type):
+                          <span class="text-secondary">
+                            Utilisateur
+                          </span></br>
+                          Groupe local:
+                          <span class="text-secondary">
+                            Bourg-la-Reine
+                          </span></br>
+                        </div>
+                      </div>
+                      <a href="#" class="small-box-footer bg-primary text-white">
+                        <span class="text-white">
+                          Plus d'info 
+                          <i class="fas fa-arrow-circle-right"></i>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-6">
+                    <div class="small-box bg-white border-right border-secondary ">
+                      <div class="inner">
+                        <div class="text-truncate">
+                        <h5>Cours de python</h5>
+                          Type:
+                          <span class="text-secondary">
+                            Demande
+                          </span></br>
+                          Nature:
+                          <span class="text-secondary">
+                            Activité
+                          </span></br>
+                          Catégorie:
+                          <span class="text-secondary">
+                            Education
+                          </span></br>
+                            Durée de travail:
+                          <span class="text-secondary">
+                            45 minutes
+                          </span></br>
+                          Description:
+                          <span class="text-secondary">
+                            Je cherche à apprendre le languague python pendant
+                            1h heure.
+                          </span></br>
+                          Créateur(type):
+                          <span class="text-secondary">
+                            Utilisateur
+                          </span></br>
+                          Groupe local:
+                          <span class="text-secondary">
+                            Bagneux
+                          </span></br>
+                        </div>
+                      </div>
+                      <a href="#" class="small-box-footer bg-primary text-white">
+                        <span class="text-white">
+                          Plus d'info
+                          <i class="fas fa-arrow-circle-right"></i>
+                        </span>
+                    </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-6">
+                    <div class="small-box bg-white border-right border-secondary">
+                      <div class="inner">
+                        <div class="text-truncate">
+                          <h5>Nettoyage du mur Rue du Bac</h5>
+                  
+                          Type:
+                          <span class="text-secondary">
+                            Demande
+                          </span></br>
+                          Nature:
+                          <span class="text-secondary">
+                            Activité
+                          </span></br>
+                          Catégorie:
+                          <span class="text-secondary">
+                            Nettoyage
+                          </span></br>
+                          Durée de travail:
+                          <span class="text-secondary">
+                            60 minutes
+                          </span></br>
+                          Description:
+                          <span class="text-secondary">
+                            Nous cherchons des volontaires pour nettoyer le 
+                            mur dégradé à la Rue du Bac.
+                          </span></br>
+                          Créateur(type):
+                          <span class="text-secondary">
+                            Groupe
+                          </span></br>
+                          Groupe local:
+                          <span class="text-secondary">
+                            Suresnes
+                          </span></br>
+                        </div>
+                      </div>
+                      <a href="#" class="small-box-footer bg-primary text-white"><span class="text-white">Plus d'info <i
+                            class="fas fa-arrow-circle-right"></i></span></a>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-6">
+                    <div class="small-box bg-white border-right border-secondary ">
+                      <div class="inner">
+                        <div class="text-truncate">
+                          <h5>Aide au devoirs</h5>
+                          Type:
+                          <span class="text-secondary">
+                            Offre
+                          </span></br>
+                          Nature:
+                          <span class="text-secondary">
+                            Activité
+                          </span></br>
+                          Catégorie:
+                          <span class="text-secondary">
+                            Education
+                          </span></br>
+                          Durée de travail:
+                          <span class="text-secondary">
+                            45 minutes
+                          </span></br>
+                          Description:
+                          <span class="text-secondary">
+                            Je propose de l'aide au devoir.
+                          </span></br>
+                          Créateur(type):
+                          <span class="text-secondary">
+                            Utilsateur
+                          </span></br>
+                          Groupe local:
+                          <span class="text-secondary">
+                            Montreuil
+                          </span></br>
+                        </div>
+                      </div>
+                      <a href="#" class="small-box-footer bg-primary text-white"><span class="text-white">Plus d'info <i
+                            class="fas fa-arrow-circle-right"></i></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body-->
+
+            </div>
+            <!-- /.card -->
+          </section>
+        </div>
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+{% endblock %}
