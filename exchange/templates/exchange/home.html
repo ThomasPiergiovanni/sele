@@ -90,7 +90,7 @@
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
+          <section class="col-lg-7">
             <!-- Custom tabs (Charts with tabs)-->
             <div class="card" style="height: 450px;">
               <div class="card-header">
@@ -127,24 +127,15 @@
           </section>
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
+          <section class="col-lg-5">
 
             <!-- Map card -->
-            <!-- <div class="card bg-gradient-primary"> -->
             <div class="card" style="height: 450px;">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-map-marker-alt mr-1"></i>
                   Groupes locaux actifs
                 </h3>
-                <!-- card tools -->
-                <div class="card-tools">
-
-                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-                <!-- /.card-tools -->
               </div>
               <div class="card-body">
                 <div id="map" style="height: 325px; width: 100%;" data-json="{{ mapbox_url }}" data-geojson="{{ vector_layer }}"></div>
@@ -153,30 +144,23 @@
             </div>
             <!-- /.card -->
           </section>
+          
           <!-- right col -->
           <!-- one col (We are only adding the ID to make the widgets sortable)-->
           <section class="col">
           
-            <!-- Map card -->
-            <!-- <div class="card bg-gradient-primary"> -->
+            <!-- Last poposals cards -->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-bullseye mr-1"></i>
                   Dernières propositions
                 </h3>
-                <!-- card tools -->
-                <div class="card-tools">
-                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-                <!-- /.card-tools -->
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-3 col-6">
-                    <div class="small-box bg-light ">
+                    <div class="small-box bg-white border-right border-secondary ">
                       <div class="inner">
                         <div class="text-truncate">
                           <h5>1 kg de pommes de terres</h5>
@@ -220,7 +204,7 @@
                     </div>
                   </div>
                   <div class="col-lg-3 col-6">
-                    <div class="small-box bg-light ">
+                    <div class="small-box bg-white border-right border-secondary ">
                       <div class="inner">
                         <div class="text-truncate">
                         <h5>Cours de python</h5>
@@ -255,11 +239,16 @@
                           </span></br>
                         </div>
                       </div>
-                      <a href="#" class="small-box-footer bg-primary text-white"><span class="text-white">Plus d'info <i class="fas fa-arrow-circle-right"></i></span></a>
+                      <a href="#" class="small-box-footer bg-primary text-white">
+                        <span class="text-white">
+                          Plus d'info
+                          <i class="fas fa-arrow-circle-right"></i>
+                        </span>
+                    </a>
                     </div>
                   </div>
                   <div class="col-lg-3 col-6">
-                    <div class="small-box bg-light ">
+                    <div class="small-box bg-white border-right border-secondary">
                       <div class="inner">
                         <div class="text-truncate">
                           <h5>Nettoyage du mur Rue du Bac</h5>
@@ -300,7 +289,7 @@
                     </div>
                   </div>
                   <div class="col-lg-3 col-6">
-                    <div class="small-box bg-light ">
+                    <div class="small-box bg-white border-right border-secondary ">
                       <div class="inner">
                         <div class="text-truncate">
                           <h5>Aide au devoirs</h5>
@@ -341,16 +330,7 @@
                 </div>
               </div>
               <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <!-- <div class="col-4 text-center">
-                              <div id="sparkline-1"></div>
-                              <div class="text-white">Visitors</div>
-                            </div> -->
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
+
             </div>
             <!-- /.card -->
           </section>
