@@ -4,22 +4,346 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Sel-E</title>
+    <title>sel-e | home</title>
 
     <link rel="icon" type="image/x-icon" href="{% static 'exchange/images/sele_blue.ico' %}" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'exchange/plugins/fontawesome-free/css/all.min.css' %}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet"
+        href="{% static 'exchange/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{% static 'exchange/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="{% static 'exchange/plugins/jqvmap/jqvmap.min.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'exchange/dist/css/adminlte.min.css' %}">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{% static 'exchange/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{% static 'exchange/plugins/daterangepicker/daterangepicker.css' %}">
+    <!-- summernote -->
+    <link rel="stylesheet" href="{% static 'exchange/plugins/summernote/summernote-bs4.min.css' %}">
+    <!--Leaflet-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
 </head>
-<body>
-    <div>
-        {% block content %}{% endblock %}
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="{% static 'exchange/images/sele_blue.jpg' %}" alt="SeleLogo" height="60">
+        </div>
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{% url 'exchange:home'%}" class="nav-link">Acceuil</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Qu'est ce que sel-e ?</a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Navbar Search -->
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <div class="navbar-search-block">
+                        <form class="form-inline">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                                    aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        <span class="badge badge-warning navbar-badge">15</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header">15 Notifications</span>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-envelope mr-2"></i> 4 new messages
+                            <span class="float-right text-muted text-sm">3 mins</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-users mr-2"></i> 8 friend requests
+                            <span class="float-right text-muted text-sm">12 hours</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-file mr-2"></i> 3 new reports
+                            <span class="float-right text-muted text-sm">2 days</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" role="button">
+                        <button type="button" data-toggle="dropdown" class="btn btn-block btn-primary btn-xs">Connexion</button>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="{% url 'exchange:home'%}" class="brand-link">
+                <img src="{% static 'exchange/images/sele_blue.jpg' %}" alt="Sel-e Logo"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">sel-e</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="info">
+                        <a href="#" class="d-block">Thomas Piergiovanni</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                    with font-awesome or any other icon font library -->
+
+                        <li class="nav-item">
+                            <a href="{% url 'exchange:home'%}" class="nav-link">
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>Acceuil</p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-close">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Mon groupe local
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tableau de bord</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Propositions</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Discusssions</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Votes</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item menu-close">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Mon espace
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tableau de bord</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="./index2.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Propositions</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="./index3.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Votes</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'exchange:home'%}" class="nav-link">
+                                <i class="nav-icon fas fa-poll"></i>
+                                <p>StatsLab</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item menu-close">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-info-circle"></i>
+                                <p>
+                                    Infos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>FAQ</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Contact</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Legal</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        </div>
+
+                        <li class="nav-item">
+                            <a href="{% url 'exchange:home'%}" class="nav-link">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p>Créer un compte</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'exchange:home'%}" class="nav-link">
+                                <i class="nav-icon fas fa-sign-in-alt"></i>
+                                <p>Connexion</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'exchange:home'%}" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>Déconnexion</p>
+                            </a>
+                        </li>
+                        <!-- /.sidebar-menu -->
+                    </ul>
+                </nav>
+            </div>
+            <!-- /.sidebar -->
+        </aside>
     </div>
-    <!-- Footer-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+
+        {% block content %}{% endblock %}
 </body>
+
+<footer class="main-footer">
+    <div class="row">
+        <div class="col-2"><strong><a href="">Mention légales</a></div></strong>
+        <div class="col-6 text-left"><strong><a href="">Contact</a></div></strong>
+        <div class="col-4 text-right"><b>Version</b> 1.0</div>
+    </div>
+    <!-- <strong>Copyright &copy; 2014-2021 <a href="">Mention légales</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0
+    </div> -->
+</footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{% static 'exchange/plugins/jquery/jquery.min.js' %}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{% static 'exchange/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'exchange/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- ChartJS -->
+<script src="{% static 'exchange/plugins/chart.js/Chart.min.js' %}"></script>
+<!-- Sparkline -->
+<script src="{% static 'exchange/plugins/sparklines/sparkline.js' %}"></script>
+<!-- JQVMap -->
+<script src="{% static 'exchange/plugins/jqvmap/jquery.vmap.min.js' %}"></script>
+<script src="{% static 'exchange/plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{% static 'exchange/plugins/jquery-knob/jquery.knob.min.js' %}"></script>
+<!-- daterangepicker -->
+<script src="{% static 'exchange/plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'exchange/plugins/daterangepicker/daterangepicker.js' %}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{% static 'exchange/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<!-- Summernote -->
+<script src="{% static 'exchange/plugins/summernote/summernote-bs4.min.js' %}"></script>
+<!-- overlayScrollbars -->
+<script src="{% static 'exchange/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'exchange/dist/js/adminlte.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'exchange/dist/js/demo.js' %}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{% static 'exchange/dist/js/pages/dashboard.js' %}"></script>
+
+<!-- Leaflet map js scrip-->
+<script src="{% static 'exchange/js/leaflet_map.js' %}"></script>
+</body>
+
 </html>
