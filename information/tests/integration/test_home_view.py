@@ -3,7 +3,7 @@
 """
 from django.test import TestCase
 
-from exchange.forms.navbar_search_form import NavbarSearchForm
+from information.forms.navbar_search_form import NavbarSearchForm
 
 
 class HomeViewTest(TestCase):
@@ -16,7 +16,7 @@ class HomeViewTest(TestCase):
 
     def test_get_with_template(self):
         response = self.client.get('')
-        self.assertTemplateUsed(response, 'exchange/home.html')
+        self.assertTemplateUsed(response, 'information/home.html')
 
     def test_get_with_navbar_form(self):
         response = self.client.get('')

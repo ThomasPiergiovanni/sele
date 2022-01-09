@@ -9,28 +9,28 @@
     <meta name="author" content="" />
     <title>sel-e | home</title>
 
-    <link rel="icon" type="image/x-icon" href="{% static 'exchange/images/sele_blue.ico' %}" />
+    <link rel="icon" type="image/x-icon" href="{% static 'information/images/sele_blue.ico' %}" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'exchange/plugins/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'information/plugins/fontawesome-free/css/all.min.css' %}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
-        href="{% static 'exchange/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+        href="{% static 'information/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
     <!-- iCheck -->
-    <link rel="stylesheet" href="{% static 'exchange/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'information/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="{% static 'exchange/plugins/jqvmap/jqvmap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'information/plugins/jqvmap/jqvmap.min.css' %}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{% static 'exchange/dist/css/adminlte.min.css' %}">
+    <link rel="stylesheet" href="{% static 'information/dist/css/adminlte.min.css' %}">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{% static 'exchange/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+    <link rel="stylesheet" href="{% static 'information/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="{% static 'exchange/plugins/daterangepicker/daterangepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'information/plugins/daterangepicker/daterangepicker.css' %}">
     <!-- summernote -->
-    <link rel="stylesheet" href="{% static 'exchange/plugins/summernote/summernote-bs4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'information/plugins/summernote/summernote-bs4.min.css' %}">
     <!--Leaflet-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -45,7 +45,7 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{% static 'exchange/images/sele_blue.jpg' %}" alt="SeleLogo" height="60">
+            <img class="animation__shake" src="{% static 'information/images/sele_blue.jpg' %}" alt="SeleLogo" height="60">
         </div>
 
         <!-- Navbar -->
@@ -56,7 +56,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{% url 'exchange:home'%}" class="nav-link">Acceuil</a>
+                    <a href="{% url 'information:home'%}" class="nav-link">Acceuil</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Qu'est ce que sel-e ?</a>
@@ -126,8 +126,8 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="{% url 'exchange:home'%}" class="brand-link">
-                <img src="{% static 'exchange/images/sele_blue.jpg' %}" alt="Sel-e Logo"
+            <a href="{% url 'information:home'%}" class="brand-link">
+                <img src="{% static 'information/images/sele_blue.jpg' %}" alt="Sel-e Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">sel-e</span>
             </a>
@@ -148,7 +148,7 @@
                     with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
-                            <a href="{% url 'exchange:home'%}" class="nav-link">
+                            <a href="{% url 'information:home'%}" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>Acceuil</p>
                             </a>
@@ -218,7 +218,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'exchange:home'%}" class="nav-link">
+                            <a href="{% url 'information:home'%}" class="nav-link">
                                 <i class="nav-icon fas fa-poll"></i>
                                 <p>StatsLab</p>
                             </a>
@@ -258,19 +258,19 @@
                         </div>
 
                         <li class="nav-item">
-                            <a href="{% url 'exchange:home'%}" class="nav-link">
+                            <a href="{% url 'information:home'%}" class="nav-link">
                                 <i class="nav-icon fas fa-user-plus"></i>
                                 <p>Créer un compte</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'exchange:home'%}" class="nav-link">
+                            <a href="{% url 'information:home'%}" class="nav-link">
                                 <i class="nav-icon fas fa-sign-in-alt"></i>
                                 <p>Connexion</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'exchange:home'%}" class="nav-link">
+                            <a href="{% url 'information:home'%}" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>Déconnexion</p>
                             </a>
@@ -308,42 +308,42 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{% static 'exchange/plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'information/plugins/jquery/jquery.min.js' %}"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="{% static 'exchange/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+<script src="{% static 'information/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="{% static 'exchange/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'information/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- ChartJS -->
-<script src="{% static 'exchange/plugins/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'information/plugins/chart.js/Chart.min.js' %}"></script>
 <!-- Sparkline -->
-<script src="{% static 'exchange/plugins/sparklines/sparkline.js' %}"></script>
+<script src="{% static 'information/plugins/sparklines/sparkline.js' %}"></script>
 <!-- JQVMap -->
-<script src="{% static 'exchange/plugins/jqvmap/jquery.vmap.min.js' %}"></script>
-<script src="{% static 'exchange/plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+<script src="{% static 'information/plugins/jqvmap/jquery.vmap.min.js' %}"></script>
+<script src="{% static 'information/plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
 <!-- jQuery Knob Chart -->
-<script src="{% static 'exchange/plugins/jquery-knob/jquery.knob.min.js' %}"></script>
+<script src="{% static 'information/plugins/jquery-knob/jquery.knob.min.js' %}"></script>
 <!-- daterangepicker -->
-<script src="{% static 'exchange/plugins/moment/moment.min.js' %}"></script>
-<script src="{% static 'exchange/plugins/daterangepicker/daterangepicker.js' %}"></script>
+<script src="{% static 'information/plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'information/plugins/daterangepicker/daterangepicker.js' %}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="{% static 'exchange/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<script src="{% static 'information/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
 <!-- Summernote -->
-<script src="{% static 'exchange/plugins/summernote/summernote-bs4.min.js' %}"></script>
+<script src="{% static 'information/plugins/summernote/summernote-bs4.min.js' %}"></script>
 <!-- overlayScrollbars -->
-<script src="{% static 'exchange/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+<script src="{% static 'information/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
 <!-- AdminLTE App -->
-<script src="{% static 'exchange/dist/js/adminlte.js' %}"></script>
+<script src="{% static 'information/dist/js/adminlte.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{% static 'exchange/dist/js/demo.js' %}"></script>
+<script src="{% static 'information/dist/js/demo.js' %}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{% static 'exchange/dist/js/pages/dashboard.js' %}"></script>
+<script src="{% static 'information/dist/js/pages/dashboard.js' %}"></script>
 
 <!-- Leaflet map js scrip-->
-<script src="{% static 'exchange/js/leaflet_map.js' %}"></script>
+<script src="{% static 'information/js/leaflet_map.js' %}"></script>
 </body>
 
 </html>

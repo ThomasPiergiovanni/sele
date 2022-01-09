@@ -7,7 +7,7 @@ from json import dumps
 from collectivity.models.collectivity import Collectivity
 from config.settings import MAPBOX_TOKEN
 from config.settings.data.communes_idf_3 import VECTOR_LAYER
-from exchange.forms.navbar_search_form import NavbarSearchForm
+from information.forms.navbar_search_form import NavbarSearchForm
 
 
 class HomeView(View):
@@ -15,7 +15,7 @@ class HomeView(View):
     """
     def __init__(self):
         super().__init__()
-        self.render = 'exchange/home.html'
+        self.render = 'information/home.html'
         self.context = {
             'navbar_search_form': NavbarSearchForm(),
             'mapbox_url': self.__makejson(),

@@ -3,7 +3,7 @@
 """
 from django.test import TestCase
 
-from exchange.views.home_view import HomeView
+from information.views.home_view import HomeView
 
 
 class TestHomeView(TestCase):
@@ -19,5 +19,5 @@ class TestHomeView(TestCase):
     def test_init_with_attr_data_render(self):
         self.assertEqual(
             self.home_view.render,
-            'exchange/home.html'
+            'information/home.html'
         )
