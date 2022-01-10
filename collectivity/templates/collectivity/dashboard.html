@@ -110,8 +110,8 @@
                     <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
                   </div>
                 </div>
-              </div><!-- /.card-body -->
-            </div>
+              </div>
+              <!-- /.card-body -->
             <!-- /.card -->
 
           </section>
@@ -140,53 +140,55 @@
               </div>
               <!-- /.card-header -->
 
-              <div class="card-body table-responsive">
-                <table class="table table-hover text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Nom d'utilisateur</th>
-                      <th>Nombre de propositions</th>
-                      <th>Evaluation moyenne</th>
-                      <th>Balance (min)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1.</td>
-                      <td>ThPi</td>
-                      <td>12</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar bg-warning" style="width: 60%"></div>
-                        </div>
-                      </td>
-                      <td class=" text-center"><span class="badge bg-danger">- 180</span></td>
-                    </tr>
-                    <tr>
-                      <td>2.</td>
-                      <td>LeNoob</td>
-                      <td>3</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar bg-danger" style="width: 45%"></div>
-                        </div>
-                      </td>
-                      <td class=" text-center"><span class="badge bg-danger">- 40</span></td>
-                    </tr>
-                    <tr>
-                      <td>3.</td>
-                      <td>Thebest</td>
-                      <td>23</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar bg-success" style="width: 95%"></div>
-                        </div>
-                      </td>
-                      <td class=" text-center"><span class="badge bg-success">+ 280</span></td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-sm text-nowrap">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Nom d'utilisateur</th>
+                        <th>Nombre de propositions</th>
+                        <th>Evaluation moyenne</th>
+                        <th>Balance (min)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1.</td>
+                        <td>ThPi</td>
+                        <td>12</td>
+                        <td>
+                          <div class="progress progress-xs">
+                            <div class="progress-bar bg-warning" style="width: 60%"></div>
+                          </div>
+                        </td>
+                        <td class=" text-center"><span class="badge bg-danger">- 180</span></td>
+                      </tr>
+                      <tr>
+                        <td>2.</td>
+                        <td>LeNoob</td>
+                        <td>3</td>
+                        <td>
+                          <div class="progress progress-xs">
+                            <div class="progress-bar bg-danger" style="width: 45%"></div>
+                          </div>
+                        </td>
+                        <td class=" text-center"><span class="badge bg-danger">- 40</span></td>
+                      </tr>
+                      <tr>
+                        <td>3.</td>
+                        <td>Thebest</td>
+                        <td>23</td>
+                        <td>
+                          <div class="progress progress-xs">
+                            <div class="progress-bar bg-success" style="width: 95%"></div>
+                          </div>
+                        </td>
+                        <td class=" text-center"><span class="badge bg-success">+ 280</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <!-- /.card-body-->
 
@@ -218,14 +220,14 @@
               </div>
               <div class="card-body">
                 <!-- Form -->
-                <form action="enhanced-results.html">
+                <form action="">
                   <div class="row">
                     <div class="col-md-10 offset-md-1">
                       <div class="row">
                         <div class="col-6">
                           <div class="form-group">
                             <label>Type de proposition:</label>
-                            <select class="select2" style="width: 100%;">
+                            <select class="form-control" style="width: 100%;">
                               <option selected>Toutes</option>
                               <option>Offre</option>
                               <option>Demande</option>
@@ -235,7 +237,7 @@
                         <div class="col-3">
                           <div class="form-group">
                             <label>Ordre de tri:</label>
-                            <select class="select2" style="width: 100%;">
+                            <select class="form-control" style="width: 100%;">
                               <option selected>Ascendant</option>
                               <option>Descendant</option>
                             </select>
@@ -244,7 +246,7 @@
                         <div class="col-3">
                           <div class="form-group">
                             <label>Order par:</label>
-                            <select class="select2" style="width: 100%;">
+                            <select class="form-control" style="width: 100%;">
                               <option selected>Date</option>
                               <option>Nom</option>
                             </select>
@@ -272,9 +274,9 @@
 
               <!-- Table . 2nd card-body-->
               <div class="card-body">
-                <div class="table-responsive table-hover">
-                  <table class="table">
-                    <thead class="text-center">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead class="text-center thead-light">
                       <tr>
                         <th >#</th>
                         <th >Nom</th>
@@ -293,7 +295,7 @@
                       <tr>
                         <td>1</td>
                         <td>1 kg de pommes de terres</td>
-                        <td class="font-weight-bold font-italic">Offre</td>
+                        <td>Offre</td>
                         <td>Agricole</td>
                         <td>240</td>
                         <td class="h5"><span class="badge bg-light ">Nouveau</span></td>
@@ -314,12 +316,11 @@
                             <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
                           </a>
                         </td>
-                    </tbody>
-                    <tbody class="text-center">
+                      </tr>
                       <tr>
                         <td>2</td>
                         <td>Cours de python</td>
-                        <td class="font-weight-bold font-italic">Demande</td>
+                        <td>Demande</td>
                         <td>Education</td>
                         <td>45</td>
                         <td class="h5"><span class="badge bg-warning ">En progression</span></td>
@@ -340,12 +341,11 @@
                             <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
                           </a>
                         </td>
-                    </tbody>
-                    <tbody class="text-center">
+                      </tr>     
                       <tr>
                         <td>3</td>
                         <td>Nettoyage du mur Rue du Bac</td>
-                        <td class="font-weight-bold font-italic">Demande</td>
+                        <td>Demande</td>
                         <td>Nettoyage</td>
                         <td>60</td>
                         <td class="h5"><span class="badge bg-success ">Terminé</span></td>
@@ -366,12 +366,11 @@
                             <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
                           </a>
                         </td>
-                    </tbody>
-                    <tbody class="text-center">
+                      </tr>
                       <tr>
                         <td>4</td>
                         <td>Aide au devoirs</td>
-                        <td class="font-weight-bold font-italic">Offre</td>
+                        <td>Offre</td>
                         <td>Education</td>
                         <td>45</td>
                         <td class="h5"><span class="badge bg-secondary">Annulé</span></td>
@@ -392,16 +391,16 @@
                             <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
                           </a>
                         </td>
-                    </tbody>
+                      </tr>
                   </table>
                 </div>
-                <div class="row mb-4 mt-4 mr-2">
-                  <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10"></div>
-                  <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                    <a href="#" role="button">
-                      <button type="button" class="btn btn-block btn-success btn-sm ">Ajouter une proposition</button>
-                    </a>
-                  </div>
+              </div>
+              <div class="row mb-4 mt-2 ml-2 mr-2">
+                <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10"></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <a href="#" role="button">
+                    <button type="button" class="btn btn-block btn-success btn-sm ">Ajouter une proposition</button>
+                  </a>
                 </div>
               </div>
 
@@ -418,6 +417,195 @@
 
 
 
+            </div>
+            <!-- /.card -->
+          </section>
+
+          <section class="col-lg-6">
+            <!-- User card -->
+            <div class="card" style="height: 450px;">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-comments mr-1"></i>
+                  Discussions
+                </h3>
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+          
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+          
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-sm text-nowrap">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Sujet</th>
+                        <th>Date</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Proposition de vote Nettoyage</td>
+                        <td>10-01-2022</td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          </a>
+                        </td>
+                      <tr>
+                        <td>2</td>
+                        <td>Demande de groupe</td>
+                        <td>23-03-2021</td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          </a>
+                        </td>
+
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>C'est relou le html!</td>
+                        <td>15-10-2021</td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          </a>
+                        </td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- /.card-body-->
+              <div class="row mb-4 mt-2 ml-2 mr-2">
+                <div class="col-sm-6 col-md-8"></div>
+                <div class="col-sm-6 col-md-4">
+                  <a href="#" role="button">
+                    <button type="button" class="btn btn-block btn-success btn-sm">Nouvelle discussion</button>
+                  </a>
+                </div>
+              </div>
+          
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+              </div>
+              <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+          </section>
+
+          <section class="col-lg-6">
+            <!-- User card -->
+            <div class="card" style="height: 450px;">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-vote-yea mr-1"></i>
+                  Votes
+                </h3>
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+          
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+          
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-sm text-nowrap">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Question</th>
+                        <th>Date</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Demande-t-on le nettoyage du mur Rue du Bac?</td>
+                        <td>10-01-2022</td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button"
+                              class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          </a>
+                        </td>
+                      <tr>
+                        <td>2</td>
+                        <td>Organise-t-on une journée porte ouverte?</td>
+                        <td>23-03-2021</td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button"
+                              class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          </a>
+                        </td>
+          
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Créée-t-on une association sel?</td>
+                        <td>15-10-2021</td>
+                        <td>
+                          <a href="#" role="button">
+                            <button type="button"
+                              class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          </a>
+                        </td>
+          
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- /.card-body-->
+              <div class="row mb-4 mt-2 ml-2 mr-2">
+                <div class="col-sm-6 col-md-8"></div>
+                <div class="col-sm-6 col-md-4">
+                  <a href="#" role="button">
+                    <button type="button" class="btn btn-block btn-success btn-sm">Nouvelle votation</button>
+                  </a>
+                </div>
+              </div>
+          
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+              </div>
+              <!-- /.card-footer-->
             </div>
             <!-- /.card -->
           </section>
