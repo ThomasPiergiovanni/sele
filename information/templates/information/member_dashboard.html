@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Tableau de bord - <span class="text-primary font-weight-bold font-italic"> Bourg-la-Reine</span></h1>
+            <h1 class="m-0">Tableau de bord - <span class="text-primary font-weight-bold font-italic"> Username</span></h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -23,9 +23,9 @@
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
-                <h3>17</h3>
+                <h3>12</h3>
 
-                <p>Nombre de propositions</p>
+                <p>Nombre d'offres</p>
               </div>
               <div class="icon">
                 <i class="fas fa-sticky-note"></i>
@@ -37,12 +37,12 @@
             <!-- small box -->
             <div class="small-box bg-primary ">
               <div class="inner">
-                <h3>9</h3>
+                <h3>5</h3>
 
-                <p>Nombre d'utilisateurs</p>
+                <p>Nombre de demandes</p>
               </div>
               <div class="icon">
-                <i class="fas fa-users"></i>
+                <i class="far fa-sticky-note"></i>
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
-                  Propositions (évolution)
+                  Mes propositions (évolution)
                 </h3>
                 <div class="card-tools">
                   <ul class="nav nav-pills ml-auto">
@@ -123,84 +123,66 @@
             <div class="card" style="height: 450px;">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-users mr-1"></i>
-                  Utilisateurs
+                  <i class="fas fa-user mr-1"></i>
+                  Mes infos
                 </h3>
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
               <!-- /.card-header -->
 
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-sm table-borderless">
+              <div class="card-body ">
+                <div class="table-responsive ">
+                  <table class="table table-sm table-borderless text-nowrap">
                     <thead class="">
                       <tr>
-                        <th>#</th>
-                        <th>Nom d'utilisateur</th>
-                        <th>Nombre de propositions</th>
-                        <th>Evaluation moyenne</th>
-                        <th>Balance (min)</th>
+                        <th></th>
+                        <th></th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                       <tr>
-                        <td>1.</td>
-                        <td>ThPi</td>
-                        <td>12</td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar bg-warning" style="width: 60%"></div>
-                          </div>
-                        </td>
-                        <td class=" text-center"><span class="badge bg-danger">- 180</span></td>
+                        <td>Nombre d'offres</td>
+                        <td class="text-center font-weight-bold">12</td>
                       </tr>
                       <tr>
-                        <td>2.</td>
-                        <td>LeNoob</td>
-                        <td>3</td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar bg-danger" style="width: 45%"></div>
-                          </div>
-                        </td>
-                        <td class=" text-center"><span class="badge bg-danger">- 40</span></td>
+                        <td>Nombre de demandes</td>
+                        <td class="text-center font-weight-bold">3</td>
                       </tr>
                       <tr>
-                        <td>3.</td>
-                        <td>Thebest</td>
-                        <td>23</td>
-                        <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar bg-success" style="width: 95%"></div>
+                        <td>Temps offert (min.)</td>
+                        <td class="text-center font-weight-bold">1600</td>
+                      </tr>
+                      <tr>
+                        <td>Temps demandé (min.)</td>
+                        <td class="text-center font-weight-bold">756</td>
+                      </tr>
+                      <tr>
+                        <td>Balance</td>
+                        <td class=" text-center"><span class="text-success font-weight-bold">+ 280</span></td>
+                      </tr>
+                      <tr>
+                        <td>Evaluation moyenne</td>
+                        <td class="text-center">
+                          <div class="progress progress-md">
+                            <div class="progress-bar bg-success" style="width: 85%"></div>
                           </div>
                         </td>
-                        <td class=" text-center"><span class="badge bg-success">+ 280</span></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
+                <!-- /tabel end -->
+                <div class="row mb-4 mt-2 ml-2 mr-2">
+                  <div class="col-sm-6 col-md-8 col-lg-6 col-xl-8"></div>
+                  <div class="col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                    <a href="#" role="button">
+                      <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Voir détail</button>
+                    </a>
+                  </div>
+                </div>
+
               </div>
               <!-- /.card-body-->
 
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
-              </div>
               <!-- /.card-footer-->
             </div>
             <!-- /.card -->
@@ -215,7 +197,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-sticky-note mr-1"></i>
-                  Propositions
+                  Mes propositions
                 </h3>
               </div>
               <div class="card-body mt-5 mb-2">
@@ -427,7 +409,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-comments mr-1"></i>
-                  Discussions
+                  Mes discussions
                 </h3>
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -445,7 +427,7 @@
           
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-sm table-borderless">
+                  <table class="table table-borderless table-sm">
                     <thead class="">
                       <tr>
                         <th>#</th>
@@ -520,7 +502,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-vote-yea mr-1"></i>
-                  Votes
+                  Mes votes
                 </h3>
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -538,7 +520,7 @@
           
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-sm table-borderless">
+                  <table class="table  table-borderless table-sm">
                     <thead class="">
                       <tr>
                         <th>#</th>

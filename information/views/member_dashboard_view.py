@@ -4,13 +4,13 @@ from django.shortcuts import render
 from information.forms.navbar_search_form import NavbarSearchForm
 
 
-class CollectivityDashboardView(View):
-    """Collectivity Dashboard view  class.
+class MemberDashboardView(View):
+    """Member Dashboard view  class.
     """
 
     def __init__(self):
         super().__init__()
-        self.render = 'information/collectivity_dashboard.html'
+        self.render = 'information/member_dashboard.html'
         self.context = {
             'navbar_search_form': NavbarSearchForm(),
         }
