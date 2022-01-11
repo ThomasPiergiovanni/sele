@@ -63,7 +63,6 @@ elif ENV == 'production':
 INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'collectivity.apps.CollectivityConfig',
-    'exchange.apps.ExchangeConfig',
     'information.apps.InformationConfig',
     'django.contrib.admin',
     'django.contrib.auth',

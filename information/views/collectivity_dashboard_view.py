@@ -6,13 +6,13 @@ from collectivity.models.collectivity import Collectivity
 from information.forms.navbar_search_form import NavbarSearchForm
 
 
-class DashboardView(View):
-    """Dashboard view  class.
+class CollectivityDashboardView(View):
+    """Collectivity Dashboard view  class.
     """
 
     def __init__(self):
         super().__init__()
-        self.render = 'collectivity/dashboard.html'
+        self.render = 'information/collectivity_dashboard.html'
         self.context = {
             'navbar_search_form': NavbarSearchForm(),
         }
