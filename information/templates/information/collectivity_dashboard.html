@@ -80,44 +80,30 @@
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
-          <section class="col-lg-7">
+          <section class="col-lg-6">
             <!-- Custom tabs (Charts with tabs)-->
-            <div class="card" style="height: 450px;">
+            <div class="card " style="height: 450px;">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
-                  Propositions (évolution)
+                  Stats
                 </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Lignes</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Secteurs</a>
-                    </li>
-                  </ul>
-                </div>
-              </div><!-- /.card-header -->
+            
+              </div>
               <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                      style="position: relative; height: 350px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
+                <div class="chart">
+                  <canvas id="lineChart" style="min-height: 250px; height: 360px; max-height: 360px; max-width: 100%;"></canvas>
                 </div>
               </div>
+              <!-- /.card-body -->
+            </div>
               <!-- /.card-body -->
             <!-- /.card -->
 
           </section>
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5">
+          <section class="col-lg-6">
 
             <!-- User card -->
             <div class="card" style="height: 450px;">
@@ -158,33 +144,33 @@
                         <td>ThPi</td>
                         <td>12</td>
                         <td>
-                          <div class="progress progress-xs">
+                          <div class="progress progress-xs mt-2">
                             <div class="progress-bar bg-warning" style="width: 60%"></div>
                           </div>
                         </td>
-                        <td class=" text-center"><span class="badge bg-danger">- 180</span></td>
+                        <td class=" text-center text-danger">- 180</span></td>
                       </tr>
                       <tr>
                         <td>2.</td>
                         <td>LeNoob</td>
                         <td>3</td>
                         <td>
-                          <div class="progress progress-xs">
+                          <div class="progress progress-xs mt-2">
                             <div class="progress-bar bg-danger" style="width: 45%"></div>
                           </div>
                         </td>
-                        <td class=" text-center"><span class="badge bg-danger">- 40</span></td>
+                        <td class="text-center text-danger">- 40</span></td>
                       </tr>
                       <tr>
                         <td>3.</td>
                         <td>Thebest</td>
                         <td>23</td>
                         <td>
-                          <div class="progress progress-xs">
+                          <div class="progress progress-xs mt-2">
                             <div class="progress-bar bg-success" style="width: 95%"></div>
                           </div>
                         </td>
-                        <td class=" text-center"><span class="badge bg-success">+ 280</span></td>
+                        <td class="text-center text-success">+ 280</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -192,7 +178,7 @@
               </div>
               <!-- /.card-body-->
 
-              <div class="card-footer clearfix">
+              <div class="card-footer bg-white clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
                   <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -298,7 +284,7 @@
                         <td>Offre</td>
                         <td>Agricole</td>
                         <td>240</td>
-                        <td class="h5"><span class="badge bg-light ">Nouveau</span></td>
+                        <td><span class="font-weight-bold ">Nouveau</span></td>
                         <td>ThoPie</td>
                         <td>-</td>
                         <td>
@@ -323,7 +309,7 @@
                         <td>Demande</td>
                         <td>Education</td>
                         <td>45</td>
-                        <td class="h5"><span class="badge bg-warning ">En progression</span></td>
+                        <td><span class="font-weight-bold ">En progression</span></td>
                         <td>LeNoob</td>
                         <td>TheBest</td>
                         <td>
@@ -348,7 +334,7 @@
                         <td>Demande</td>
                         <td>Nettoyage</td>
                         <td>60</td>
-                        <td class="h5"><span class="badge bg-success ">Terminé</span></td>
+                        <td><span class="font-weight-bold ">Terminé</span></td>
                         <td>Bourg-la-Reine(Gr.)</td>
                         <td>ThoPie</td>
                         <td>
@@ -373,7 +359,7 @@
                         <td>Offre</td>
                         <td>Education</td>
                         <td>45</td>
-                        <td class="h5"><span class="badge bg-secondary">Annulé</span></td>
+                        <td><span class="font-weight-bold ">Annulé</span></td>
                         <td>TheNoob</td>
                         <td>TheBest</td>
                         <td>
@@ -404,7 +390,7 @@
                 </div>
               </div>
 
-              <div class="card-footer clearfix">
+              <div class="card-footer bg-white clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
                   <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -500,7 +486,7 @@
                 </div>
               </div>
           
-              <div class="card-footer clearfix">
+              <div class="card-footer bg-white clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
                   <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -596,7 +582,7 @@
                 </div>
               </div>
           
-              <div class="card-footer clearfix">
+              <div class="card-footer bg-white clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
                   <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>

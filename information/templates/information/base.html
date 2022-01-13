@@ -58,7 +58,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{% url 'information:home'%}" class="nav-link">Acceuil</a>
+                    <a href="{% url 'information:home'%}" class="nav-link">Accueil</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Qu'est ce que sel-e ?</a>
@@ -152,7 +152,7 @@
                         <li class="nav-item">
                             <a href="{% url 'information:home'%}" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
-                                <p>Acceuil</p>
+                                <p>Accueil</p>
                             </a>
                         </li>
                         <li class="nav-item menu-close">
@@ -290,8 +290,8 @@
     <!-- /.content-wrapper -->
     <footer class="main-footer">
         <div class="row">
-            <div class="col-2"><strong><a href="">Mention légales</a></div></strong>
-            <div class="col-6 text-left"><strong><a href="">Contact</a></div></strong>
+            <div class="col-2"><a href="">Mention légales</a></div>
+            <div class="col-6 text-left"><a href="">Contact</a></div>
             <div class="col-4 text-right"><b>Version</b> 1.0</div>
         </div>
     </footer>
@@ -345,11 +345,6 @@
 
 <!-- Leaflet map js scrip-->
 <script src="{% static 'information/js/leaflet_map.js' %}"></script>
-<script>
-    $(function () {
-        $('.select2').select2()
-    });
-</script>
 </body>
 
 </html>

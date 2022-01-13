@@ -111,24 +111,92 @@ $(function () {
     height: '250px'
   })
 
+
+//Thomas
+  var areaChartData = {
+    labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin'],
+    datasets: [
+      {
+        label: 'Utilisateurs',
+        backgroundColor: 'rgba(2,117,216,0.9)',
+        borderColor: 'rgba(2,117,216,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(2,117,216,1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [28, 48, 40, 19, 86, 27]
+      },
+      {
+        label: 'Propositions',
+        backgroundColor: 'rgba(210, 214, 222, 1)',
+        borderColor: 'rgba(210, 214, 222, 1)',
+        pointRadius: false,
+        pointColor: 'rgba(210, 214, 222, 1)',
+        pointStrokeColor: '#c1c7d1',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(220,220,220,1)',
+        data: [65, 59, 80, 81, 56, 55]
+      },
+    ]
+  }
+
+  var areaChartOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+    legend: {
+      display: true
+    },
+    scales: {
+      xAxes: [{
+        gridLines: {
+          display: false,
+        }
+      }],
+      yAxes: [{
+        gridLines: {
+          display: false,
+        }
+      }]
+    }
+  }
+
+  var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+  var lineChartOptions = $.extend(true, {}, areaChartOptions)
+  var lineChartData = $.extend(true, {}, areaChartData)
+  lineChartData.datasets[0].fill = false;
+  lineChartData.datasets[1].fill = false;
+  lineChartOptions.datasetFill = false
+
+  var lineChart = new Chart(lineChartCanvas, {
+    type: 'line',
+    data: lineChartData,
+    options: lineChartOptions
+  })
+
+
+//
+
+
+
   /* Chart.js Charts */
   // Sales chart
   var salesChartCanvas = document.getElementById('revenue-chart-canvas').getContext('2d')
   // $('#revenue-chart').get(0).getContext('2d');
 
   var salesChartData = {
-    labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet'],
+    labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin'],
     datasets: [
       {
         label: 'Propositions',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(2,117,216,0.9)',
+        borderColor: 'rgba(2,117,216,0.8)',
         pointRadius: false,
         pointColor: '#3b8bba',
         pointStrokeColor: 'rgba(60,141,188,1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [28, 48, 40, 19, 86, 65, 90]
+        data: [28, 48, 40, 19, 86, 65]
       },
       {
         label: 'utilisateurs',

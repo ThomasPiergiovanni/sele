@@ -88,47 +88,32 @@
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
-          <section class="col-lg-7">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card" style="height: 450px;">
+          <section class="col-lg-6">
+            <div class="card " style="height: 410px;">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
-                  Propositions (évolution)
+                  Stats
                 </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Lignes</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Secteurs</a>
-                    </li>
-                  </ul>
-                </div>
-              </div><!-- /.card-header -->
+            
+              </div>
               <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                      style="position: relative; height: 350px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
+                <div class="chart">
+                  <canvas id="lineChart" style="min-height: 250px; height: 330px; max-height: 330px; max-width: 100%;"></canvas>
                 </div>
-              </div><!-- /.card-body -->
+              </div>
+              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+
+
 
           </section>
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5">
+          <section class="col-lg-6">
 
             <!-- Map card -->
-            <div class="card" style="height: 450px;">
+            <div class="card" style="height: 410px;">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-map mr-1"></i>
@@ -145,6 +130,10 @@
           
           <!-- right col -->
           <!-- one col (We are only adding the ID to make the widgets sortable)-->
+
+        </div>
+        <div class="row">
+          <!-- one col (We are only adding the ID to make the widgets sortable)-->
           <section class="col">
           
             <!-- Last poposals cards -->
@@ -158,99 +147,11 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-3 col-6">
-                    <div class="small-box bg-white border-right border-secondary ">
-                      <div class="inner">
-                        <div class="text-truncate">
-                          <h5>1 kg de pommes de terres</h5>
-                          Type:
-                          <span class="text-secondary">
-                            Offre
-                          </span></br>
-                          Nature:
-                          <span class="text-secondary">
-                            Produit
-                          </span></br>
-                          Catégorie:
-                          <span class="text-secondary">
-                            Agricole
-                          </span></br>
-                          Durée de travail:
-                          <span class="text-secondary">
-                            240 minutes
-                          </span></br>
-                          Description:
-                          <span class="text-secondary">
-                            Je propose 1 kg de pommes de terres récoltées la
-                            semaine dernière dans ma ferme des
-                          </span></br>
-                          Créateur(type):
-                          <span class="text-secondary">
-                            Utilisateur
-                          </span></br>
-                          Groupe local:
-                          <span class="text-secondary">
-                            Bourg-la-Reine
-                          </span></br>
-                        </div>
-                      </div>
-                      <a href="#" class="small-box-footer bg-primary text-white">
-                        <span class="text-white">
-                          Plus d'info 
-                          <i class="fas fa-arrow-circle-right"></i>
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-6">
-                    <div class="small-box bg-white border-right border-secondary ">
-                      <div class="inner">
-                        <div class="text-truncate">
-                        <h5>Cours de python</h5>
-                          Type:
-                          <span class="text-secondary">
-                            Demande
-                          </span></br>
-                          Nature:
-                          <span class="text-secondary">
-                            Activité
-                          </span></br>
-                          Catégorie:
-                          <span class="text-secondary">
-                            Education
-                          </span></br>
-                            Durée de travail:
-                          <span class="text-secondary">
-                            45 minutes
-                          </span></br>
-                          Description:
-                          <span class="text-secondary">
-                            Je cherche à apprendre le languague python pendant
-                            1h heure.
-                          </span></br>
-                          Créateur(type):
-                          <span class="text-secondary">
-                            Utilisateur
-                          </span></br>
-                          Groupe local:
-                          <span class="text-secondary">
-                            Bagneux
-                          </span></br>
-                        </div>
-                      </div>
-                      <a href="#" class="small-box-footer bg-primary text-white">
-                        <span class="text-white">
-                          Plus d'info
-                          <i class="fas fa-arrow-circle-right"></i>
-                        </span>
-                    </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-6">
-                    <div class="small-box bg-white border-right border-secondary">
-                      <div class="inner">
-                        <div class="text-truncate">
-                          <h5>Nettoyage du mur Rue du Bac</h5>
+                    <div class="card card-primary card-outline">
+                      <div class="card-body text-truncate">
+                        <h5 class="card-title">Nettoyage du mur Rue du Bac</h5>
                   
+                        <p class="card-text">
                           Type:
                           <span class="text-secondary">
                             Demande
@@ -269,7 +170,7 @@
                           </span></br>
                           Description:
                           <span class="text-secondary">
-                            Nous cherchons des volontaires pour nettoyer le 
+                            Nous cherchons des volontaires pour nettoyer le
                             mur dégradé à la Rue du Bac.
                           </span></br>
                           Créateur(type):
@@ -280,17 +181,20 @@
                           <span class="text-secondary">
                             Suresnes
                           </span></br>
+                        </p>
+                        <div class="text-center">
+                          <a href="#" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
+
                       </div>
-                      <a href="#" class="small-box-footer bg-primary text-white"><span class="text-white">Plus d'info <i
-                            class="fas fa-arrow-circle-right"></i></span></a>
-                    </div>
+                    </div><!-- /.card -->
                   </div>
                   <div class="col-lg-3 col-6">
-                    <div class="small-box bg-white border-right border-secondary ">
-                      <div class="inner">
-                        <div class="text-truncate">
-                          <h5>Aide au devoirs</h5>
+                    <div class="card card-primary card-outline">
+                      <div class="card-body text-truncate">
+                        <h5 class="card-title">Aide au devoirs</h5>
+                  
+                        <p class="card-text">
                           Type:
                           <span class="text-secondary">
                             Offre
@@ -319,19 +223,111 @@
                           <span class="text-secondary">
                             Montreuil
                           </span></br>
+                        </p>
+                        <div class="text-center">
+                          <a href="#" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
+                  
                       </div>
-                      <a href="#" class="small-box-footer bg-primary text-white"><span class="text-white">Plus d'info <i
-                            class="fas fa-arrow-circle-right"></i></span></a>
-                    </div>
+                    </div><!-- /.card -->
                   </div>
+                  <div class="col-lg-3 col-6">
+                    <div class="card card-primary card-outline">
+                      <div class="card-body text-truncate">
+                        <h5 class="card-title">Nettoyage du mur Rue du Bac</h5>
+                    
+                        <p class="card-text">
+                          Type:
+                          <span class="text-secondary">
+                            Demande
+                          </span></br>
+                          Nature:
+                          <span class="text-secondary">
+                            Activité
+                          </span></br>
+                          Catégorie:
+                          <span class="text-secondary">
+                            Nettoyage
+                          </span></br>
+                          Durée de travail:
+                          <span class="text-secondary">
+                            60 minutes
+                          </span></br>
+                          Description:
+                          <span class="text-secondary">
+                            Nous cherchons des volontaires pour nettoyer le
+                            mur dégradé à la Rue du Bac.
+                          </span></br>
+                            Créateur(type):
+                          <span class="text-secondary">
+                            Groupe
+                          </span></br>
+                          Groupe local:
+                          <span class="text-secondary">
+                            Suresnes
+                          </span></br>
+                        </p>
+                      <div class="text-center">
+                        <a href="#" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
+                      </div>
+
+                      </div>
+                    </div><!-- /.card -->
+                  </div>
+                  <div class="col-lg-3 col-6">
+                    <div class="card card-primary card-outline">
+                      <div class="card-body text-truncate">
+                        <h5 class="card-title">Nettoyage du mur Rue du Bac</h5>
+                  
+                        <p class="card-text">
+                          Type:
+                          <span class="text-secondary">
+                            Demande
+                          </span></br>
+                          Nature:
+                          <span class="text-secondary">
+                            Activité
+                          </span></br>
+                          Catégorie:
+                          <span class="text-secondary">
+                            Nettoyage
+                          </span></br>
+                          Durée de travail:
+                          <span class="text-secondary">
+                            60 minutes
+                          </span></br>
+                          Description:
+                          <span class="text-secondary">
+                            Nous cherchons des volontaires pour nettoyer le
+                            mur dégradé à la Rue du Bac.
+                          </span></br>
+                          Créateur(type):
+                          <span class="text-secondary">
+                            Groupe
+                          </span></br>
+                          Groupe local:
+                          <span class="text-secondary">
+                            Suresnes
+                          </span></br>
+                        </p>
+                        <div class="text-center">
+                          <a href="#" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                  
+                      </div>
+                    </div><!-- /.card -->
+                  </div>
+
                 </div>
               </div>
               <!-- /.card-body-->
-
+          
             </div>
             <!-- /.card -->
           </section>
+
+
+
         </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
