@@ -1,0 +1,253 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Tableau de bord - <span class="text-primary font-weight-bold font-italic">
+                        Bourg-la-Reine</span></h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <!-- Main row -->
+        <div class="row">
+            <!-- right col -->
+            <!-- one col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col">
+
+                <!-- Last poposals cards -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-tags mr-1"></i>
+                            Mes propositions
+                        </h3>
+                    </div>
+                    <div class="card-body mt-5 mb-2">
+                        <!-- Form -->
+                        <form action="">
+                            <div class="row">
+                                <div class="col-md-10 offset-md-1">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>Type de proposition:</label>
+                                                <select class="form-control" style="width: 100%;">
+                                                    <option selected>Toutes</option>
+                                                    <option>Offre</option>
+                                                    <option>Demande</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label>Ordre de tri:</label>
+                                                <select class="form-control" style="width: 100%;">
+                                                    <option selected>Ascendant</option>
+                                                    <option>Descendant</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label>Order par:</label>
+                                                <select class="form-control" style="width: 100%;">
+                                                    <option selected>Date</option>
+                                                    <option>Nom</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group input-group-md">
+                                            <input type="search" class="form-control form-control-md"
+                                                placeholder="Saisir vos mots clés ici" value="Votre recherche...">
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-md btn-default">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /Form -->
+
+                    <!-- /.card-body-->
+
+                    <!-- Table . 2nd card-body-->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-borderless">
+                                <thead class="text-center thead-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Type</th>
+                                        <th>Catégorie</th>
+                                        <th>Effort(min.)</th>
+                                        <th>Statut</th>
+                                        <th>Créateur</th>
+                                        <th>Preneur</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1 kg de pommes de terres</td>
+                                        <td>Offre</td>
+                                        <td>Agricole</td>
+                                        <td>240</td>
+                                        <td><span class="font-weight-bold">Nouveau</span></td>
+                                        <td>ThoPie</td>
+                                        <td>-</td>
+                                        <td>
+                                            <a href="proposition:detail" role="button">
+                                                <button type="button"
+                                                    class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button"
+                                                    class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button"
+                                                    class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Cours de python</td>
+                                        <td>Demande</td>
+                                        <td>Education</td>
+                                        <td>45</td>
+                                        <td><span class="font-weight-bold">En progression</span></td>
+                                        <td>LeNoob</td>
+                                        <td>TheBest</td>
+                                        <td>
+                                            <a href="proposition:detail" role="button">
+                                                <button type="button"
+                                                    class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button"
+                                                    class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button"
+                                                    class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Nettoyage du mur Rue du Bac</td>
+                                        <td>Demande</td>
+                                        <td>Nettoyage</td>
+                                        <td>60</td>
+                                        <td><span class="font-weight-bold">Terminé</span></td>
+                                        <td>Bourg-la-Reine(Gr.)</td>
+                                        <td>ThoPie</td>
+                                        <td>
+                                            <a href="proposition:detail" role="button">
+                                                <button type="button"
+                                                    class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button"
+                                                    class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button"
+                                                    class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Aide au devoirs</td>
+                                        <td>Offre</td>
+                                        <td>Education</td>
+                                        <td>45</td>
+                                        <td><span class="font-weight-bold">Annulé</span></td>
+                                        <td>TheNoob</td>
+                                        <td>TheBest</td>
+                                        <td>
+                                            <a href="proposition:detail" role="button">
+                                                <button type="button"
+                                                    class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button"
+                                                    class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button"
+                                                    class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row mb-5 mt-1 ml-2 mr-2">
+                        <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10"></div>
+                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                            <a href="#" role="button">
+                                <button type="button" class="btn btn-block btn-success btn-sm ">Ajouter une
+                                    proposition</button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-white clearfix">
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.card-footer-->
+             </div>
+                <!-- /.card -->
+            </section>
+
+        </div>
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+{% endblock %}

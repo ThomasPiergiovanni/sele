@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'collectivity.apps.CollectivityConfig',
     'information.apps.InformationConfig',
+    'proposition.apps.PropositionConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
