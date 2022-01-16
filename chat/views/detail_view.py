@@ -4,13 +4,13 @@ from django.shortcuts import render
 from information.forms.navbar_search_form import NavbarSearchForm
 
 
-class ChatView(View):
-    """Chat view class.
+class DetailView(View):
+    """Chat detail view class.
     """
 
     def __init__(self):
         super().__init__()
-        self.render = 'chat/chat.html'
+        self.render = 'chat/detail.html'
         self.context = {
             'navbar_search_form': NavbarSearchForm(),
         }

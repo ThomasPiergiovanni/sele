@@ -2,12 +2,14 @@
 """
 from django.urls import path
 
-from chat.views.chat_view import ChatView
+from chat.views.detail_view import DetailView
+from chat.views.overview_view import OverviewView
 
 
 
 app_name = 'chat'
 
 urlpatterns = [
-    path('chat/', ChatView.as_view(), name='chat')
+    path('detail/', DetailView.as_view(), name='detail'),
+    path('overview/', OverviewView.as_view(), name='overview')
 ]

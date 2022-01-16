@@ -1,0 +1,109 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Discussion - <span class="text-primary font-weight-bold font-italic">
+                        Proposition de vote Nettoyage?</span></h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+    <div class="card direct-chat direct-chat-primary bg-dark">
+        <div class="card-header">
+    
+            <h3 class="card-title"><i class="fas fa-comments mr-1"></i>Discussion</h3>
+    
+            <div class="card-tools">
+                <span title="3 New Messages" class="badge badge-primary">3</span>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <!-- Conversations are loaded here -->
+            <div class="direct-chat-messages">
+                <!-- Message. Default to the left -->
+                <div class="direct-chat-msg">
+                    <div class="direct-chat-infos clearfix">
+                        <span class="direct-chat-name float-left">Ginette</span>
+                        <span class="direct-chat-timestamp float-left ml-2">01 Jan 2:00 </span>
+                    </div>
+                    <!-- /.direct-chat-img -->
+                    <div class="direct-chat-text">
+                        Bonjour, je me propose pour réaliser ce travail. Par contre je ne peut la réaliser que le 08.
+                    </div>
+                    <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+    
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                    <div class="direct-chat-infos clearfix">
+                        <span class="direct-chat-name float-right">ThomasSele</span>
+                        <span class="direct-chat-timestamp float-right mr-2">01 Jan 13:00</span>
+                    </div>
+                    <!-- /.direct-chat-infos -->
+                    <div class="direct-chat-text ">
+                        Bonjour. Très bien, c'est parfait.
+                    </div>
+                    <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+    
+                <!-- Message. Default to the left -->
+                <div class="direct-chat-msg">
+                    <div class="direct-chat-infos clearfix">
+                        <span class="direct-chat-name float-left">Ginette</span>
+                        <span class="direct-chat-timestamp float-left ml-2">03 Jan 15:37</span>
+                    </div>
+                    <!-- /.direct-chat-infos -->
+                    <div class="direct-chat-text">
+                        Super, je la sélectionne.
+                    </div>
+                    <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+    
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                    <div class="direct-chat-infos clearfix">
+                        <span class="direct-chat-name float-right">ThomasSele</span>
+                        <span class="direct-chat-timestamp float-right mr-2">04 Jan 16:10</span>
+                    </div>
+                    <!-- /.direct-chat-infos -->
+                    <div class="direct-chat-text">
+                        Parfait.
+                    </div>
+                    <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer bg-dark mt-2 mb-2">
+            <form action="#" method="post">
+                <div class="input-group">
+                    <input type="text" name="message" placeholder="Taper message ..." class="form-control">
+                    <span class="input-group-append">
+                        <button type="button"
+                            class="text-white btn btn-block btn-primary border border-primary btn-sm">Envoyer</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <!-- /.card-footer-->
+    </div>
+                <!-- /.card -->
+</section>
+<!-- /.content -->
+{% endblock %}
