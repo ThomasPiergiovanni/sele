@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Discussion - <span class="text-primary font-weight-bold font-italic">
+                <h1 class="m-0">Discussions - <span class="text-primary font-weight-bold font-italic">
                         Bourg-la-Reine</span></h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,31 +37,21 @@
                             <div class="row">
                                 <div class="col-md-10 offset-md-1">
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-sm-9">
                                             <div class="form-group">
-                                                <label>Type de proposition:</label>
+                                                <label>Trier par:</label>
                                                 <select class="form-control form-control-sm" style="width: 100%;">
-                                                    <option selected>Toutes</option>
-                                                    <option>Offre</option>
-                                                    <option>Demande</option>
+                                                    <option selected>Date</option>
+                                                    <option>Nom</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Ordre de tri:</label>
                                                 <select class="form-control form-control-sm" style="width: 100%;">
                                                     <option selected>Ascendant</option>
                                                     <option>Descendant</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="form-group">
-                                                <label>Order par:</label>
-                                                <select class="form-control form-control-sm" style="width: 100%;">
-                                                    <option selected>Date</option>
-                                                    <option>Nom</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -115,7 +105,6 @@
                                                     class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
                                             </a>
                                         </td>
-                    
                                     </tr>
                                     <tr>
                                         <td>3</td>
@@ -139,7 +128,7 @@
                         <div class="row mb-4 mt-4">
                             <div class="col-sm-8"></div>
                             <div class="col-sm-4">
-                                <a href="#" role="button">
+                                <a href="{% url 'chat:add'%}" role="button">
                                     <button type="button" class="btn btn-block btn-success btn-sm ">Nouvelle discussion</button>
                                 </a>
                             </div>
