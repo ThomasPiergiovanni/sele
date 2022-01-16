@@ -10,7 +10,7 @@ class CollectivityView(View):
 
     def __init__(self):
         super().__init__()
-        self.render = 'proposition/proposition.html'
+        self.render = 'proposition/overview.html'
         self.context = {
             'navbar_search_form': NavbarSearchForm(),
         }
