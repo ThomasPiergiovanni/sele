@@ -62,6 +62,7 @@ elif ENV == 'production':
 
 INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
+    'chat.apps.ChatConfig',
     'collectivity.apps.CollectivityConfig',
     'information.apps.InformationConfig',
     'proposition.apps.PropositionConfig',

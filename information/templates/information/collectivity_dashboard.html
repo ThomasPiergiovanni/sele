@@ -204,7 +204,7 @@
                   Propositions
                 </h3>
               </div>
-              <div class="card-body mt-5 mb-2">
+              <div class="card-body mt-3 mb-2">
                 <!-- Form -->
                 <form action="">
                   <div class="row">
@@ -213,7 +213,7 @@
                         <div class="col-6">
                           <div class="form-group">
                             <label>Type de proposition:</label>
-                            <select class="form-control" style="width: 100%;">
+                            <select class="form-control form-control-sm" style="width: 100%;">
                               <option selected>Toutes</option>
                               <option>Offre</option>
                               <option>Demande</option>
@@ -223,7 +223,7 @@
                         <div class="col-3">
                           <div class="form-group">
                             <label>Ordre de tri:</label>
-                            <select class="form-control" style="width: 100%;">
+                            <select class="form-control form-control-sm" style="width: 100%;">
                               <option selected>Ascendant</option>
                               <option>Descendant</option>
                             </select>
@@ -232,7 +232,7 @@
                         <div class="col-3">
                           <div class="form-group">
                             <label>Order par:</label>
-                            <select class="form-control" style="width: 100%;">
+                            <select class="form-control form-control-sm" style="width: 100%;">
                               <option selected>Date</option>
                               <option>Nom</option>
                             </select>
@@ -241,10 +241,10 @@
                       </div>
                       <div class="form-group">
                         <div class="input-group input-group-md">
-                          <input type="search" class="form-control form-control-md" placeholder="Saisir vos mots clés ici"
+                          <input type="search" class="form-control form-control-sm" placeholder="Saisir vos mots clés ici"
                             value="Votre recherche...">
                           <div class="input-group-append">
-                            <button type="submit" class="btn btn-md btn-default">
+                            <button type="submit" class="btn btn-sm btn-default">
                               <i class="fa fa-search"></i>
                             </button>
                           </div>
@@ -381,16 +381,15 @@
                   </table>
                 </div>
               </div>
-              <div class="row mb-5 mt-1 ml-2 mr-2">
-                <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10"></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                  <a href="{% url 'proposition:add'%}" role="button">
-                    <button type="button" class="btn btn-block btn-success btn-sm ">Ajouter une proposition</button>
-                  </a>
-                </div>
-              </div>
-
               <div class="card-footer bg-white clearfix">
+                <div class="row mb-4">
+                  <div class="col-sm-6 col-md-7 col-lg-6 col-xl-8"></div>
+                  <div class="col-sm-6 col-md-5 col-lg-6 col-xl-4">
+                    <a href="{% url 'proposition:add'%}" role="button">
+                      <button type="button" class="btn btn-block btn-success btn-sm ">Ajouter une proposition</button>
+                    </a>
+                  </div>
+                </div>
                 <ul class="pagination pagination-sm m-0 float-right">
                   <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -475,18 +474,16 @@
                     </tbody>
                   </table>
                 </div>
-              </div>
-              <!-- /.card-body-->
-              <div class="row mb-4 mt-2 ml-2 mr-2">
-                <div class="col-sm-6 col-md-7 col-lg-6 col-xl-7"></div>
-                <div class="col-sm-6 col-md-5 col-lg-6 col-xl-5">
-                  <a href="#" role="button">
-                    <button type="button" class="btn btn-block btn-success btn-sm">Nouvelle discussion</button>
-                  </a>
-                </div>
-              </div>
-          
+              </div>     
               <div class="card-footer bg-white clearfix">
+                <div class="row mb-4">
+                  <div class="col-sm-6 col-md-7 col-lg-6 col-xl-7"></div>
+                  <div class="col-sm-6 col-md-5 col-lg-6 col-xl-5">
+                    <a href="#" role="button">
+                      <button type="button" class="btn btn-block btn-success btn-sm">Nouvelle discussion</button>
+                    </a>
+                  </div>
+                </div>
                 <ul class="pagination pagination-sm m-0 float-right">
                   <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -573,16 +570,16 @@
                 </div>
               </div>
               <!-- /.card-body-->
-              <div class="row mb-4 mt-2 ml-2 mr-2">
-                <div class="col-sm-6 col-md-7 col-lg-6 col-xl-7"></div>
-                <div class="col-sm-6 col-md-5 col-lg-6 col-xl-5">
-                  <a href="#" role="button">
-                    <button type="button" class="btn btn-block btn-success btn-sm">Nouvelle votation</button>
-                  </a>
-                </div>
-              </div>
-          
+
               <div class="card-footer bg-white clearfix">
+                <div class="row mb-4">
+                  <div class="col-sm-6 col-md-7 col-lg-6 col-xl-7"></div>
+                  <div class="col-sm-6 col-md-5 col-lg-6 col-xl-5">
+                    <a href="#" role="button">
+                      <button type="button" class="btn btn-block btn-success btn-sm">Nouvelle votation</button>
+                    </a>
+                  </div>
+                </div>
                 <ul class="pagination pagination-sm m-0 float-right">
                   <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
