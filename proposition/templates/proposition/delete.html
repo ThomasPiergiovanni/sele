@@ -1,0 +1,75 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Proposition - <span class="text-danger font-weight-bold font-italic">
+                        Supprimer</span></h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        <div class="row mt-5 mb-2 text-center">
+            <div class="col-12">
+                <h5 class="m-0">Supprimer la propositon suivante?  </h5>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="row">
+    <div class="col-2 col-lg-3 col-xl-4"></div>
+    <div class="col-8 col-lg-6 col-xl-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-tag mr-1"></i>Proposition</h3>
+            </div>
+            <div class="card-body ml-2 mr-2">
+                <div class="row">                      
+                    <p class="card-text">
+                        Intitulé: <span class="card-text text-secondary">Nettoyage du mur Rue du Bac</span></br>
+                        Type: <span class="card-text text-secondary">Demande</span></br>
+                        Status: <span class="card-text text-secondary">En cours</span></br>
+                        Description: <span class="card-text text-secondary">Nous cherchons des volontaires pour nettoyer le mur dégradé à
+                                la Rue du Bac.</span></br>
+                        Nature: <span class="card-text text-secondary">Activité</span></br>
+                        Catégorie: <span class="card-text text-secondary">Nettoyage</span></br>
+                        Début: <span class="card-text text-secondary">31-12-2021</span></br>
+                        Fin: <span class="card-text text-secondary">04-01-2021</span></br>
+                        Travail min): <span class="card-text text-secondary">240</span></br>
+                        Créateur.rice: <span class="card-text text-secondary">Thomas Sele</span></br>
+                        Preneur.se: <span class="card-text text-secondary">Ginette</span></br>
+                        Evaluation du travail réalisé: <span class="card-text text-secondary">4/5</span>
+                    </p>
+                </div>
+                <div class="row mt-4 mb-2">
+                    <div class="col-12 col-xl-6 mt-1">
+                        <a href="#" role="button">
+                            <button type="button"
+                                class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
+                        </a>
+                    </div>
+                    <div class="col-12 col-xl-6 mt-1">
+                        <a href="#" role="button">
+                            <button type="button" class="btn btn-block btn-danger btn-sm ">Supprimer</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <div class="col-2 col-lg-3 col-xl-4"></div>
+    </div>
+    <!-- /.card -->
+
+</section>
+
+<!-- /.content -->
+{% endblock %}

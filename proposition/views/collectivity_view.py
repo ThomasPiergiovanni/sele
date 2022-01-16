@@ -4,7 +4,7 @@ from django.shortcuts import render
 from information.forms.navbar_search_form import NavbarSearchForm
 
 
-class CollectivityPropositionView(View):
+class CollectivityView(View):
     """Collectivity Proposition view class.
     """
 

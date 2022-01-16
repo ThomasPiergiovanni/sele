@@ -1,0 +1,99 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Proposition - <span class="text-primary font-weight-bold font-italic">
+                        Ajouter</span></h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-tag mr-1"></i>Proposition</h3>
+        </div>
+        <div class="card-body ml-2 mr-2">
+            <div class="form-group">
+                <label for="inputPropositionName">Intitulé de la proposition</label>
+                <input type="text" id="inputPropositionName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="inputPropositionDescription">Description</label>
+                <textarea id="inputPropositionDescription" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="inputPropositionType">Type</label>
+                <select id="inputPropositionType" class="form-control custom-select">
+                    <option selected disabled></option>
+                    <option>Demande</option>
+                    <option>Offre</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputPropositionNature">Nature</label>
+                <select id="inputPropositionNature" class="form-control custom-select">
+                    <option selected disabled></option>
+                    <option>Activité</option>
+                    <option>Produit</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputPropositionCategory">Catégorie</label>
+                <select id="inputPropositionCategory" class="form-control custom-select">
+                    <option selected disabled></option>
+                    <option>Agriculture</option>
+                    <option>Construction</option>
+                    <option>Education</option>
+                    <option>Autres</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputPropositionStartDate">Date de début de validité de la proposition:</label>
+                <div class="input-group date" id="inputPropositionEndDate" data-target-input="nearest">
+                    <input type="date" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPropositionEndDate">Date de fin de validité de la proposition:</label>
+                <div class="input-group date" id="inputPropositionEndDate" data-target-input="nearest">
+                    <input type="date" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPropositionName">Temps de travail (minutes)</label>
+                <input type="number" id="inputPropositionName" class="form-control">
+            </div>
+            <div class="row mb-4">
+                <div class="col-sm-6 col-md-8 col-lg-6 col-xl-8 mt-4"></div>
+                <div class="col-sm-3 col-md-2 col-lg-3 col-xl-2 mt-4">
+                    <a href="#" role="button">
+                        <button type="button" class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
+                    </a>
+                </div>
+                <div class="col-sm-3 col-md-2 col-lg-3 col-xl-2 mt-4">
+                    <a href="#" role="button">
+                        <button type="button" class="btn btn-block btn-success btn-sm ">Créer</button>
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
+
+<!-- /.content -->
+{% endblock %}

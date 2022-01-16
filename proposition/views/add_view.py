@@ -4,13 +4,13 @@ from django.shortcuts import render
 from information.forms.navbar_search_form import NavbarSearchForm
 
 
-class MemberPropositionView(View):
-    """Member Proposition view class.
+class AddView(View):
+    """Add proposition view class.
     """
 
     def __init__(self):
         super().__init__()
-        self.render = 'proposition/proposition.html'
+        self.render = 'proposition/add.html'
         self.context = {
             'navbar_search_form': NavbarSearchForm(),
         }
