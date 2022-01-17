@@ -24,15 +24,15 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="inputPropositionName">Intitulé de la proposition</label>
-                <input type="text" id="inputPropositionName" class="form-control">
+                <input type="text" id="inputPropositionName" class="form-control form-control-sm">
             </div>
             <div class="form-group">
                 <label for="inputPropositionDescription">Description</label>
-                <textarea id="inputPropositionDescription" class="form-control" rows="3"></textarea>
+                <textarea id="inputPropositionDescription" class="form-control form-control-sm" rows="3"></textarea>
             </div>
             <div class="form-group">
                 <label for="inputPropositionType">Type</label>
-                <select id="inputPropositionType" class="form-control custom-select">
+                <select id="inputPropositionType" class="form-control form-control-sm">
                     <option selected disabled></option>
                     <option>Demande</option>
                     <option>Offre</option>
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label for="inputPropositionNature">Nature</label>
-                <select id="inputPropositionNature" class="form-control custom-select">
+                <select id="inputPropositionNature" class="form-control form-control-sm">
                     <option selected disabled></option>
                     <option>Activité</option>
                     <option>Produit</option>
@@ -48,7 +48,7 @@
             </div>
             <div class="form-group">
                 <label for="inputPropositionCategory">Catégorie</label>
-                <select id="inputPropositionCategory" class="form-control custom-select">
+                <select id="inputPropositionCategory" class="form-control form-control-sm">
                     <option selected disabled></option>
                     <option>Agriculture</option>
                     <option>Construction</option>
@@ -59,28 +59,29 @@
             <div class="form-group">
                 <label for="inputPropositionStartDate">Date de début de validité de la proposition:</label>
                 <div class="input-group date" id="inputPropositionEndDate" data-target-input="nearest">
-                    <input type="date" class="form-control"/>
+                    <input type="date" class="form-control form-control-sm"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPropositionEndDate">Date de fin de validité de la proposition:</label>
                 <div class="input-group date" id="inputPropositionEndDate" data-target-input="nearest">
-                    <input type="date" class="form-control"/>
+                    <input type="date" class="form-control form-control-sm"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPropositionName">Temps de travail (minutes)</label>
-                <input type="number" id="inputPropositionName" class="form-control">
+                <input type="number" id="inputPropositionName" class="form-control form-control-sm">
             </div>
         </div>
         <div class="card-footer bg-white clearfix">
             <div class="row mb-2">
-                <div class="col-sm-6 mt-4"></div>
                 <div class="col-sm-3 mt-4">
                     <a href="#" role="button">
-                        <button type="button" class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
+                        <button type="button"
+                            class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
                     </a>
                 </div>
+                <div class="col-sm-6 mt-4"></div>
                 <div class="col-sm-3 mt-4">
                     <a href="#" role="button">
                         <button type="button" class="btn btn-block btn-success btn-sm ">Créer</button>

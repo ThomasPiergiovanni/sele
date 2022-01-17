@@ -22,4 +22,5 @@ urlpatterns = [
     path('chat/', include('chat.urls')),
     path('collectivity/', include('collectivity.urls')),
     path('proposition/', include('proposition.urls')),
+    path('vote/', include('vote.urls')),
 ]

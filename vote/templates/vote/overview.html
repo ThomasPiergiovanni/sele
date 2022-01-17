@@ -1,0 +1,184 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Vote - <span class="text-primary font-weight-bold font-italic">
+                        Bourg-la-Reine</span></h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <!-- Main row -->
+        <div class="row">
+            <!-- right col -->
+            <!-- one col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col">
+                <!-- Last poposals cards -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-vote-yea mr-1"></i>
+                            Votes
+                        </h3>
+                    </div>
+                    <div class="card-body mt-3 mb-1">
+                        <!-- Form -->
+                        <form action="">
+                            <div class="row">
+                                <div class="col-md-10 offset-md-1">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label>Trier par:</label>
+                                                <select class="form-control form-control-sm" style="width: 100%;">
+                                                    <option selected>Date</option>
+                                                    <option>Question</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Ordre de tri:</label>
+                                                <select class="form-control form-control-sm" style="width: 100%;">
+                                                    <option selected>Ascendant</option>
+                                                    <option>Descendant</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group input-group-sm">
+                                            <input type="search" class="form-control form-control-md"
+                                                placeholder="Saisir vos mots clés ici" value="Votre recherche...">
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-md btn-default">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card-body-->
+                    <!-- Table . 2nd card-body-->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-borderless">
+                                <thead class="">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Question</th>
+                                        <th class="text-center">Date</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Demande-t-on le nettoyage du mur Rue du Bac?</td>
+                                        <td class="text-center">10-01-2022</td>
+                                        <td>
+                                            <a href="{% url 'vote:detail'%}" role="button">
+                                                <button type="button"
+                                                    class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'vote:edit'%}" role="button">
+                                                <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'vote:delete'%}" role="button">
+                                                <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Organise-t-on une journée porte ouverte?</td>
+                                        <td class="text-center">23-03-2021</td>
+                                        <td>
+                                            <a href="{% url 'vote:detail'%}" role="button">
+                                                <button type="button"
+                                                    class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Créée-t-on une association sel?</td>
+                                        <td class="text-center">15-10-2021</td>
+                                        <td>
+                                            <a href="{% url 'vote:detail'%}" role="button">
+                                                <button type="button"
+                                                    class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" role="button">
+                                                <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /end card body -->
+
+                    <div class="card-footer bg-white clearfix">
+                        <div class="row mb-4 mt-4">
+                            <div class="col-sm-8"></div>
+                            <div class="col-sm-4">
+                                <a href="{% url 'vote:add' %}" role="button">
+                                    <button type="button" class="btn btn-block btn-success btn-sm ">Nouvelle votation</button>
+                                </a>
+                            </div>
+                        </div>
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.card-footer-->
+             </div>
+                <!-- /.card -->
+            </section>
+
+        </div>
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+{% endblock %}

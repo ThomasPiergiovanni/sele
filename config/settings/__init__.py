@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'collectivity.apps.CollectivityConfig',
     'information.apps.InformationConfig',
     'proposition.apps.PropositionConfig',
+    'vote.apps.VoteConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
