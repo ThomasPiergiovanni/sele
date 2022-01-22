@@ -6,6 +6,7 @@ from information.views.collectivity_dashboard_view import (
     CollectivityDashboardView
 )
 from information.views.faq_view import FaqView
+from information.views.legal_view import LegalView
 from information.views.member_dashboard_view import (
     MemberDashboardView
 )
@@ -21,6 +22,7 @@ urlpatterns = [
         name='collectivity_dashboard'
     ),
     path('faq/', FaqView.as_view(), name='faq'),
+    path('legal/', LegalView.as_view(), name='legal'),
     path(
         'member_dashboard/',
         MemberDashboardView.as_view(),
