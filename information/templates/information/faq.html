@@ -1,0 +1,74 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">FAQ</h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <!-- Main row -->
+        <div class="row">
+            <!-- right col -->
+            <!-- one col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col">
+
+                <!-- Last poposals cards -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-tags mr-1"></i>
+                            FAQ
+                        </h3>
+                    </div>
+                    <div class="card-body mt-3 mb-2">
+                        <!-- Form -->
+                    </div>
+                    <!-- /Form -->
+
+                    <!-- /.card-body-->
+
+                    <!-- Table . 2nd card-body-->
+                    <div class="card-body">
+                        <h5><span class="font-weight-bold">#1</span>
+                         Peut on changer de groupe?</h5>
+                        <p class="card-text">
+                            Oui c'est possible. Pour cela, rendez-vous dans Gérer mon compte et choissisez la nouvelle commune. 
+                        </p>
+
+                    </div>
+                    <div class="card-footer bg-white clearfix">
+                        <div class="row mb-4">
+                            <div class="col-sm-6 col-md-7 col-lg-6 col-xl-8"></div>
+                            <div class="col-sm-6 col-md-5 col-lg-6 col-xl-4">
+                            </div>
+                        </div>
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.card-footer-->
+                </div>
+                <!-- /.card -->
+            </section>
+
+        </div>
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+{% endblock %}
