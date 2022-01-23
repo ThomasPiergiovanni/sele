@@ -2,6 +2,7 @@ from django.views import View
 from django.shortcuts import render
 
 from information.forms.navbar_search_form import NavbarSearchForm
+from proposition.management.engine.manager import Manager
 
 
 class AddView(View):
