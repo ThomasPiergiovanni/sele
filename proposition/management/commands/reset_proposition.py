@@ -4,11 +4,12 @@
 from django.core.management.base import BaseCommand
 
 from config.settings.data.enumeration import (
-    CATEGORIES, DOMAINS, KINDS, STATUSES
+    CATEGORIES, DOMAINS, KINDS, STATUSES, RATINGS
 )
 from proposition.models.category import Category
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
+from proposition.models.rating import Rating
 from proposition.models.status import Status
 
 
@@ -37,7 +38,9 @@ class Command(BaseCommand):
         self.__drop_domain(),
         self.__insert_domain(),
         self.__drop_status(),
-        self.__insert_status()
+        self.__insert_status(),
+        self.__drop_rating(),
+        self.__insert_rating()
 
 
     def __drop_kind(self):
@@ -97,3 +100,16 @@ class Command(BaseCommand):
         for enumeration in enumerations:
             status = Status(name=enumeration)
             status.save()
+
+    def __drop_rating(self):
+        """Method that drops status objects from DB
+        """
+        self.__drop_objects(Rating)
+
+    def __insert_rating(self):
+        """Method that insert domain enumetration objects into DB.
+        """
+        enumerations = RATINGS
+        for enumeration in enumerations:
+            rating = Rating(rate=enumeration)
+            rating.save()

@@ -7,6 +7,7 @@ from proposition.management.commands.reset_proposition import Command
 from proposition.models.category import Category
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
+from proposition.models.rating import Rating
 from proposition.models.status import Status
 
 
@@ -89,3 +90,19 @@ class ResetPropositiionTest(TestCase):
         self.command._Command__insert_status()
         statuses = Status.objects.all()
         self.__check_instance_is_not_none(statuses)
+
+    def test_drop_rating_with_instance_is_none(self):
+        Rating.objects.create(id=1, rate=1)
+        Rating.objects.create(id=2, rate=2)
+        ratings = Rating.objects.all()
+        self.__check_instance_is_not_none(ratings)
+        self.command._Command__drop_rating()
+        ratings = Rating.objects.all()
+        self.__check_instance_is_none(ratings)
+
+    def test_insert_ratings_with_instances_is_not_none(self):
+        ratings = Rating.objects.all()
+        self.__check_instance_is_none(ratings)
+        self.command._Command__insert_rating()
+        ratings = Rating.objects.all()
+        self.__check_instance_is_not_none(ratings)
