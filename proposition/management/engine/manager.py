@@ -1,3 +1,4 @@
+from proposition.models.category import Category
 from proposition.models.kind import Kind
 
 

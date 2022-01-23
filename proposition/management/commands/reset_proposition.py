@@ -7,7 +7,7 @@ from proposition.models.kind import Kind
 
 
 class Command(BaseCommand):
-    """ Reset proposition info from DB. Use it with
+    """ Reset proposition data from DB. Use it with
     option --all to reset all users as well. This including superuser
     """
     help = "Reset proposition info from DB. Use it with"\
