@@ -25,11 +25,11 @@ class KindTest(TestCase):
         self.assertIsInstance(kind, Kind)
 
     def test_kind_with_kind_attr_name_characteristic(self):
-        kind_attribute = Kind._meta.get_field('name')
-        self.assertTrue(kind_attribute)
-        self.assertEqual(type(kind_attribute),type(models.CharField()))
-        self.assertEqual(kind_attribute.max_length, 32)
-        self.assertEqual(kind_attribute.unique, True)
+        attribute = Kind._meta.get_field('name')
+        self.assertTrue(attribute)
+        self.assertEqual(type(attribute), type(models.CharField()))
+        self.assertEqual(attribute.max_length, 32)
+        self.assertEqual(attribute.unique, True)
     
     def test_kind_with_emulated_kind_instance(self):
         kind = Kind.objects.get(pk=1)

@@ -3,10 +3,13 @@
 """
 from django.core.management.base import BaseCommand
 
-from config.settings.data.enumeration import SUB_CATEGORIES
+from config.settings.data.enumeration import (
+    CATEGORIES, DOMAINS, KINDS, STATUSES
+)
 from proposition.models.category import Category
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
+from proposition.models.status import Status
 
 
 class Command(BaseCommand):
@@ -32,7 +35,9 @@ class Command(BaseCommand):
         self.__drop_category(),
         self.__insert_category(),
         self.__drop_domain(),
-        self.__insert_domain()
+        self.__insert_domain(),
+        self.__drop_status(),
+        self.__insert_status()
 
 
     def __drop_kind(self):
@@ -49,7 +54,7 @@ class Command(BaseCommand):
     def __insert_kind(self):
         """Method that insert kind enumetration objects into DB.
         """
-        enumerations = ["Demande", "Offre"]
+        enumerations = KINDS
         for enumeration in enumerations:
             kind = Kind(name=enumeration)
             kind.save()
@@ -62,7 +67,7 @@ class Command(BaseCommand):
     def __insert_category(self):
         """Method that insert category enumetration objects into DB.
         """
-        enumerations = ["Activité", "Produit"]
+        enumerations = CATEGORIES
         for enumeration in enumerations:
             category = Category(name=enumeration)
             category.save()
@@ -75,7 +80,20 @@ class Command(BaseCommand):
     def __insert_domain(self):
         """Method that insert domain enumetration objects into DB.
         """
-        enumerations = SUB_CATEGORIES
+        enumerations = DOMAINS
         for enumeration in enumerations:
             domain = Domain(name=enumeration)
             domain.save()
+
+    def __drop_status(self):
+        """Method that drops status objects from DB
+        """
+        self.__drop_objects(Status)
+
+    def __insert_status(self):
+        """Method that insert domain enumetration objects into DB.
+        """
+        enumerations = STATUSES
+        for enumeration in enumerations:
+            status = Status(name=enumeration)
+            status.save()

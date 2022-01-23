@@ -7,6 +7,7 @@ from proposition.management.commands.reset_proposition import Command
 from proposition.models.category import Category
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
+from proposition.models.status import Status
 
 
 class ResetPropositiionTest(TestCase):
@@ -72,3 +73,19 @@ class ResetPropositiionTest(TestCase):
         self.command._Command__insert_domain()
         domains = Domain.objects.all()
         self.__check_instance_is_not_none(domains)
+
+    def test_drop_status_with_instance_is_none(self):
+        Status.objects.create(id=1, name="Annulé")
+        Status.objects.create(id=2, name="En cours")
+        statuses = Status.objects.all()
+        self.__check_instance_is_not_none(statuses)
+        self.command._Command__drop_status()
+        statuses = Status.objects.all()
+        self.__check_instance_is_none(statuses)
+
+    def test_insert_status_with_instances_is_not_none(self):
+        statuses = Status.objects.all()
+        self.__check_instance_is_none(statuses)
+        self.command._Command__insert_status()
+        statuses = Status.objects.all()
+        self.__check_instance_is_not_none(statuses)

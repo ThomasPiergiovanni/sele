@@ -1,4 +1,6 @@
-SUB_CATEGORIES = [
+CATEGORIES = ["Activité", "Produit"]
+
+DOMAINS = [
     "Agriculture et Pêche, Espaces naturels et Espaces verts, Soins aux animaux",
     "Arts et Façonnage d'ouvrages d'art",
     "Banque, Assurance, Immobilier",
@@ -13,4 +15,16 @@ SUB_CATEGORIES = [
     "Spectacle",
     "Support à l'entreprise",
     "Transport et Logistique"
+]
+
+KINDS = ["Demande", "Offre"]
+
+STATUSES = [
+    "Annulé",
+    "En cours",
+    "Nouveau",
+    "Réalisé",
+    "Rejeté",
+    "Sélectionné",
+    "Terminé"
 ]
