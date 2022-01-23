@@ -15,6 +15,8 @@ class KindTest(TestCase):
 
     @classmethod
     def emulate_kind(cls):
+        """
+        """
         Kind.objects.create(id=1, name="Demande")
         Kind.objects.create(id=2, name="Offre")
 
