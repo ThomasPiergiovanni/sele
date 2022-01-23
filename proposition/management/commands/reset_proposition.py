@@ -3,7 +3,9 @@
 """
 from django.core.management.base import BaseCommand
 
+from config.settings.data.enumeration import SUB_CATEGORIES
 from proposition.models.category import Category
+from proposition.models.domain import Domain
 from proposition.models.kind import Kind
 
 
@@ -28,7 +30,9 @@ class Command(BaseCommand):
         self.__drop_kind(),
         self.__insert_kind(),
         self.__drop_category(),
-        self.__insert_category()
+        self.__insert_category(),
+        self.__drop_domain(),
+        self.__insert_domain()
 
 
     def __drop_kind(self):
@@ -51,7 +55,7 @@ class Command(BaseCommand):
             kind.save()
 
     def __drop_category(self):
-        """Method that insert category objects from DB
+        """Method that drop category objects from DB
         """
         self.__drop_objects(Category)
 
@@ -62,3 +66,16 @@ class Command(BaseCommand):
         for enumeration in enumerations:
             category = Category(name=enumeration)
             category.save()
+
+    def __drop_domain(self):
+        """Method that drops domain objects from DB
+        """
+        self.__drop_objects(Domain)
+
+    def __insert_domain(self):
+        """Method that insert domain enumetration objects into DB.
+        """
+        enumerations = SUB_CATEGORIES
+        for enumeration in enumerations:
+            domain = Domain(name=enumeration)
+            domain.save()

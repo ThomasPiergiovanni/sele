@@ -5,6 +5,7 @@ from django.test import TestCase
 
 from proposition.management.commands.reset_proposition import Command
 from proposition.models.category import Category
+from proposition.models.domain import Domain
 from proposition.models.kind import Kind
 
 
@@ -40,7 +41,6 @@ class ResetPropositiionTest(TestCase):
         kinds = Kind.objects.all()
         self.__check_instance_is_not_none(kinds)
 
-
     def test_drop_category_with_instance_is_none(self):
         Category.objects.create(id=1, name="Activité")
         Category.objects.create(id=2, name="Produit")
@@ -56,3 +56,19 @@ class ResetPropositiionTest(TestCase):
         self.command._Command__insert_category()
         categories = Category.objects.all()
         self.__check_instance_is_not_none(categories)
+    
+    def test_drop_domain_with_instance_is_none(self):
+        Domain.objects.create(id=1, name="Santé")
+        Domain.objects.create(id=2, name="Support à l'entreprise")
+        domains = Domain.objects.all()
+        self.__check_instance_is_not_none(domains)
+        self.command._Command__drop_domain()
+        domains = Domain.objects.all()
+        self.__check_instance_is_none(domains)
+
+    def test_insert_domain_with_instances_is_not_none(self):
+        domains = Domain.objects.all()
+        self.__check_instance_is_none(domains)
+        self.command._Command__insert_domain()
+        domains = Domain.objects.all()
+        self.__check_instance_is_not_none(domains)
