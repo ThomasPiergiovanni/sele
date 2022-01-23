@@ -1,6 +1,5 @@
 """Test category module.
 """
-from unicodedata import category
 from django.db import models
 from django.test import TestCase
 

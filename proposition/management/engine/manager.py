@@ -1,4 +1,5 @@
 from proposition.models.category import Category
+from proposition.models.domain import Domain
 from proposition.models.kind import Kind
 
 
