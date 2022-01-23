@@ -2,6 +2,7 @@
 """
 from django.urls import path
 
+from information.views.about_view import AboutView
 from information.views.collectivity_dashboard_view import (
     CollectivityDashboardView
 )
@@ -16,6 +17,7 @@ app_name = 'information'
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
+    path('about/', AboutView.as_view(), name='about'),
     path(
         'collectivity_dashboard/',
         CollectivityDashboardView.as_view(),

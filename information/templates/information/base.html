@@ -61,7 +61,7 @@
                     <a href="{% url 'information:home'%}" class="nav-link">Accueil</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Qu'est ce que sel-e ?</a>
+                    <a href="{% url 'information:about'%}" class="nav-link">Qu'est ce que sel-e ?</a>
                 </li>
             </ul>
 
@@ -235,6 +235,12 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'information:about'%}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>A propos</p>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a href="{% url 'information:faq'%}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
