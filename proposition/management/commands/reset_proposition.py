@@ -3,6 +3,7 @@
 """
 from django.core.management.base import BaseCommand
 
+from proposition.models.category import Category
 from proposition.models.kind import Kind
 
 
@@ -25,7 +26,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.__drop_kind(),
-        self.__insert_kind()
+        self.__insert_kind(),
+        self.__drop_category(),
+        self.__insert_category()
 
 
     def __drop_kind(self):
@@ -46,3 +49,16 @@ class Command(BaseCommand):
         for enumeration in enumerations:
             kind = Kind(name=enumeration)
             kind.save()
+
+    def __drop_category(self):
+        """Method that insert category objects from DB
+        """
+        self.__drop_objects(Category)
+
+    def __insert_category(self):
+        """Method that insert category enumetration objects into DB.
+        """
+        enumerations = ["Activité", "Produit"]
+        for enumeration in enumerations:
+            category = Category(name=enumeration)
+            category.save()
