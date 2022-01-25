@@ -1,7 +1,7 @@
 """Test rating module.
 """
-from django.contrib.gis.db import models
 from django.contrib.gis.utils import LayerMapping
+from django.contrib.gis.db import models
 from django.test import TestCase
 from pathlib import Path
 
@@ -12,7 +12,7 @@ class CollectivityTest(TestCase):
     """Test collectivity class.
     """
     @classmethod
-    def setUpTestData(cls):
+    def setUp(cls):
         cls.emulate_collectivity()
 
     @classmethod
@@ -48,9 +48,8 @@ class CollectivityTest(TestCase):
         )
         collectivity.save(strict=True, verbose=True)
 
-
-    def test_collectivity_with_status_class(self):
-        collectivity = Collectivity.objects.get(pk=1)
+    def test_collectivity_with_collectivity_class(self):
+        collectivity = Collectivity.objects.last()
         self.assertIsInstance(collectivity, Collectivity)
 
     def test_collectivity_with_attr_name_characteristic(self):
@@ -81,7 +80,7 @@ class CollectivityTest(TestCase):
 
     
     def test_status_with_emulated_status_instance(self):
-        collectivity = Collectivity.objects.get(pk=1)
-        self.assertEqual(collectivity.name, "Bourg-la-Reine")
-        collectivity = Collectivity.objects.get(pk=2)
+        collectivity = Collectivity.objects.order_by('-id')[:2][0]
         self.assertEqual(collectivity.name, "Bagneux")
+        collectivity = Collectivity.objects.order_by('-id')[:2][1]
+        self.assertEqual(collectivity.name, "Bourg-la-Reine")
