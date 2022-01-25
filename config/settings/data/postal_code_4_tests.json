@@ -1,0 +1,46 @@
+[
+    {
+        "datasetid": "laposte_hexasmal",
+        "recordid": "d4e9e9fec6fa37b7b4c0a53985e5238f191d6283",
+        "fields": {
+            "libelle_d_acheminement": "APREMONT",
+            "coordonnees_gps": [
+                46.2054981558,
+                5.65781475272
+            ],
+            "code_commune_insee": "01011",
+            "code_postal": "01100",
+            "nom_de_la_commune": "APREMONT"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                5.65781475272,
+                46.2054981558
+            ]
+        },
+        "record_timestamp": "2022-01-03T00:38:00+01:00"
+    },
+    {
+        "datasetid": "laposte_hexasmal",
+        "recordid": "6f884e10ff256b323e21f9f2fdb3950734c9b155",
+        "fields": {
+            "libelle_d_acheminement": "ARS SUR FORMANS",
+            "coordonnees_gps": [
+                45.9934611,
+                4.82199649494
+            ],
+            "code_commune_insee": "01021",
+            "code_postal": "01480",
+            "nom_de_la_commune": "ARS SUR FORMANS"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.82199649494,
+                45.9934611
+            ]
+        },
+        "record_timestamp": "2022-01-03T00:38:00+01:00"
+    }
+]
