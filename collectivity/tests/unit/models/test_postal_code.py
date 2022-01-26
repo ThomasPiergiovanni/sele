@@ -11,12 +11,10 @@ from collectivity.models.postal_code import PostalCode
 class PostalCodeTest(TestCase):
     """Test postal code class.
     """
-    @classmethod
-    def setUp(cls):
-        cls.emulate_postal_code()
+    def setUp(self):
+        self.emulate_postal_code()
 
-    @classmethod
-    def emulate_postal_code(cls):
+    def emulate_postal_code(self):
         """
         """
         PostalCode.objects.create(

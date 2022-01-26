@@ -32,12 +32,12 @@ class CollectivityTest(TestCase):
             Path(BASE_DIR).resolve().parent/'config/settings/data/'
             'bagneux.geojson'
         )
-        collectivity = self._create_collectivity(blr_layer)
+        collectivity = self.__create_collectivity(blr_layer)
         collectivity.save(strict=True, verbose=False)
-        collectivity = self._create_collectivity(bag_layer)
+        collectivity = self.__create_collectivity(bag_layer)
         collectivity.save(strict=True, verbose=False)
 
-    def _create_collectivity(self, layer):
+    def __create_collectivity(self, layer):
         collectivity_mapping = {
             'name': 'nom',
             'insee_code': 'insee',
