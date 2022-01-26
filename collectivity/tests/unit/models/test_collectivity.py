@@ -11,12 +11,11 @@ from config.settings import BASE_DIR
 class CollectivityTest(TestCase):
     """Test collectivity class.
     """
-    @classmethod
-    def setUp(cls):
-        cls.emulate_collectivity()
 
-    @classmethod
-    def emulate_collectivity(cls):
+    def setUp(self):
+        self.emulate_collectivity()
+
+    def emulate_collectivity(self):
         """
         """
         collectivity_mapping = {
@@ -33,20 +32,25 @@ class CollectivityTest(TestCase):
             Path(BASE_DIR).resolve().parent/'config/settings/data/'
             'bagneux.geojson'
         )
-        collectivity = LayerMapping(
+        collectivity = self._create_collectivity(blr_layer)
+        collectivity.save(strict=True, verbose=False)
+        collectivity = self._create_collectivity(bag_layer)
+        collectivity.save(strict=True, verbose=False)
+
+    def _create_collectivity(self, layer):
+        collectivity_mapping = {
+            'name': 'nom',
+            'insee_code': 'insee',
+            'activity': 'activity',
+            'feat_geom': 'Polygon',
+        }
+        collectivities = LayerMapping(
             Collectivity,
-            blr_layer,
+            layer,
             collectivity_mapping,
             transform=False
         )
-        collectivity.save(strict=True, verbose=True)
-        collectivity = LayerMapping(
-            Collectivity,
-            bag_layer,
-            collectivity_mapping,
-            transform=False
-        )
-        collectivity.save(strict=True, verbose=True)
+        return collectivities
 
     def test_collectivity_with_collectivity_class(self):
         collectivity = Collectivity.objects.last()

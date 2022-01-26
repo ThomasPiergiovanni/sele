@@ -9,12 +9,10 @@ from proposition.models.domain import Domain
 class DomainTest(TestCase):
     """Test domain class.
     """
-    @classmethod
-    def setUpTestData(cls):
-        cls.emulate_domain()
+    def setUp(self):
+        self.emulate_domain()
 
-    @classmethod
-    def emulate_domain(cls):
+    def emulate_domain(self):
         Domain.objects.create(id=1, name="Santé")
         Domain.objects.create(id=2, name="Support à l'entreprise")
 

@@ -9,12 +9,10 @@ from proposition.models.rating import Rating
 class RatingTest(TestCase):
     """Test rating class.
     """
-    @classmethod
-    def setUpTestData(cls):
-        cls.emulate_rating()
+    def setUp(self):
+        self.emulate_rating()
 
-    @classmethod
-    def emulate_rating(cls):
+    def emulate_rating(self):
         """
         """
         Rating.objects.create(id=1, rate=1)

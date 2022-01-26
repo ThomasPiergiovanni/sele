@@ -62,4 +62,4 @@ class Command(BaseCommand):
             collectivity_mapping,
             transform=False
         )
-        collectivity.save(strict=True, verbose=True)
+        collectivity.save(strict=True, verbose=False)

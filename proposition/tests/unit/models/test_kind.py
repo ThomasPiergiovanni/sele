@@ -9,12 +9,10 @@ from proposition.models.kind import Kind
 class KindTest(TestCase):
     """Test kind class.
     """
-    @classmethod
-    def setUpTestData(cls):
-        cls.emulate_kind()
+    def setUp(self):
+        self.emulate_kind()
 
-    @classmethod
-    def emulate_kind(cls):
+    def emulate_kind(self):
         """
         """
         Kind.objects.create(id=1, name="Demande")

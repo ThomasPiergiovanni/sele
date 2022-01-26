@@ -9,12 +9,10 @@ from proposition.models.category import Category
 class CategoryTest(TestCase):
     """Test category class.
     """
-    @classmethod
-    def setUpTestData(cls):
-        cls.emulate_category()
+    def setUp(self):
+        self.emulate_category()
 
-    @classmethod
-    def emulate_category(cls):
+    def emulate_category(self):
         """
         """
         Category.objects.create(id=1, name="Activité")

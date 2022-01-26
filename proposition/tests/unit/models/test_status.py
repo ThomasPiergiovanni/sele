@@ -9,12 +9,10 @@ from proposition.models.status import Status
 class StatusTest(TestCase):
     """Test status class.
     """
-    @classmethod
-    def setUpTestData(cls):
-        cls.emulate_status()
+    def setUp(self):
+        self.emulate_status()
 
-    @classmethod
-    def emulate_status(cls):
+    def emulate_status(self):
         """
         """
         Status.objects.create(id=1, name="Annulé")

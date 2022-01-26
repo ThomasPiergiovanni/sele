@@ -6,6 +6,7 @@ from pathlib import Path
 
 from collectivity.management.commands.reset_collectivity import Command
 from collectivity.models.collectivity import Collectivity
+from collectivity.tests.unit.models.test_collectivity import CollectivityTest
 from config.settings import BASE_DIR
 
 
@@ -16,42 +17,15 @@ class ResetCollectivityTest(TestCase):
         """Method that set up data for the entire class
         """
         self.command = Command()
+        self.collectivity_test = CollectivityTest
 
     def test_drop_kind_with_instance_is_none(self):
-        collectivity_mapping = {
-            'name': 'nom',
-            'insee_code': 'insee',
-            'activity': 'activity',
-            'feat_geom': 'Polygon',
-        }
-        blr_layer = (
-            Path(BASE_DIR).resolve().parent/'config/settings/data/'
-            'bourg_la_reine.geojson'
-        )
-        bag_layer = (
-            Path(BASE_DIR).resolve().parent/'config/settings/data/'
-            'bagneux.geojson'
-        )
-        collectivity = LayerMapping(
-            Collectivity,
-            blr_layer,
-            collectivity_mapping,
-            transform=False
-        )
-        collectivity.save(strict=True, verbose=True)
-        collectivity = LayerMapping(
-            Collectivity,
-            bag_layer,
-            collectivity_mapping,
-            transform=False
-        )
-        collectivity.save(strict=True, verbose=True)
         collectivities = Collectivity.objects.all()
         self.__check_instance_is_not_none(collectivities)
         self.command._Command__drop_collectivity()
         collectivities = Collectivity.objects.all()
         self.__check_instance_is_none(collectivities)
-    
+
     def __check_instance_is_not_none(self, instances):
         for instance in instances:
             self.assertIsNotNone(instance)
