@@ -3,6 +3,7 @@
 from django.core.management.base import BaseCommand
 
 from config.settings.data.enumeration import VOTING_METHODS
+from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
 
 
@@ -25,8 +26,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.__drop_voting_method(),
-        self.__insert_voting_method()
-
+        self.__insert_voting_method(),
+        self.__drop_voting(),
 
     def __drop_voting_method(self):
         """Method thats drop voting method objects from DB
@@ -48,3 +49,8 @@ class Command(BaseCommand):
                 name=enumeration['name'], percentage=enumeration['percentage']
             )
             voting_method.save()
+
+    def __drop_voting(self):
+        """Method thats drop voting method objects from DB
+        """
+        self.__drop_objects(Voting)
