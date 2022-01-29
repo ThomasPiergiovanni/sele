@@ -4,9 +4,10 @@
 from django.core.management.base import BaseCommand
 
 from config.settings.data.enumeration import (
-    CATEGORIES, DOMAINS, KINDS, STATUSES, RATINGS
+    CATEGORIES, CREATOR_TYPES, DOMAINS, KINDS, STATUSES, RATINGS
 )
 from proposition.models.category import Category
+from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
 from proposition.models.rating import Rating
@@ -35,6 +36,8 @@ class Command(BaseCommand):
         self.__insert_kind(),
         self.__drop_category(),
         self.__insert_category(),
+        self.__drop_creator_type(),
+        self.__insert_creator_type(),
         self.__drop_domain(),
         self.__insert_domain(),
         self.__drop_status(),
@@ -74,6 +77,19 @@ class Command(BaseCommand):
         for enumeration in enumerations:
             category = Category(name=enumeration)
             category.save()
+
+    def __drop_creator_type(self):
+        """Method that drops status objects from DB
+        """
+        self.__drop_objects(CreatorType)
+
+    def __insert_creator_type(self):
+        """Method that insert domain enumetration objects into DB.
+        """
+        enumerations = CREATOR_TYPES
+        for enumeration in enumerations:
+            creator_type = CreatorType(name=enumeration)
+            creator_type.save()
 
     def __drop_domain(self):
         """Method that drops domain objects from DB

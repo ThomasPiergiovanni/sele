@@ -82,7 +82,6 @@ class CollectivityTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.MultiPolygonField()))
 
-    
     def test_status_with_emulated_status_instance(self):
         collectivity = Collectivity.objects.order_by('-id')[:2][0]
         self.assertEqual(collectivity.name, "Bagneux")

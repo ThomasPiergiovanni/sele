@@ -1,5 +1,7 @@
 CATEGORIES = ["Activité", "Produit"]
 
+CREATOR_TYPES = ["Collective", "Individuelle"]
+
 DOMAINS = [
     "Agriculture et Pêche, Espaces naturels et Espaces verts, Soins aux animaux",
     "Arts et Façonnage d'ouvrages d'art",
