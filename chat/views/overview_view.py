@@ -1,6 +1,7 @@
 from django.views import View
 from django.shortcuts import render
 
+from chat.management.engine.manager import Manager
 from information.forms.navbar_search_form import NavbarSearchForm
 
 

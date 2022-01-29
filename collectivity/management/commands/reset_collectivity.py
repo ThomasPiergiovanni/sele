@@ -34,7 +34,7 @@ class Command(BaseCommand):
         self.__drop_collectivity(),
         self.__insert_collectivity(),
         self.__drop_postal_code(),
-        self.__insert_postal_code(),
+        self.__insert_postal_code()
 
     def __drop_collectivity(self):
         """Method thats drop kind objects from DB
@@ -76,15 +76,19 @@ class Command(BaseCommand):
     def __insert_postal_code(self):
         """Method that insert postal code objects into DB.
         """
+        collectivities = Collectivity.objects.all()
         source_data = (
             Path(BASE_DIR).resolve().parent/'config/settings/data/'
             'postal_code_4_tests.json'
         )
         with open (source_data) as file:
             places = json.load(file)
-        for place in places:
-            postal_code = PostalCode(
-                postal_code=place['fields']['code_postal'],
-                insee_code=place['fields']['code_commune_insee']
-            )
-            postal_code.save()
+        
+        for collectivity in collectivities:
+            for place in places:
+                if collectivity.insee_code == place['fields']['code_commune_insee']:
+                    postal_code = PostalCode(
+                        postal_code=place['fields']['code_postal'],
+                        collectivity_id=collectivity.id
+                    )
+                    postal_code.save()

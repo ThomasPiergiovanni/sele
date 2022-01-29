@@ -44,6 +44,7 @@ class ResetCollectivityTest(TestCase):
         self.assertFalse(postal_codes)
 
     def test_insert_postal_code_with_instances_is_not_none(self):
+        CollectivityTest().emulate_collectivity()
         postal_codes = PostalCode.objects.all()
         self.assertFalse(postal_codes)
         self.command._Command__insert_postal_code()
