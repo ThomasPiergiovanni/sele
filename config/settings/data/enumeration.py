@@ -32,3 +32,18 @@ STATUSES = [
 ]
 
 RATINGS = [1, 2, 3, 4, 5]
+
+VOTING_METHODS = [
+    {
+        'name': "Majoritaire",
+        'percentage': 0.5
+    },
+    {
+        'name': "Consensus75",
+        'percentage': 0.75
+    },
+    {
+        'name': "Consensus100",
+        'percentage': 1
+    }
+]
