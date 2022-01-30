@@ -1,5 +1,6 @@
 # from chat.models.discussion import Comment
-# from chat.models.Discussion import Discussion
+from chat.models.comment import Comment
+from chat.models.discussion import Discussion
 
 
 class Manager():
