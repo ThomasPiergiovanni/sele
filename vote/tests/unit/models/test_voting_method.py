@@ -22,14 +22,14 @@ class VotingMethodTest(TestCase):
         voting_method = VotingMethod.objects.get(pk=1)
         self.assertIsInstance(voting_method, VotingMethod)
 
-    def test_voting_method_with_status_attr_name_characteristic(self):
+    def test_voting_method_with_attr_name_characteristic(self):
         attribute = VotingMethod._meta.get_field('name')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.CharField()))
         self.assertEqual(attribute.max_length, 32)
         self.assertEqual(attribute.unique, True)
 
-    def test_status_with_status_attr_name_characteristic(self):
+    def test_voting_method_with_attr_percentage_characteristic(self):
         attribute = VotingMethod._meta.get_field('percentage')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.DecimalField()))
@@ -38,7 +38,7 @@ class VotingMethodTest(TestCase):
         self.assertEqual(attribute.max_digits, 3)
         self.assertEqual(attribute.decimal_places, 2)
     
-    def test_status_with_emulated_status_instance(self):
+    def test_voting_method_with_emulated_voting_method_instance(self):
         voting_method = VotingMethod.objects.get(pk=1)
         self.assertEqual(voting_method.name, "Majoritaire")
         self.assertEqual(voting_method.percentage, 0.5)

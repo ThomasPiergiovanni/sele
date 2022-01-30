@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from authentication.management.custom_user_manager import CustomUserManager
+from collectivity.models.collectivity import Collectivity
 
 
 class CustomUser(AbstractUser):
@@ -14,8 +15,12 @@ class CustomUser(AbstractUser):
     by django framework.
     """
     username = None
-    email = models.EmailField(_('email address'), max_length=250, unique=True)
-    user_name = models.TextField(_('username'), max_length=100, null=False)
+    email = models.EmailField(_('email address'), max_length=256, unique=True)
+    user_name = models.TextField(_('username'), max_length=64, null=False)
+    balance = models.BigIntegerField(default=0)
+    collectivity = models.ForeignKey(
+        Collectivity, models.CASCADE
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name']
