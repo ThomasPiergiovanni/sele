@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from authentication.management.custom_user_manager import CustomUserManager
+from authentication.management.engine.custom_user_manager import CustomUserManager
 from collectivity.models.collectivity import Collectivity
 
 
