@@ -2,6 +2,7 @@
 """
 from django.urls import path
 
+from information.management.engine.manager import Manager
 from information.views.about_view import AboutView
 from information.views.collectivity_dashboard_view import (
     CollectivityDashboardView

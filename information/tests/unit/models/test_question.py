@@ -5,6 +5,7 @@ from django.db import models
 from django.test import TestCase
 
 from authentication.models import CustomUser
+from authentication.tests.unit.models.test_custom_user import CustomUserTest
 from information.models.question import Question
 
 
@@ -17,6 +18,7 @@ class QuestionTest(TestCase):
     def emulate_question(self):
         """
         """
+        CustomUserTest().emulate_custom_user()
         Question.objects.create(
             id=1,
             question="Qu'est ce qu une demande de groupe?",
@@ -30,7 +32,7 @@ class QuestionTest(TestCase):
                 " amet erat. Duis semper. Duis arcu massa, scelerisque vitae,"
                 " consequat in, pretium a, enim. Pellentesque congue"
             ),
-            user_id=1
+            custom_user_id=1
         )
         Question.objects.create(
             id=2,
@@ -45,7 +47,7 @@ class QuestionTest(TestCase):
                 " amet erat. Duis semper. Duis arcu massa, scelerisque vitae,"
                 " consequat in, pretium a, enim. Pellentesque congue"
             ),
-            user_id=2
+            custom_user_id=2
         )
 
     def test_question_with_question_class(self):
@@ -53,27 +55,27 @@ class QuestionTest(TestCase):
         self.assertIsInstance(question, Question)
 
     def test_question_with_attr_question_characteristic(self):
-        attribute = Voting._meta.get_field('question')
+        attribute = Question._meta.get_field('question')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.CharField()))
         self.assertEqual(attribute.max_length, 256)
         self.assertEqual(attribute.unique, False)
 
     def test_question_with_attr_answer_characteristic(self):
-        attribute = Voting._meta.get_field('answer')
+        attribute = Question._meta.get_field('answer')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.TextField()))
         self.assertEqual(attribute.max_length, 1000)
 
-    def test_voting_with_attr_voting_method_characteristic(self):
-        attribute = Voting._meta.get_field('custom_user')
+    def test_question_with_attr_custom_user_characteristic(self):
+        attribute = Question._meta.get_field('custom_user')
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
             type(models.ForeignKey(CustomUser, models.CASCADE))
         )
     
-    def test_status_with_emulated_status_instance(self):
+    def test_question_with_emulated_question_instance(self):
         question= Question.objects.get(pk=1)
         self.assertEqual(
             question.question,
