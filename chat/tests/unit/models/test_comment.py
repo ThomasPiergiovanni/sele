@@ -1,6 +1,7 @@
 """Test discussion method module.
 """
 from datetime import datetime
+
 from django.db import models
 from django.test import TestCase
 from django.utils import timezone
@@ -77,14 +78,12 @@ class CommentTest(TestCase):
         comment = Comment.objects.get(pk=1)
         self.assertEqual(comment.comment, "Comment vas-tu?")
         self.assertEqual(
-            comment.creation_date, datetime(
-                2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc
-            )
+            comment.creation_date,
+            datetime(2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc)
         )
         comment = Comment.objects.get(pk=2)
         self.assertEqual(comment.comment, "Ca vas et toi?")
         self.assertEqual(
-            comment.creation_date, datetime(
-                2022, 1, 20, 17, 10, 38, tzinfo=timezone.utc
-            )
+            comment.creation_date,
+            datetime(2022, 1, 20, 17, 10, 38, tzinfo=timezone.utc)
         )

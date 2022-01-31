@@ -1,3 +1,4 @@
+from vote.models.vote import Vote
 from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
 
