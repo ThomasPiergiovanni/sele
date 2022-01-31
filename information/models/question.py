@@ -8,5 +8,4 @@ class Question(models.Model):
     """
     question = models.CharField(max_length=256, unique=False)
     answer = models.TextField(max_length=1000)
-    custom_user = models.ForeignKey(CustomUser, models.CASCADE)
-
+    custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

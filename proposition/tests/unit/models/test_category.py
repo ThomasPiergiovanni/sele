@@ -18,9 +18,9 @@ class CategoryTest(TestCase):
         Category.objects.create(id=1, name="Activité")
         Category.objects.create(id=2, name="Produit")
 
-    def test_category_with_class(self):
+    def test_category_with_instance(self):
         instance = Category.objects.get(pk=1)
-        self.assertIsInstance(instance, Category)
+        self.assertTrue(instance, Category)
 
     def test_category_with_attr_name_characteristic(self):
         attribute = Category._meta.get_field('name')
