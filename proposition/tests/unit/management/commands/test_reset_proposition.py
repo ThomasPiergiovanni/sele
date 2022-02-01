@@ -8,12 +8,14 @@ from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
+from proposition.models.proposition import Proposition
 from proposition.models.rating import Rating
 from proposition.models.status import Status
 from proposition.tests.unit.models.test_category import CategoryTest
 from proposition.tests.unit.models.test_creator_type import CreatorTypeTest
 from proposition.tests.unit.models.test_kind import KindTest
 from proposition.tests.unit.models.test_domain import DomainTest
+from proposition.tests.unit.models.test_proposition import PropositionTest
 from proposition.tests.unit.models.test_rating import RatingTest
 from proposition.tests.unit.models.test_status import StatusTest
 
@@ -117,4 +119,10 @@ class ResetPropositiionTest(TestCase):
         statuses = Status.objects.all()
         self.assertTrue(statuses)
 
-
+    def test_drop_proposition_with_instance_is_none(self):
+        PropositionTest().emulate_proposition()
+        propositions = Proposition.objects.all()
+        self.assertTrue(propositions)
+        self.command._Command__drop_proposition()
+        propositions = Proposition.objects.all()
+        self.assertFalse(propositions)
