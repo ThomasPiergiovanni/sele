@@ -23,10 +23,8 @@ class Proposition(models.Model):
         Category, on_delete=models.CASCADE, null=False
     )
     creator = models.ForeignKey(
-        CustomUser,
-        on_delete=models.CASCADE,
-        related_name="creator",
-        null=False
+        CustomUser, on_delete=models.CASCADE,
+        related_name="creator", null=False
     )
     creator_type = models.ForeignKey(
         CreatorType, on_delete=models.CASCADE, null=False
@@ -36,8 +34,10 @@ class Proposition(models.Model):
     rating = models.ForeignKey(Rating, on_delete=models.CASCADE, null=False)
     status = models.ForeignKey(Status, on_delete=models.CASCADE, null=False)
     taker = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="taker", null=True
+    )
+    blocked_takers = models.ManyToManyField(
         CustomUser,
-        on_delete=models.CASCADE,
-        related_name="taker",
-        null=True
+        through='BlockedTaker',
+        related_name="blocked_takers"
     )

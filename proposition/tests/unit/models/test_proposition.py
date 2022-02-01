@@ -8,6 +8,7 @@ from django.utils import timezone
 
 from authentication.models import CustomUser
 from authentication.tests.unit.models.test_custom_user import CustomUserTest
+from proposition.models.blocked_taker import BlockedTaker
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
@@ -203,6 +204,20 @@ class PropositionTest(TestCase):
             type(models.ForeignKey(CustomUser, on_delete=models.CASCADE))
         )
         self.assertEqual(attribute.null, True)
+
+    def test_proposition_with_attr_realtion_custom_user_characteristic(self):
+        attribute = Proposition._meta.get_field('blocked_takers')
+        self.assertTrue(attribute)
+        self.assertEqual(
+            type(attribute),
+            type(
+                models.ManyToManyField(
+                    CustomUser,
+                    models.CASCADE,
+                    through='BlockedTaker'
+                )
+            )
+        )
     
     def test_proposition_with_emulated_question_instance(self):
         proposition = Proposition.objects.get(pk=1)

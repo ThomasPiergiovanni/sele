@@ -1,3 +1,4 @@
+from proposition.models.blocked_taker import BlockedTaker
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
