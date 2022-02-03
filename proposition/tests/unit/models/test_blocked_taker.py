@@ -2,10 +2,8 @@
 """
 from django.db import models
 from django.test import TestCase
-from authentication.models import CustomUser
 
-# from authentication.models import CustomUser
-# from authentication.tests.unit.models.test_custom_user import CustomUserTest
+from authentication.models import CustomUser
 from proposition.models.blocked_taker import BlockedTaker
 from proposition.models.proposition import Proposition
 from proposition.tests.unit.models.test_proposition import PropositionTest
