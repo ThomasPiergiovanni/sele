@@ -27,31 +27,68 @@
         <!-- /.card-body-->
         <!-- Table . 2nd card-body-->
         <div class="card-body">
-            <div class="form-group">
+            <!--TO DELETE-->
+            <!-- <div class="form-group">
                 <label for="inputPropositionName">Question</label>
                 <input type="text" id="inputPropositionName" class="form-control form-control-sm">
-            </div>
-            <div class="form-group">
-                <label for="inputPropositionCategory">Mode de scrutin</label>
-                <select id="inputPropositionCategory" class="form-control form-control-sm">
-                    <option selected disabled></option>
-                    <option>Majoritaire</option>
-                    <option>Consensus (75%)</option>
-                    <option>Consensus (100%)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="inputPropositionStartDate">Date d'ouverture des votes:</label>
-                <div class="input-group date" id="inputPropositionEndDate" data-target-input="nearest">
-                    <input type="date" class="form-control form-control-sm" />
+            </div> -->
+            <!--./TO DELETE-->
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ add_voting.question.errors }}
+                    <label for="{{ add_voting.question.id }}">{{ add_voting.question.label }}</label>
+                    {{ add_voting.question }}
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPropositionEndDate">Date de fermeture des votes:</label>
-                <div class="input-group date" id="inputPropositionEndDate" data-target-input="nearest">
-                    <input type="date" class="form-control form-control-sm" />
+                <div class="form-group">
+                    {{ add_voting.description.errors }}
+                    <label for="{{ add_voting.description.id }}">{{ add_voting.description.label }}</label>
+                    {{ add_voting.description }}
                 </div>
-            </div>
+                <div class="form-group">
+                    {{ add_voting.creation_date.errors }}
+                    <label for="{{ add_voting.creation_date.id }}">{{ add_voting.creation_date.label }}</label>
+                    {{ add_voting.creation_date }}
+                </div>
+                <div class="form-group">
+                    {{ add_voting.voting_method.errors }}
+                    <label for="{{ add_voting.voting_method.id }}">{{ add_voting.voting_method.label }}</label>
+                    {{ add_voting.voting_method }}
+                </div>
+                <!--TO DELETE-->
+                <!-- <div class="form-group">
+                    <label for="inputPropositionCategory">Mode de scrutin</label>
+                    <select id="inputPropositionCategory" class="form-control form-control-sm">
+                        <option selected disabled></option>
+                        <option>Majoritaire</option>
+                        <option>Consensus (75%)</option>
+                        <option>Consensus (100%)</option>
+                    </select>
+                </div> -->
+                <!--./TO DELETE-->
+
+                <div class="form-group">
+                    <label for="inputPropositionCategory">Mode de scrutin</label>
+                    <select id="inputPropositionCategory" class="form-control form-control-sm">
+                        <option selected disabled></option>
+                        <option>Majoritaire</option>
+                        <option>Consensus (75%)</option>
+                        <option>Consensus (100%)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputPropositionStartDate">Date d'ouverture des v000otes:</label>
+
+                    <input type="date" class=" input-group date form-control form-control-sm" data-target-input="nearest" />
+
+                </div>
+                <div class="form-group">
+                    <label for="inputPropositionEndDate">Date de fermeture des votes:</label>
+                    <div class="input-group date" id="inputPropositionEndDate" data-target-input="nearest">
+                        <input type="date" class="form-control form-control-sm" />
+                    </div>
+                </div>
+            </form>
         </div>
         <!-- /end card body -->
         <div class="card-footer bg-white clearfix">
