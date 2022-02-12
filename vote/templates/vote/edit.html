@@ -27,31 +27,44 @@
         <!-- /.card-body-->
         <!-- Table . 2nd card-body-->
         <div class="card-body">
-            <div class="form-group">
-                <label for="inputPropositionName">Question</label>
-                <input type="text" id="inputPropositionName" class="form-control form-control-sm">
-            </div>
-            <div class="form-group">
-                <label for="inputPropositionCategory">Mode de scrutin</label>
-                <select id="inputPropositionCategory" class="form-control form-control-sm">
-                    <option selected disabled></option>
-                    <option>Majoritaire</option>
-                    <option>Consensus (75%)</option>
-                    <option>Consensus (100%)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="inputPropositionStartDate">Date d'ouverture des votes:</label>
-                <div class="input-group date" id="inputPropositionEndDate" data-target-input="nearest">
-                    <input type="date" class="form-control form-control-sm" />
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ voting_form.question.id }}">{{ voting_form.question.label }}</label>
+                    {{ voting_form.question }}
+                    {% for error in voting_form.question.errors %}
+                        <p class="text-warning font-italic"> {{ error }}</p>
+                    {% endfor %}
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPropositionEndDate">Date de fermeture des votes:</label>
-                <div class="input-group date" id="inputPropositionEndDate" data-target-input="nearest">
-                    <input type="date" class="form-control form-control-sm" />
+                <div class="form-group">
+                    <label for="{{ voting_form.description.id }}">{{ voting_form.description.label }}</label>
+                    {{ voting_form.description }}
+                    {% for error in voting_form.description.errors %}
+                        <p class="text-warning font-italic"> {{ error }}</p>
+                    {% endfor %}
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="{{ voting_form.voting_method.id }}">{{ voting_form.voting_method.label }}</label>
+                    {{ voting_form.voting_method }}
+                    {% for error in voting_form.voting_method.errors %}
+                        <p class="text-warning font-italic"> {{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ voting_form.opening_date.id }}">{{ voting_form.opening_date.label }}</label>
+                    {{ voting_form.opening_date }}
+                    {% for error in voting_form.opening_date.errors %}
+                        <p class="text-warning font-italic"> {{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ voting_form.closure_date.id }}">{{ voting_form.closure_date.label }}</label>
+                    {{ voting_form.closure_date }}
+                    {% for error in voting_form.closure_date.errors %}
+                        <p class="text-warning font-italic"> {{ error }}</p>
+                    {% endfor %}
+                </div>
+            </form>
         </div>
         <!-- /end card body -->
         <div class="card-footer bg-white clearfix">

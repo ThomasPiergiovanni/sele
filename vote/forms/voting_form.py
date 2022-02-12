@@ -11,7 +11,7 @@ from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
 
 
-class AddVoting(ModelForm):
+class VotingForm(ModelForm):
     """Add voting form class. Used for adding voting.
     """
     question = CharField(
@@ -46,6 +46,17 @@ class AddVoting(ModelForm):
             }
         )
     )
+    closure_date = DateField(
+        label='Date de fermeture du vote',
+        widget=DateInput(
+            attrs={
+                'type': 'date',
+                'class': 'input-group date form-control form-control-sm',
+                'data-target-input': "nearest",
+                'id': 'input_voting_closure_date',
+            }
+        )
+    )
     voting_method = IntegerField(
         label='Mode de scrutin',
         widget=Select(
@@ -59,36 +70,4 @@ class AddVoting(ModelForm):
 
     class Meta:
         model = Voting
-        fields = (
-            'question', 'description', 'opening_date',
-            # 'opening_date',
-            # 'closure_date',
-        )
-    
-
-        # widgets = {
-        #     'question': forms.CharField(
-        #         attrs={
-        #             'id': 'inputVotingQuestion',
-        #             'class': 'form-control form-control-sm' 
-        #         },
-        #     )
-        # }
-    # choices_list = [
-    #     (None, ""),
-    #     (1, "Très mauvais (une étoile)"),
-    #     (2, "Mauvais (deux étoiles)"),
-    #     (3, "Moyen (trois étoiles)"),
-    #     (4, "Bon (quatre étoiles)"),
-    #     (5, "Très bon (cinq étoiles)")
-    # ]
-    # ratings = forms.IntegerField(
-    #     label="Note le produit:",
-    #     widget=forms.Select(
-    #         attrs={
-    #             'class': 'form-control',
-    #             'id': 'rating_form_attr'
-    #         },
-    #         choices=choices_list,
-    #     )
-    # )
+        fields = ('question', 'description', 'opening_date', 'closure_date')

@@ -1,7 +1,7 @@
 from django.views import View
 from django.shortcuts import render
 
-from information.forms.navbar_search_form import NavbarSearchForm
+from vote.forms.voting_form import VotingForm
 
 
 class EditView(View):
@@ -12,7 +12,10 @@ class EditView(View):
         super().__init__()
         self.render = 'vote/edit.html'
         self.context = {
-            'navbar_search_form': NavbarSearchForm(),
+            'voting_form': VotingForm(data={
+                'description': "Bonjour",
+                'opening_date': "2022-01-20",
+            }),
         }
 
     def get(self, request):

@@ -1,8 +1,7 @@
 from django.views import View
 from django.shortcuts import render
 
-from information.forms.navbar_search_form import NavbarSearchForm
-from vote.forms.add_voting import AddVoting
+from vote.forms.voting_form import VotingForm
 from vote.management.engine.manager import Manager
 
 
@@ -14,7 +13,7 @@ class AddView(View):
         super().__init__()
         self.render = 'vote/add.html'
         self.context = {
-            'add_voting': AddVoting(),
+            'voting_form': VotingForm(),
         }
 
     def get(self, request):
