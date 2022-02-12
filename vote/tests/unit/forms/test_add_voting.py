@@ -68,33 +68,28 @@ class AddVotingTest(TestCase):
             4
         )
 
-    def test_add_voting_with_attr_creation_date_id(self):
+    def test_add_voting_with_attr_opening_date_id(self):
         self.assertEqual(
-            self.add_voting.fields['creation_date'].widget.attrs['id'],
-            'input_voting_creation_date'
+            self.add_voting.fields['opening_date'].widget.attrs['id'],
+            'input_voting_opening_date'
         )
 
-    def test_add_voting_with_attr_creation_date_label(self):
+    def test_add_voting_with_attr_opening_date_label(self):
         self.assertEqual(
-            self.add_voting.fields['creation_date'].label,
+            self.add_voting.fields['opening_date'].label,
             'Date d\'ouverture du vote'
         )
 
-    def test_add_voting_with_attr_creation_date_class(self):
+    def test_add_voting_with_attr_opening_date_class(self):
         self.assertEqual(
-            self.add_voting.fields['creation_date'].widget.attrs['class'],
+            self.add_voting.fields['opening_date'].widget.attrs['class'],
             'input-group date form-control form-control-sm'
         )
 
-    # def test_add_voting_with_attr_creation_date_type(self):
-    #     self.assertEqual(
-    #         self.add_voting.fields['creation_date'].widget.attrs['type'],
-    #         'date'
-    #     )
     
-    def test_add_voting_with_attr_creation_date_data_target_input(self):
+    def test_add_voting_with_attr_opneing_date_data_target_input(self):
         self.assertEqual(
-            self.add_voting.fields['creation_date']
+            self.add_voting.fields['opening_date']
             .widget.attrs['data-target-input'],
             'nearest'
         )
@@ -117,9 +112,18 @@ class AddVotingTest(TestCase):
             'form-control form-control-sm'
         )
 
-    def test_add_voting_with_attr_voting_method_type(self):
-        voting_method= VotingMethod.objects.all()
+    def test_add_voting_with_attr_voting_method_valid_w_valid_choice(self):
         self.assertEqual(
-            self.add_voting.fields['voting_method'].widget.choices[0][0],
-            voting_method[0].id
+            self.add_voting.fields['voting_method'].widget.choices[2][1],
+            'Consensus100'
         )
+    
+    def test_add_voting_with_attr_voting_method_valid_w_invalid_choice(self):
+        existing_index = None
+        try:
+            if self.add_voting.fields['voting_method'].widget.choices[3]:
+                existing_index = True 
+        except:
+            existing_index = False
+        self.assertFalse(existing_index)
+

@@ -3,7 +3,7 @@
 from datetime import date
 from django.forms import (
     CharField, DateField, DateInput, IntegerField, ModelForm, Select, Textarea,
-    TextInput
+    TextInput, 
 )
 
 from vote.management.engine.manager import Manager
@@ -24,7 +24,6 @@ class AddVoting(ModelForm):
             }
         )
     )
-
     description = CharField(
         label='Description',
         max_length=1000,
@@ -36,40 +35,37 @@ class AddVoting(ModelForm):
             }
         )
     )
-    creation_date = DateField(
+    opening_date = DateField(
         label='Date d\'ouverture du vote',
         widget=DateInput(
             attrs={
                 'type': 'date',
                 'class': 'input-group date form-control form-control-sm',
                 'data-target-input': "nearest",
-                'id': 'input_voting_creation_date',
+                'id': 'input_voting_opening_date',
             }
         )
     )
-
     voting_method = IntegerField(
         label='Mode de scrutin',
         widget=Select(
             attrs={
                 'class': 'form-control form-control-sm',
                 'id': 'input_voting_voting_method',
-                'option': 'selected disabled',
             },
-            choices=Manager().create_choice_list()
+            choices=VotingMethod.objects.values_list('id', 'name')
         )
     )
-
 
     class Meta:
         model = Voting
         fields = (
-            'question', 'description','creation_date', 'voting_method',
+            'question', 'description', 'opening_date',
             # 'opening_date',
             # 'closure_date',
         )
     
-    
+
         # widgets = {
         #     'question': forms.CharField(
         #         attrs={

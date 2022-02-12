@@ -8,9 +8,3 @@ class Manager():
     """
     def __init__(self):
         pass
-
-    def create_choice_list(self):
-        choice_list =[]
-        for choice in VotingMethod.objects.all():
-            choice_list.append((choice.id, choice.name))
-        return choice_list
