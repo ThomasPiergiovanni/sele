@@ -1,12 +1,10 @@
 """Add voting form
 """
-from datetime import date
 from django.forms import (
-    CharField, DateField, DateInput, IntegerField, ModelChoiceField, ModelForm, Select, Textarea,
-    TextInput, 
+    CharField, DateField, DateInput, ModelChoiceField, ModelForm,
+    Select, Textarea, TextInput, 
 )
 
-from vote.management.engine.manager import Manager
 from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
 

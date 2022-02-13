@@ -1,0 +1,53 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class=" login-page">
+    <div class="login-box ">
+        <div class="login-logo">
+            <a href="../../index2.html"><b>sel-</b>E</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Créer un compte</p>
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="row">
+                        <div class="col">
+                            <h6 class="text-danger mb-3 text-center">
+                                {{ message }}
+                            </h6>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                <form id="create_user_form" action="{% url 'vote:create_voting'%}" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group mb-3">
+                            {{ field.label }}
+                            {{ field }}
+                            {% for error in field.errors %}
+                            {% if error %}
+                            <p class="text-primary"> {{ error }}</p>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary btn-block mt-5">Créer</button>
+                </form>
+                <!--links -->
+                <p class="mt-2 mb-0 text-center">
+                    <a href="" class="text-center">Déja un compte? Connectez vous</a>
+                </p>
+                <!--./links -->
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
+</div>
+<!-- /.login-page -->
+{% endblock %}

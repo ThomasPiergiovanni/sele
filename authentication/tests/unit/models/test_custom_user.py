@@ -46,7 +46,7 @@ class CustomUserTest(TestCase):
         attribute = CustomUser._meta.get_field('email')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.EmailField()))
-        self.assertEqual(attribute.max_length, 256)
+        self.assertEqual(attribute.max_length, 128)
         self.assertEqual(attribute.unique, True)
 
     def test_custom_user_with_attr_user_name_characteristic(self):

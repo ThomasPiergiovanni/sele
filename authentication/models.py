@@ -15,7 +15,7 @@ class CustomUser(AbstractUser):
     by django framework.
     """
     username = None
-    email = models.EmailField(_('email address'), max_length=256, unique=True)
+    email = models.EmailField(_('email address'), max_length=128, unique=True)
     user_name = models.TextField(_('username'), max_length=64, null=False)
     balance = models.BigIntegerField(default=0)
     collectivity = models.ForeignKey(Collectivity, models.CASCADE)
