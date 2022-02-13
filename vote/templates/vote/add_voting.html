@@ -1,0 +1,79 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Vote - 
+                    <span class="text-primary font-weight-bold font-italic">
+                        Ajouter
+                    </span>
+                </h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-vote-yea mr-1"></i>
+                Vote
+            </h3>
+        </div>
+        <!-- /.card-body-->
+        <!-- Table . 2nd card-body-->
+        <div class="card-body">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="row">
+                    <div class="col">
+                        <h6 class="text-danger mb-3 text-center">
+                            {{ message }}
+                        </h6>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+            <form id="add_voting_form" action="{% url 'vote:add_voting'%}" method="post">
+                {% csrf_token %}
+                {% for field in voting_form %}
+                    <div class="form-group">
+                        {{ field.label }}
+                        {{ field }}
+                        {% for error in field.errors %}
+                            {% if error %}
+                                <p class="text-primary"> {{ error }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </form>
+        </div>
+        <!-- /end card body -->
+        <div class="card-footer bg-white clearfix">
+            <div class="row">
+                <div class="col-sm-3 mb-2">
+                    <a href="{% url 'vote:overview'%}" role="button">
+                        <button type="button"
+                            class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
+                    </a>
+                </div>
+                <div class="col-sm-6 mb-2"></div>
+                <div class="col-sm-3 mb-2">
+                    <button type="submit" form="add_voting_form" class="btn btn-block btn-success btn-sm ">Créer</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+{% endblock %}

@@ -140,8 +140,8 @@ class VotingFormTest(TestCase):
 
     def test_voting_form_with_attr_voting_method_valid_w_valid_choice(self):
         self.assertEqual(
-            self.voting_form.fields['voting_method'].widget.choices[2][1],
-            'Consensus100'
+            self.voting_form.fields['voting_method'].queryset[0],
+            VotingMethod.objects.get(pk=1)
         )
     
     def test_voting_form_with_attr_voting_method_valid_w_invalid_choice(self):

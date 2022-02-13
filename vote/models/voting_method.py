@@ -11,3 +11,6 @@ class VotingMethod(models.Model):
         validators=[MinValueValidator(0.01), MaxValueValidator(1)],
         unique=True
     )
+
+    def __str__(self):
+        return self.name

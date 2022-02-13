@@ -2,7 +2,7 @@
 """
 from datetime import date
 from django.forms import (
-    CharField, DateField, DateInput, IntegerField, ModelForm, Select, Textarea,
+    CharField, DateField, DateInput, IntegerField, ModelChoiceField, ModelForm, Select, Textarea,
     TextInput, 
 )
 
@@ -20,7 +20,8 @@ class VotingForm(ModelForm):
         widget=TextInput(
             attrs={
                 'class': 'form-control form-control-sm',
-                'id': 'input_voting_question'
+                'id': 'input_voting_question',
+                'autofocus': True,
             }
         )
     )
@@ -57,17 +58,21 @@ class VotingForm(ModelForm):
             }
         )
     )
-    voting_method = IntegerField(
+    voting_method = ModelChoiceField(
+        queryset=VotingMethod.objects.all(),
         label='Mode de scrutin',
+        empty_label="",
         widget=Select(
             attrs={
                 'class': 'form-control form-control-sm',
                 'id': 'input_voting_voting_method',
             },
-            choices=VotingMethod.objects.values_list('id', 'name')
         )
     )
 
     class Meta:
         model = Voting
-        fields = ('question', 'description', 'opening_date', 'closure_date')
+        fields = (
+            'question', 'description', 'voting_method', 'opening_date',
+            'closure_date'
+        )
