@@ -3,7 +3,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
+
 from authentication.models import CustomUser
+from collectivity.models.postal_code import PostalCode
 
 
 class CreateCustomUserForm(UserCreationForm):
@@ -53,7 +55,18 @@ class CreateCustomUserForm(UserCreationForm):
             }
         )
     )
-
+    postal_code = forms.CharField(
+        label='Code postal',
+        max_length=5,
+        min_length=5,
+        widget=forms.TextInput(
+            attrs={
+                'autofocus': False,
+                'class': 'form-control form-control-sm',
+                'id': 'input_postal_code_postal_code'
+            }
+        )
+    )
 
     class Meta(UserCreationForm):
         """Meta model gives CustomUser "params" to CreateCustomUser class.

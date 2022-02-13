@@ -73,6 +73,24 @@ class CreateCustomUserFormTest(TestCase):
             'input_custom_user_password2'
         )
 
+    def test_ccuf_with_attr_postal_code(self):
+        self.assertEqual(
+            self.form.fields['postal_code'].label, "Code postal"
+        )
+        self.assertEqual(self.form.fields['postal_code'].max_length, 5)
+        self.assertEqual(self.form.fields['postal_code'].min_length, 5)
+        self.assertFalse(
+            self.form.fields['postal_code'].widget.attrs['autofocus']
+        )
+        self.assertEqual(
+            self.form.fields['postal_code'].widget.attrs['class'],
+            'form-control form-control-sm'
+        )
+        self.assertEqual(
+            self.form.fields['postal_code'].widget.attrs['id'],
+            'input_postal_code_postal_code'
+        )
+
     def test_ccuf_with_all_attr_are_correct(self):
         form = CreateCustomUserForm(
             data={
@@ -80,6 +98,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password1': 'xxxx_Xxxx',
                 'password2': 'xxxx_Xxxx',
                 'user_name':'UserName',
+                'postal_code':'92340',
             }
         )
         self.assertTrue(form.is_valid())
@@ -91,6 +110,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password1': 'xxxx_Xxxx',
                 'password2': 'xxxx_Xxxx',
                 'user_name':"UserName",
+                'postal_code':'92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -102,6 +122,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password1': 'xxxx_Xxxx',
                 'password2': 'xxxx_Xxxx',
                 'user_name':'UserName',
+                'postal_code':'92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -113,6 +134,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password1': '',
                 'password2': 'xxxx_Xxxx',
                 'user_name':"UserName",
+                'postal_code':'92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -124,6 +146,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password1': 'xxxxxxxx',
                 'password2': 'xxxxxxxx',
                 'user_name':"UserName",
+                'postal_code':'92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -135,6 +158,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password1': 'xxxx_Xxxx',
                 'password2': '',
                 'user_name':"UserName",
+                'postal_code':'92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -146,6 +170,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password1': 'xxxx_Xxxx',
                 'password2': 'xxxx_Yxxx',
                 'user_name':"UserName",
+                'postal_code':'92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -157,6 +182,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password1': 'xxxx_Xxxx',
                 'password2': 'xxxx_Xxxx',
                 'user_name': '',
+                'postal_code':'92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -170,7 +196,32 @@ class CreateCustomUserFormTest(TestCase):
                 'user_name':(
                     "dsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsds"
                     "dsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsds"
-                )
+                ),
+                'postal_code':'92340',
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    def test_ccuf_with_attr_postal_code_is_empty(self):
+        form = CreateCustomUserForm(
+            data={
+                'email': 'user@email.com',
+                'password1': 'xxxx_Xxxx',
+                'password2': 'xxxx_Xxxx',
+                'user_name': 'UserName',
+                'postal_code': '',
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    def test_ccuf_with_attr_postal_code_is_not_correct(self):
+        form = CreateCustomUserForm(
+            data={
+                'email': 'user@email.com',
+                'password1': 'xxxx_Xxxx',
+                'password2': 'xxxx_Xxxx',
+                'user_name': 'UserName',
+                'postal_code': '9230',
             }
         )
         self.assertFalse(form.is_valid())

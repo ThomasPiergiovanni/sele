@@ -8,3 +8,6 @@ class PostalCode(models.Model):
     """
     postal_code = models.CharField(max_length=5, unique=False)
     collectivity = models.ForeignKey(Collectivity, models.CASCADE, default=999999)
+
+    def __str__(self):
+        return self.postal_code
