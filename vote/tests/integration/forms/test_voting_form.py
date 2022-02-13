@@ -2,7 +2,6 @@
 """Test ratings form module.
 """
 from datetime import date
-from operator import add
 
 from django.test import TestCase
 

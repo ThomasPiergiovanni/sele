@@ -4,8 +4,6 @@
 from django.test import TestCase
 
 from authentication.forms.create_custom_user_form import CreateCustomUserForm
-from authentication.models import CustomUser
-from authentication.tests.unit.models.test_custom_user import CustomUserTest
 
 
 class CreateCustomUserFormTest(TestCase):
