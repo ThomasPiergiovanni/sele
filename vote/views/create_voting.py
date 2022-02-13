@@ -1,4 +1,4 @@
-"""AddVoting view module
+"""CreateVoting view module
 """
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -10,8 +10,8 @@ from vote.forms.voting_form import VotingForm
 from vote.management.engine.manager import Manager
 
 
-class AddVoting(View):
-    """AddVoting view class.
+class CreateVoting(View):
+    """CreateVoting view class.
     """
 
     def __init__(self):
@@ -19,9 +19,9 @@ class AddVoting(View):
         self.context = {
             'voting_form': VotingForm(),
         }
-        self.get_success_template = 'vote/add_voting.html'
+        self.get_success_template = 'vote/create_voting.html'
         self.post_success_template = 'vote:overview'
-        self.post_fail_template = 'vote:add_voting'
+        self.post_fail_template = 'vote:create_voting'
 
     def get(self, request):
         """Voting page view method on user get request.

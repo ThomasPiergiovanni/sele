@@ -3,21 +3,21 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from vote.views.add_voting import AddVoting
+from vote.views.create_voting import CreateVoting
 
 
-class TestAddVoting(TestCase):
-    """Test AddVoting view class.
+class TestCreateVoting(TestCase):
+    """Test CreateVoting view class.
     """
     def setUp(self):
-        self.view = AddVoting()
+        self.view = CreateVoting()
 
-    def test_init_with_add_voting_instance(self):
+    def test_init_with_create_voting_instance(self):
         self.assertTrue(self.view)
 
     def test_init_with_attr_get_success_template(self):
         self.assertEqual(
-            self.view.get_success_template,'vote/add_voting.html'
+            self.view.get_success_template,'vote/create_voting.html'
         )
 
     def test_init_with_attr_post_success_template(self):
@@ -27,6 +27,6 @@ class TestAddVoting(TestCase):
 
     def test_init_with_attr_post_fail_template(self):
         self.assertEqual(
-            self.view.post_fail_template, 'vote:add_voting'
+            self.view.post_fail_template, 'vote:create_voting'
         )
 

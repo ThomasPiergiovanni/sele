@@ -11,8 +11,8 @@ from vote.tests.unit.models.test_voting import VotingTest
 from vote.tests.unit.models.test_voting_method import VotingMethodTest
 
 
-class AddVotingTest(TestCase):
-    """Test AddVoting view class.
+class CreateVotingTest(TestCase):
+    """Test CreateVoting view class.
     """
     def setUp(self):
         VotingMethodTest().emulate_voting_method()
@@ -56,32 +56,32 @@ class AddVotingTest(TestCase):
         # self.client.login(email='testuser@email.com', password='_Xxxxxxx')
 
     def test_get_with_status_code_200(self):
-        response = self.client.get('/vote/add_voting/')
+        response = self.client.get('/vote/create_voting/')
         self.assertEqual(response.status_code, 200)
 
     def test_get_with_get_template(self):
-        response = self.client.get('/vote/add_voting/')
-        self.assertTemplateUsed(response, 'vote/add_voting.html')
+        response = self.client.get('/vote/create_voting/')
+        self.assertTemplateUsed(response, 'vote/create_voting.html')
 
     def test_get_with_voting_form(self):
-        response = self.client.get('/vote/add_voting/')
+        response = self.client.get('/vote/create_voting/')
         self.assertIsInstance(response.context['voting_form'], VotingForm)
 
     def test_post_with_status_code_200(self):
         response = self.client.post(
-            '/vote/add_voting/', data=self.form_data, follow=True
+            '/vote/create_voting/', data=self.form_data, follow=True
         )
         self.assertEqual(response.status_code, 200)
     
     def test_post_with_valid_response_redirect(self):
         response = self.client.post(
-            '/vote/add_voting/', data=self.form_data, follow=True
+            '/vote/create_voting/', data=self.form_data, follow=True
         )
         self.assertEqual(response.redirect_chain[0][0], reverse('vote:overview'))
 
     def test_post_with_invalid_response(self):
         response = self.client.post(
-            '/vote/add_voting/', data=self.wrong_form_data, follow=True
+            '/vote/create_voting/', data=self.wrong_form_data, follow=True
         )
         for message in response.context['messages']:
             self.assertEqual(message.level_tag, 'error')
@@ -90,11 +90,11 @@ class AddVotingTest(TestCase):
                 "Une ou plusieurs informations a été incorrectement"
                     "saisie Veuiller ressaisir le information!"
             )
+        self.assertEqual(response.redirect_chain[0][0], reverse('vote:create_voting'))
 
     def test_post_with_voting_saved(self):
         self.client.post(
-            '/vote/add_voting/', data=self.form_data, follow=True
+            '/vote/create_voting/', data=self.form_data, follow=True
         )
         new_voting = Voting.objects.all().order_by('-id')
         self.assertTrue(new_voting)
-

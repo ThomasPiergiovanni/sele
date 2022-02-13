@@ -41,7 +41,7 @@
                 </div>
                 {% endfor %}
             {% endif %}
-            <form id="add_voting_form" action="{% url 'vote:add_voting'%}" method="post">
+            <form id="create_voting_form" action="{% url 'vote:create_voting'%}" method="post">
                 {% csrf_token %}
                 {% for field in voting_form %}
                     <div class="form-group">
@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-sm-6 mb-2"></div>
                 <div class="col-sm-3 mb-2">
-                    <button type="submit" form="add_voting_form" class="btn btn-block btn-success btn-sm ">Créer</button>
+                    <button type="submit" form="create_voting_form" class="btn btn-block btn-success btn-sm ">Créer</button>
                 </div>
             </div>
         </div>
