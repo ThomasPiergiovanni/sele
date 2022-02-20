@@ -6,6 +6,7 @@ from django.test import TestCase
 from pathlib import Path
 
 from collectivity.models.collectivity import Collectivity
+from collectivity.models.postal_code import PostalCode
 from config.settings import BASE_DIR
 
 class CollectivityTest(TestCase):
@@ -81,6 +82,14 @@ class CollectivityTest(TestCase):
         attribute = Collectivity._meta.get_field('feat_geom')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.MultiPolygonField()))
+
+    def test_postal_code_with_attr_insee_code_characteristic(self):
+        attribute = Collectivity._meta.get_field('postal_code')
+        self.assertTrue(attribute)
+        self.assertEqual(
+            type(attribute),
+            type(models.ForeignKey(PostalCode, on_delete=models.CASCADE))
+        )
 
     def test_status_with_emulated_status_instance(self):
         collectivity = Collectivity.objects.order_by('-id')[:2][0]

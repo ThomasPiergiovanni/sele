@@ -22,6 +22,15 @@ class Command(BaseCommand):
 
     def __init__(self):
         super().__init__()
+        self.testing = False
+        self.postal_code_path = (
+            Path(BASE_DIR).resolve().parent/'config/settings/data/'
+            'postal_code_4_tests.json'
+        )
+        self.collectivity_path = (
+            Path(BASE_DIR).resolve().parent/'config/settings/data/'
+            'communes_idf.geojson'
+        )
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -32,9 +41,19 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.__drop_collectivity(),
-        self.__insert_collectivity(),
         self.__drop_postal_code(),
-        self.__insert_postal_code()
+        if self.testing:
+            self.postal_code_path = (
+                Path(BASE_DIR).resolve().parent/'config/settings/data/'
+                'postal_code_4_tests.json'
+            )
+            self.collectivity_path = (
+                Path(BASE_DIR).resolve().parent/'config/settings/data/'
+                'communes_idf.geojson'
+            )
+        self.__insert_postal_code(),
+        self.__insert_collectivity(),
+        self.__set_collectivity_postal_code()
 
     def __drop_collectivity(self):
         """Method thats drop kind objects from DB
@@ -54,12 +73,9 @@ class Command(BaseCommand):
             'name': 'nom',
             'insee_code': 'insee',
             'activity': 'activity',
-            'feat_geom': 'Polygon',
+            'feat_geom': 'MultiPolygon',
         }
-        feature_class = (
-            Path(BASE_DIR).resolve().parent/'config/settings/data/'
-            'communes_idf.geojson'
-        )
+        feature_class = self.collectivity_path
         collectivity = LayerMapping(
             Collectivity,
             feature_class,
@@ -68,6 +84,24 @@ class Command(BaseCommand):
         )
         collectivity.save(strict=True, verbose=False)
 
+    def __set_collectivity_postal_code(self):
+        postal_codes = PostalCode.objects.all()
+        last_postal_code_id = PostalCode.objects.all().last().id
+        collectivities = Collectivity.objects.all()
+
+        for postal_code in postal_codes:
+            for collectivity in collectivities:
+                try:
+                    if postal_code.insee_code == collectivity.insee_code:
+                        collectivity.postal_code_id = postal_code.id
+                        collectivity.save()
+                except:
+                    pass
+        for collectivity in collectivities:
+            if collectivity.postal_code_id is None:
+                collectivity.postal_code_id = last_postal_code_id
+                collectivity.save()
+                    
     def __drop_postal_code(self):
         """Method that drop postal code objects from DB
         """
@@ -77,18 +111,15 @@ class Command(BaseCommand):
         """Method that insert postal code objects into DB.
         """
         collectivities = Collectivity.objects.all()
-        source_data = (
-            Path(BASE_DIR).resolve().parent/'config/settings/data/'
-            'postal_code_4_tests.json'
-        )
+        source_data = self.postal_code_path
         with open (source_data) as file:
             places = json.load(file)
         
-        for collectivity in collectivities:
-            for place in places:
-                if collectivity.insee_code == place['fields']['code_commune_insee']:
-                    postal_code = PostalCode(
-                        postal_code=place['fields']['code_postal'],
-                        collectivity_id=collectivity.id
-                    )
-                    postal_code.save()
+        for place in places:
+            postal_code = PostalCode(
+                postal_code=place['fields']['code_postal'],
+                insee_code=place['fields']['code_commune_insee']
+            )
+            postal_code.save()
+
+

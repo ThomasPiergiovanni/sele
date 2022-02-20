@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_('email address'), max_length=128, unique=True)
     user_name = models.TextField(_('username'), max_length=64, null=False)
     balance = models.BigIntegerField(default=0)
-    collectivity = models.ForeignKey(Collectivity, models.CASCADE)
+    collectivity = models.ForeignKey(Collectivity, on_delete=models.CASCADE, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name']

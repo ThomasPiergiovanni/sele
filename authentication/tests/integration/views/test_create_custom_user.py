@@ -11,44 +11,13 @@ class CreateCustomUserTest(TestCase):
     """Test CreateCustomUser view class.
     """
     def setUp(self):
-        pass
-        # Voting.objects.create(
-        #     id=98,
-        #     question="Voulez-vous créer une demande de nettoyage?",
-        #     description=(
-        #         "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        #     ),
-        #     creation_date = "2022-01-10",
-        #     opening_date = "2022-01-11",
-        #     closure_date = "2022-01-19",
-        #     voting_method_id=1
-        # )
-        # Voting.objects.create(
-        #     id=99,
-        #     question="Voulez-vous créer une demande de nettoyage?",
-        #     description=(
-        #         "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        #     ),
-        #     creation_date = "2022-01-10",
-        #     opening_date = "2022-01-11",
-        #     closure_date = "2022-01-19",
-        #     voting_method_id=1
-        # )
         self.form_data = {
             'email': 'user@email.com',
             'password1': 'xxxx_Xxxx',
             'password2': 'xxxx_Xxxx',
-            'user_name':'UserName',
+            'user_name': 'UserName',
+            'collectivity': '92340'
         }
-
-        # self.wrong_form_data = {
-        #     'question': "",
-        #     'description': 'dsdss',
-        #     'opening_date': "2022-01-02",
-        #     'closure_date': "2022-01-25",
-        #     'voting_method': VotingMethod.objects.get(pk=1).id
-        # }
-        # # self.client.login(email='testuser@email.com', password='_Xxxxxxx')
 
     def test_get_with_status_code_200(self):
         response = self.client.get('/authentication/create_custom_user/')

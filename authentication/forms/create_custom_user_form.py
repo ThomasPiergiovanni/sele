@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 from authentication.models import CustomUser
-from collectivity.models.postal_code import PostalCode
+from collectivity.models.collectivity import Collectivity
 
 
 class CreateCustomUserForm(UserCreationForm):
@@ -55,16 +55,16 @@ class CreateCustomUserForm(UserCreationForm):
             }
         )
     )
-    postal_code = forms.CharField(
-        label='Code postal',
-        max_length=5,
-        min_length=5,
-        widget=forms.TextInput(
+    collectivity = forms.ModelChoiceField(
+        # queryset=Collectivity.objects.filter(id__exact='71647'),
+        queryset=Collectivity.objects.all().order_by('name'),
+        label='Ville',
+        empty_label="",
+        widget=forms.Select(
             attrs={
-                'autofocus': False,
                 'class': 'form-control form-control-sm',
-                'id': 'input_postal_code_postal_code'
-            }
+                'id': 'input_voting_voting_method',
+            },
         )
     )
 
@@ -72,4 +72,5 @@ class CreateCustomUserForm(UserCreationForm):
         """Meta model gives CustomUser "params" to CreateCustomUser class.
         """
         model = CustomUser
-        fields = ['email', 'password1', 'password2', 'user_name',]
+        fields = ['email', 'password1', 'password2', 'user_name', 'collectivity'
+        ]
