@@ -23,7 +23,7 @@ class CreateCustomUserForm(UserCreationForm):
         )
     )
     user_name = forms.CharField(
-        label="Nom d'utilisateur.rice (nom visible dans l'app)",
+        label="Nom d'utilisateur.rice (visible dans l'app)",
         max_length=64,
         widget=forms.TextInput(
             attrs={
@@ -55,22 +55,38 @@ class CreateCustomUserForm(UserCreationForm):
             }
         )
     )
-    collectivity = forms.ModelChoiceField(
-        # queryset=Collectivity.objects.filter(id__exact='71647'),
-        queryset=Collectivity.objects.all().order_by('name'),
-        label='Ville',
-        empty_label="",
-        widget=forms.Select(
+    postal_code = forms.CharField(
+        label='Code postal',
+        max_length=5,
+        min_length=5,
+        widget=forms.TextInput(
             attrs={
+                'autofocus': False,
                 'class': 'form-control form-control-sm',
-                'id': 'input_voting_voting_method',
+                'id': 'input_postal_code',
             },
         )
     )
+    collectivity = forms.CharField(
+        label='Ville',
+        max_length=256,
+        widget=forms.TextInput(
+            attrs={
+                'autofocus': False,
+                'class': 'form-control form-control-sm',
+                'id': 'input_custom_user_collectivity',
+            },
+        )
+    )
+    field_order = [
+        'email', 'password1', 'password2', 'user_name', 'postal_code',
+        'collectivity'
+    ] 
 
     class Meta(UserCreationForm):
         """Meta model gives CustomUser "params" to CreateCustomUser class.
         """
         model = CustomUser
-        fields = ['email', 'password1', 'password2', 'user_name', 'collectivity'
+        fields = [
+            'email', 'user_name', 'password1', 'password2',
         ]

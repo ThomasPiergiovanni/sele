@@ -25,11 +25,11 @@ class Command(BaseCommand):
         self.testing = False
         self.postal_code_path = (
             Path(BASE_DIR).resolve().parent/'config/settings/data/'
-            'postal_code_4_tests.json'
+            'laposte_hexasmall.json'
         )
         self.collectivity_path = (
             Path(BASE_DIR).resolve().parent/'config/settings/data/'
-            'communes_idf.geojson'
+            'commune_fr.geojson'
         )
 
     def add_arguments(self, parser):
@@ -83,25 +83,7 @@ class Command(BaseCommand):
             transform=False
         )
         collectivity.save(strict=True, verbose=False)
-
-    def __set_collectivity_postal_code(self):
-        postal_codes = PostalCode.objects.all()
-        last_postal_code_id = PostalCode.objects.all().last().id
-        collectivities = Collectivity.objects.all()
-
-        for postal_code in postal_codes:
-            for collectivity in collectivities:
-                try:
-                    if postal_code.insee_code == collectivity.insee_code:
-                        collectivity.postal_code_id = postal_code.id
-                        collectivity.save()
-                except:
-                    pass
-        for collectivity in collectivities:
-            if collectivity.postal_code_id is None:
-                collectivity.postal_code_id = last_postal_code_id
-                collectivity.save()
-                    
+              
     def __drop_postal_code(self):
         """Method that drop postal code objects from DB
         """
@@ -121,5 +103,26 @@ class Command(BaseCommand):
                 insee_code=place['fields']['code_commune_insee']
             )
             postal_code.save()
+
+    def __set_collectivity_postal_code(self):
+        postal_codes = PostalCode.objects.all()
+        last_postal_code = PostalCode.objects.all().last()
+        collectivities = Collectivity.objects.all()
+
+        for postal_code in postal_codes:
+            for collectivity in collectivities:
+                try:
+                    if postal_code.insee_code == collectivity.insee_code:
+                        collectivity.postal_code_id = postal_code.id
+                        collectivity.save()
+                except:
+                    pass
+        for collectivity in collectivities:
+            try:
+                if collectivity.postal_code_id is None:
+                    collectivity.postal_code_id = last_postal_code.id
+                    collectivity.save()
+            except:
+                pass
 
 

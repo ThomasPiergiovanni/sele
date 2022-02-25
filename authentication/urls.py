@@ -3,7 +3,7 @@
 from django.urls import path
 
 from authentication.views.login_view import LoginView
-from authentication.views.create_custom_user import CreateCustomUser
+from authentication.views.create_custom_user_view import CreateCustomUser
 
 
 app_name = 'authentication'

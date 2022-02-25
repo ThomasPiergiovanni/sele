@@ -5,9 +5,7 @@ from django.db import models
 from django.test import TestCase
 from pathlib import Path
 
-from collectivity.tests.unit.models.test_collectivity import CollectivityTest
 from collectivity.models.postal_code import PostalCode
-from collectivity.models.collectivity import Collectivity
 
 
 

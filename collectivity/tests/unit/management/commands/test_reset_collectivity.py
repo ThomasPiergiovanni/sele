@@ -52,10 +52,9 @@ class ResetCollectivityTest(TestCase):
         self.assertTrue(collectivities)
 
     def test___set_collectivity_postal_code_with_instances_is_not_none(self):
-        PostalCodeTest().emulate_postal_code()
         CollectivityTest().emulate_collectivity()
         collectivity = Collectivity.objects.all().last()
-        self.assertFalse(collectivity.postal_code_id)
+        self.assertFalse(collectivity.postal_code)
         self.command._Command__set_collectivity_postal_code()
         collectivity = Collectivity.objects.all().last()
-        self.assertTrue(collectivity.postal_code_id)
+        self.assertTrue(collectivity.postal_code)

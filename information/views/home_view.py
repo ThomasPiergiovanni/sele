@@ -38,7 +38,7 @@ class HomeView(View):
     def __getgeojson_from_model(self):
         data_json = serialize(
             'geojson', 
-            Collectivity.objects.all(),
+            Collectivity.objects.filter(activity__exact='yes'),
             geometry_field='feat_geom',
             fields=('name','insee_code', 'activity')
         )

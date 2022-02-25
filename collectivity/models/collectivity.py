@@ -9,8 +9,11 @@ class Collectivity(models.Model):
     insee_code = models.CharField('Code INSEE', max_length=5)
     activity = models.CharField('Groupe actif', max_length=3)
     feat_geom = models.MultiPolygonField()
-    postal_code = models.ForeignKey(PostalCode, models.CASCADE, null=True)
+    postal_code = models.ForeignKey(
+        PostalCode, on_delete=models.CASCADE, null=True
+    )
 
     def __str__(self):
-
-        return self.name + ' (' + self.postal_code.postal_code + ')'
+        """
+        """
+        return self.name

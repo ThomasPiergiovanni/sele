@@ -7,6 +7,7 @@ from pathlib import Path
 
 from collectivity.models.collectivity import Collectivity
 from collectivity.models.postal_code import PostalCode
+from collectivity.tests.unit.models.test_postal_code import PostalCodeTest
 from config.settings import BASE_DIR
 
 class CollectivityTest(TestCase):
@@ -19,6 +20,7 @@ class CollectivityTest(TestCase):
     def emulate_collectivity(self):
         """
         """
+        PostalCodeTest().emulate_postal_code()
         collectivity_mapping = {
             'name': 'nom',
             'insee_code': 'insee',
@@ -52,6 +54,13 @@ class CollectivityTest(TestCase):
             transform=False
         )
         return collectivities
+    
+    def emulate_set_collectivity_postal_code(self):
+        for collectivity in Collectivity.objects.all():
+            for postal_code in PostalCode.objects.all():
+                if collectivity.insee_code == postal_code.insee_code:
+                    collectivity.postal_code_id = postal_code.id
+                    collectivity.save()
 
     def test_collectivity_with_collectivity_class(self):
         collectivity = Collectivity.objects.last()
@@ -92,7 +101,10 @@ class CollectivityTest(TestCase):
         )
 
     def test_status_with_emulated_status_instance(self):
+        self.emulate_set_collectivity_postal_code()
         collectivity = Collectivity.objects.order_by('-id')[:2][0]
-        self.assertEqual(collectivity.name, "Bagneux")
+        self.assertEqual(collectivity.name, 'Bagneux')
+        self.assertEqual(collectivity.postal_code.postal_code, '92220')
         collectivity = Collectivity.objects.order_by('-id')[:2][1]
-        self.assertEqual(collectivity.name, "Bourg-la-Reine")
+        self.assertEqual(collectivity.name, 'Bourg-la-Reine')
+        self.assertEqual(collectivity.postal_code.postal_code, '92340')
