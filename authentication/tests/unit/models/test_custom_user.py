@@ -1,42 +1,19 @@
-"""Test CustomUser method module.
+"""Test CustomUser model module.
 """
-from datetime import date, datetime
 from django.db import models
 from django.test import TestCase
 
 from authentication.models import CustomUser
 from collectivity.models.collectivity import Collectivity
-from collectivity.tests.unit.models.test_collectivity import CollectivityTest
-
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 
 class CustomUserTest(TestCase):
-    """Test question class.
+    """Test custom user model class.
     """
     def setUp(self):
-        self.emulate_custom_user()
-
-    def emulate_custom_user(self):
-        """
-        """
-        CollectivityTest().emulate_collectivity()
-        blr = Collectivity.objects.get(name="Bourg-la-Reine")
-        bgx = Collectivity.objects.get(name="Bagneux")
-        CustomUser.objects.create(
-            id=1,
-            email="user1@email.com",
-            password="xxxxxxxx",
-            user_name="UserName1",
-            balance=12345,
-            collectivity_id=blr.id
-        ),
-        CustomUser.objects.create(
-            id=2,
-            email="user2@email.com",
-            password="yyyyyyyy",
-            user_name="UserName2",
-            balance=-12345,
-            collectivity_id=bgx.id
-        )
+        AuthenticationEmulation().emulate_custom_user()
 
     def test_custom_user_with_custom_user_class(self):
         custom_user = CustomUser.objects.get(pk=1)
