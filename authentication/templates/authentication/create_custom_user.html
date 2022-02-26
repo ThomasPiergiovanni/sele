@@ -11,30 +11,28 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Créer un compte</p>
-                {% if messages %}
-                    {% for message in messages %}
-                    <div class="row">
-                        <div class="col">
-                            <h6 class="text-danger mb-3 text-center">
-                                {{ message }}
-                            </h6>
-                        </div>
-                    </div>
-                    {% endfor %}
-                {% endif %}
-                <form id="create_user_form" action="{% url 'authentication:create_custom_user'%}" method="post">
+                <form id="create_user_form" action="{% url 'authentication:create_custom_user'%}" method="post" novalidate>
                     {% csrf_token %}
                     {% for field in form %}
                         <div class="form-group mb-3">
                             {{ field.label }}
                             {{ field }}
                             {% for error in field.errors %}
-                            {% if error %}
-                            <p class="text-primary"> {{ error }}</p>
-                            {% endif %}
+                                {% if error %}
+                                    <p class="text-danger"> {{ error }}</p>
+                                {% endif %}
                             {% endfor %}
+                            {% if field == form.postal_code or field == form.collectivity%}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {% if message.tags %}
+                                            <p class="text-danger"> {{ message }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
                         </div>
-                    {% endfor %}
+                    {% endfor %}         
                     <button type="submit" class="btn btn-primary btn-block mt-5">Créer</button>
                 </form>
                 <!--links -->

@@ -8,8 +8,25 @@ class Manager():
     """
     def __init__(self):
         pass
+
+    def check_collectivity(self, form_postal_code, form_collectivity):
+        """
+        """
+        try:
+            postal_code = PostalCode.objects.get(
+                postal_code__exact=form_postal_code
+            )
+            collectivity = (
+                Collectivity.objects.get(
+                    name__exact=form_collectivity,
+                    postal_code__exact=postal_code.id
+                )
+            )
+            return collectivity
+        except:
+            return False
     
-    def create_custom_user(self, form):
+    def create_custom_user(self, form, collectivity):
         """Method for creating CustomUser instances into DB
         """
         CustomUser(
@@ -17,22 +34,6 @@ class Manager():
             password=(form.cleaned_data['password1']),
             user_name=(form.cleaned_data['user_name']),
             balance=1,
-            collectivity_id=self.__get_collectivity_id(
-                form.cleaned_data['postal_code'],
-                form.cleaned_data['collectivity']
-            )
+            collectivity_id=collectivity.id
         ).save()
-    
-    def __get_collectivity_id(self, form_postal_code, form_collectivity):
-        postal_code = PostalCode.objects.get(
-            postal_code__exact=form_postal_code
-        )
-        collectivity = (
-            Collectivity.objects.get(
-                name__exact=form_collectivity,
-                postal_code__exact=postal_code.id
-            )
-        )
-        return collectivity.id
-
 

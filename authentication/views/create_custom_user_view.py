@@ -1,3 +1,4 @@
+from queue import Empty
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views import View
@@ -32,14 +33,25 @@ class CreateCustomUser(View):
          voting overview page.
         """
         form = CreateCustomUserForm(request.POST)
+
         if form.is_valid():
-            Manager().create_custom_user(form)
-            return HttpResponseRedirect(reverse(self.post_success_template))
-        else:
-            messages.add_message(
-                request, messages.ERROR, (
-                    "Une ou plusieurs informations a été incorrectement"
-                    "saisie Veuiller ressaisir le information!"
-                )
+            collectivity = Manager().check_collectivity(
+                form.cleaned_data['postal_code'],
+                form.cleaned_data['collectivity']
             )
-            return HttpResponseRedirect(reverse(self.post_fail_template))
+            if collectivity:
+                Manager().create_custom_user(request, form, collectivity)
+                return HttpResponseRedirect(reverse(self.post_success_template))
+            else:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    "Le couple Code postal et Ville n'est pas valide.",
+                )
+
+                return render(request, self.get_success_template, {'form': form})
+
+
+        else:
+            return render(request, self.get_success_template, {'form': form})
+
