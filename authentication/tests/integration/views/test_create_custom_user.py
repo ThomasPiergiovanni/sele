@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from authentication.forms.create_custom_user_form import CreateCustomUserForm
 from authentication.models import CustomUser
+from collectivity.models.collectivity import Collectivity
 from collectivity.tests.emulation.collectivity_emulation import (
     CollectivityEmulation
 )
@@ -23,8 +24,8 @@ class CreateCustomUserViewTest(TestCase):
             'password1': 'xxxx_Xxxx',
             'password2': 'xxxx_Xxxx',
             'user_name': 'UserNameT',
-            'collectivity': 'Bourg-la-Reine',
-            'postal_code': '92340',
+            'collectivity': 'Bagneux',
+            'postal_code': '92220',
         }
         self.form_data_no_pc = {
             'email': 'user@email.com',
@@ -104,10 +105,15 @@ class CreateCustomUserViewTest(TestCase):
         )
 
     def test_post_with_voting_saved(self):
+        collectivity = Collectivity.objects.get(name__exact='Bagneux')
+        self.assertEqual(collectivity.activity, 'no')
         self.client.post(
             '/authentication/create_custom_user/',
             data=self.form_data,
             follow=True
         )
-        new_custom_user = CustomUser.objects.all().order_by('-id')[0]
-        self.assertEqual(new_custom_user.user_name, 'UserNameT')
+        self.assertEqual(
+            CustomUser.objects.all().last().user_name, 'UserNameT'
+        )
+        collectivity = Collectivity.objects.get(name__exact='Bagneux')
+        self.assertEqual(collectivity.activity, 'yes')
