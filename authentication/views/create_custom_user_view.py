@@ -38,6 +38,7 @@ class CreateCustomUserView(View):
             )
             if collectivity:
                 Manager().create_custom_user(form, collectivity)
+                Manager().activate_collectivity(collectivity)
                 return HttpResponseRedirect(
                     reverse(self.post_nominal_view_name)
                 )

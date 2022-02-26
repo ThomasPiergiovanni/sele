@@ -44,3 +44,9 @@ class TestManager(TestCase):
             CustomUser.objects.all().last().email,
             'user@email.com'
         )
+    
+    def test_activate_collectivity(self):
+        collectivity = Collectivity.objects.get(name__exact='Bagneux')
+        self.assertEqual(collectivity.activity, 'no')
+        self.manager.activate_collectivity(collectivity)
+        self.assertEqual(collectivity.activity, 'yes')

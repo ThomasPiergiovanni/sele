@@ -36,4 +36,9 @@ class Manager():
             balance=1,
             collectivity_id=collectivity.id
         ).save()
+    
+    def activate_collectivity(self, collectivity):
+        if collectivity.activity == 'no':
+            collectivity.activity = 'yes'
+            collectivity.save()
 
