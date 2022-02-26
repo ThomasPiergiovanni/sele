@@ -30,9 +30,9 @@ class Manager():
         """Method for creating CustomUser instances into DB
         """
         CustomUser(
-            email=str(form.cleaned_data['email']),
-            password=(form.cleaned_data['password1']),
-            user_name=(form.cleaned_data['user_name']),
+            email=form.cleaned_data['email'],
+            password=form.cleaned_data['password1'],
+            user_name=form.cleaned_data['user_name'],
             balance=1,
             collectivity_id=collectivity.id
         ).save()

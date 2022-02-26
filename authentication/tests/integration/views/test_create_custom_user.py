@@ -9,8 +9,8 @@ from authentication.models import CustomUser
 from collectivity.tests.unit.models.test_collectivity import CollectivityTest
 
 
-class CreateCustomUserTest(TestCase):
-    """Test CreateCustomUser view class.
+class CreateCustomUserViewTest(TestCase):
+    """Test CreateCustomUserView view class.
     """
     def setUp(self):
         CollectivityTest().emulate_collectivity()

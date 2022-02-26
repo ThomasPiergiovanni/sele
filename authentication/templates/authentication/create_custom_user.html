@@ -25,9 +25,7 @@
                             {% if field == form.postal_code or field == form.collectivity%}
                                 {% if messages %}
                                     {% for message in messages %}
-                                        {% if message.tags %}
-                                            <p class="text-danger"> {{ message }}</p>
-                                        {% endif %}
+                                        <p class="text-danger"> {{ message }}</p>
                                     {% endfor %}
                                 {% endif %}
                             {% endif %}

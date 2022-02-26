@@ -65,7 +65,7 @@ class CustomUserTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(Collectivity, models.CASCADE))
+            type(models.ForeignKey(Collectivity, on_delete=models.CASCADE))
         )
     
     def test_custom_user_with_emulated_custom_user_instance(self):
