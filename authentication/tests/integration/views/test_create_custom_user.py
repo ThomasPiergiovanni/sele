@@ -6,15 +6,18 @@ from django.urls import reverse
 
 from authentication.forms.create_custom_user_form import CreateCustomUserForm
 from authentication.models import CustomUser
-from collectivity.tests.unit.models.test_collectivity import CollectivityTest
+from collectivity.tests.emulation.collectivity_emulation import (
+    CollectivityEmulation
+)
 
 
 class CreateCustomUserViewTest(TestCase):
     """Test CreateCustomUserView view class.
     """
     def setUp(self):
-        CollectivityTest().emulate_collectivity()
-        CollectivityTest().emulate_set_collectivity_postal_code()
+        CollectivityEmulation().emulate_postal_code()
+        CollectivityEmulation().emulate_collectivity()
+        CollectivityEmulation().emulate_set_collectivity_postal_code()
         self.form_data = {
             'email': 'user@email.com',
             'password1': 'xxxx_Xxxx',
@@ -23,13 +26,21 @@ class CreateCustomUserViewTest(TestCase):
             'collectivity': 'Bourg-la-Reine',
             'postal_code': '92340',
         }
-        self.wrong_form_data = {
+        self.form_data_no_pc = {
             'email': 'user@email.com',
             'password1': 'xxxx_Xxxx',
             'password2': 'xxxx_Xxxx',
             'user_name': 'UserName',
             'collectivity': 'Bourg-la-Reine',
             'postal_code': '',
+        }
+        self.form_data_pc_no_match = {
+            'email': 'user@email.com',
+            'password1': 'xxxx_Xxxx',
+            'password2': 'xxxx_Xxxx',
+            'user_name': 'UserName',
+            'collectivity': 'Bourg-la-Reine',
+            'postal_code': '92220',
         }
 
     def test_get_with_status_code_200(self):
@@ -60,22 +71,37 @@ class CreateCustomUserViewTest(TestCase):
             data=self.form_data,
             follow=True
         )
-        self.assertEqual(response.redirect_chain[0][0], reverse('information:home'))
+        self.assertEqual(
+            response.redirect_chain[0][0],
+            reverse('authentication:login')
+        )
 
-    def test_post_with_invalid_response(self):
+    def test_post_with_invalid_form_missing_input(self):
         response = self.client.post(
             '/authentication/create_custom_user/',
-            data=self.wrong_form_data,
+            data=self.form_data_no_pc,
             follow=True
         )
-        # for message in response.context['messages']:
-        #     self.assertEqual(message.level_tag, 'error')
-        #     self.assertEqual(
-        #         message.message, 
-        #         "Une ou plusieurs informations a été incorrectement"
-        #             "saisie Veuiller ressaisir le information!"
-        #     )
-        self.assertEqual(response.redirect_chain[0][0], reverse('authentication:create_custom_user'))
+        self.assertEqual(response.templates[0].name, 'authentication/create_custom_user.html')
+        self.assertIsInstance(response.context['form'], CreateCustomUserForm)
+        self.assertTrue(response.context['form'].errors)
+
+    def test_post_with_invalid_form_wrong_input(self):
+        response = self.client.post(
+            '/authentication/create_custom_user/',
+            data=self.form_data_pc_no_match,
+            follow=True
+        )
+        self.assertEqual(response.templates[0].name, 'authentication/create_custom_user.html')
+        self.assertIsInstance(response.context['form'], CreateCustomUserForm)
+        self.assertFalse(response.context['form'].errors)
+        self.assertEqual(
+            response.context['messages']._loaded_data[0].level_tag, 'error'
+        )
+        self.assertEqual(
+            response.context['messages']._loaded_data[0].message, 
+            "Le couple \"code postal\" et \"ville\" n'est pas valide."
+        )
 
     def test_post_with_voting_saved(self):
         self.client.post(

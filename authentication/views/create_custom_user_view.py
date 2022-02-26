@@ -1,4 +1,3 @@
-from queue import Empty
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views import View
@@ -38,7 +37,7 @@ class CreateCustomUserView(View):
                 form.cleaned_data['collectivity']
             )
             if collectivity:
-                Manager().create_custom_user(request, form, collectivity)
+                Manager().create_custom_user(form, collectivity)
                 return HttpResponseRedirect(
                     reverse(self.post_nominal_view_name)
                 )
@@ -46,7 +45,7 @@ class CreateCustomUserView(View):
                 messages.add_message(
                     request,
                     messages.ERROR,
-                    "Le couple Code postal et Ville n'est pas valide.",
+                    "Le couple \"code postal\" et \"ville\" n'est pas valide.",
                 )
                 return render(request, self.nominal_template, {'form': form})
         else:
