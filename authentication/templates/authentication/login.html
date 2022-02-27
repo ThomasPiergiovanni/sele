@@ -12,32 +12,26 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">Connectez-vous à votre compte</p>
 
-            <form action="../../index3.html" method="post">
-                <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Email">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                        </div>
+                <form id="login_form" action="{% url 'authentication:login'%}" method="post" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group mb-3">
+                        {{ field.label }}
+                        {{ field }}
+                        {% for error in field.errors %}
+                            {% if error %}
+                                <p class="text-danger"> {{ error }}</p>
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Mot de passe">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <!-- /.col -->
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block">Connexion</button>
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </form>
+                    {% endfor %}
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary btn-block mt-5">Se connecter</button>
+                </form>
 
             <!-- /.social-auth-links -->
 

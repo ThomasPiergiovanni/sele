@@ -23,19 +23,19 @@ class AuthenticationEmulation():
         CustomUser.objects.create(
             id=1,
             email="user1@email.com",
-            password="xxxxxxxx",
+            password="xxx_Xxxxx",
             user_name="UserName1",
             balance=12345,
             collectivity_id=blr.id
         ),
-        CustomUser.objects.create(
+        CustomUser(
             id=2,
             email="user2@email.com",
-            password="yyyyyyyy",
+            password="yyy_Yyyy",
             user_name="UserName2",
             balance=-12345,
             collectivity_id=bgx.id
-        )
+        ).save()
 
     def emulate_custom_user_form(self):
         form = CreateCustomUserForm(

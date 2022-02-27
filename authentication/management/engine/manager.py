@@ -29,14 +29,15 @@ class Manager():
     def create_custom_user(self, form, collectivity):
         """Method for creating CustomUser instances into DB
         """
-        CustomUser(
+        CustomUser.objects.create_user(
             email=form.cleaned_data['email'],
             password=form.cleaned_data['password1'],
             user_name=form.cleaned_data['user_name'],
             balance=1,
             collectivity_id=collectivity.id
-        ).save()
-    
+
+        )
+
     def activate_collectivity(self, collectivity):
         if collectivity.activity == 'no':
             collectivity.activity = 'yes'

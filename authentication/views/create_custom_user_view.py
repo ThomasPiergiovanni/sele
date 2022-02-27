@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.views import View
 from django.shortcuts import render
 from django.urls import reverse
+from django.views import View
 
 from authentication.forms.create_custom_user_form import CreateCustomUserForm
 from authentication.management.engine.manager import Manager
