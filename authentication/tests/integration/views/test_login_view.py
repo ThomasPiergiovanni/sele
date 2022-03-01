@@ -14,9 +14,20 @@ from authentication.tests.emulation.authentication_emulation import (
 class LoginViewTest(TestCase):
     """Test CreateCustomUserView view class.
     """
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         AuthenticationEmulation().emulate_custom_user()
+        self.form={
+                'username': 'user1@email.com',
+                'password': 'xxx_Xxxx'
+            }
+        self.form_wrong_pwd={
+                'username': 'user1@email.com',
+                'password': 'xxx_Yxxx'
+            }
+        self.form_empty_pwd={
+                'username': 'user1@email.com',
+                'password': ''
+            }   
 
     def test_get_with_status_code_200(self):
         response = self.client.get('/authentication/login/')
@@ -32,67 +43,43 @@ class LoginViewTest(TestCase):
         response = self.client.get('/authentication/login/')
         self.assertIsInstance(response.context['form'], LoginForm)
 
-    # def test_post_with_status_code_200(self):
-    #     response = self.client.post(
-    #         '/authentication/login/',
-    #         data=self.form_data,
-    #         follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
+    def test_post_with_status_code_200(self):
+        response = self.client.post(
+            '/authentication/login/', data=self.form, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
     
     def test_post_with_valid_response_redirect(self):
         response = self.client.post(
-            '/authentication/login/',
-            data={
-                'email': 'user1@email.com',
-                'password': 'xxx_Xxxx'
-            },
-            follow=True
+            '/authentication/login/', data=self.form, follow=True
         )
-        print(response.redirect_chain)
         self.assertEqual(response.status_code, 200)
-        # self.assertEqual(
-        #     response.redirect_chain[0][0],
-        #     reverse('information:home')
-        # )
+        self.assertEqual(
+            response.redirect_chain[0][0], reverse('information:home')
+        )
 
-    # def test_post_with_invalid_form_missing_input(self):
-    #     response = self.client.post(
-    #         '/authentication/create_custom_user/',
-    #         data=self.form_data_no_pc,
-    #         follow=True
-    #     )
-    #     self.assertEqual(response.templates[0].name, 'authentication/create_custom_user.html')
-    #     self.assertIsInstance(response.context['form'], CreateCustomUserForm)
-    #     self.assertTrue(response.context['form'].errors)
+    def test_post_with_form_empty_pwd(self):
+        response = self.client.post(
+            '/authentication/login/', data=self.form_empty_pwd, follow=True
+        )
+        self.assertEqual(response.templates[0].name, 'authentication/login.html')
+        self.assertIsInstance(response.context['form'], LoginForm)
+        self.assertTrue(response.context['form'].errors)
 
-    # def test_post_with_invalid_form_wrong_input(self):
-    #     response = self.client.post(
-    #         '/authentication/create_custom_user/',
-    #         data=self.form_data_pc_no_match,
-    #         follow=True
-    #     )
-    #     self.assertEqual(response.templates[0].name, 'authentication/create_custom_user.html')
-    #     self.assertIsInstance(response.context['form'], CreateCustomUserForm)
-    #     self.assertFalse(response.context['form'].errors)
-    #     self.assertEqual(
-    #         response.context['messages']._loaded_data[0].level_tag, 'error'
-    #     )
-    #     self.assertEqual(
-    #         response.context['messages']._loaded_data[0].message, 
-    #         "Le couple \"code postal\" et \"ville\" n'est pas valide."
-    #     )
+    def test_post_with_form_wrong_pwd(self):
+        response = self.client.post(
+            '/authentication/login/', data=self.form_wrong_pwd, follow=True
+        )
+        self.assertEqual(response.templates[0].name, 'authentication/login.html')
+        self.assertIsInstance(response.context['form'], LoginForm)
+        self.assertTrue(response.context['form'].errors)
 
-    # def test_post_with_voting_saved(self):
-    #     collectivity = Collectivity.objects.get(name__exact='Bagneux')
-    #     self.assertEqual(collectivity.activity, 'no')
-    #     self.client.post(
-    #         '/authentication/create_custom_user/',
-    #         data=self.form_data,
-    #         follow=True
-    #     )
-    #     self.assertEqual(
-    #         CustomUser.objects.all().last().user_name, 'UserNameT'
-    #     )
-    #     collectivity = Collectivity.objects.get(name__exact='Bagneux')
-    #     self.assertEqual(collectivity.activity, 'yes')
+
+    def test_post_with_loggedin_user(self):
+        response = self.client.post(
+            '/authentication/login/', data=self.form, follow=True
+        )
+        self.assertEqual(
+            response.redirect_chain[0][0],reverse('information:home')
+        )
+        self.assertEqual(self.client.session.get('_auth_user_id'), "1")
