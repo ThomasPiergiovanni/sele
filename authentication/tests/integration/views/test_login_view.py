@@ -75,7 +75,7 @@ class LoginViewTest(TestCase):
         self.assertTrue(response.context['form'].errors)
 
 
-    def test_post_with_loggedin_user(self):
+    def test_post_with_valid_response_and_user_loggedin_user(self):
         response = self.client.post(
             '/authentication/login/', data=self.form, follow=True
         )
