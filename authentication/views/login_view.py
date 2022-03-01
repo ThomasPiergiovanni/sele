@@ -32,8 +32,10 @@ class LoginView(View):
          voting overview page.
         """
         logout(request)
+
         form = LoginForm(data=request.POST)
         if form.is_valid():
+            print("here")
             user = authenticate(
                 email=form.cleaned_data['username'],
                 password=form.cleaned_data['password']

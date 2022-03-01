@@ -2,6 +2,7 @@
 """Test ratings form module.
 """
 from django.test import TestCase, RequestFactory
+from django.contrib.auth.hashers import make_password
 
 from authentication.forms.login_form import LoginForm
 from authentication.tests.emulation.authentication_emulation import (
@@ -14,6 +15,7 @@ class LoginFormTest(TestCase):
     """Test CreateCustomUseForm  class.
     """
     def setUp(self):
+        AuthenticationEmulation().emulate_custom_user()
         self.form = LoginForm()
 
     def test_lf_with_attr_email(self):
@@ -47,49 +49,46 @@ class LoginFormTest(TestCase):
     def test_lf_with_all_attr_are_correct(self):
         """
         """
-        AuthenticationEmulation().emulate_custom_user()
         data = {
             'username': 'user1@email.com',
-            'password': 'xxx_Xxxx'
+            'password': 'xxx_Xxxx',
         }
-
         form = LoginForm(data=data)
-        print(form.data['username'])
         self.assertTrue(form.is_valid())  
 
-    # def test_lf_with_attr_email_is_empty(self):
-    #     form = LoginForm(
-    #         data={
-    #             'email': '',
-    #             'password': 'xxx_Xxxxx',
-    #         }
-    #     )
-    #     self.assertFalse(form.is_valid())
+    def test_lf_with_attr_email_is_empty(self):
+        form = LoginForm(
+            data={
+                'username': '',
+                'password': 'xxx_Xxxxx',
+            }
+        )
+        self.assertFalse(form.is_valid())
 
-    # def test_lf_with_attr_email_is_not_correct(self):
-    #     form = LoginForm(
-    #         data={
-    #             'email': 'useremail.com',
-    #             'password1': 'xxx_Xxxxx',
-    #         }
-    #     )
-    #     self.assertFalse(form.is_valid())
+    def test_lf_with_attr_email_is_not_correct(self):
+        form = LoginForm(
+            data={
+                'username': 'useremail.com',
+                'password': 'xxx_Xxxxx',
+            }
+        )
+        self.assertFalse(form.is_valid())
 
-    # def test_lf_with_attr_password_is_empty(self):
-    #     form = LoginForm(
-    #         data={
-    #             'email': 'user1@email.com',
-    #             'password1': '',
-    #         }
-    #     )
-    #     self.assertFalse(form.is_valid())
+    def test_lf_with_attr_password_is_empty(self):
+        form = LoginForm(
+            data={
+                'username': 'user2@email.com',
+                'password': '',
+            }
+        )
+        self.assertFalse(form.is_valid())
 
-    # def test_lf_with_attr_password1_is_not_correct(self):
-    #     form = LoginForm(
-    #         data={
-    #             'email': 'user1@email.com',
-    #             'password1': 'xxxxxxxx',
-    #         }
-    #     )
-    #     self.assertFalse(form.is_valid())
+    def test_lf_with_attr_password1_is_not_correct(self):
+        form = LoginForm(
+            data={
+                'email': 'user1@email.com',
+                'password1': 'xxxxxxxx',
+            }
+        )
+        self.assertFalse(form.is_valid())
 

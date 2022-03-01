@@ -1,7 +1,7 @@
 # pylint: disable=C0116, E1101
 """Test create custom user view module.
 """
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from authentication.forms.login_form import LoginForm
@@ -14,14 +14,9 @@ from authentication.tests.emulation.authentication_emulation import (
 class LoginViewTest(TestCase):
     """Test CreateCustomUserView view class.
     """
-    def setUp(self):
-        AuthenticationEmulation().emulate_custom_user
-        self.form_data = {
-            'email': 'user1@email.com',
-            'password': 'xxx_Xxxx',
-        }
-
-
+    @classmethod
+    def setUpTestData(cls):
+        AuthenticationEmulation().emulate_custom_user()
 
     def test_get_with_status_code_200(self):
         response = self.client.get('/authentication/login/')
@@ -45,16 +40,21 @@ class LoginViewTest(TestCase):
     #     )
     #     self.assertEqual(response.status_code, 200)
     
-    # def test_post_with_valid_response_redirect(self):
-    #     response = self.client.post(
-    #         '/authentication/create_custom_user/',
-    #         data=self.form_data,
-    #         follow=True
-    #     )
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],
-    #         reverse('authentication:login')
-    #     )
+    def test_post_with_valid_response_redirect(self):
+        response = self.client.post(
+            '/authentication/login/',
+            data={
+                'email': 'user1@email.com',
+                'password': 'xxx_Xxxx'
+            },
+            follow=True
+        )
+        print(response.redirect_chain)
+        self.assertEqual(response.status_code, 200)
+        # self.assertEqual(
+        #     response.redirect_chain[0][0],
+        #     reverse('information:home')
+        # )
 
     # def test_post_with_invalid_form_missing_input(self):
     #     response = self.client.post(

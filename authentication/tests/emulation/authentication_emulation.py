@@ -1,5 +1,7 @@
 """Test rating module.
 """
+from django.contrib.auth.hashers import make_password
+
 from authentication.forms.create_custom_user_form import CreateCustomUserForm
 from authentication.models import CustomUser
 from collectivity.models.collectivity import Collectivity
@@ -11,7 +13,6 @@ from collectivity.tests.emulation.collectivity_emulation import (
 class AuthenticationEmulation():
     """Test collectivity class.
     """
-
     def emulate_custom_user(self):
         """
         """
@@ -23,19 +24,19 @@ class AuthenticationEmulation():
         CustomUser.objects.create(
             id=1,
             email="user1@email.com",
-            password="xxx_Xxxxx",
+            password=make_password('xxx_Xxxx'),
             user_name="UserName1",
             balance=12345,
             collectivity_id=blr.id
-        ),
-        CustomUser(
+        )
+        CustomUser.objects.create(
             id=2,
             email="user2@email.com",
-            password="yyy_Yyyy",
+            password=make_password('yyy_Yyyy'),
             user_name="UserName2",
             balance=-12345,
             collectivity_id=bgx.id
-        ).save()
+        )
 
     def emulate_custom_user_form(self):
         form = CreateCustomUserForm(

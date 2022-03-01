@@ -9,6 +9,7 @@ class LoginForm(AuthenticationForm):
     """
     username = forms.CharField(
         label="Email",
+        max_length=128,
         widget=forms.EmailInput(
             attrs={
                 'autofocus': True,
@@ -19,6 +20,7 @@ class LoginForm(AuthenticationForm):
     )
     password = forms.CharField(
         label="Mot de passe",
+        max_length=32,
         widget=forms.PasswordInput(
             attrs={
                 'autofocus': False,
