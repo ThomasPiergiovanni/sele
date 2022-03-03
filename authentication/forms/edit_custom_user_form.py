@@ -2,6 +2,7 @@
 """
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from authentication.forms.create_custom_user_form import CreateCustomUserForm
 
 
 from authentication.models import CustomUser
@@ -47,8 +48,8 @@ class EditCustomUserForm(forms.ModelForm):
     )
     field_order = ['user_name', 'postal_code','collectivity'] 
 
-    class Meta(UserCreationForm):
+    class Meta(CreateCustomUserForm):
         """Meta model gives CustomUser "params" to CreateCustomUser class.
         """
         model = CustomUser
-        fields = ['user_name']
+        fields = ['user_name','collectivity']
