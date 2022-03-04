@@ -1,6 +1,8 @@
 """Test manager module.
 """
-from django.test import TestCase
+from django.contrib.auth import authenticate
+from django.contrib.sessions.middleware import SessionMiddleware
+from django.test import RequestFactory, TestCase
 
 from authentication.management.engine.manager import Manager
 from authentication.models import CustomUser
@@ -50,3 +52,19 @@ class TestManager(TestCase):
         self.assertEqual(collectivity.activity, 'no')
         self.manager.activate_collectivity(collectivity)
         self.assertEqual(collectivity.activity, 'yes')
+
+    def test_edit_cu_with_valid_form_and_cu_instance(self):
+        # form = AuthenticationEmulation().emulate_edit_custom_user_form()
+        # form.is_valid()
+        # request = RequestFactory().post('')
+        # session_middleware = SessionMiddleware(get_response=request)
+        # session_middleware.process_request(request)
+        # user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        # collectivity = Collectivity.objects.get(
+        #     pk=user.collectivity
+        # )
+        # self.manager.edit_custom_user(request, form, collectivity)
+        # self.assertEqual(
+        #     CustomUser.objects.all().last().user_name,
+        #     'UserNameNew'
+        # )

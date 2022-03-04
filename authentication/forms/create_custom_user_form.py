@@ -83,7 +83,7 @@ class CreateCustomUserForm(UserCreationForm):
         'collectivity'
     ] 
 
-    class Meta(UserCreationForm):
+    class Meta:
         """Meta model gives CustomUser "params" to CreateCustomUser class.
         """
         model = CustomUser

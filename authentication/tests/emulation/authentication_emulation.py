@@ -50,3 +50,13 @@ class AuthenticationEmulation():
             }
         )
         return form
+
+    def emulate_edit_custom_user_form(self):
+        form = CreateCustomUserForm(
+            data={
+                'user_name': 'UserNameNew',
+                'collectivity': 'Bagneux',
+                'postal_code':'9220',
+            }
+        )
+        return form

@@ -44,10 +44,10 @@ class Manager():
             collectivity.save()
 
     def edit_custom_user(self, request, form, collectivity):
-        """Method for creating CustomUser instances into DB
+        """Method for editing CustomUser instances into DB
         """
         custom_user = CustomUser.objects.get(pk=request.user.id)
-        custom_user.user_name=form.cleaned_data['user_name'],
+        custom_user.user_name=form.cleaned_data['user_name']
         custom_user.collectivity_id=collectivity.id
         custom_user.save()
 

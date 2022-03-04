@@ -27,7 +27,13 @@ class EditCustomUserView(View):
         """
         if request.user.is_authenticated:
             custom_user = CustomUser.objects.get(pk=request.user.id)
-            form = EditCustomUserForm(instance=custom_user)
+            form = EditCustomUserForm(
+                initial={
+                    'user_name': custom_user.user_name,
+                    'postal_code': custom_user.collectivity.postal_code,
+                    'collectivity': custom_user.collectivity.name
+                }
+            )
             self.context['form'] = form
             return render(request, self.get_nominal_template, self.context)
         else:

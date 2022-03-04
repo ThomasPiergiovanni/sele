@@ -1,19 +1,15 @@
 """Sign up form module.
 """
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from authentication.forms.create_custom_user_form import CreateCustomUserForm
-
 
 from authentication.models import CustomUser
-from collectivity.models.collectivity import Collectivity
 
 
 class EditCustomUserForm(forms.ModelForm):
     """Edit CustomUser form class.
     """
     user_name = forms.CharField(
-        label="Nom d'utilisateur.rice (visible dans l'app)",
+        label="Nom d'utilisateur.rice",
         max_length=64,
         widget=forms.TextInput(
             attrs={
@@ -46,10 +42,10 @@ class EditCustomUserForm(forms.ModelForm):
             },
         )
     )
-    field_order = ['user_name', 'postal_code','collectivity'] 
+    field_order = ['user_name', 'postal_code', 'collectivity'] 
 
-    class Meta(CreateCustomUserForm):
+    class Meta:
         """Meta model gives CustomUser "params" to CreateCustomUser class.
         """
         model = CustomUser
-        fields = ['user_name','collectivity']
+        fields = ['user_name']
