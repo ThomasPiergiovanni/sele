@@ -68,3 +68,4 @@ class TestManager(TestCase):
         #     CustomUser.objects.all().last().user_name,
         #     'UserNameNew'
         # )
+        pass
