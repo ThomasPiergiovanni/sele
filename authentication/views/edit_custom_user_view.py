@@ -37,8 +37,13 @@ class EditCustomUserView(View):
             self.context['form'] = form
             return render(request, self.get_nominal_template, self.context)
         else:
-            return render(request, self.get_alternative_template, self.context)
-
+            messages.add_message(
+                    request,
+                    messages.WARNING,
+                    "Authentification requise",
+                )
+            # return render(request, self.get_alternative_template, self.context)
+            return HttpResponseRedirect(reverse(self.post_nominal_view_name))
     def post(self, request):
         """Edit custom user page view method on client post request. Create
         CustomUser into the DB. After Voting creation, user is redirect to

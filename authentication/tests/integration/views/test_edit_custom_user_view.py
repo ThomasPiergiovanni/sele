@@ -1,6 +1,7 @@
 # pylint: disable=C0116, E1101
 """Test create custom user view module.
 """
+from django.contrib.auth import logout
 from django.test import TestCase
 from django.urls import reverse
 
@@ -54,6 +55,16 @@ class EditCustomUserViewTest(TestCase):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.get('/authentication/edit_custom_user/')
         self.assertIsInstance(response.context['form'], EditCustomUserForm)
+
+    def test_get_with_unlogged_user(self):
+        response = self.client.get('/authentication/edit_custom_user/')
+        # self.assertTemplateUsed(response, 'information/home.html')
+        # print(response.url)
+        self.assertEqual(response.url, reverse('information:home'))
+        # for message in response.context['messages']:
+        #     self.assertEqual(message.message, "Authentification requise")
+        #     self.assertEqual(message.level_tag, "warning")
+        self.assertEqual(response.context.messages, "Authentification requise")
 
     def test_post_with_status_code_200(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
