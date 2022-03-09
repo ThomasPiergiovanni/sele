@@ -58,13 +58,10 @@ class EditCustomUserViewTest(TestCase):
 
     def test_get_with_unlogged_user(self):
         response = self.client.get('/authentication/edit_custom_user/')
-        # self.assertTemplateUsed(response, 'information/home.html')
-        # print(response.url)
-        self.assertEqual(response.url, reverse('information:home'))
-        # for message in response.context['messages']:
-        #     self.assertEqual(message.message, "Authentification requise")
-        #     self.assertEqual(message.level_tag, "warning")
-        self.assertEqual(response.context.messages, "Authentification requise")
+        self.assertTemplateUsed(response, 'information/home.html')
+        for message in response.context['messages']:
+            self.assertEqual(message.message, "Authentification requise")
+            self.assertEqual(message.level_tag, "error")
 
     def test_post_with_status_code_200(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -86,6 +83,10 @@ class EditCustomUserViewTest(TestCase):
             response.redirect_chain[0][0],
             reverse('information:home')
         )
+        self.assertEqual(
+            CustomUser.objects.get(email__exact='user1@email.com').user_name,
+            'UserName1New'
+        )
 
     def test_post_with_invalid_form_missing_input(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -98,33 +99,31 @@ class EditCustomUserViewTest(TestCase):
         self.assertIsInstance(response.context['form'], EditCustomUserForm)
         self.assertTrue(response.context['form'].errors)
 
-    # def test_post_with_invalid_form_wrong_input(self):
-    #     response = self.client.post(
-    #         '/authentication/create_custom_user/',
-    #         data=self.form_data_pc_no_match,
-    #         follow=True
-    #     )
-    #     self.assertEqual(response.templates[0].name, 'authentication/create_custom_user.html')
-    #     self.assertIsInstance(response.context['form'], CreateCustomUserForm)
-    #     self.assertFalse(response.context['form'].errors)
-    #     self.assertEqual(
-    #         response.context['messages']._loaded_data[0].level_tag, 'error'
-    #     )
-    #     self.assertEqual(
-    #         response.context['messages']._loaded_data[0].message, 
-    #         "Le couple \"code postal\" et \"ville\" n'est pas valide."
-    #     )
+    def test_post_with_invalid_form_wrong_input(self):
+        self.client.login(email='user1@email.com', password='xxx_Xxxx')
+        response = self.client.post(
+            '/authentication/edit_custom_user/',
+            data=self.form_data_pc_no_match,
+            follow=True
+        )
+        self.assertEqual(response.templates[0].name, 'authentication/edit_custom_user.html')
+        self.assertIsInstance(response.context['form'], EditCustomUserForm)
+        self.assertFalse(response.context['form'].errors)
+        self.assertEqual(
+            response.context['messages']._loaded_data[0].level_tag, 'error'
+        )
+        self.assertEqual(
+            response.context['messages']._loaded_data[0].message, 
+            "Le couple \"code postal\" et \"ville\" n'est pas valide."
+        )
 
-    # def test_post_with_voting_saved(self):
-    #     collectivity = Collectivity.objects.get(name__exact='Bagneux')
-    #     self.assertEqual(collectivity.activity, 'no')
-    #     self.client.post(
-    #         '/authentication/create_custom_user/',
-    #         data=self.form_data,
-    #         follow=True
-    #     )
-    #     self.assertEqual(
-    #         CustomUser.objects.all().last().user_name, 'UserNameT'
-    #     )
-    #     collectivity = Collectivity.objects.get(name__exact='Bagneux')
-    #     self.assertEqual(collectivity.activity, 'yes')
+    def test_get_with_unlogged_user(self):
+        response = self.client.post(
+            '/authentication/edit_custom_user/',
+            data=self.form_data,
+            follow=True
+        )
+        self.assertTemplateUsed(response, 'information/home.html')
+        for message in response.context['messages']:
+            self.assertEqual(message.message, "Authentification requise")
+            self.assertEqual(message.level_tag, "error")

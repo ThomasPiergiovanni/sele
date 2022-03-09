@@ -39,11 +39,10 @@ class EditCustomUserView(View):
         else:
             messages.add_message(
                     request,
-                    messages.WARNING,
+                    messages.ERROR,
                     "Authentification requise",
                 )
-            # return render(request, self.get_alternative_template, self.context)
-            return HttpResponseRedirect(reverse(self.post_nominal_view_name))
+            return render(request, self.get_alternative_template, self.context)
     def post(self, request):
         """Edit custom user page view method on client post request. Create
         CustomUser into the DB. After Voting creation, user is redirect to
@@ -73,4 +72,11 @@ class EditCustomUserView(View):
                 return render(
                     request, self.get_nominal_template, {'form': form}
                 )
+        else:
+            messages.add_message(
+                    request,
+                    messages.ERROR,
+                    "Authentification requise",
+                )
+            return render(request, self.get_alternative_template, self.context)
 
