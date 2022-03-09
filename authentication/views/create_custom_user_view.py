@@ -1,7 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import render, redirect
 from django.views import View
 
 from authentication.forms.create_custom_user_form import CreateCustomUserForm
@@ -39,9 +37,7 @@ class CreateCustomUserView(View):
             if collectivity:
                 Manager().create_custom_user(form, collectivity)
                 Manager().activate_collectivity(collectivity)
-                return HttpResponseRedirect(
-                    reverse(self.post_nominal_view_name)
-                )
+                return redirect(self.post_nominal_view_name)
             else:
                 messages.add_message(
                     request,

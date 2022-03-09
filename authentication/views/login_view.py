@@ -1,12 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.views import View
 
 from authentication.forms.login_form import LoginForm
-from authentication.management.engine.manager import Manager
 
 
 class LoginView(View):
@@ -40,6 +37,11 @@ class LoginView(View):
             )
             if user is not None:
                 login(request, user)
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    "Authentification réussie",
+                )
                 return redirect(self.post_nominal_view_name)
         return render(request, self.nominal_template, {'form': form})
 

@@ -20,9 +20,6 @@ class TestManager(TestCase):
     def setUp(self):
         self.authentication_emulation=AuthenticationEmulation()
         self.collectivity_emulation = CollectivityEmulation()
-        # CollectivityEmulation().emulate_postal_code()
-        # CollectivityEmulation().emulate_collectivity()
-        # CollectivityEmulation().emulate_set_collectivity_postal_code()
         self.manager = Manager()
     
     def test_check_collectivity_with_valid_form_data(self):
