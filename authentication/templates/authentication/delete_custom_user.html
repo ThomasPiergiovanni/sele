@@ -1,0 +1,41 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class=" login-page">
+    <div class="login-box ">
+        <div class="login-logo">
+            <a href="../../index2.html"><b>sel-</b>E</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Supprimer le compte
+                    <span class="font-weight-bold"> "{{user}}" </span>
+                </p>
+
+                <form id="delete_custom_user_form" action="{% url 'authentication:delete_custom_user'%}" method="post" novalidate>
+                </form>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="{% url 'information:home'%}" role="button">
+                            <button type="button" class="btn btn-secondary btn-block mt-3">
+                                Annuler
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" form="delete_custom_user_form" class="btn btn-danger btn-block mt-3">
+                            Supprimer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
+</div>
+<!-- /.login-page -->
+{% endblock %}

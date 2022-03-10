@@ -2,6 +2,7 @@
 """
 from django.urls import path
 
+from authentication.views.delete_custom_user_view import DeleteCustomUserView
 from authentication.views.login_view import LoginView
 from authentication.views.logout_view import LogoutView
 from authentication.views.create_custom_user_view import CreateCustomUserView
@@ -17,6 +18,11 @@ urlpatterns = [
         CreateCustomUserView.as_view(),
         name='create_custom_user'
     ),
+    path(
+        'delete_custom_user/',
+        DeleteCustomUserView.as_view(),
+        name='delete_custom_user'
+    ),    
     path(
         'edit_custom_user/',
         EditCustomUserView.as_view(),

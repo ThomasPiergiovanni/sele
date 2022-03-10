@@ -15,7 +15,7 @@ class EditCustomUserFormTest(TestCase):
     def test_ecuf_with_attr_user_name(self):
         self.assertEqual(
             self.form.fields['user_name'].label,
-            "Nom d'utilisateur.rice (visible dans l'app)"
+            "Nom d'utilisateur.rice"
         )
         self.assertEqual(self.form.fields['user_name'].max_length, 64)
         self.assertTrue(self.form.fields['user_name'].widget.attrs['autofocus'])
