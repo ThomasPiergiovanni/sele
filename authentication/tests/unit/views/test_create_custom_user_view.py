@@ -15,13 +15,12 @@ class CreateCustomUserViewTest(TestCase):
     def test_init_with_ccuv_instance(self):
         self.assertTrue(self.view)
 
-    def test_init_with_attr_nominal_template(self):
+    def test_init_with_attr_view_template(self):
         self.assertEqual(
-            self.view.nominal_template,
+            self.view.view_template,
             'authentication/create_custom_user.html'
         )
     def test_init_with_attr_post_nominal_view_name(self):
         self.assertEqual(
-            self.view.post_nominal_view_name,
-            'authentication:login'
+            self.view.post_view_name, 'authentication:login'
         )

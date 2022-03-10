@@ -16,6 +16,6 @@ class LogoutViewTest(TestCase):
 
     def test_init_with_attr_nominal_view_name(self):
         self.assertEqual(
-            self.view.get_nominal_view_name,
+            self.view.view_name,
             'information:home'
         )

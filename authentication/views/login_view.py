@@ -15,13 +15,13 @@ class LoginView(View):
         self.context = {
             'form': LoginForm(),
         }
-        self.nominal_template = 'authentication/login.html'
-        self.post_nominal_view_name = 'information:home'
+        self.view_template = 'authentication/login.html'
+        self.post_view_name = 'information:home'
 
     def get(self, request):
         """Login page view method on client get request.
         """
-        return render(request, self.nominal_template, self.context)
+        return render(request, self.view_template, self.context)
 
     def post(self, request):
         """Login page view method on client post request. Authenticate custom
@@ -42,6 +42,6 @@ class LoginView(View):
                     messages.SUCCESS,
                     "Authentification réussie",
                 )
-                return redirect(self.post_nominal_view_name)
-        return render(request, self.nominal_template, {'form': form})
+                return redirect(self.post_view_name)
+        return render(request, self.view_template, {'form': form})
 

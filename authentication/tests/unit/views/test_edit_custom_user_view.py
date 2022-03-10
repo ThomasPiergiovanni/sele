@@ -16,16 +16,11 @@ class EditCustomUserViewTest(TestCase):
 
     def test_init_with_attr_nominal_template(self):
         self.assertEqual(
-            self.view.get_nominal_template,
+            self.view.view_template,
             'authentication/edit_custom_user.html'
         )
-    def test_init_with_attr_alternative_tempate(self):
+    def test_init_with_attr_alternative_view_name(self):
         self.assertEqual(
-            self.view.get_alternative_template,
-            'information/home.html'
-        )
-    def test_init_with_attr_post_nominal_view_name(self):
-        self.assertEqual(
-            self.view.post_nominal_view_name,
+            self.view.alternative_view_name,
             'information:home'
         )

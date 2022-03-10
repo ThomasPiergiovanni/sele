@@ -23,9 +23,14 @@ class LogoutViewTest(TestCase):
         self.assertEqual(
             response.redirect_chain[0][0], reverse('information:home')
         )
-        for message in response.context['messages']:
-            self.assertEqual(message.message, "Déconnexion réussie")
-            self.assertEqual(message.level_tag, "success")
+        self.assertEqual(
+            response.context['messages']._loaded_data[0].message, 
+            "Déconnexion réussie"
+        )
+        self.assertEqual(
+            response.context['messages']._loaded_data[0].level_tag, 
+            "success"
+        )
 
     def test_get_with_authentified_user(self):
         self.authentication_emulation.emulate_custom_user()

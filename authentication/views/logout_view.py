@@ -10,10 +10,10 @@ class LogoutView(View):
 
     def __init__(self):
         super().__init__()
-        self.get_nominal_view_name = 'information:home'
+        self.view_name = 'information:home'
 
     def get(self, request):
-        """Home page view method on client get request.
+        """Logout method on client get request.
         """
         logout(request)
         messages.add_message(
@@ -21,4 +21,4 @@ class LogoutView(View):
             messages.SUCCESS,
             "Déconnexion réussie",
         )
-        return redirect(self.get_nominal_view_name)
+        return redirect(self.view_name)

@@ -44,9 +44,12 @@ class EditCustomUserViewTest(TestCase):
         )
         self.assertIsInstance(response.context['form'], EditCustomUserForm)
 
-    def test_get_with_alternative_sceanrio(self):
-        response = self.client.get('/authentication/edit_custom_user/')
-        self.assertTemplateUsed(response, 'information/home.html')
+    def test_get_with_alternative_scenario(self):
+        response = self.client.get('/authentication/edit_custom_user/',follow=True)
+        self.assertEqual(
+            response.redirect_chain[0][0],
+            reverse('information:home')
+        )
         for message in response.context['messages']:
             self.assertEqual(message.message, "Authentification requise")
             self.assertEqual(message.level_tag, "error")

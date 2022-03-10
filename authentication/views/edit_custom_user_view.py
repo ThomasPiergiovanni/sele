@@ -17,8 +17,7 @@ class EditCustomUserView(View):
             'form': EditCustomUserForm(),
         }
         self.view_template= 'authentication/edit_custom_user.html'
-        self.view_alternative_template = 'information/home.html'
-        self.post_view_name = 'information:home'
+        self.alternative_view_name = 'information:home'
 
     def get(self, request):
         """Edit CustomUser page view method on client get request.
@@ -40,9 +39,7 @@ class EditCustomUserView(View):
                     messages.ERROR,
                     "Authentification requise",
                 )
-            return render(
-                request, self.view_alternative_template, self.context
-            )
+            return redirect(self.alternative_view_name)
 
     def post(self, request):
         """Edit custom user page view method on client post request. Create
@@ -64,7 +61,7 @@ class EditCustomUserView(View):
                         messages.SUCCESS,
                         "Mise à jours réussie",
                     )
-                    return redirect(self.post_view_name)
+                    return redirect(self.alternative_view_name)
                 else:
                     messages.add_message(
                         request,
@@ -82,5 +79,5 @@ class EditCustomUserView(View):
                     messages.ERROR,
                     "Authentification requise",
                 )
-            return render(request, self.view_alternative_template, self.context)
+            return redirect(self.alternative_view_name)
 

@@ -52,9 +52,14 @@ class LoginViewTest(TestCase):
             response.redirect_chain[0][0], reverse('information:home')
         )
         self.assertEqual(self.client.session.get('_auth_user_id'), "1")
-        for message in response.context['messages']:
-            self.assertEqual(message.message, "Authentification réussie")
-            self.assertEqual(message.level_tag, "success")
+        self.assertEqual(
+            response.context['messages']._loaded_data[0].message, 
+            "Authentification réussie"
+        )
+        self.assertEqual(
+            response.context['messages']._loaded_data[0].level_tag, 
+            "success"
+        )
 
     def test_post_with_form_empty_pwd(self):
         response = self.client.post(
