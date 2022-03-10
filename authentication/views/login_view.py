@@ -19,14 +19,14 @@ class LoginView(View):
         self.post_nominal_view_name = 'information:home'
 
     def get(self, request):
-        """Home page view method on client get request.
+        """Login page view method on client get request.
         """
         return render(request, self.nominal_template, self.context)
 
     def post(self, request):
-        """Create custom user page view method on client post request. Create
-        CustomUser into the DB. After Voting creation, user is redirect to
-         voting overview page.
+        """Login page view method on client post request. Authenticate custom
+        user into session. After login, user is redirect to
+        home page.
         """
         logout(request)
         form = LoginForm(data=request.POST)

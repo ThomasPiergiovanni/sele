@@ -16,9 +16,9 @@ class EditCustomUserView(View):
         self.context = {
             'form': EditCustomUserForm(),
         }
-        self.get_nominal_template = 'authentication/edit_custom_user.html'
-        self.get_alternative_template = 'information/home.html'
-        self.post_nominal_view_name = 'information:home'
+        self.view_template= 'authentication/edit_custom_user.html'
+        self.view_alternative_template = 'information/home.html'
+        self.post_view_name = 'information:home'
 
     def get(self, request):
         """Edit CustomUser page view method on client get request.
@@ -33,14 +33,17 @@ class EditCustomUserView(View):
                 }
             )
             self.context['form'] = form
-            return render(request, self.get_nominal_template, self.context)
+            return render(request, self.view_template, self.context)
         else:
             messages.add_message(
                     request,
                     messages.ERROR,
                     "Authentification requise",
                 )
-            return render(request, self.get_alternative_template, self.context)
+            return render(
+                request, self.view_alternative_template, self.context
+            )
+
     def post(self, request):
         """Edit custom user page view method on client post request. Create
         CustomUser into the DB. After Voting creation, user is redirect to
@@ -56,17 +59,22 @@ class EditCustomUserView(View):
                 if collectivity:
                     Manager().edit_custom_user(request, form, collectivity)
                     Manager().activate_collectivity(collectivity)
-                    return redirect(self.post_nominal_view_name)
+                    messages.add_message(
+                        request,
+                        messages.SUCCESS,
+                        "Mise à jours réussie",
+                    )
+                    return redirect(self.post_view_name)
                 else:
                     messages.add_message(
                         request,
                         messages.ERROR,
                         "Le couple \"code postal\" et \"ville\" n'est pas valide.",
                     )
-                    return render(request, self.get_nominal_template, {'form': form})
+                    return render(request, self.view_template, {'form': form})
             else:
                 return render(
-                    request, self.get_nominal_template, {'form': form}
+                    request, self.view_template, {'form': form}
                 )
         else:
             messages.add_message(
@@ -74,5 +82,5 @@ class EditCustomUserView(View):
                     messages.ERROR,
                     "Authentification requise",
                 )
-            return render(request, self.get_alternative_template, self.context)
+            return render(request, self.view_alternative_template, self.context)
 

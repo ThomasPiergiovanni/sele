@@ -13,7 +13,7 @@ from collectivity.tests.emulation.collectivity_emulation import (
 
 
 class CreateCustomUserViewTest(TestCase):
-    """Test CreateCustomUserView view class.
+    """Test CreateCustomUserView class.
     """
     def setUp(self):
         CollectivityEmulation().emulate_postal_code()
@@ -44,40 +44,35 @@ class CreateCustomUserViewTest(TestCase):
             'postal_code': '92220',
         }
 
-    def test_get_with_status_code_200(self):
+    def test_get_nominal_scenario(self):
         response = self.client.get('/authentication/create_custom_user/')
         self.assertEqual(response.status_code, 200)
-
-    def test_get_with_get_template(self):
-        response = self.client.get('/authentication/create_custom_user/')
         self.assertTemplateUsed(
             response, 'authentication/create_custom_user.html'
         )
-
-    def test_get_with_voting_form(self):
-        response = self.client.get('/authentication/create_custom_user/')
         self.assertIsInstance(response.context['form'], CreateCustomUserForm)
-
-    def test_post_with_status_code_200(self):
+        
+    def test_post_nominal_scenario(self):
         response = self.client.post(
             '/authentication/create_custom_user/',
             data=self.form_data,
             follow=True
         )
         self.assertEqual(response.status_code, 200)
-    
-    def test_post_with_valid_response_redirect(self):
-        response = self.client.post(
-            '/authentication/create_custom_user/',
-            data=self.form_data,
-            follow=True
+        self.assertEqual(
+            CustomUser.objects.all().last().user_name, 'UserNameT'
         )
         self.assertEqual(
             response.redirect_chain[0][0],
             reverse('authentication:login')
         )
-
-    def test_post_with_invalid_form_missing_input(self):
+        for message in response.context['messages']:
+            self.assertEqual(message.message, "Création de compte réussie")
+            self.assertEqual(message.level_tag, "success")
+        collectivity = Collectivity.objects.get(name__exact='Bagneux')
+        self.assertEqual(collectivity.activity, 'yes')
+    
+    def test_post_with_alternative_senario_form_missing_input(self):
         response = self.client.post(
             '/authentication/create_custom_user/',
             data=self.form_data_no_pc,
@@ -87,7 +82,7 @@ class CreateCustomUserViewTest(TestCase):
         self.assertIsInstance(response.context['form'], CreateCustomUserForm)
         self.assertTrue(response.context['form'].errors)
 
-    def test_post_with_invalid_form_wrong_input(self):
+    def test_post_with_alternative_senario_form_wrong_input(self):
         response = self.client.post(
             '/authentication/create_custom_user/',
             data=self.form_data_pc_no_match,
@@ -103,17 +98,3 @@ class CreateCustomUserViewTest(TestCase):
             response.context['messages']._loaded_data[0].message, 
             "Le couple \"code postal\" et \"ville\" n'est pas valide."
         )
-
-    def test_post_with_voting_saved(self):
-        collectivity = Collectivity.objects.get(name__exact='Bagneux')
-        self.assertEqual(collectivity.activity, 'no')
-        self.client.post(
-            '/authentication/create_custom_user/',
-            data=self.form_data,
-            follow=True
-        )
-        self.assertEqual(
-            CustomUser.objects.all().last().user_name, 'UserNameT'
-        )
-        collectivity = Collectivity.objects.get(name__exact='Bagneux')
-        self.assertEqual(collectivity.activity, 'yes')

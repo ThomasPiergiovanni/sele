@@ -35,35 +35,23 @@ class EditCustomUserViewTest(TestCase):
             'postal_code': '92220',
         }
 
-    def test_get_with_status_code_200(self):
+    def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.get('/authentication/edit_custom_user/')
         self.assertEqual(response.status_code, 200)
-
-    def test_get_with_nominal_template(self):
-        self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        response = self.client.get('/authentication/edit_custom_user/')
         self.assertTemplateUsed(
             response, 'authentication/edit_custom_user.html'
         )
-
-    def test_get_with_alternative_template(self):
-        response = self.client.get('/authentication/edit_custom_user/')
-        self.assertTemplateUsed(response, 'information/home.html')
-
-    def test_get_with_form(self):
-        self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        response = self.client.get('/authentication/edit_custom_user/')
         self.assertIsInstance(response.context['form'], EditCustomUserForm)
 
-    def test_get_with_unlogged_user(self):
+    def test_get_with_alternative_sceanrio(self):
         response = self.client.get('/authentication/edit_custom_user/')
         self.assertTemplateUsed(response, 'information/home.html')
         for message in response.context['messages']:
             self.assertEqual(message.message, "Authentification requise")
             self.assertEqual(message.level_tag, "error")
 
-    def test_post_with_status_code_200(self):
+    def test_post_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
             '/authentication/edit_custom_user/',
@@ -71,14 +59,6 @@ class EditCustomUserViewTest(TestCase):
             follow=True
         )
         self.assertEqual(response.status_code, 200)
-    
-    def test_post_with_valid_form(self):
-        self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        response = self.client.post(
-            '/authentication/edit_custom_user/',
-            data=self.form_data,
-            follow=True
-        )
         self.assertEqual(
             response.redirect_chain[0][0],
             reverse('information:home')
@@ -88,7 +68,7 @@ class EditCustomUserViewTest(TestCase):
             'UserName1New'
         )
 
-    def test_post_with_invalid_form_missing_input(self):
+    def test_post_with_alternative_scenario_form_missing_input(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
             '/authentication/edit_custom_user/',
@@ -99,7 +79,7 @@ class EditCustomUserViewTest(TestCase):
         self.assertIsInstance(response.context['form'], EditCustomUserForm)
         self.assertTrue(response.context['form'].errors)
 
-    def test_post_with_invalid_form_wrong_input(self):
+    def test_post_with_alternative_scenario_form_wrong_input(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
             '/authentication/edit_custom_user/',
@@ -116,14 +96,3 @@ class EditCustomUserViewTest(TestCase):
             response.context['messages']._loaded_data[0].message, 
             "Le couple \"code postal\" et \"ville\" n'est pas valide."
         )
-
-    def test_get_with_unlogged_user(self):
-        response = self.client.post(
-            '/authentication/edit_custom_user/',
-            data=self.form_data,
-            follow=True
-        )
-        self.assertTemplateUsed(response, 'information/home.html')
-        for message in response.context['messages']:
-            self.assertEqual(message.message, "Authentification requise")
-            self.assertEqual(message.level_tag, "error")

@@ -15,13 +15,16 @@ class CreateCustomUserView(View):
         self.context = {
             'form': CreateCustomUserForm(),
         }
-        self.nominal_template = 'authentication/create_custom_user.html'
+        self.get_nominal_template = 'authentication/create_custom_user.html'
         self.post_nominal_view_name = 'authentication:login'
+        self.post_alternative_template = (
+            'authentication/create_custom_user.html'
+        )
 
     def get(self, request):
         """Home page view method on client get request.
         """
-        return render(request, self.nominal_template, self.context)
+        return render(request, self.get_nominal_template, self.context)
 
     def post(self, request):
         """Create custom user page view method on client post request. Create
@@ -37,6 +40,11 @@ class CreateCustomUserView(View):
             if collectivity:
                 Manager().create_custom_user(form, collectivity)
                 Manager().activate_collectivity(collectivity)
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    "Création de compte réussie",
+                )
                 return redirect(self.post_nominal_view_name)
             else:
                 messages.add_message(
@@ -44,7 +52,11 @@ class CreateCustomUserView(View):
                     messages.ERROR,
                     "Le couple \"code postal\" et \"ville\" n'est pas valide.",
                 )
-                return render(request, self.nominal_template, {'form': form})
+                return render(
+                    request, self.post_alternative_template, {'form': form}
+                )
         else:
-            return render(request, self.nominal_template, {'form': form})
+            return render(
+                request, self.post_alternative_template, {'form': form}
+            )
 

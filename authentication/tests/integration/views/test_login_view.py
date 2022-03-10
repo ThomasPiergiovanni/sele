@@ -43,12 +43,6 @@ class LoginViewTest(TestCase):
         response = self.client.get('/authentication/login/')
         self.assertIsInstance(response.context['form'], LoginForm)
 
-    def test_post_with_status_code_200(self):
-        response = self.client.post(
-            '/authentication/login/', data=self.form, follow=True
-        )
-        self.assertEqual(response.status_code, 200)
-    
     def test_post_with_valid_response_redirect(self):
         response = self.client.post(
             '/authentication/login/', data=self.form, follow=True
@@ -57,6 +51,10 @@ class LoginViewTest(TestCase):
         self.assertEqual(
             response.redirect_chain[0][0], reverse('information:home')
         )
+        self.assertEqual(self.client.session.get('_auth_user_id'), "1")
+        for message in response.context['messages']:
+            self.assertEqual(message.message, "Authentification réussie")
+            self.assertEqual(message.level_tag, "success")
 
     def test_post_with_form_empty_pwd(self):
         response = self.client.post(
@@ -73,13 +71,3 @@ class LoginViewTest(TestCase):
         self.assertEqual(response.templates[0].name, 'authentication/login.html')
         self.assertIsInstance(response.context['form'], LoginForm)
         self.assertTrue(response.context['form'].errors)
-
-
-    def test_post_with_valid_response_and_user_loggedin_user(self):
-        response = self.client.post(
-            '/authentication/login/', data=self.form, follow=True
-        )
-        self.assertEqual(
-            response.redirect_chain[0][0],reverse('information:home')
-        )
-        self.assertEqual(self.client.session.get('_auth_user_id'), "1")
