@@ -31,8 +31,9 @@ class LogoutViewTest(TestCase):
             response.context['messages']._loaded_data[0].level_tag, 
             "success"
         )
+        self.assertEqual(self.client.session.get('_auth_user_id'), None)
 
-    def test_get_with_authentified_user(self):
+    def test_get_with_authenticated_user(self):
         self.authentication_emulation.emulate_custom_user()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         self.assertEqual(self.client.session.get('_auth_user_id'), '1')
@@ -42,9 +43,14 @@ class LogoutViewTest(TestCase):
         )
         self.assertEqual(self.client.session.get('_auth_user_id'), None)
 
-    def test_get_with_unauthentified_user(self):
+    def test_get_with_unauthenticated_user(self):
         response = self.client.get('/authentication/logout/', follow=True)
+        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('information:home')
+            response.redirect_chain[0][0], reverse('information:home')
         )
         self.assertEqual(self.client.session.get('_auth_user_id'), None)
+        self.assertEqual(
+            response_msg.message, "L'utilisateur est déja déconnecté"
+        )
+        self.assertEqual(response_msg.message.level_tag, "warning")

@@ -15,10 +15,19 @@ class LogoutView(View):
     def get(self, request):
         """Logout method on client get request.
         """
-        logout(request)
-        messages.add_message(
-            request,
-            messages.SUCCESS,
-            "Déconnexion réussie",
-        )
-        return redirect(self.view_name)
+        if request.user.is_authenticated:
+            logout(request)
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                "Déconnexion réussie",
+            )
+            return redirect(self.view_name)
+        else:
+            messages.add_message(
+                request,
+                messages.WARNING,
+                "L'utilisateur est déja déconnecté",
+            )
+            return redirect(self.view_name)
+
