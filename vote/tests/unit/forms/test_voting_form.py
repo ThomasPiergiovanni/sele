@@ -1,18 +1,19 @@
 # pylint: disable=C0116
-"""Test ratings form module.
+"""Test voting form module.
 """
 from django.test import TestCase
 
 from vote.forms.voting_form import VotingForm
 from vote.models.voting_method import VotingMethod
-from vote.tests.unit.models.test_voting_method import VotingMethodTest
+from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class VotingFormTest(TestCase):
     """Test VotingForm form  class.
     """
     def setUp(self):
-        VotingMethodTest().emulate_voting_method()
+        self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting()
         self.form = VotingForm()
 
     def test_vf_with_attr_question(self):

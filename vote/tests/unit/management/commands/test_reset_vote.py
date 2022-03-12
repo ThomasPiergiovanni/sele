@@ -7,9 +7,7 @@ from vote.management.commands.reset_vote import Command
 from vote.models.vote import Vote
 from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
-from vote.tests.unit.models.test_vote import VoteTest
-from vote.tests.unit.models.test_voting import VotingTest
-from vote.tests.unit.models.test_voting_method import VotingMethodTest
+from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class ResetVoteTest(TestCase):
@@ -19,9 +17,10 @@ class ResetVoteTest(TestCase):
         """Method that set up data for the entire class
         """
         self.command = Command()
+        self.vote_emulation = VoteEmulation()
 
     def test_drop_voting_method_with_instance_is_none(self):
-        VotingMethodTest().emulate_voting_method()
+        self.vote_emulation.emulate_voting_method()
         voting_methods = VotingMethod.objects.all()
         self.assertTrue(voting_methods)
         self.command._Command__drop_voting_method()
@@ -36,7 +35,7 @@ class ResetVoteTest(TestCase):
         self.assertTrue(voting_methods)
 
     def test_drop_voting_with_instance_is_none(self):
-        VotingTest().emulate_voting()
+        self.vote_emulation.emulate_voting()
         votings = Voting.objects.all()
         self.assertTrue(votings)
         self.command._Command__drop_voting()
@@ -44,7 +43,7 @@ class ResetVoteTest(TestCase):
         self.assertFalse(votings)
     
     def test_drop_vote_with_instance_is_none(self):
-        VoteTest().emulate_vote()
+        self.vote_emulation.emulate_vote()
         vote = Vote.objects.all()
         self.assertTrue(vote)
         self.command._Command__drop_vote()

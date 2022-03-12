@@ -19,12 +19,11 @@ class CreateVoting(View):
         self.context = {
             'voting_form': VotingForm(),
         }
-        self.get_success_template = 'vote/create_voting.html'
-        self.post_success_template = 'vote:overview'
-        self.post_fail_template = 'vote:create_voting'
+        self.view_template = 'vote/create_voting.html'
+        self.alternative_view_name = 'vote:overview'
 
     def get(self, request):
-        """Voting page view method on user get request.
+        """Voting view method on user get request.
         """
         return render(request, self.get_success_template, self.context)
     

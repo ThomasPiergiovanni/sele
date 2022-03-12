@@ -10,14 +10,15 @@ class Manager():
     def __init__(self):
         pass
     
-    def create_voting(self, form):
+    def create_voting(self, form, custom_user):
         """Method for creating Voting instances into DB
         """
-        Voting(
+        Voting.objects.create(
             question=form.cleaned_data['question'],
             description=form.cleaned_data['description'],
             creation_date=date.today(),
             opening_date=form.cleaned_data['opening_date'],
             closure_date=form.cleaned_data['closure_date'],
-            voting_method=form.cleaned_data['voting_method']
-        ).save()
+            voting_method=form.cleaned_data['voting_method'],
+            custom_user = custom_user
+        )
