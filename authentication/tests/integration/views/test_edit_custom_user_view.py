@@ -46,13 +46,12 @@ class EditCustomUserViewTest(TestCase):
 
     def test_get_with_alternative_scenario(self):
         response = self.client.get('/authentication/edit_custom_user/',follow=True)
+        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],
-            reverse('information:home')
+            response.redirect_chain[0][0],reverse('information:home')
         )
-        for message in response.context['messages']:
-            self.assertEqual(message.message, "Authentification requise")
-            self.assertEqual(message.level_tag, "error")
+        self.assertEqual(response_msg.level_tag, 'error')
+        self.assertEqual(response_msg.message, "Authentification requise")
 
     def test_post_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -63,8 +62,7 @@ class EditCustomUserViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],
-            reverse('information:home')
+            response.redirect_chain[0][0], reverse('information:home')
         )
         self.assertEqual(
             CustomUser.objects.get(email__exact='user1@email.com').user_name,
@@ -89,13 +87,9 @@ class EditCustomUserViewTest(TestCase):
             data=self.form_data_pc_no_match,
             follow=True
         )
+        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(response.templates[0].name, 'authentication/edit_custom_user.html')
         self.assertIsInstance(response.context['form'], EditCustomUserForm)
         self.assertFalse(response.context['form'].errors)
-        self.assertEqual(
-            response.context['messages']._loaded_data[0].level_tag, 'error'
-        )
-        self.assertEqual(
-            response.context['messages']._loaded_data[0].message, 
-            "Le couple \"code postal\" et \"ville\" n'est pas valide."
-        )
+        self.assertEqual(response_msg.level_tag, 'error')
+        self.assertEqual(response_msg.message, "Code postal != Ville")

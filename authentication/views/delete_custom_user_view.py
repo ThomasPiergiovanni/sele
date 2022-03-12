@@ -6,8 +6,6 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 
-from authentication.forms.edit_custom_user_form import EditCustomUserForm
-from authentication.management.engine.manager import Manager
 from authentication.models import CustomUser
 
 
@@ -22,7 +20,7 @@ class DeleteCustomUserView(View):
         self.alternative_view_name = 'information:home'
 
     def get(self, request):
-        """DeleteCustomUser get method on client request.
+        """Delete custom user get method on client request.
         """
         if request.user.is_authenticated:
             return render(request, self.view_template, self.context)

@@ -12,6 +12,7 @@ class CreateCustomUserView(View):
 
     def __init__(self):
         super().__init__()
+        self.manager = Manager()
         self.context = {
             'form': CreateCustomUserForm(),
         }
@@ -19,12 +20,12 @@ class CreateCustomUserView(View):
         self.post_view_name = 'authentication:login'
 
     def get(self, request):
-        """Home page view method on client get request.
+        """Create custom user view method on client get request.
         """
         return render(request, self.view_template, self.context)
 
     def post(self, request):
-        """Create custom user page view method on client post request. Create
+        """Create custom user view method on client post request. Create
         CustomUser into the DB. After Voting creation, user is redirect to
          voting overview page.
         """
@@ -35,8 +36,8 @@ class CreateCustomUserView(View):
                 form.cleaned_data['collectivity']
             )
             if collectivity:
-                Manager().create_custom_user(form, collectivity)
-                Manager().activate_collectivity(collectivity)
+                self.manager.create_custom_user(form, collectivity)
+                self.manager.activate_collectivity(collectivity)
                 messages.add_message(
                     request,
                     messages.SUCCESS,
@@ -47,7 +48,7 @@ class CreateCustomUserView(View):
                 messages.add_message(
                     request,
                     messages.ERROR,
-                    "Le couple \"code postal\" et \"ville\" n'est pas valide.",
+                    "Code postal != Ville",
                 )
                 return render(
                     request, self.view_template, {'form': form}

@@ -26,8 +26,6 @@ class ReadCustomUserView(View):
             return render(request, self.view_template, self.context)
         else:
             messages.add_message(
-                    request,
-                    messages.ERROR,
-                    "Authentification requise",
-                )
+                request, messages.ERROR, "Authentification requise"
+            )
             return redirect(self.alternative_view_name)

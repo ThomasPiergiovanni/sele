@@ -13,6 +13,7 @@ class EditCustomUserView(View):
 
     def __init__(self):
         super().__init__()
+        self.manager = Manager()
         self.context = {
             'form': EditCustomUserForm(),
         }
@@ -35,9 +36,7 @@ class EditCustomUserView(View):
             return render(request, self.view_template, self.context)
         else:
             messages.add_message(
-                    request,
-                    messages.ERROR,
-                    "Authentification requise",
+                    request, messages.ERROR, "Authentification requise",
                 )
             return redirect(self.alternative_view_name)
 
@@ -54,19 +53,15 @@ class EditCustomUserView(View):
                     form.cleaned_data['collectivity']
                 )
                 if collectivity:
-                    Manager().edit_custom_user(request, form, collectivity)
-                    Manager().activate_collectivity(collectivity)
+                    self.manager.edit_custom_user(request, form, collectivity)
+                    self.manager.activate_collectivity(collectivity)
                     messages.add_message(
-                        request,
-                        messages.SUCCESS,
-                        "Mise à jours réussie",
+                        request, messages.SUCCESS, "Mise à jours réussie",
                     )
                     return redirect(self.alternative_view_name)
                 else:
                     messages.add_message(
-                        request,
-                        messages.ERROR,
-                        "Le couple \"code postal\" et \"ville\" n'est pas valide.",
+                        request, messages.ERROR, "Code postal != Ville",
                     )
                     return render(request, self.view_template, {'form': form})
             else:
@@ -75,9 +70,7 @@ class EditCustomUserView(View):
                 )
         else:
             messages.add_message(
-                    request,
-                    messages.ERROR,
-                    "Authentification requise",
-                )
+                request, messages.ERROR, "Authentification requise",
+            )
             return redirect(self.alternative_view_name)
 

@@ -38,9 +38,7 @@ class LoginView(View):
             if user is not None:
                 login(request, user)
                 messages.add_message(
-                    request,
-                    messages.SUCCESS,
-                    "Authentification réussie",
+                    request, messages.SUCCESS, "Authentification réussie",
                 )
                 return redirect(self.post_view_name)
         return render(request, self.view_template, {'form': form})

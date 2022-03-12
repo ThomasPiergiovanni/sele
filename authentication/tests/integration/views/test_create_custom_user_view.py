@@ -92,13 +92,9 @@ class CreateCustomUserViewTest(TestCase):
             data=self.form_data_pc_no_match,
             follow=True
         )
+        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(response.templates[0].name, 'authentication/create_custom_user.html')
         self.assertIsInstance(response.context['form'], CreateCustomUserForm)
         self.assertFalse(response.context['form'].errors)
-        self.assertEqual(
-            response.context['messages']._loaded_data[0].level_tag, 'error'
-        )
-        self.assertEqual(
-            response.context['messages']._loaded_data[0].message, 
-            "Le couple \"code postal\" et \"ville\" n'est pas valide."
-        )
+        self.assertEqual(response_msg.level_tag, 'error')
+        self.assertEqual(response_msg.message, "Code postal != Ville")

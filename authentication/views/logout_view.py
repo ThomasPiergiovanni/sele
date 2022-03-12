@@ -18,16 +18,12 @@ class LogoutView(View):
         if request.user.is_authenticated:
             logout(request)
             messages.add_message(
-                request,
-                messages.SUCCESS,
-                "Déconnexion réussie",
+                request, messages.SUCCESS, "Déconnexion réussie",
             )
             return redirect(self.view_name)
         else:
             messages.add_message(
-                request,
-                messages.WARNING,
-                "L'utilisateur est déja déconnecté",
+                request, messages.WARNING, "L'utilisateur est déja déconnecté"
             )
             return redirect(self.view_name)
 
