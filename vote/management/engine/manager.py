@@ -1,6 +1,7 @@
 from datetime import date
 from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
+from vote.models.vote import Vote
 
 
 class Manager():

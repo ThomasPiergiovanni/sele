@@ -7,43 +7,21 @@ from django.test import TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
-from authentication.tests.unit.models.test_custom_user import CustomUserTest
+
+from vote.tests.emulation.vote_emulation import VoteEmulation
 from vote.models.vote import Vote
 from vote.models.voting import Voting
-from vote.tests.unit.models.test_voting import VotingTest
+
 
 
 class VoteTest(TestCase):
     """Test vote class.
     """
     def setUp(self):
-        self.emulate_vote()
-
-    def emulate_vote(self):
-        """
-        """
-        CustomUserTest().emulate_custom_user()
-        VotingTest().emulate_voting()
-        Vote.objects.create(
-            id=1,
-            choice=True,
-            creation_date=datetime(
-                2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc
-            ), 
-            voting_id=1,
-            custom_user_id=1,
-        ),
-        Vote.objects.create(
-            id=2,
-            choice=False,
-            creation_date=datetime(
-                2022, 1, 20, 17, 10, 38, tzinfo=timezone.utc
-            ), 
-            voting_id=1,
-            custom_user_id=2,
-        )
-
+        self.vote_emulation = VoteEmulation()
+    
     def test_vote_with_vote_class(self):
+        self.vote_emulation.emulate_vote()
         vote = Vote.objects.get(pk=1)
         self.assertIsInstance(vote, Vote)
 
@@ -73,6 +51,7 @@ class VoteTest(TestCase):
         )
     
     def test_status_with_emulated_status_instance(self):
+        self.vote_emulation.emulate_vote()
         vote= Vote.objects.get(pk=1)
         self.assertEqual(vote.choice, True)
         self.assertEqual(

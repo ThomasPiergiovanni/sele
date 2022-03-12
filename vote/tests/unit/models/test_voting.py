@@ -4,57 +4,19 @@ from datetime import date
 from django.db import models
 from django.test import TestCase
 
+from authentication.models import CustomUser
+
 from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
-from vote.tests.unit.models.test_voting_method import VotingMethodTest
+from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class VotingTest(TestCase):
     """Test voting class.
     """
     def setUp(self):
-        self.emulate_voting()
-
-    def emulate_voting(self):
-        """
-        """
-        VotingMethodTest().emulate_voting_method()
-        Voting.objects.create(
-            id=1,
-            question="Voulez-vous créer une demande de nettoyage?",
-            description=(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                " Sed non risus. Suspendisse lectus tortor, dignissim sit"
-                " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
-                " ultrices diam. Maecenas ligula massa, varius a, semper"
-                " congue, euismod non, mi. Proin porttitor, orci nec nonummy"
-                " molestie, enim est eleifend mi, non fermentum diam nisl sit"
-                " amet erat. Duis semper. Duis arcu massa, scelerisque vitae,"
-                " consequat in, pretium a, enim. Pellentesque congue"
-            ),
-            creation_date = "2022-01-10",
-            opening_date = "2022-01-11",
-            closure_date = "2022-01-19",
-            voting_method_id=1
-        )
-        Voting.objects.create(
-            id=2,
-            question="Voulez-vous créer une offre commune d'aide au devoir?",
-            description=(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                " Sed non risus. Suspendisse lectus tortor, dignissim sit"
-                " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
-                " ultrices diam. Maecenas ligula massa, varius a, semper"
-                " congue, euismod non, mi. Proin porttitor, orci nec nonummy"
-                " molestie, enim est eleifend mi, non fermentum diam nisl sit"
-                " amet erat. Duis semper. Duis arcu massa, scelerisque vitae,"
-                " consequat in, pretium a, enim. Pellentesque congue"
-            ),
-            creation_date = "2022-01-20",
-            opening_date = "2022-01-21",
-            closure_date = "2022-01-29",
-            voting_method_id=2
-        )
+        self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting()
 
     def test_voting_with_status_class(self):
         voting = Voting.objects.get(pk=1)
@@ -94,7 +56,23 @@ class VotingTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(VotingMethod, models.CASCADE))
+            type(models.ForeignKey(VotingMethod, on_delete=models.CASCADE))
+        )
+        
+    def test_voting_with_attr_custom_user_characteristic(self):
+        attribute = Voting._meta.get_field('custom_user')
+        self.assertTrue(attribute)
+        self.assertEqual(
+            type(attribute),
+            type(models.ForeignKey(CustomUser, on_delete=models.CASCADE))
+        )
+
+    def test_voting_with_attr_votes_characteristic(self):
+        attribute = Voting._meta.get_field('votes')
+        self.assertTrue(attribute)
+        self.assertEqual(
+            type(attribute),
+            type(models.ManyToManyField(CustomUser))
         )
     
     def test_status_with_emulated_status_instance(self):

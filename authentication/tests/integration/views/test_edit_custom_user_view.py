@@ -7,10 +7,8 @@ from django.urls import reverse
 
 from authentication.forms.edit_custom_user_form import EditCustomUserForm
 from authentication.models import CustomUser
-from authentication.tests.emulation.authentication_emulation import AuthenticationEmulation
-from collectivity.models.collectivity import Collectivity
-from collectivity.tests.emulation.collectivity_emulation import (
-    CollectivityEmulation
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
 )
 
 
@@ -18,7 +16,8 @@ class EditCustomUserViewTest(TestCase):
     """Test EditCustomUserView view class.
     """
     def setUp(self):
-        AuthenticationEmulation().emulate_custom_user()
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.form_data = {
             'user_name': 'UserName1New',
             'collectivity': 'Bagneux',
@@ -37,7 +36,9 @@ class EditCustomUserViewTest(TestCase):
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        response = self.client.get('/authentication/edit_custom_user/')
+        response = self.client.get(
+            '/authentication/edit_custom_user/', follow=True
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, 'authentication/edit_custom_user.html'
@@ -45,7 +46,9 @@ class EditCustomUserViewTest(TestCase):
         self.assertIsInstance(response.context['form'], EditCustomUserForm)
 
     def test_get_with_alternative_scenario(self):
-        response = self.client.get('/authentication/edit_custom_user/',follow=True)
+        response = self.client.get(
+            '/authentication/edit_custom_user/', follow=True
+        )
         response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
             response.redirect_chain[0][0],reverse('information:home')

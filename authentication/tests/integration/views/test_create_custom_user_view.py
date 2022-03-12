@@ -63,8 +63,7 @@ class CreateCustomUserViewTest(TestCase):
             CustomUser.objects.all().last().user_name, 'UserNameT'
         )
         self.assertEqual(
-            response.redirect_chain[0][0],
-            reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
         self.assertEqual(
             response.context['messages']._loaded_data[0].message, 

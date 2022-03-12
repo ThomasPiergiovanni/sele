@@ -1,5 +1,6 @@
 from django.views import View
 from django.shortcuts import render
+from vote.models.vote import Vote
 
 from information.forms.navbar_search_form import NavbarSearchForm
 

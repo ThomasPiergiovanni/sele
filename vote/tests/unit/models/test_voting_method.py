@@ -4,19 +4,15 @@ from django.db import models
 from django.test import TestCase
 
 from vote.models.voting_method import VotingMethod
+from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class VotingMethodTest(TestCase):
     """Test voting method class.
     """
     def setUp(self):
-        self.emulate_voting_method()
-
-    def emulate_voting_method(self):
-        """
-        """
-        VotingMethod.objects.create(id=1, name="Majoritaire", percentage=0.5)
-        VotingMethod.objects.create(id=2, name="Consensus75",  percentage=0.75)
+        self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting_method()
 
     def test_voting_methods_with_status_class(self):
         voting_method = VotingMethod.objects.get(pk=1)

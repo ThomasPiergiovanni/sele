@@ -15,18 +15,6 @@ class TestCreateVoting(TestCase):
     def test_init_with_create_voting_instance(self):
         self.assertTrue(self.view)
 
-    def test_init_with_attr_get_success_template(self):
-        self.assertEqual(
-            self.view.get_success_template,'vote/create_voting.html'
-        )
-
-    def test_init_with_attr_post_success_template(self):
-        self.assertEqual(
-            self.view.post_success_template, 'vote:overview'
-        )
-
-    def test_init_with_attr_post_fail_template(self):
-        self.assertEqual(
-            self.view.post_fail_template, 'vote:create_voting'
-        )
-
+    def test_init_with_attr(self):
+        self.assertEqual(self.view.view_template,'vote/create_voting.html')
+        self.assertEqual(self.view.alternative_view_name, 'vote:overview')
