@@ -1,0 +1,59 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Utilisateur - <span class="text-primary font-weight-bold font-italic">
+                        {{user.user_name}}</span></h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-user-check mr-1"></i>Détail</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-body">
+                        <p class="card-text">Email:</br>
+                        <span class="card-text text-secondary">{{user.email}}</span></p>
+                        <p class="card-text">Nom utilisateur.rice:</br>
+                            <span class="card-text text-secondary">{{user.user_name}}</span>
+                        </p>
+                        <p class="card-text">Code postal:</br>
+                            <span class="card-text text-secondary">{{user.collectivity.postal_code}}</span>
+                        </p>
+                        <p class="card-text">Ville:</br>
+                            <span class="card-text text-secondary">{{user.collectivity.name}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-white clearfix">
+            <div class="row mb-2">
+                <div class="col-sm-3 mt-4"></div>
+                <div class="col-sm-6 mt-4"></div>
+                <div class="col-sm-3 mt-4">
+                    <a href= "{{ request.META.HTTP_REFERER }}"  role="button">
+                        <button type="button" class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Retour</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+
+</section>
+<!-- /.content -->
+{% endblock %}

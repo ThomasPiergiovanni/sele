@@ -53,4 +53,4 @@ class LogoutViewTest(TestCase):
         self.assertEqual(
             response_msg.message, "L'utilisateur est déja déconnecté"
         )
-        self.assertEqual(response_msg.message.level_tag, "warning")
+        self.assertEqual(response_msg.level_tag, "warning")

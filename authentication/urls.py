@@ -7,6 +7,7 @@ from authentication.views.login_view import LoginView
 from authentication.views.logout_view import LogoutView
 from authentication.views.create_custom_user_view import CreateCustomUserView
 from authentication.views.edit_custom_user_view import EditCustomUserView
+from authentication.views.read_custom_user_view import ReadCustomUserView
 
 app_name = 'authentication'
 
@@ -27,5 +28,10 @@ urlpatterns = [
         'edit_custom_user/',
         EditCustomUserView.as_view(),
         name='edit_custom_user'
+    ),
+    path(
+        'read_custom_user/',
+        ReadCustomUserView.as_view(),
+        name='read_custom_user'
     ),
 ]
