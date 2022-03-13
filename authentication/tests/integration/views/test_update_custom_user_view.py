@@ -37,7 +37,7 @@ class UpdateCustomUserViewTest(TestCase):
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.get(
-            '/authentication/update_custom_user/', follow=True
+            '/authentication/update_custom_user', follow=True
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
