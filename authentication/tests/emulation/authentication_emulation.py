@@ -51,7 +51,7 @@ class AuthenticationEmulation():
         )
         return form
 
-    def emulate_edit_custom_user_form(self):
+    def emulate_update_custom_user_form(self):
         form = CreateCustomUserForm(
             data={
                 'user_name': 'UserNameNew',

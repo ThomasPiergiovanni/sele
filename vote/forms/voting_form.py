@@ -1,4 +1,4 @@
-"""Add voting form
+"""Voting form class
 """
 from django.forms import (
     CharField, DateField, DateInput, ModelChoiceField, ModelForm,
@@ -10,7 +10,7 @@ from vote.models.voting_method import VotingMethod
 
 
 class VotingForm(ModelForm):
-    """Add voting form class. Used for adding voting.
+    """VotingForm class. Used for adding voting.
     """
     question = CharField(
         label='Question',

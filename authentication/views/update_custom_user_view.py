@@ -2,22 +2,22 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 
-from authentication.forms.edit_custom_user_form import EditCustomUserForm
+from authentication.forms.update_custom_user_form import UpdateCustomUserForm
 from authentication.management.engine.manager import Manager
 from authentication.models import CustomUser
 
 
-class EditCustomUserView(View):
-    """EditCustomUserview class.
+class UpdateCustomUserView(View):
+    """UpdateCustomUserview class.
     """
 
     def __init__(self):
         super().__init__()
         self.manager = Manager()
         self.context = {
-            'form': EditCustomUserForm(),
+            'form': UpdateCustomUserForm(),
         }
-        self.view_template= 'authentication/edit_custom_user.html'
+        self.view_template= 'authentication/update_custom_user.html'
         self.alternative_view_name = 'information:home'
 
     def get(self, request):
@@ -25,7 +25,7 @@ class EditCustomUserView(View):
         """
         if request.user.is_authenticated:
             custom_user = CustomUser.objects.get(pk=request.user.id)
-            form = EditCustomUserForm(
+            form = UpdateCustomUserForm(
                 initial={
                     'user_name': custom_user.user_name,
                     'postal_code': custom_user.collectivity.postal_code,
@@ -46,14 +46,14 @@ class EditCustomUserView(View):
          voting overview page.
         """
         if request.user.is_authenticated:
-            form = EditCustomUserForm(request.POST)
+            form = UpdateCustomUserForm(request.POST)
             if form.is_valid():
                 collectivity = Manager().check_collectivity(
                     form.cleaned_data['postal_code'],
                     form.cleaned_data['collectivity']
                 )
                 if collectivity:
-                    self.manager.edit_custom_user(request, form, collectivity)
+                    self.manager.update_custom_user(request, form, collectivity)
                     self.manager.activate_collectivity(collectivity)
                     messages.add_message(
                         request, messages.SUCCESS, "Mise à jours réussie",

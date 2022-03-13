@@ -31,10 +31,10 @@ class TestManager(TestCase):
             'closure_date': "2022-01-25",
             'voting_method': VotingMethod.objects.get(pk=1).id
         }
-        voting_form = VotingForm(data=form_data)
-        voting_form.is_valid()
+        form = VotingForm(data=form_data)
+        form.is_valid()
         custom_user = CustomUser.objects.get(pk=1)
-        self.manager.create_voting(voting_form, custom_user)
+        self.manager.create_voting(form, custom_user)
         self.assertEqual(
             Voting.objects.all().order_by('-id')[0].description,
             'dsdss'

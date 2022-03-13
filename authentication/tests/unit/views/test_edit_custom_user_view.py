@@ -2,14 +2,14 @@
 """
 from django.test import TestCase
 
-from authentication.views.edit_custom_user_view import EditCustomUserView
+from authentication.views.update_custom_user_view import UpdateCustomUserView
 
 
-class EditCustomUserViewTest(TestCase):
-    """TestEditCustomUserView view class.
+class UpdateCustomUserViewTest(TestCase):
+    """TestUpdateCustomUserView view class.
     """
     def setUp(self):
-        self.view =EditCustomUserView()
+        self.view =UpdateCustomUserView()
 
     def test_init_with_ecuv_instance(self):
         self.assertTrue(self.view)
@@ -17,7 +17,7 @@ class EditCustomUserViewTest(TestCase):
     def test_init_with_attr_nominal_template(self):
         self.assertEqual(
             self.view.view_template,
-            'authentication/edit_custom_user.html'
+            'authentication/update_custom_user.html'
         )
     def test_init_with_attr_alternative_view_name(self):
         self.assertEqual(

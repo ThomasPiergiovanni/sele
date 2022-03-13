@@ -5,15 +5,15 @@ from django.contrib.auth import logout
 from django.test import TestCase
 from django.urls import reverse
 
-from authentication.forms.edit_custom_user_form import EditCustomUserForm
+from authentication.forms.update_custom_user_form import UpdateCustomUserForm
 from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
 
 
-class EditCustomUserViewTest(TestCase):
-    """Test EditCustomUserView view class.
+class UpdateCustomUserViewTest(TestCase):
+    """Test UpdateCustomUserView view class.
     """
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
@@ -37,17 +37,17 @@ class EditCustomUserViewTest(TestCase):
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.get(
-            '/authentication/edit_custom_user/', follow=True
+            '/authentication/update_custom_user/', follow=True
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
-            response, 'authentication/edit_custom_user.html'
+            response, 'authentication/update_custom_user.html'
         )
-        self.assertIsInstance(response.context['form'], EditCustomUserForm)
+        self.assertIsInstance(response.context['form'], UpdateCustomUserForm)
 
     def test_get_with_alternative_scenario(self):
         response = self.client.get(
-            '/authentication/edit_custom_user/', follow=True
+            '/authentication/update_custom_user/', follow=True
         )
         response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
@@ -59,7 +59,7 @@ class EditCustomUserViewTest(TestCase):
     def test_post_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
-            '/authentication/edit_custom_user/',
+            '/authentication/update_custom_user/',
             data=self.form_data,
             follow=True
         )
@@ -75,24 +75,24 @@ class EditCustomUserViewTest(TestCase):
     def test_post_with_alternative_scenario_form_missing_input(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
-            '/authentication/edit_custom_user/',
+            '/authentication/update_custom_user/',
             data=self.form_data_no_pc,
             follow=True
         )
-        self.assertEqual(response.templates[0].name, 'authentication/edit_custom_user.html')
-        self.assertIsInstance(response.context['form'], EditCustomUserForm)
+        self.assertEqual(response.templates[0].name, 'authentication/update_custom_user.html')
+        self.assertIsInstance(response.context['form'], UpdateCustomUserForm)
         self.assertTrue(response.context['form'].errors)
 
     def test_post_with_alternative_scenario_form_wrong_input(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
-            '/authentication/edit_custom_user/',
+            '/authentication/update_custom_user/',
             data=self.form_data_pc_no_match,
             follow=True
         )
         response_msg = response.context['messages']._loaded_data[0]
-        self.assertEqual(response.templates[0].name, 'authentication/edit_custom_user.html')
-        self.assertIsInstance(response.context['form'], EditCustomUserForm)
+        self.assertEqual(response.templates[0].name, 'authentication/update_custom_user.html')
+        self.assertIsInstance(response.context['form'], UpdateCustomUserForm)
         self.assertFalse(response.context['form'].errors)
         self.assertEqual(response_msg.level_tag, 'error')
         self.assertEqual(response_msg.message, "Code postal != Ville")

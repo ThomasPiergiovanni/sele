@@ -66,13 +66,13 @@ class TestManager(TestCase):
 
     def test_edit_cu_with_valid_form_and_cu_instance(self):
         self.authentication_emulation.emulate_custom_user()
-        form = self.authentication_emulation.emulate_edit_custom_user_form()
+        form = self.authentication_emulation.emulate_update_custom_user_form()
         form.is_valid()
         request = RequestFactory().post('')        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         collectivity = Collectivity.objects.get(pk=user.collectivity_id)
-        self.manager.edit_custom_user(request, form, collectivity)
+        self.manager.update_custom_user(request, form, collectivity)
         self.assertEqual(
             CustomUser.objects.get(email__exact='user1@email.com').user_name,
             'UserNameNew'

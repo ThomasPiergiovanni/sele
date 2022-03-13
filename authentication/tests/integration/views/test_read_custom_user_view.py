@@ -5,7 +5,7 @@ from django.contrib.auth import logout
 from django.test import TestCase
 from django.urls import reverse
 
-from authentication.forms.edit_custom_user_form import EditCustomUserForm
+from authentication.forms.update_custom_user_form import UpdateCustomUserForm
 from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import AuthenticationEmulation
 from collectivity.models.collectivity import Collectivity
@@ -14,8 +14,8 @@ from collectivity.tests.emulation.collectivity_emulation import (
 )
 
 
-class EditCustomUserViewTest(TestCase):
-    """Test EditCustomUserView view class.
+class UpdateCustomUserViewTest(TestCase):
+    """Test UpdateCustomUserView view class.
     """
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
@@ -33,7 +33,7 @@ class EditCustomUserViewTest(TestCase):
 
     def test_get_with_alternative_scenario(self):
         response = self.client.get(
-            '/authentication/edit_custom_user/', follow=True
+            '/authentication/update_custom_user/', follow=True
         )
         response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(

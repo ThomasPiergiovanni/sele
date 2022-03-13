@@ -3,14 +3,14 @@
 """
 from django.test import TestCase
 
-from authentication.forms.edit_custom_user_form import EditCustomUserForm
+from authentication.forms.update_custom_user_form import UpdateCustomUserForm
 
 
-class EditCustomUserFormTest(TestCase):
+class UpdateCustomUserFormTest(TestCase):
     """Test EditCustomUseForm  class.
     """
     def setUp(self):
-        self.form = EditCustomUserForm()
+        self.form = UpdateCustomUserForm()
 
     def test_ecuf_with_attr_user_name(self):
         self.assertEqual(
@@ -69,7 +69,7 @@ class EditCustomUserFormTest(TestCase):
     def test_ecuf_with_all_attr_are_correct(self):
         """
         """
-        form = EditCustomUserForm(
+        form = UpdateCustomUserForm(
             data={
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',
@@ -79,7 +79,7 @@ class EditCustomUserFormTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_ecuf_with_attr_user_name_is_empty(self):
-        form = EditCustomUserForm(
+        form = UpdateCustomUserForm(
             data={
                 'user_name': '',
                 'collectivity': 'Bourg-la-Reine',
@@ -89,7 +89,7 @@ class EditCustomUserFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_ecuf_with_attr_user_name_is_not_correct(self):
-        form = EditCustomUserForm(
+        form = UpdateCustomUserForm(
             data={
                 'user_name':(
                     "dsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsds"
@@ -102,7 +102,7 @@ class EditCustomUserFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_ecuf_with_attr_collectivity_is_empty(self):
-        form = EditCustomUserForm(
+        form = UpdateCustomUserForm(
             data={
                 'user_name': 'UserName',
                 'collectivity': '',
@@ -112,7 +112,7 @@ class EditCustomUserFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_ecuf_with_attr_postal_code_is_empty(self):
-        form = EditCustomUserForm(
+        form = UpdateCustomUserForm(
             data={
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',

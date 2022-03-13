@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 
-from authentication.forms.edit_custom_user_form import EditCustomUserForm
+from authentication.forms.update_custom_user_form import UpdateCustomUserForm
 from authentication.management.engine.manager import Manager
 from authentication.models import CustomUser
 

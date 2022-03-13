@@ -5,7 +5,7 @@ from django import forms
 from authentication.models import CustomUser
 
 
-class EditCustomUserForm(forms.ModelForm):
+class UpdateCustomUserForm(forms.ModelForm):
     """Edit CustomUser form class.
     """
     user_name = forms.CharField(

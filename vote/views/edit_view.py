@@ -12,7 +12,7 @@ class EditView(View):
         super().__init__()
         self.render = 'vote/edit.html'
         self.context = {
-            'voting_form': VotingForm(data={
+            'form': VotingForm(data={
                 'description': "Bonjour",
                 'opening_date': "2022-01-20",
             }),

@@ -1,10 +1,8 @@
-"""Creat eVoting view module
+"""Creat Voting view module
 """
 from django.contrib import messages
-from django.http import HttpResponseRedirect
 from django.views import View
-from django.shortcuts import redirect,render
-from django.urls import reverse
+from django.shortcuts import redirect, render
 
 from vote.forms.voting_form import VotingForm
 from vote.management.engine.manager import Manager

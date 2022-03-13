@@ -43,7 +43,7 @@ class Manager():
             collectivity.activity = 'yes'
             collectivity.save()
 
-    def edit_custom_user(self, request, form, collectivity):
+    def update_custom_user(self, request, form, collectivity):
         """Method for editing CustomUser instances into DB
         """
         custom_user = CustomUser.objects.get(pk=request.user.id)
