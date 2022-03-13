@@ -30,30 +30,24 @@
         <!-- /.card-body-->
         <!-- Table . 2nd card-body-->
         <div class="card-body">
-            {% if messages %}
-                {% for message in messages %}
-                <div class="row">
-                    <div class="col">
-                        <h6 class="text-danger mb-3 text-center">
-                            {{ message }}
-                        </h6>
-                    </div>
-                </div>
-                {% endfor %}
-            {% endif %}
             <form id="create_voting_form" action="{% url 'vote:create_voting'%}" method="post">
                 {% csrf_token %}
-                {% for field in voting_form %}
-                    <div class="form-group">
-                        {{ field.label }}
-                        {{ field }}
-                        {% for error in field.errors %}
-                            {% if error %}
-                                <p class="text-primary"> {{ error }}</p>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+                {% for field in form %}
+                <div class="form-group mb-3">
+                    {{ field.label }}
+                    {{ field }}
+                    {% for error in field.errors %}
+                        {% if error %}
+                            <p class="text-danger"> {{ error }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
                 {% endfor %}
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
             </form>
         </div>
         <!-- /end card body -->
