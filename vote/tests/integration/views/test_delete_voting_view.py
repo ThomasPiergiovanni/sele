@@ -1,5 +1,4 @@
-# pylint: disable=C0116, E1101
-"""Test update voting view module.
+"""Test delete voting view module.
 """
 from django.test import TestCase
 from django.urls import reverse
@@ -13,47 +12,43 @@ from vote.models.voting_method import VotingMethod
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
-class UpdateVotingViewTest(TestCase):
-    """Test UpdateVotingView class.
+class DeleteVotingViewTest(TestCase):
+    """Test DeleteVotingView class.
     """
     def setUp(self):
         self.vote_emulation = VoteEmulation()
         self.vote_emulation.emulate_voting()
-        self.form_data = {
-            'question': 'Je change de question',
-            'description': 'dsdss',
-            'opening_date': "2022-01-02",
-            'closure_date': "2022-01-25",
-            'voting_method': VotingMethod.objects.get(pk=1).id
-        }
-        self.wrong_form_data = {
-            'question': "",
-            'description': 'dsdss',
-            'opening_date': "2022-01-02",
-            'closure_date': "2022-01-25",
-            'voting_method': VotingMethod.objects.get(pk=1).id
-        }
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        response = self.client.get(
-            '/vote/update_voting/1/',
-            follow=True
-        )
+        response = self.client.get('/vote/delete_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'vote/update_voting.html')
-        self.assertIsInstance(response.context['form'], VotingForm)
+        self.assertTemplateUsed(response, 'vote/delete_voting.html')
         self.assertIsInstance(response.context['voting'], Voting)
 
-    # def test_get_with_alternative_scenario(self):
-    #     response = self.client.get('/vote/create_voting/', follow=True)
-    #     self.assertEqual(response.status_code, 200)
-    #     response_msg = response.context['messages']._loaded_data[0]
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],reverse('information:home')
-    #     )
-    #     self.assertEqual(response_msg.level_tag, 'error')
-    #     self.assertEqual(response_msg.message, "Authentification requise")
+    def test_get_with_first_alternative_scenario(self):
+        self.client.login(email='user2@email.com', password='yyy_Yyyy')
+        response = self.client.get('/vote/delete_voting/1/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        response_msg = response.context['messages']._loaded_data[0]
+        self.assertEqual(
+            response.redirect_chain[0][0],reverse('vote:overview')
+        )
+        self.assertEqual(response_msg.level_tag, 'error')
+        self.assertEqual(
+            response_msg.message, "Le crétaeur seulement peut "
+            "supprimer la votation"
+        )
+
+    def test_get_with_second_alternative_scenario(self):
+        response = self.client.get('/vote/delete_voting/1/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        response_msg = response.context['messages']._loaded_data[0]
+        self.assertEqual(
+            response.redirect_chain[0][0],reverse('information:home')
+        )
+        self.assertEqual(response_msg.level_tag, 'error')
+        self.assertEqual(response_msg.message, "Authentification requise")
 
 
     # def test_post_with_nominal_scenario(self):
