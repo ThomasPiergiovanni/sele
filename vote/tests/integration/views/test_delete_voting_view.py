@@ -39,7 +39,7 @@ class DeleteVotingViewTest(TestCase):
         )
         self.assertEqual(response_msg.level_tag, 'error')
         self.assertEqual(
-            response_msg.message, "Le crétaeur seulement peut "
+            response_msg.message, "Le créateur seulement peut "
             "supprimer la votation"
         )
 
@@ -54,21 +54,26 @@ class DeleteVotingViewTest(TestCase):
         self.assertEqual(response_msg.message, "Authentification requise")
 
 
-    # def test_post_with_nominal_scenario(self):
-    #     self.client.login(email='user1@email.com', password='xxx_Xxxx')
-    #     response = self.client.post(
-    #         '/vote/create_voting/', data=self.form_data, follow=True
-    #     )
-    #     response_msg = response.context['messages']._loaded_data[0]
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(
-    #         Voting.objects.all().last().question, 'Ma question est'
-    #     )
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0], reverse('vote:overview')
-    #     )
-    #     self.assertEqual(response_msg.level_tag, 'success')
-    #     self.assertEqual(response_msg.message, "Création réussie")
+    def test_post_with_authenticated_user(self):
+        self.client.login(email='user1@email.com', password='xxx_Xxxx')
+        response = self.client.post('/vote/delete_voting/1/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.redirect_chain[0][0], reverse('vote:overview')
+        )
+        try:
+            voting = Voting.objects.get(pk=1)
+        except:
+            voting = False
+        self.assertFalse(custom_user)
+        self.assertEqual(
+            response.context['messages']._loaded_data[0].message, 
+            "Suppression de votation réussie"
+        )
+        self.assertEqual(
+            response.context['messages']._loaded_data[0].level_tag, 
+            "success"
+        )
     
     # def test_post_with_alternative_scenario_with_wrong_form(self):
     #     self.client.login(email='user1@email.com', password='xxx_Xxxx')

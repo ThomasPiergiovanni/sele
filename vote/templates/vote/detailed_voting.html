@@ -91,7 +91,7 @@
                     <div class="card-body text-truncate">
                         <p class="card-text">Résultat:</br>
                             {% if voting_status == 'Ouvert' %}
-                                <span class="card-text text-secondary">-</span>
+                                <span class="card-text text-secondary font-italic">Votation en cours...</span>
                             {% else %}
                                 <span class="card-text text-secondary">{{voting_result}} %</span>
                             {% endif %}
@@ -106,22 +106,20 @@
                 <form id="delete_voting_form" action="{% url 'vote:delete_voting' id_voting=voting.id %}" method="post" novalidate>
                 </form>
                 <div class="row">
-                    <div class="col-sm-3 mb-2">
+                    <div class="col-sm-6 mb-3">
                         <a href="{{ request.META.HTTP_REFERER }}" role="button">
                             <button type="button"
                                 class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
                         </a>
                     </div>
-                    <div class="col-sm-6 mb-2"></div>
-                    <div class="col-sm-3 mb-2">
+                    <div class="col-sm-6 mb-3">
                         <button type="submit" form="delete_voting_form" class="btn btn-block btn-danger btn-sm ">Supprimer</button>
                     </div>
                 </div>
             {% else %}
                 <div class="row">
-                    <div class="col-sm-3 mb-2"></div>
-                    <div class="col-sm-6 mb-2"></div>
-                    <div class="col-sm-3 mb-2">
+                    <div class="col-sm-6 mb-3"></div>
+                    <div class="col-sm-6 mb-3">
                         <a href="{{ request.META.HTTP_REFERER }}" role="button">
                             <button type="button" class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
                         </a>
