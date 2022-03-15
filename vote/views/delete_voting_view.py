@@ -17,14 +17,16 @@ class DeleteVotingView(View):
     def __init__(self):
         super().__init__()
         self.manager = Manager()
-        self.view_template = 'vote/delete_voting.html'
-        self.first_alternative_view_name = 'vote:overview'
-        self.second_alternative_view_name = 'information:home'
+        self.view_template = 'vote/detailed_voting.html'
+        self.alternative_one_view_name = 'vote:overview'
+        self.alternative_two_view_name = 'information:home'
         self.context = {
-            'voting': None
+            'voting': None,
+            'voting_status': None,
+            'voting_ops': None,
+            'voting_result': None
         }
     
-
     def get(self, request, id_voting):
         """Delete voting view method on client get request.
         """
@@ -33,15 +35,21 @@ class DeleteVotingView(View):
             custom_user = CustomUser.objects.get(pk=request.user.id)
             if voting.custom_user_id == custom_user.id:
                 self.context['voting'] = voting
+                # self.context['voting_status'] = 'Ouvert'
+                self.context['voting_status'] = (
+                    self.manager.get_voting_status(voting)
+                )
+                self.context['voting_ops'] = 'delete'
+                self.context['voting_result'] = '45.3'
                 return render(request, self.view_template, self.context)
             else:
                 messages.add_message(
                     request, messages.ERROR, "Le crétaeur seulement peut "
                     "supprimer la votation",
                 )
-                return redirect(self.first_alternative_view_name) 
+                return redirect(self.alternative_one_view_name) 
         else:
             messages.add_message(
                 request, messages.ERROR, "Authentification requise",
             )
-            return redirect(self.second_alternative_view_name)  
+            return redirect(self.alternative_two_view_name)  

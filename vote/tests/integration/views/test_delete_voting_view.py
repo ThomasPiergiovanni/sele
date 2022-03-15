@@ -32,7 +32,7 @@ class DeleteVotingViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('vote:overview')
+            response.redirect_chain[0][0], reverse('vote:overview')
         )
         self.assertEqual(response_msg.level_tag, 'error')
         self.assertEqual(

@@ -1,0 +1,133 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Votation - 
+                    <span class="text-primary font-weight-bold font-italic">
+                        {{voting.question}}
+                    </span>
+                </h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-vote-yea mr-1"></i>
+                Votation
+            </h3>
+        </div>
+        <!-- /.card-body-->
+        <!-- Table . 2nd card-body-->
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-body">
+                        <p class="card-text">Question:</br>
+                            <span class="card-text text-secondary">{{voting.question}}</span>
+                        </p>
+                        <p class="card-text">Desciption:</br>
+                            <span class="card-text text-secondary">{{voting.description}}</span>
+                        </p>
+                        <p class="card-text">Date de création:</br>
+                            <span class="card-text text-secondary">{{voting.creation_date}}</span>
+                        </p>
+                        <p class="card-text">Type de scrutin:</br>
+                            <span class="card-text text-secondary">{{voting.voting_method.name}}</span>
+                        </p>
+                        <p class="card-text">Statut:</br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-4">
+                    <div class="info-box bg-light">
+                        <div class="info-box-content">
+                            <span class="info-box-text text-center text-muted">Début</span>
+                            <span class="info-box-number text-center text-muted mb-0">{{voting.opening_date}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="info-box bg-light">
+                        <div class="info-box-content">
+                            <span class="info-box-text text-center text-muted">Fin</span>
+                            <span class="info-box-number text-center text-muted mb-0">{{voting.closure_date}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    {% if voting_status == 'Ouvert' %}
+                        <div class="info-box bg-light border border-success">
+                            <div class="info-box-content">
+                                <span class="info-box-text text-center text-success font-weight-bold">
+                                    {{voting_status}}
+                                </span>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="info-box bg-light border border-danger">
+                            <div class="info-box-content">
+                                <span class="info-box-text text-center text-danger font-weight-bold">
+                                    {{voting_status}}
+                                </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-body text-truncate">
+                        <p class="card-text">Résultat:</br>
+                            <span class="card-text text-secondary">{{voting_result}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /end card body -->
+        <div class="card-footer bg-white clearfix">
+            {% if voting_ops == 'delete' %}
+                <form id="delete_voting_form" action="{% url 'vote:delete_voting' id_voting=voting.id %}" method="post" novalidate>
+                </form>
+                <div class="row">
+                    <div class="col-sm-3 mb-2">
+                        <a href="{{ request.META.HTTP_REFERER }}" role="button">
+                            <button type="button"
+                                class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
+                        </a>
+                    </div>
+                    <div class="col-sm-6 mb-2"></div>
+                    <div class="col-sm-3 mb-2">
+                        <button type="submit" form="delete_voting_form" class="btn btn-block btn-danger btn-sm ">Supprimer</button>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-sm-3 mb-2"></div>
+                    <div class="col-sm-6 mb-2"></div>
+                    <div class="col-sm-3 mb-2">
+                        <a href="{{ request.META.HTTP_REFERER }}" role="button">
+                            <button type="button" class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
+                        </a>
+                    </div>
+                </div> 
+            {% endif %}
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+{% endblock %}

@@ -22,3 +22,13 @@ class Manager():
             voting_method=form.cleaned_data['voting_method'],
             custom_user = custom_user
         )
+    
+    def get_voting_status(self, voting):
+        current_date = date.today()
+        if (
+            current_date >= voting.opening_date and 
+            current_date <= voting.closure_date
+        ):
+            return 'Ouvert'
+        else:
+            return 'Fermé'

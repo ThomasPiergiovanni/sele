@@ -15,11 +15,14 @@ class TestDeleteVotingView(TestCase):
         self.assertTrue(self.view)
 
     def test_init_with_attr(self):
-        self.assertEqual(self.view.view_template,'vote/delete_voting.html')
+        self.assertEqual(self.view.view_template,'vote/detailed_voting.html')
         self.assertEqual(
-            self.view.first_alternative_view_name, 'vote:overview'
+            self.view.alternative_one_view_name, 'vote:overview'
         )
         self.assertEqual(
-            self.view.second_alternative_view_name, 'information:home'
+            self.view.alternative_two_view_name, 'information:home'
         )
         self.assertIsNone(self.view.context['voting'])
+        self.assertIsNone(self.view.context['voting_status'])
+        self.assertIsNone(self.view.context['voting_ops'])
+        self.assertIsNone(self.view.context['voting_result'])
