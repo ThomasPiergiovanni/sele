@@ -10,6 +10,7 @@ from authentication.tests.emulation.authentication_emulation import (
 )
 from vote.forms.voting_form import VotingForm
 from vote.management.engine.manager import Manager
+from vote.models.vote import Vote
 from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
 from vote.tests.emulation.vote_emulation import VoteEmulation
@@ -45,7 +46,6 @@ class TestManager(TestCase):
     def test_get_voting_status_with_return_open(self):
         self.auth_emulation.emulate_custom_user()
         self.vote_emulation.emulate_voting_method()
-
         Voting.objects.create(
             question='Emulated question',
             description='Emulated description',
@@ -65,4 +65,12 @@ class TestManager(TestCase):
         voting = Voting.objects.get(pk=1)
         self.assertEqual(
             self.manager.get_voting_status(voting), 'Fermé'
+        )
+    
+    def test_get_votation_result(self):
+        self.vote_emulation.emulate_vote()
+        voting = Voting.objects.get(pk=1)
+        votes = Vote.objects.filter(voting_id__exact=voting)
+        self.assertEqual(
+            self.manager.get_voting_result(votes), 50
         )

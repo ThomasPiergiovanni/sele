@@ -32,3 +32,13 @@ class Manager():
             return 'Ouvert'
         else:
             return 'Fermé'
+    
+    def get_voting_result(self, votes):
+        counter = 0
+        yes_counter = 0
+        for vote in votes:
+            counter += 1
+            if vote.choice:
+                yes_counter += 1
+        return yes_counter/counter * 100
+
