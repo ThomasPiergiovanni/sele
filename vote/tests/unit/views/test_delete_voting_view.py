@@ -24,5 +24,5 @@ class TestDeleteVotingView(TestCase):
         )
         self.assertIsNone(self.view.context['voting'])
         self.assertIsNone(self.view.context['voting_status'])
-        self.assertIsNone(self.view.context['voting_ops'])
+        self.assertIsNone(self.view.context['voting_operation'])
         self.assertIsNone(self.view.context['voting_result'])

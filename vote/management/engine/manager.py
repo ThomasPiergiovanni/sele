@@ -40,5 +40,8 @@ class Manager():
             counter += 1
             if vote.choice:
                 yes_counter += 1
-        return yes_counter/counter * 100
+        try:
+            return yes_counter/counter * 100
+        except ZeroDivisionError:
+           return None
 

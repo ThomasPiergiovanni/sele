@@ -17,14 +17,17 @@ class DeleteVotingViewTest(TestCase):
     """
     def setUp(self):
         self.vote_emulation = VoteEmulation()
-        self.vote_emulation.emulate_voting()
+        self.vote_emulation.emulate_vote()
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.get('/vote/delete_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'vote/delete_voting.html')
+        self.assertTemplateUsed(response, 'vote/detailed_voting.html')
         self.assertIsInstance(response.context['voting'], Voting)
+        self.assertEqual(response.context['voting_status'], 'Fermé')
+        self.assertEqual(response.context['voting_operation'], 'delete')
+        self.assertEqual(response.context['voting_result'], 50)
 
     def test_get_with_first_alternative_scenario(self):
         self.client.login(email='user2@email.com', password='yyy_Yyyy')

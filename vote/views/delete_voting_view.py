@@ -1,13 +1,12 @@
 """Delete voting view module
 """
-from datetime import date
-
 from django.contrib import messages
 from django.views import View
 from django.shortcuts import redirect, render
 
 from authentication.models import CustomUser
 from vote.management.engine.manager import Manager
+from vote.models.vote import Vote
 from vote.models.voting import Voting
 
 
@@ -23,7 +22,7 @@ class DeleteVotingView(View):
         self.context = {
             'voting': None,
             'voting_status': None,
-            'voting_ops': None,
+            'voting_operation': None,
             'voting_result': None
         }
     
@@ -34,13 +33,15 @@ class DeleteVotingView(View):
             voting = Voting.objects.get(pk=id_voting)
             custom_user = CustomUser.objects.get(pk=request.user.id)
             if voting.custom_user_id == custom_user.id:
+                votes = Vote.objects.filter(voting_id__exact=voting)
                 self.context['voting'] = voting
-                # self.context['voting_status'] = 'Ouvert'
                 self.context['voting_status'] = (
                     self.manager.get_voting_status(voting)
                 )
-                self.context['voting_ops'] = 'delete'
-                self.context['voting_result'] = '45.3'
+                self.context['voting_operation'] = 'delete'
+                self.context['voting_result'] = (
+                    self.manager.get_voting_result(votes)
+                )
                 return render(request, self.view_template, self.context)
             else:
                 messages.add_message(
