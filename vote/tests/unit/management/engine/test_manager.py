@@ -42,6 +42,21 @@ class TestManager(TestCase):
             Voting.objects.all().order_by('-id')[0].description,
             'dsdss'
         )
+    
+    def test_set_context_with_return_context(self):
+        self.vote_emulation.emulate_vote()
+        context = {
+            'voting': None,
+            'voting_operation': None, 
+            'voting_result': None,                       
+            'voting_status': None
+        }
+        voting = Voting.objects.get(pk=1)
+        context = self.manager.set_context(context, voting)
+        self.assertEqual(context['voting'], voting )
+        self.assertEqual(context['voting_operation'], 'delete')
+        self.assertEqual(context['voting_result'], 50 )
+        self.assertEqual(context['voting_status'], 'Fermé' )
 
     def test_get_voting_status_with_return_open(self):
         self.auth_emulation.emulate_custom_user()
@@ -57,14 +72,14 @@ class TestManager(TestCase):
         )
         voting = Voting.objects.all().order_by('-id')[0]
         self.assertEqual(
-            self.manager.get_voting_status(voting), 'Ouvert'
+            self.manager._Manager__get_voting_status(voting), 'Ouvert'
         )
 
     def test_get_voting_status_with_return_closed(self):
         self.vote_emulation.emulate_voting()
         voting = Voting.objects.get(pk=1)
         self.assertEqual(
-            self.manager.get_voting_status(voting), 'Fermé'
+            self.manager._Manager__get_voting_status(voting), 'Fermé'
         )
     
     def test_get_votation_result(self):
@@ -72,5 +87,5 @@ class TestManager(TestCase):
         voting = Voting.objects.get(pk=1)
         votes = Vote.objects.filter(voting_id__exact=voting)
         self.assertEqual(
-            self.manager.get_voting_result(votes), 50
+            self.manager._Manager__get_voting_result(votes), 50
         )

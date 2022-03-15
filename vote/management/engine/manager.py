@@ -23,7 +23,16 @@ class Manager():
             custom_user = custom_user
         )
     
-    def get_voting_status(self, voting):
+    def set_context(self, context, voting):
+        votes = Vote.objects.filter(voting_id__exact=voting)
+        context['voting'] = voting
+        context['voting_operation'] = 'delete'
+        context['voting_result'] = self.__get_voting_result(votes)
+        context['voting_status'] = self.__get_voting_status(voting)
+
+        return context
+
+    def __get_voting_status(self, voting):
         current_date = date.today()
         if (
             current_date >= voting.opening_date and 
@@ -33,7 +42,7 @@ class Manager():
         else:
             return 'Fermé'
     
-    def get_voting_result(self, votes):
+    def __get_voting_result(self, votes):
         counter = 0
         yes_counter = 0
         for vote in votes:
@@ -44,4 +53,3 @@ class Manager():
             return yes_counter/counter * 100
         except ZeroDivisionError:
            return None
-

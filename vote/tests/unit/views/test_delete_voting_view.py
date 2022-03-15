@@ -26,3 +26,13 @@ class TestDeleteVotingView(TestCase):
         self.assertIsNone(self.view.context['voting_status'])
         self.assertIsNone(self.view.context['voting_operation'])
         self.assertIsNone(self.view.context['voting_result'])
+        self.assertEqual(
+            self.view.msg_unauthenticated, "Authentification requise"
+        )
+        self.assertEqual(
+            self.view.msg_not_owner,
+            "Le créateur seulement peut supprimer la votation"
+        )
+        self.assertEqual(
+            self.view.msg_post_success,"Suppression de votation réussie"
+        )

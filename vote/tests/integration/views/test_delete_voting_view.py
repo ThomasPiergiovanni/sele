@@ -65,7 +65,7 @@ class DeleteVotingViewTest(TestCase):
             voting = Voting.objects.get(pk=1)
         except:
             voting = False
-        self.assertFalse(custom_user)
+        self.assertFalse(voting)
         self.assertEqual(
             response.context['messages']._loaded_data[0].message, 
             "Suppression de votation réussie"
@@ -74,24 +74,27 @@ class DeleteVotingViewTest(TestCase):
             response.context['messages']._loaded_data[0].level_tag, 
             "success"
         )
-    
-    # def test_post_with_alternative_scenario_with_wrong_form(self):
-    #     self.client.login(email='user1@email.com', password='xxx_Xxxx')
-    #     response = self.client.post(
-    #         '/vote/create_voting/', data=self.wrong_form_data, follow=True
-    #     )
-    #     self.assertTemplateUsed(response, 'vote/create_voting.html')
-    #     self.assertIsInstance(response.context['form'], VotingForm)
-    #     self.assertTrue(response.context['form'].errors)
 
-    # def test_post_with_alternative_scenario_with_unauthenticated_user(self):
-    #     response = self.client.post(
-    #         '/vote/create_voting/', data=self.form_data, follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     response_msg = response.context['messages']._loaded_data[0]
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],reverse('information:home')
-    #     )
-    #     self.assertEqual(response_msg.level_tag, 'error')
-    #     self.assertEqual(response_msg.message, "Authentification requise")
+    def test_post_with_first_alternative_scenario(self):
+        self.client.login(email='user2@email.com', password='yyy_Yyyy')
+        response = self.client.post('/vote/delete_voting/1/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        response_msg = response.context['messages']._loaded_data[0]
+        self.assertEqual(
+            response.redirect_chain[0][0], reverse('vote:overview')
+        )
+        self.assertEqual(response_msg.level_tag, 'error')
+        self.assertEqual(
+            response_msg.message, "Le créateur seulement peut "
+            "supprimer la votation"
+        )
+
+    def test_post_with_second_alternative_scenario(self):
+        response = self.client.post('/vote/delete_voting/1/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        response_msg = response.context['messages']._loaded_data[0]
+        self.assertEqual(
+            response.redirect_chain[0][0],reverse('information:home')
+        )
+        self.assertEqual(response_msg.level_tag, 'error')
+        self.assertEqual(response_msg.message, "Authentification requise")
