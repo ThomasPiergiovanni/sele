@@ -36,7 +36,7 @@ class DeleteVotingView(View):
         if request.user.is_authenticated:
             voting = Voting.objects.get(pk=id_voting)
             custom_user = CustomUser.objects.get(pk=request.user.id)
-            if voting.custom_user_id == custom_user.id:
+            if voting.voting_custom_user_id == custom_user.id:
                 self.context = self.manager.set_context(
                     self.context, voting, 'delete'
                 )
@@ -58,7 +58,7 @@ class DeleteVotingView(View):
         if request.user.is_authenticated:
             voting = Voting.objects.get(pk=id_voting)
             custom_user = CustomUser.objects.get(pk=request.user.id)
-            if voting.custom_user_id == custom_user.id:
+            if voting.voting_custom_user_id == custom_user.id:
                 voting.delete()
                 messages.add_message(
                     request, messages.SUCCESS, self.msg_post_success

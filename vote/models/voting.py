@@ -15,8 +15,8 @@ class Voting(models.Model):
     voting_method = models.ForeignKey(
         VotingMethod, on_delete=models.CASCADE, related_name="voting_method"
     )
-    custom_user = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, related_name="custom_user"
+    voting_custom_user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="voting_custom_user"
     )
     votes = models.ManyToManyField(
         CustomUser, through='Vote',  related_name="votes"

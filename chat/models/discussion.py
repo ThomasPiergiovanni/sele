@@ -8,9 +8,9 @@ class Discussion(models.Model):
     """
     subject = models.CharField(max_length=256, unique=False)
     creation_date =  models.DateTimeField()
-    custom_user = models.ForeignKey(
-        CustomUser, models.CASCADE, related_name="custom_user"
+    discussion_custom_user = models.ForeignKey(
+        CustomUser, models.CASCADE, related_name="discussion_custom_user"
     )
-    relation_custom_user = models.ManyToManyField(
-        CustomUser, through='Comment',  related_name="relation_custom_user"
+    comments = models.ManyToManyField(
+        CustomUser, through='Comment',  related_name="comments"
     )

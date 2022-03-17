@@ -59,8 +59,8 @@ class VotingTest(TestCase):
             type(models.ForeignKey(VotingMethod, on_delete=models.CASCADE))
         )
         
-    def test_voting_with_attr_custom_user_characteristic(self):
-        attribute = Voting._meta.get_field('custom_user')
+    def test_voting_with_attr_voting_custom_user_characteristic(self):
+        attribute = Voting._meta.get_field('voting_custom_user')
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),

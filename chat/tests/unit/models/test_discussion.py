@@ -26,7 +26,7 @@ class DiscussionTest(TestCase):
             creation_date=datetime(
                 2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc
             ),
-            custom_user_id=1
+            discussion_custom_user=1
         ),
         Discussion.objects.create(
             id=2,
@@ -34,7 +34,7 @@ class DiscussionTest(TestCase):
             creation_date=datetime(
                 2022, 1, 20, 17, 10, 38, tzinfo=timezone.utc
             ),
-            custom_user_id=2
+            discussion_custom_user=2
         )
 
     def test_discussion_with_discussion_class(self):

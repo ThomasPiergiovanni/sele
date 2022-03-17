@@ -68,7 +68,7 @@ class TestManager(TestCase):
             opening_date=date.today() - timedelta(1),
             closure_date=date.today() + timedelta(1),
             voting_method=VotingMethod.objects.get(pk=1),
-            custom_user = CustomUser.objects.get(pk=1)    
+            voting_custom_user = CustomUser.objects.get(pk=1)    
         )
         voting = Voting.objects.all().order_by('-id')[0]
         self.assertEqual(

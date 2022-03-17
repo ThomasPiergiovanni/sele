@@ -20,7 +20,7 @@ class Manager():
             opening_date=form.cleaned_data['opening_date'],
             closure_date=form.cleaned_data['closure_date'],
             voting_method=form.cleaned_data['voting_method'],
-            custom_user = custom_user
+            voting_custom_user = custom_user
         )
     
     def set_context(self, context, voting , operation):

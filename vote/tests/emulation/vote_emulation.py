@@ -45,7 +45,7 @@ class VoteEmulation():
             opening_date = "2022-01-11",
             closure_date = "2022-01-19",
             voting_method_id=1,
-            custom_user_id=1
+            voting_custom_user_id=1
         )
         Voting.objects.create(
             id=2,
@@ -64,7 +64,7 @@ class VoteEmulation():
             opening_date = "2022-01-21",
             closure_date = "2022-01-29",
             voting_method_id=2,
-            custom_user_id=2
+            voting_custom_user_id=2
         )
 
     def emulate_vote(self):
