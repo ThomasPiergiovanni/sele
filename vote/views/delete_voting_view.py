@@ -38,12 +38,12 @@ class DeleteVotingView(View):
             custom_user = CustomUser.objects.get(pk=request.user.id)
             if voting.custom_user_id == custom_user.id:
                 self.context = self.manager.set_context(
-                    self.context, voting
+                    self.context, voting, 'delete'
                 )
                 return render(request, self.view_template, self.context)
             else:
                 messages.add_message(
-                    request, messages.ERROR, self.msg_not_owner
+                    request, messages.ERROR, self.msg_not_owner,
                 )
                 return redirect(self.alternative_one_view_name) 
         else:
@@ -69,7 +69,6 @@ class DeleteVotingView(View):
                     request, messages.ERROR, self.msg_not_owner
                 )
                 return redirect(self.alternative_one_view_name)
-
         else:
             messages.add_message(
                 request, messages.ERROR, self.msg_unauthenticated

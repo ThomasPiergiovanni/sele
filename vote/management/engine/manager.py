@@ -23,10 +23,10 @@ class Manager():
             custom_user = custom_user
         )
     
-    def set_context(self, context, voting):
+    def set_context(self, context, voting , operation):
         votes = Vote.objects.filter(voting_id__exact=voting)
         context['voting'] = voting
-        context['voting_operation'] = 'delete'
+        context['voting_operation'] = operation
         context['voting_result'] = self.__get_voting_result(votes)
         context['voting_status'] = self.__get_voting_status(voting)
 

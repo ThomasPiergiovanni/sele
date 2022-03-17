@@ -48,11 +48,11 @@ class TestManager(TestCase):
         context = {
             'voting': None,
             'voting_operation': None, 
-            'voting_result': None,                       
+            'voting_result': None,  
             'voting_status': None
         }
         voting = Voting.objects.get(pk=1)
-        context = self.manager.set_context(context, voting)
+        context = self.manager.set_context(context, voting ,'delete')
         self.assertEqual(context['voting'], voting )
         self.assertEqual(context['voting_operation'], 'delete')
         self.assertEqual(context['voting_result'], 50 )
