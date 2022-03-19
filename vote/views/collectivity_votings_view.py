@@ -1,3 +1,5 @@
+from django.core.paginator import Paginator
+
 from django.contrib import messages
 from django.views import View
 from django.shortcuts import redirect, render
@@ -27,11 +29,13 @@ class CollectivityVotingsView(View):
             votings = Voting.objects.filter(
                 voting_custom_user_id__collectivity_id__exact=
                 request.user.collectivity
-            )
+            ).order_by('-creation_date')
+            paginator = Paginator(votings, 6)
+            page_number = request.GET.get('page')
             # self.context = self.manager.set_context(
             #     self.context, voting, 'read'
             # )
-            self.context['page_objects'] = votings
+            self.context['page_objects'] = paginator.get_page(page_number)
             return render(request, self.view_template, self.context)
         else:
             messages.add_message(
