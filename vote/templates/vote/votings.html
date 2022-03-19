@@ -87,7 +87,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    {% for voting in page_objects%}
+                                        <tr>
+                                            <td>
+                                                {{voting.id}}
+                                            </td>
+                                            <td>
+                                                {{voting.question}}
+                                            </td>
+                                            <td class="text-center">
+                                                {{voting.creation_date}}
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'vote:detailed_voting' id_voting=voting.id %}" role="button">
+                                                    <button type="button"
+                                                        class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'vote:delete_voting' id_voting=voting.id %}" role="button">
+                                                    <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor%}
+                                    <!-- <tr>
                                         <td>1</td>
                                         <td>Demande-t-on le nettoyage du mur Rue du Bac?</td>
                                         <td class="text-center">10-01-2022</td>
@@ -134,7 +158,7 @@
                                                 <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
                                             </a>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
