@@ -5,7 +5,7 @@ from django.test import TestCase
 from vote.forms.voting_form import VotingForm
 from vote.views.delete_voting_view import DeleteVotingView
 
-class TestDeleteVotingView(TestCase):
+class DeleteVotingViewTest(TestCase):
     """Test DeleteVotingView class.
     """
     def setUp(self):

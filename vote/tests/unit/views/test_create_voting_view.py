@@ -6,7 +6,7 @@ from vote.forms.voting_form import VotingForm
 from vote.views.create_voting_view import CreateVotingView
 
 
-class TestCreateVotingView(TestCase):
+class CreateVotingViewTest(TestCase):
     """Test CreateVotingView class.
     """
     def setUp(self):

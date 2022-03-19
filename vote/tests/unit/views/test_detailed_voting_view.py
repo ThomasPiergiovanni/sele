@@ -4,7 +4,7 @@ from django.test import TestCase
 
 from vote.views.detailed_voting_view import DetailedVotingView
 
-class TestDetailedVotingView(TestCase):
+class DetailedVotingViewTest(TestCase):
     """TestDetailedVotingView class.
     """
     def setUp(self):
