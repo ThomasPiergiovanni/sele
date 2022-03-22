@@ -1,0 +1,27 @@
+<div class="row align-items-end text-center">
+    <div class="col">
+        <ul class="pagination pagination-sm m-0 float-right">
+            {% if page_objects.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_objects.previous_page_number }}">&laquo;</a></li>
+            {% endif %}
+            {% for i in page_objects.paginator.page_range %}
+                {% if page_objects.number == i %}
+                <li class="page-item active"><a class="page-link" href=?page="{{ i }}">{{i}}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            <!-- <span class="current text-dark">
+                Page {{ page_objects.number }} de {{ page_objects.paginator.num_pages }}.
+            </span> -->
+
+            <!-- {% if page_objects.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_objects.next_page_number }}">&raquo;</a></li> -->
+            <!-- <a href=#favorite_section" class="ele_dark_href">&laquo;</a> -->
+            <!-- {% else %}
+            <li class="page-item disabled"><span>&laquo;</span></li>
+            {% endif %} -->
+        </ul>
+    </div>
+</div>

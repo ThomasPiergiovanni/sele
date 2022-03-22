@@ -30,7 +30,7 @@ class CollectivityVotingsView(View):
                 voting_custom_user_id__collectivity_id__exact=
                 request.user.collectivity
             ).order_by('-creation_date')
-            paginator = Paginator(votings, 6)
+            paginator = Paginator(votings, 3)
             page_number = request.GET.get('page')
             # self.context = self.manager.set_context(
             #     self.context, voting, 'read'
