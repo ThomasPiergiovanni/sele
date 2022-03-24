@@ -20,14 +20,18 @@ class CollectivityVotingsViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'vote/votings.html')
         self.assertIsInstance(response.context['page_objects'][0], Voting)
+        self.assertEqual(
+            response.context['page_objects'][0].question,
+            "Voulez-vous créer une demande de nettoyage?"
+        )
 
 
-    # def test_get_with_alternative_scenario(self):
-    #     response = self.client.get('/vote/detailed_voting/1/', follow=True)
-    #     self.assertEqual(response.status_code, 200)
-    #     response_msg = response.context['messages']._loaded_data[0]
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],reverse('information:home')
-    #     )
-    #     self.assertEqual(response_msg.level_tag, 'error')
-    #     self.assertEqual(response_msg.message, "Authentification requise")
+    def test_get_with_alternative_scenario(self):
+        response = self.client.get('/vote/collectivity_votings/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        response_msg = response.context['messages']._loaded_data[0]
+        self.assertEqual(
+            response.redirect_chain[0][0],reverse('information:home')
+        )
+        self.assertEqual(response_msg.level_tag, 'error')
+        self.assertEqual(response_msg.message, "Authentification requise")
