@@ -2,9 +2,10 @@
 """
 from datetime import date, timedelta
 
-from django.test import TestCase
-from authentication.models import CustomUser
+from django.contrib.auth import authenticate
+from django.test import RequestFactory, TestCase
 
+from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
@@ -89,3 +90,11 @@ class TestManager(TestCase):
         self.assertEqual(
             self.manager._Manager__get_voting_result(votes), 50
         )
+    
+    def test_create_page_objects(self):
+        self.vote_emulation.emulate_vote()
+        request = RequestFactory().get('', data={'page': 1})        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user  
+        page_objects = self.manager.create_page_objects(request)
+        self.assertEqual(page_objects[0].id, 1)

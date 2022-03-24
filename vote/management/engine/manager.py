@@ -1,4 +1,7 @@
 from datetime import date
+
+from django.core.paginator import Paginator
+
 from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
 from vote.models.vote import Vote
@@ -53,3 +56,13 @@ class Manager():
             return yes_counter/counter * 100
         except ZeroDivisionError:
            return None
+    
+    def create_page_objects(self, request):
+        votings = Voting.objects.filter(
+            voting_custom_user_id__collectivity_id__exact=
+            request.user.collectivity
+        ).order_by('-creation_date')
+        paginator = Paginator(votings, 3)
+        page_number = request.GET.get('page')
+        page_objects = paginator.get_page(page_number)
+        return page_objects

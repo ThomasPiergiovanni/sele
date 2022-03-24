@@ -26,16 +26,9 @@ class CollectivityVotingsView(View):
         """CollectivityVotingsView method on client get request.
         """
         if request.user.is_authenticated:
-            votings = Voting.objects.filter(
-                voting_custom_user_id__collectivity_id__exact=
-                request.user.collectivity
-            ).order_by('-creation_date')
-            paginator = Paginator(votings, 3)
-            page_number = request.GET.get('page')
-            # self.context = self.manager.set_context(
-            #     self.context, voting, 'read'
-            # )
-            self.context['page_objects'] = paginator.get_page(page_number)
+            self.context['page_objects'] = self.manager.create_page_objects(
+                request
+            )
             return render(request, self.view_template, self.context)
         else:
             messages.add_message(
