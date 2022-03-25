@@ -9,7 +9,15 @@ class Vote(models.Model):
     """
     choice = models.BooleanField(null=False)
     creation_date = models.DateTimeField()
-    voting = models.ForeignKey(Voting, on_delete=models.CASCADE, null=False)
-    custom_user = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, null=False
+    vote_voting = models.ForeignKey(
+        Voting,
+        on_delete=models.CASCADE,
+        null=False,
+        related_name="vote_voting"
+    )
+    vote_custom_user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        null=False,
+        related_name="vote_custom_user"
     )

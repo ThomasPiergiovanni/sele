@@ -1,16 +1,15 @@
-from django.core.paginator import Paginator
-
+"""CollectivityVotingsView module.
+"""
 from django.contrib import messages
 from django.views import View
 from django.shortcuts import redirect, render
 
-from authentication.models import CustomUser
 from vote.management.engine.manager import Manager
-from vote.models.voting import Voting
+
 
 
 class CollectivityVotingsView(View):
-    """CollectivityVotings class.
+    """CollectivityVotingsView class.
     """
     def __init__(self):
         super().__init__()
