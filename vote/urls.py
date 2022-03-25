@@ -3,6 +3,7 @@
 from django.urls import path
 
 from vote.views.collectivity_votings_view import CollectivityVotingsView
+from vote.views.create_vote_view import CreateVoteView
 from vote.views.create_voting_view import CreateVotingView
 from vote.views.delete_voting_view import DeleteVotingView
 from vote.views.detailed_voting_view import DetailedVotingView
@@ -15,6 +16,11 @@ urlpatterns = [
         'collectivity_votings/',
         CollectivityVotingsView.as_view(),
         name='collectivity_votings'
+    ),
+    path(
+        'create_vote/<int:id_voting>/', 
+        CreateVoteView.as_view(),
+        name='create_vote'
     ),
     path('create_voting/', CreateVotingView.as_view(), name='create_voting'),
     path(

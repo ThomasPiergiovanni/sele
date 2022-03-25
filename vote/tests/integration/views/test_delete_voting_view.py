@@ -23,11 +23,8 @@ class DeleteVotingViewTest(TestCase):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.get('/vote/delete_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'vote/detailed_voting.html')
+        self.assertTemplateUsed(response, 'vote/delete_voting.html')
         self.assertIsInstance(response.context['voting'], Voting)
-        self.assertEqual(response.context['voting_status'], 'Fermé')
-        self.assertEqual(response.context['voting_operation'], 'delete')
-        self.assertEqual(response.context['voting_result'], 50)
 
     def test_get_with_first_alternative_scenario(self):
         self.client.login(email='user2@email.com', password='yyy_Yyyy')
@@ -35,7 +32,7 @@ class DeleteVotingViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0], reverse('vote:overview')
+            response.redirect_chain[0][0], reverse('vote:collectivity_votings')
         )
         self.assertEqual(response_msg.level_tag, 'error')
         self.assertEqual(
@@ -59,7 +56,7 @@ class DeleteVotingViewTest(TestCase):
         response = self.client.post('/vote/delete_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0], reverse('vote:overview')
+            response.redirect_chain[0][0], reverse('vote:collectivity_votings')
         )
         try:
             voting = Voting.objects.get(pk=1)
@@ -81,7 +78,7 @@ class DeleteVotingViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0], reverse('vote:overview')
+            response.redirect_chain[0][0], reverse('vote:collectivity_votings')
         )
         self.assertEqual(response_msg.level_tag, 'error')
         self.assertEqual(

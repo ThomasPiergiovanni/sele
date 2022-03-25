@@ -2,7 +2,6 @@
 """
 from django.test import TestCase
 
-from vote.forms.voting_form import VotingForm
 from vote.views.delete_voting_view import DeleteVotingView
 
 class DeleteVotingViewTest(TestCase):
@@ -15,7 +14,7 @@ class DeleteVotingViewTest(TestCase):
         self.assertTrue(self.view)
 
     def test_init_with_attr(self):
-        self.assertEqual(self.view.view_template,'vote/detailed_voting.html')
+        self.assertEqual(self.view.view_template,'vote/delete_voting.html')
         self.assertEqual(
             self.view.alternative_one_view_name, 'vote:overview'
         )
@@ -23,9 +22,6 @@ class DeleteVotingViewTest(TestCase):
             self.view.alternative_two_view_name, 'information:home'
         )
         self.assertIsNone(self.view.context['voting'])
-        self.assertIsNone(self.view.context['voting_status'])
-        self.assertIsNone(self.view.context['voting_operation'])
-        self.assertIsNone(self.view.context['voting_result'])
         self.assertEqual(
             self.view.msg_unauthenticated, "Authentification requise"
         )

@@ -65,7 +65,7 @@ class CreateVotingViewTest(TestCase):
             Voting.objects.all().last().question, 'Ma question est'
         )
         self.assertEqual(
-            response.redirect_chain[0][0], reverse('vote:overview')
+            response.redirect_chain[0][0], reverse('vote:collectivity_votings')
         )
         self.assertEqual(response_msg.level_tag, 'success')
         self.assertEqual(response_msg.message, "Création réussie")

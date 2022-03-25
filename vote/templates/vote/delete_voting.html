@@ -1,0 +1,39 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class=" login-page">
+    <div class="login-box ">
+        <div class="login-logo">
+            <a href="../../index2.html"><b>sel-</b>E</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Supprimer la votation</p>
+                <p class="font-weight-bold"> "{{voting.question}}"</p>
+                <form id="delete_vote_form" action="{% url 'vote:delete_voting' id_voting=voting.id %}" method="post" novalidate>
+                </form>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="{{ request.META.HTTP_REFERER }}" role="button">
+                            <button type="button" class="text-secondary btn btn-block btn-light border border-secondary mt-4">
+                                Annuler
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" form="delete_vote_form" class="btn btn-danger btn-block mt-4" value="no">
+                            Supprimer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
+</div>
+<!-- /.login-page -->
+{% endblock %}

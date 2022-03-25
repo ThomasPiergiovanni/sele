@@ -15,14 +15,11 @@ class DeleteVotingView(View):
     def __init__(self):
         super().__init__()
         self.manager = Manager()
-        self.view_template = 'vote/detailed_voting.html'
-        self.alternative_one_view_name = 'vote:overview'
+        self.view_template = 'vote/delete_voting.html'
+        self.alternative_one_view_name = 'vote:collectivity_votings'
         self.alternative_two_view_name = 'information:home'
         self.context = {
-            'voting': None,
-            'voting_operation': None, 
-            'voting_result': None,                       
-            'voting_status': None
+            'voting': None
         }
         self.msg_unauthenticated = "Authentification requise"
         self.msg_not_owner = (
@@ -35,11 +32,8 @@ class DeleteVotingView(View):
         """
         if request.user.is_authenticated:
             voting = Voting.objects.get(pk=id_voting)
-            custom_user = CustomUser.objects.get(pk=request.user.id)
-            if voting.voting_custom_user_id == custom_user.id:
-                self.context = self.manager.set_context(
-                    self.context, voting, 'delete'
-                )
+            if voting.voting_custom_user_id == request.user.id:
+                self.context['voting'] = voting
                 return render(request, self.view_template, self.context)
             else:
                 messages.add_message(
@@ -57,8 +51,7 @@ class DeleteVotingView(View):
         """
         if request.user.is_authenticated:
             voting = Voting.objects.get(pk=id_voting)
-            custom_user = CustomUser.objects.get(pk=request.user.id)
-            if voting.voting_custom_user_id == custom_user.id:
+            if voting.voting_custom_user_id == request.user.id:
                 voting.delete()
                 messages.add_message(
                     request, messages.SUCCESS, self.msg_post_success

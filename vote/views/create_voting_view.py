@@ -19,7 +19,7 @@ class CreateVotingView(View):
         }
         self.view_template = 'vote/create_voting.html'
         self.alternative_view_name = 'information:home'
-        self.post_view_name = 'vote:overview'
+        self.post_view_name = 'vote:collectivity_votings'
 
     def get(self, request):
         """Create voting view method on user get request.

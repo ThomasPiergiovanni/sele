@@ -2,8 +2,7 @@
 """
 from django.test import TestCase
 
-from vote.forms.voting_form import VotingForm
-from vote.views.delete_voting_view import CreateVoteView
+from vote.views.create_vote_view import CreateVoteView
 
 class CreateVoteViewTest(TestCase):
     """Test CreateVoteView class.

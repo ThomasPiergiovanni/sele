@@ -77,8 +77,8 @@ class VoteEmulation():
             creation_date=datetime(
                 2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc
             ), 
-            voting_id=1,
-            custom_user_id=1,
+            vote_voting_id=1,
+            vote_custom_user_id=1,
         ),
         Vote.objects.create(
             id=2,
@@ -86,6 +86,6 @@ class VoteEmulation():
             creation_date=datetime(
                 2022, 1, 20, 17, 10, 38, tzinfo=timezone.utc
             ), 
-            voting_id=1,
-            custom_user_id=2,
+            vote_voting_id=1,
+            vote_custom_user_id=2,
         )

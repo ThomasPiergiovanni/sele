@@ -102,51 +102,33 @@
         </div>
         <!-- /end card body -->
         <div class="card-footer bg-white clearfix">
-            {% if voting_operation == 'delete' %}
-                <form id="delete_voting_form" action="{% url 'vote:delete_voting' id_voting=voting.id %}" method="post" novalidate>
-                </form>
+            {% if voting_status == 'Ouvert' %}
                 <div class="row">
                     <div class="col-sm-6 mb-3">
                         <a href="{{ request.META.HTTP_REFERER }}" role="button">
-                            <button type="button"
-                                class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
+                            <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
+                                Annuler
+                            </button>
                         </a>
                     </div>
                     <div class="col-sm-6 mb-3">
-                        <button type="submit" form="delete_voting_form" class="btn btn-block btn-danger btn-sm ">Supprimer</button>
+                        <a href="{% url 'vote:create_vote' id_voting=voting.id %}" role="button">
+                            <button type="button" class="btn btn-block btn-primary">
+                                Participer au vote!
+                            </button>
+                        </a>
                     </div>
                 </div>
             {% else %}
-                {% if voting_status == 'Ouvert' %}
-                    <form id="create_vote_form" action="" method="post" novalidate>
-                    </form>
-                    <div class="row">
-                        <div class="col-sm-6 mb-3">
-                            <a href="{{ request.META.HTTP_REFERER }}" role="button">
-                                <button type="button"
-                                    class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 mb-3">
-                            <a href="" role="button">
-                                <button type="button" form="create_vote_form"
-                                    class="text-primary btn btn-block btn-light border border-primary btn-sm">Participer au vote!</button>
-                            </a>
-                        </div>
+                <div class="row">
+                    <div class="col-sm-6 mb-3"></div>
+                    <div class="col-sm-6 mb-3">
+                        <a href="{{ request.META.HTTP_REFERER }}" role="button">
+                            <button type="button"
+                                class="text-secondary btn btn-block btn-light border border-secondary">Annuler</button>
+                        </a>
                     </div>
-                {% else %}
-                    <div class="row">
-                        <div class="col-sm-6 mb-3"></div>
-                        <div class="col-sm-6 mb-3">
-                            <a href="{{ request.META.HTTP_REFERER }}" role="button">
-                                <button type="button"
-                                    class="text-secondary btn btn-block btn-light border border-secondary btn-sm">Annuler</button>
-                            </a>
-                        </div>
-                    </div>
-                {% endif %}
-
-                
+                </div>
             {% endif %}
         </div>
         <!-- /.card-footer-->

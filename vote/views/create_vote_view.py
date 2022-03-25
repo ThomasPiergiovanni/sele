@@ -1,8 +1,10 @@
 """Create vote view module
 """
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.views import View
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from authentication.models import CustomUser
 from vote.management.engine.manager import Manager
@@ -17,7 +19,7 @@ class CreateVoteView(View):
         super().__init__()
         self.manager = Manager()
         self.view_template = 'vote/create_vote.html'
-        self.alternative_one_view_name = 'vote:overview'
+        self.alternative_one_view_name = 'vote:detailed_voting'
         self.alternative_two_view_name = 'information:home'
         self.context = {
             'voting': None,
@@ -31,46 +33,49 @@ class CreateVoteView(View):
         """
         if request.user.is_authenticated:
             voting = Voting.objects.get(pk=id_voting)
-            custom_user = CustomUser.objects.get(pk=request.user.id)
+            print(voting.id)
+            print(request.user.id)
+            # custom_user = CustomUser.objects.get(pk=request.user.id)
             vote = Vote.objects.filter(
                 vote_voting__exact=id_voting,
-                vote_custom_user__exact=request.user
+                vote_custom_user__exact=request.user.id
             )
-            if vote is None:
-                self.context = self.manager.set_context(
-                    self.context, voting, 'delete'
-                )
+            if len(vote) == 0:
+                print("here")
+                self.context['voting'] = voting
+
                 return render(request, self.view_template, self.context)
             else:
+                print("hara")
                 messages.add_message(
-                    request, messages.ERROR, self.msg_not_owner,
+                    request, messages.ERROR, self.msg_already_voted,
                 )
-                return redirect(self.alternative_one_view_name) 
+                return HttpResponseRedirect(reverse(self.alternative_one_view_name, args=[id_voting]) )
         else:
             messages.add_message(
                 request, messages.ERROR, self.msg_unauthenticated
             )
             return redirect(self.alternative_two_view_name)
 
-    def post(self, request, id_voting):
-        """Delete voting view method on client post request.
-        """
-        if request.user.is_authenticated:
-            voting = Voting.objects.get(pk=id_voting)
-            custom_user = CustomUser.objects.get(pk=request.user.id)
-            if voting.voting_custom_user_id == custom_user.id:
-                voting.delete()
-                messages.add_message(
-                    request, messages.SUCCESS, self.msg_post_success
-                )
-                return redirect(self.alternative_one_view_name)
-            else:
-                messages.add_message(
-                    request, messages.ERROR, self.msg_not_owner
-                )
-                return redirect(self.alternative_one_view_name)
-        else:
-            messages.add_message(
-                request, messages.ERROR, self.msg_unauthenticated
-            )
-            return redirect(self.alternative_two_view_name)
+    # def post(self, request, id_voting):
+    #     """Delete voting view method on client post request.
+    #     """
+    #     if request.user.is_authenticated:
+    #         voting = Voting.objects.get(pk=id_voting)
+    #         custom_user = CustomUser.objects.get(pk=request.user.id)
+    #         if voting.voting_custom_user_id == custom_user.id:
+    #             voting.delete()
+    #             messages.add_message(
+    #                 request, messages.SUCCESS, self.msg_post_success
+    #             )
+    #             return redirect(self.alternative_one_view_name)
+    #         else:
+    #             messages.add_message(
+    #                 request, messages.ERROR, self.msg_not_owner
+    #             )
+    #             return redirect(self.alternative_one_view_name)
+    #     else:
+    #         messages.add_message(
+    #             request, messages.ERROR, self.msg_unauthenticated
+    #         )
+    #         return redirect(self.alternative_two_view_name)

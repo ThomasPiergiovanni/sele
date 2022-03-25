@@ -27,7 +27,7 @@ class Manager():
         )
     
     def set_context(self, context, voting , operation):
-        votes = Vote.objects.filter(voting_id__exact=voting)
+        votes = Vote.objects.filter(vote_voting_id__exact=voting)
         context['voting'] = voting
         context['voting_operation'] = operation
         context['voting_result'] = self.__get_voting_result(votes)
