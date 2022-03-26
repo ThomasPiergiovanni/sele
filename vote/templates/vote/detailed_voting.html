@@ -4,6 +4,7 @@
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
+        {% include 'information/messages.html' %}
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">Votation - 
@@ -105,9 +106,9 @@
             {% if voting_status == 'Ouvert' %}
                 <div class="row">
                     <div class="col-sm-6 mb-3">
-                        <a href="{{ request.META.HTTP_REFERER }}" role="button">
+                        <a href="{% url 'vote:collectivity_votings' %}" role="button">
                             <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
-                                Annuler
+                                Retour
                             </button>
                         </a>
                     </div>
@@ -123,9 +124,10 @@
                 <div class="row">
                     <div class="col-sm-6 mb-3"></div>
                     <div class="col-sm-6 mb-3">
-                        <a href="{{ request.META.HTTP_REFERER }}" role="button">
-                            <button type="button"
-                                class="text-secondary btn btn-block btn-light border border-secondary">Annuler</button>
+                        <a href="{% url 'vote:collectivity_votings' %}" role="button">
+                            <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
+                                Retour
+                            </button>
                         </a>
                     </div>
                 </div>

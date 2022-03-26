@@ -13,12 +13,13 @@
                 <p class="login-box-msg">Supprimer la votation</p>
                 <p class="font-weight-bold"> "{{voting.question}}"</p>
                 <form id="delete_vote_form" action="{% url 'vote:delete_voting' id_voting=voting.id %}" method="post" novalidate>
+                    {% csrf_token %}
                 </form>
                 <div class="row">
                     <div class="col-6">
-                        <a href="{{ request.META.HTTP_REFERER }}" role="button">
+                        <a href="{% url 'vote:collectivity_votings' %}" role="button">
                             <button type="button" class="text-secondary btn btn-block btn-light border border-secondary mt-4">
-                                Annuler
+                                Retour
                             </button>
                         </a>
                     </div>

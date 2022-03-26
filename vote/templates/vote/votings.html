@@ -8,7 +8,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">Votations - <span class="text-primary font-weight-bold font-italic">
-                        Bourg-la-Reine</span>
+                        {{ user.collectivity.name }} ({{ user.collectivity.postal_code }})</span>
                 </h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,7 +30,7 @@
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="fas fa-vote-yea mr-1"></i>
-                            Votes
+                            Votations
                         </h3>
                     </div>
                     <div class="card-body mt-3 mb-1">

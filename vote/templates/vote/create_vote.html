@@ -12,15 +12,16 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Participer au vote</p>
                 <p class="font-weight-bold"> "{{voting.question}}"</p>
-                <form id="create_vote_form" action="{% url 'vote:create_vote' id_voting=voting.id %}" method="post" novalidate>
+                <form id="create_vote_form" name="create_vote_form" action="{% url 'vote:create_vote' id_voting=voting.id %}" method="post" novalidate>
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-6">
-                            <button type="submit" class="btn btn-success btn-block mt-4" value="yes" >
+                            <button type="submit" name="form_vote" class="btn btn-success btn-block mt-4" value="yes" >
                                 Oui
                             </button>
                         </div>
                         <div class="col-6">
-                            <button type="submit" class="btn btn-danger btn-block mt-4" value="no">
+                            <button type="submit" name="form_vote" class="btn btn-danger btn-block mt-4" value="no">
                                 Non
                             </button>
                         </div>
@@ -28,9 +29,9 @@
                 </form>
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ request.META.HTTP_REFERER }}" role="button">
+                        <a href="{% url 'vote:detailed_voting' id_voting=voting.id %}" role="button">
                             <button type="button" class="text-secondary btn btn-block btn-light border border-secondary mt-5">
-                                Annuler
+                                Retour
                             </button>
                         </a>
                     </div>

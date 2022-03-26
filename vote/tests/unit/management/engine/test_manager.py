@@ -86,7 +86,7 @@ class TestManager(TestCase):
     def test_get_votation_result(self):
         self.vote_emulation.emulate_vote()
         voting = Voting.objects.get(pk=1)
-        votes = Vote.objects.filter(voting_id__exact=voting)
+        votes = Vote.objects.filter(vote_voting_id__exact=voting)
         self.assertEqual(
             self.manager._Manager__get_voting_result(votes), 50
         )
@@ -98,3 +98,23 @@ class TestManager(TestCase):
         request.user = user  
         page_objects = self.manager.create_page_objects(request)
         self.assertEqual(page_objects[0].id, 1)
+
+    def test_create_vote_with_vote_yes(self):
+        self.vote_emulation.emulate_voting()
+        voting = Voting.objects.get(pk=1)
+        request = RequestFactory().post('', data={'form_vote': 'yes'})        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user 
+        self.manager.create_vote(request, voting.id)
+        vote = Vote.objects.get(pk=1) 
+        self.assertTrue(vote.choice)
+
+    def test_create_vote_with_vote_yes(self):
+        self.vote_emulation.emulate_voting()
+        voting = Voting.objects.get(pk=1)
+        request = RequestFactory().post('', data={'form_vote': 'no'})        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user 
+        self.manager.create_vote(request, voting.id)
+        vote = Vote.objects.get(pk=1) 
+        self.assertFalse(vote.choice)

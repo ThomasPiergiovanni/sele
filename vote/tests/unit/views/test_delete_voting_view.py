@@ -16,7 +16,7 @@ class DeleteVotingViewTest(TestCase):
     def test_init_with_attr(self):
         self.assertEqual(self.view.view_template,'vote/delete_voting.html')
         self.assertEqual(
-            self.view.alternative_one_view_name, 'vote:overview'
+            self.view.alternative_one_view_name, 'vote:collectivity_votings'
         )
         self.assertEqual(
             self.view.alternative_two_view_name, 'information:home'

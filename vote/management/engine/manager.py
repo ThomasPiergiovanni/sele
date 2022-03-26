@@ -1,9 +1,9 @@
 from datetime import date
 
 from django.core.paginator import Paginator
+from django.utils import timezone
 
 from vote.models.voting import Voting
-from vote.models.voting_method import VotingMethod
 from vote.models.vote import Vote
 
 
@@ -66,3 +66,15 @@ class Manager():
         page_number = request.GET.get('page')
         page_objects = paginator.get_page(page_number)
         return page_objects
+
+    def create_vote(self, request, id_voting):
+        form_vote = request.POST['form_vote']
+        choice = False
+        if form_vote == 'yes':
+            choice = True
+        Vote.objects.create(
+            choice=choice,
+            creation_date=timezone.now(),
+            vote_voting_id=id_voting,
+            vote_custom_user_id=request.user.id
+        )

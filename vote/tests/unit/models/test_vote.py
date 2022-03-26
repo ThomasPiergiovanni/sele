@@ -37,13 +37,13 @@ class VoteTest(TestCase):
         self.assertEqual(type(attribute), type(models.DateTimeField()))
 
     def test_vote_with_attr_voting_id_characteristic(self):
-        attribute = Vote._meta.get_field('voting')
+        attribute = Vote._meta.get_field('vote_voting')
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),type(models.ForeignKey(Voting, models.CASCADE))
         )
     def test_vote_with_attr_custom_user_id_characteristic(self):
-        attribute = Vote._meta.get_field('custom_user')
+        attribute = Vote._meta.get_field('vote_custom_user')
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
@@ -52,7 +52,7 @@ class VoteTest(TestCase):
     
     def test_status_with_emulated_status_instance(self):
         self.vote_emulation.emulate_vote()
-        vote= Vote.objects.get(pk=1)
+        vote = Vote.objects.get(pk=1)
         self.assertEqual(vote.choice, True)
         self.assertEqual(
             vote.creation_date,

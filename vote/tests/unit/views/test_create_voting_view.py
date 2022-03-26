@@ -18,5 +18,5 @@ class CreateVotingViewTest(TestCase):
     def test_init_with_attr(self):
         self.assertEqual(self.view.view_template,'vote/create_voting.html')
         self.assertEqual(self.view.alternative_view_name, 'information:home')
-        self.assertEqual(self.view.post_view_name, 'vote:overview')
+        self.assertEqual(self.view.post_view_name, 'vote:collectivity_votings')
         self.assertIsInstance(self.view.context['form'], VotingForm)
