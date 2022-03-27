@@ -74,8 +74,14 @@ class CollectivityVotingsView(View):
                 self.manager.set_session_vars(request, attribute, order)
                 return render(request, self.view_template, self.context)
             else:
+                self.context['form'] = form
+                self.context['page_objects'] = (
+                    self.manager.set_collectivity_votings_page_objects_context(
+                        request, attribute='date', order='desc'
+                    )
+                )
                 return render(
-                    request, self.view_template, {'form': form}
+                    request, self.view_template,self.context
                 )
         else:
             messages.add_message(

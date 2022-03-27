@@ -188,15 +188,15 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user 
         self.manager.create_vote(request, voting.id)
-        vote = Vote.objects.get(pk=1) 
+        vote = Vote.objects.last() 
         self.assertTrue(vote.choice)
 
-    def test_create_vote_with_vote_yes(self):
+    def test_create_vote_with_vote_no(self):
         self.vote_emulation.emulate_voting()
         voting = Voting.objects.get(pk=1)
         request = RequestFactory().post('', data={'form_vote': 'no'})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user 
         self.manager.create_vote(request, voting.id)
-        vote = Vote.objects.get(pk=1) 
+        vote = Vote.objects.last()
         self.assertFalse(vote.choice)
