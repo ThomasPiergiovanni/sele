@@ -3,6 +3,7 @@ from datetime import date
 from django.core.paginator import Paginator
 from django.utils import timezone
 
+from vote.forms.collectivity_votings_form import CollectivityVotingsForm
 from vote.models.voting import Voting
 from vote.models.vote import Vote
 
@@ -32,7 +33,6 @@ class Manager():
         context['voting_operation'] = operation
         context['voting_result'] = self.__get_voting_result(votes)
         context['voting_status'] = self.__get_voting_status(voting)
-
         return context
 
     def __get_voting_status(self, voting):
@@ -57,15 +57,50 @@ class Manager():
         except ZeroDivisionError:
            return None
     
-    def create_page_objects(self, request):
-        votings = Voting.objects.filter(
-            voting_custom_user_id__collectivity_id__exact=
-            request.user.collectivity
-        ).order_by('-creation_date')
+    def set_collectivity_votings_form_context(self, attribute, order):
+        context_form = CollectivityVotingsForm(
+            initial = {
+                'attribute_selector': attribute,
+                'order_selector': order
+            }
+        )
+        return context_form
+    
+    def set_collectivity_votings_page_objects_context(
+        self, request, attribute, order
+    ):
+        votings = self.__get_sorted_votings(request, attribute, order)
         paginator = Paginator(votings, 3)
         page_number = request.GET.get('page')
         page_objects = paginator.get_page(page_number)
         return page_objects
+    
+    def __get_sorted_votings(self, request, attribute, order):
+        if attribute == 'date' and order == 'asc':
+            return Voting.objects.filter(
+                voting_custom_user_id__collectivity_id__exact=
+                request.user.collectivity
+            ).order_by('creation_date')
+        elif attribute == 'date' and order == 'desc':
+            return Voting.objects.filter(
+                voting_custom_user_id__collectivity_id__exact=
+                request.user.collectivity
+            ).order_by('-creation_date')
+        elif attribute == 'question' and order == 'asc':
+            return Voting.objects.filter(
+                voting_custom_user_id__collectivity_id__exact=
+                request.user.collectivity
+            ).order_by('question')
+        else:
+            return Voting.objects.filter(
+                voting_custom_user_id__collectivity_id__exact=
+                request.user.collectivity
+            ).order_by('-question')
+
+    def set_session_vars(self, request, attribute, order):
+        request.session['c_v_v_f_attribute'] = attribute
+        request.session['c_v_v_f_order'] = order
+
 
     def create_vote(self, request, id_voting):
         form_vote = request.POST['form_vote']
