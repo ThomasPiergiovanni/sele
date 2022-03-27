@@ -162,11 +162,7 @@ class TestManager(TestCase):
     def test_set_session_vars_with_date_desc(self):
         self.vote_emulation.emulate_vote()
         request = RequestFactory().post(
-            '',
-            data={
-                'attribute': 'date',
-                'order': 'desc'
-            }
+            '', data={'attribute': 'date','order': 'desc'}
         )
         session_middleware = SessionMiddleware(request)
         session_middleware.process_request(request) 
@@ -176,11 +172,7 @@ class TestManager(TestCase):
     def test_set_session_vars_with_question_asc(self):
         self.vote_emulation.emulate_vote()
         request = RequestFactory().post(
-            '',
-            data={
-                'attribute': 'question',
-                'order': 'asc'
-            }
+            '', data={'attribute': 'question', 'order': 'asc'}
         )
         session_middleware = SessionMiddleware(request)
         session_middleware.process_request(request) 

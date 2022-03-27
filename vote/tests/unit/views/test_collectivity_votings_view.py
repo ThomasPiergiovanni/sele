@@ -2,6 +2,7 @@
 """
 from django.test import TestCase
 
+from vote.forms.collectivity_votings_form import CollectivityVotingsForm
 from vote.views.collectivity_votings_view import CollectivityVotingsView
 
 class CollectivityVotingsViewTest(TestCase):
@@ -17,6 +18,9 @@ class CollectivityVotingsViewTest(TestCase):
         self.assertEqual(self.view.view_template,'vote/votings.html')
         self.assertEqual(
             self.view.alternative_view_name, 'information:home'
+        )
+        self.assertIsInstance(
+            self.view.context['form'], CollectivityVotingsForm
         )
         self.assertIsNone(self.view.context['page_objects'])
         self.assertEqual(
