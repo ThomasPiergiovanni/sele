@@ -3,6 +3,7 @@
 from datetime import date, timedelta
 
 from django.contrib.auth import authenticate
+from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import RequestFactory, TestCase
 
 from authentication.models import CustomUser
@@ -157,6 +158,36 @@ class TestManager(TestCase):
         )
         self.assertIsInstance(votings[0],Voting)
         self.assertEqual(votings[0].id, 3)
+    
+    def test_set_session_vars_with_date_desc(self):
+        self.vote_emulation.emulate_vote()
+        request = RequestFactory().post(
+            '',
+            data={
+                'attribute': 'date',
+                'order': 'desc'
+            }
+        )
+        session_middleware = SessionMiddleware(request)
+        session_middleware.process_request(request) 
+        self.manager.set_session_vars(request, attribute='date', order='desc')
+        self.assertEqual(request.session.get('c_v_v_f_attribute'), 'date')
+
+    def test_set_session_vars_with_question_asc(self):
+        self.vote_emulation.emulate_vote()
+        request = RequestFactory().post(
+            '',
+            data={
+                'attribute': 'question',
+                'order': 'asc'
+            }
+        )
+        session_middleware = SessionMiddleware(request)
+        session_middleware.process_request(request) 
+        self.manager.set_session_vars(
+            request, attribute='question', order='asc'
+        )
+        self.assertEqual(request.session.get('c_v_v_f_order'), 'asc')
 
     def test_create_vote_with_vote_yes(self):
         self.vote_emulation.emulate_voting()
