@@ -1,12 +1,6 @@
 """Collectivity Voting Form module 
 """
-from django.forms import (
-    CharField, ChoiceField, DateField, DateInput, ModelChoiceField, ModelForm, Form,
-    Select, Textarea, TextInput, 
-)
-
-# from vote.models.voting import Voting
-# from vote.models.voting_method import VotingMethod
+from django.forms import ChoiceField, Form, Select
 
 
 class CollectivityVotingsForm(Form):

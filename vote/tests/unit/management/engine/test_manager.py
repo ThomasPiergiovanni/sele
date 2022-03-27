@@ -10,6 +10,7 @@ from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
 from vote.forms.voting_form import VotingForm
+from vote.forms.collectivity_votings_form import CollectivityVotingsForm
 from vote.management.engine.manager import Manager
 from vote.models.vote import Vote
 from vote.models.voting import Voting
@@ -90,14 +91,72 @@ class TestManager(TestCase):
         self.assertEqual(
             self.manager._Manager__get_voting_result(votes), 50
         )
+
+    def test_set_collectivity_votings_form_context(self):
+        form = self.manager.set_collectivity_votings_form_context(
+            'date', 'asc'
+        )
+        self.assertIsInstance(form, CollectivityVotingsForm)
+        self.assertEqual(
+            form.fields['attribute_selector']._choices[1][0], 'date'
+        )
+        self.assertEqual(form.fields['order_selector']._choices[0][0], 'asc')
     
-    def test_create_page_objects(self):
+    def test_set_collectivity_votings_page_objects_context(self):
         self.vote_emulation.emulate_vote()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
-        page_objects = self.manager.create_page_objects(request)
+        page_objects = (
+            self.manager.set_collectivity_votings_page_objects_context(
+                request, attribute='date', order='asc'
+            )
+        )
         self.assertEqual(page_objects[0].id, 1)
+    
+    def test_get_sorted_votings_with_date_asc(self):
+        self.vote_emulation.emulate_vote()
+        request = RequestFactory().get('', data={'page': 1})        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user
+        votings = self.manager._Manager__get_sorted_votings(
+            request, attribute='date', order='asc'
+        )
+        self.assertIsInstance(votings[0],Voting)
+        self.assertEqual(votings[0].id, 1)
+
+    def test_get_sorted_votings_with_date_desc(self):
+        self.vote_emulation.emulate_vote()
+        request = RequestFactory().get('', data={'page': 1})        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user
+        votings = self.manager._Manager__get_sorted_votings(
+            request, attribute='date', order='desc'
+        )
+        self.assertIsInstance(votings[0],Voting)
+        self.assertEqual(votings[0].id, 3)
+
+    def test_get_sorted_votings_with_question_asc(self):
+        self.vote_emulation.emulate_vote()
+        request = RequestFactory().get('', data={'page': 1})        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user
+        votings = self.manager._Manager__get_sorted_votings(
+            request, attribute='question', order='asc'
+        )
+        self.assertIsInstance(votings[0],Voting)
+        self.assertEqual(votings[0].id, 1)
+
+    def test_get_sorted_votings_with_question_desc(self):
+        self.vote_emulation.emulate_vote()
+        request = RequestFactory().get('', data={'page': 1})        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user
+        votings = self.manager._Manager__get_sorted_votings(
+            request, attribute='question', order='desc'
+        )
+        self.assertIsInstance(votings[0],Voting)
+        self.assertEqual(votings[0].id, 3)
 
     def test_create_vote_with_vote_yes(self):
         self.vote_emulation.emulate_voting()

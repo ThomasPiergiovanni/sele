@@ -66,6 +66,25 @@ class VoteEmulation():
             voting_method_id=2,
             voting_custom_user_id=2
         )
+        Voting.objects.create(
+            id=3,
+            question="Voulez-vous créer une demande de python?",
+            description=(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                " Sed non risus. Suspendisse lectus tortor, dignissim sit"
+                " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
+                " ultrices diam. Maecenas ligula massa, varius a, semper"
+                " congue, euismod non, mi. Proin porttitor, orci nec nonummy"
+                " molestie, enim est eleifend mi, non fermentum diam nisl sit"
+                " amet erat. Duis semper. Duis arcu massa, scelerisque vitae,"
+                " consequat in, pretium a, enim. Pellentesque congue"
+            ),
+            creation_date = "2022-01-30",
+            opening_date = "2022-01-30",
+            closure_date = "2022-02-28",
+            voting_method_id=2,
+            voting_custom_user_id=1
+        )
 
     def emulate_vote(self):
         """
