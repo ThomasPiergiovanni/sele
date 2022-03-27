@@ -4,23 +4,24 @@ from django.db import models
 from django.test import TestCase
 
 from proposition.models.domain import Domain
+from proposition.tests.emulation.proposition_emulation import (
+    PropositionEmulation
+)
 
 
 class DomainTest(TestCase):
     """Test domain class.
     """
     def setUp(self):
-        self.emulate_domain()
-
-    def emulate_domain(self):
-        Domain.objects.create(id=1, name="Santé")
-        Domain.objects.create(id=2, name="Support à l'entreprise")
+        self.proposition_emulation = PropositionEmulation()
 
     def test_domain_with_class(self):
+        self.proposition_emulation.emulate_domain()
         instance = Domain.objects.get(pk=1)
         self.assertIsInstance(instance, Domain)
 
     def test_domain_with_attr_name_characteristic(self):
+        self.proposition_emulation.emulate_domain()
         attribute = Domain._meta.get_field('name')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.CharField()))
@@ -28,6 +29,7 @@ class DomainTest(TestCase):
         self.assertEqual(attribute.unique, True)
     
     def test_domain_with_emulated_instance(self):
+        self.proposition_emulation.emulate_domain()
         instance = Domain.objects.get(pk=1)
         self.assertEqual(instance.name, "Santé")
         instance = Domain.objects.get(pk=2)
