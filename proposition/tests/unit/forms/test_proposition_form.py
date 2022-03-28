@@ -23,8 +23,7 @@ class PropositionFormTest(TestCase):
     """
     def setUp(self):
         self.proposition_emulation = PropositionEmulation()
-        self.vote_emulation = VoteEmulation()
-        self.vote_emulation.emulate_voting()
+        self.proposition_emulation.emulate_proposition()
         self.form = PropositionForm()
 
     def test_vf_with_attr_name(self):
@@ -39,6 +38,7 @@ class PropositionFormTest(TestCase):
             'form-control form-control-sm'
         )
 
+
     def test_vf_with_attr_description(self):
         self.assertEqual(self.form.fields['description'].label, 'Description')
         self.assertEqual(
@@ -51,20 +51,21 @@ class PropositionFormTest(TestCase):
             'form-control form-control-sm'
         )
         self.assertEqual(
-            self.form.fields['description'].widget.attrs['rows'], 3
+            self.form.fields['description'].widget.attrs['rows'], 4
         )
 
     def test_vf_with_attr_proposition_kind(self):
         self.assertEqual(
             self.form.fields['proposition_kind'].widget.attrs['id'],
-            'input_proposition_kind'
+            'input_proposition_proposition_kind'
         )
         self.assertEqual(
-            self.form.fields['proposition_kind'].label, 'Type'
+            self.form.fields['proposition_kind'].label,
+            'Type de proposition (demande/offre)'
         )
         self.assertEqual(
             self.form.fields['proposition_kind'].widget.attrs['class'],
-            'input-group date form-control form-control-sm'
+            'form-control form-control-sm'
         )
         self.assertEqual(
             self.form.fields['proposition_kind'].queryset[0],

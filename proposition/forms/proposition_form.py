@@ -18,13 +18,13 @@ from proposition.models.status import Status
 class PropositionForm(ModelForm):
     """PropositionForm class. Used for adding voting.
     """
-    question = CharField(
-        label='Question',
-        max_length=256,
+    name = CharField(
+        label='Intitulé',
+        max_length=128,
         widget=TextInput(
             attrs={
                 'class': 'form-control form-control-sm',
-                'id': 'input_voting_question',
+                'id': 'input_proposition_name',
                 'autofocus': True,
             }
         )
@@ -35,48 +35,47 @@ class PropositionForm(ModelForm):
         widget=Textarea(
             attrs={
                 'class': 'form-control form-control-sm',
-                'id': 'input_voting_description',
+                'id': 'input_proposition_description',
                 'rows':4
             }
         )
     )
-    opening_date = DateField(
-        label='Date d\'ouverture du vote',
-        widget=DateInput(
-            attrs={
-                'type': 'date',
-                'class': 'input-group date form-control form-control-sm',
-                'data-target-input': "nearest",
-                'id': 'input_voting_opening_date',
-            }
-        )
-    )
-    closure_date = DateField(
-        label='Date de fermeture du vote',
-        widget=DateInput(
-            attrs={
-                'type': 'date',
-                'class': 'input-group date form-control form-control-sm',
-                'data-target-input': "nearest",
-                'id': 'input_voting_closure_date',
-            }
-        )
-    )
-    voting_method = ModelChoiceField(
-        queryset=VotingMethod.objects.all(),
-        label='Mode de scrutin',
+    # opening_date = DateField(
+    #     label='Date d\'ouverture du vote',
+    #     widget=DateInput(
+    #         attrs={
+    #             'type': 'date',
+    #             'class': 'input-group date form-control form-control-sm',
+    #             'data-target-input': "nearest",
+    #             'id': 'input_voting_opening_date',
+    #         }
+    #     )
+    # )
+    # closure_date = DateField(
+    #     label='Date de fermeture du vote',
+    #     widget=DateInput(
+    #         attrs={
+    #             'type': 'date',
+    #             'class': 'input-group date form-control form-control-sm',
+    #             'data-target-input': "nearest",
+    #             'id': 'input_voting_closure_date',
+    #         }
+    #     )
+    # )
+    proposition_kind = ModelChoiceField(
+        queryset=Kind.objects.all(),
+        label='Type de proposition (demande/offre)',
         empty_label="",
         widget=Select(
             attrs={
                 'class': 'form-control form-control-sm',
-                'id': 'input_voting_voting_method',
+                'id': 'input_proposition_proposition_kind',
             },
         )
     )
 
     class Meta:
-        model = Voting
+        model = Proposition
         fields = (
-            'question', 'description', 'voting_method', 'opening_date',
-            'closure_date'
+            'name', 'description', 'proposition_kind'
         )

@@ -55,7 +55,6 @@ class PropositionEmulation():
         self.emulate_kind()
         self.emulate_rating()
         self.emulate_status()
-        # timezone.now()
         Proposition.objects.create(
             id=1,
             name="Cours de Python",
@@ -72,13 +71,13 @@ class PropositionEmulation():
             end_date=date(2022, 1, 25),
             duration=120,
             proposition_category_id=2,
-            creator_id=1,
-            creator_type_id=1,
-            domain_id=1,
-            kind_id=1,
-            rating_id=1,
-            status_id=1,
-            taker_id=2
+            proposition_creator_id=1,
+            proposition_creator_type_id=1,
+            proposition_domain_id=1,
+            proposition_kind_id=1,
+            proposition_rating_id=1,
+            proposition_status_id=1,
+            proposition_taker_id=2
         ),
         Proposition.objects.create(
             id=2,
@@ -96,13 +95,13 @@ class PropositionEmulation():
             end_date=date(2022, 1, 3),
             duration=3680,
             proposition_category_id=2,
-            creator_id=2,
-            creator_type_id=2,
-            domain_id=2,
-            kind_id=2,
-            rating_id=2,
-            status_id=2,
-            taker_id=1
+            proposition_creator_id=2,
+            proposition_creator_type_id=2,
+            proposition_domain_id=2,
+            proposition_kind_id=2,
+            proposition_rating_id=2,
+            proposition_status_id=2,
+            proposition_taker_id=1
         )
 
     def emulate_rating(self):
