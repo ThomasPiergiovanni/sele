@@ -12,14 +12,9 @@ from proposition.models.kind import Kind
 from proposition.models.proposition import Proposition
 from proposition.models.rating import Rating
 from proposition.models.status import Status
-from proposition.tests.unit.models.test_blocked_taker import BlockedTakerTest
-from proposition.tests.unit.models.test_category import CategoryTest
-from proposition.tests.unit.models.test_creator_type import CreatorTypeTest
-from proposition.tests.unit.models.test_kind import KindTest
-from proposition.tests.unit.models.test_domain import DomainTest
-from proposition.tests.unit.models.test_proposition import PropositionTest
-from proposition.tests.unit.models.test_rating import RatingTest
-from proposition.tests.unit.models.test_status import StatusTest
+from proposition.tests.emulation.proposition_emulation import (
+    PropositionEmulation
+)
 
 
 class ResetPropositiionTest(TestCase):
@@ -29,9 +24,10 @@ class ResetPropositiionTest(TestCase):
         """Method that set up data for the entire class
         """
         self.command = Command()
+        self.proposition_emulation = PropositionEmulation()
 
     def test_drop_kind_with_instance_is_none(self):
-        KindTest().emulate_kind()
+        self.proposition_emulation.emulate_kind()
         kinds = Kind.objects.all()
         self.assertTrue(kinds)
         self.command._Command__drop_kind()
@@ -46,7 +42,7 @@ class ResetPropositiionTest(TestCase):
         self.assertTrue(kinds)
 
     def test_drop_category_with_instance_is_none(self):
-        CategoryTest().emulate_category()
+        self.proposition_emulation.emulate_category()
         categories = Category.objects.all()
         self.assertTrue(categories)
         self.command._Command__drop_category()
@@ -62,7 +58,7 @@ class ResetPropositiionTest(TestCase):
 
 
     def test_drop_creator_type_with_instance_is_none(self):
-        CreatorTypeTest().emulate_creator_type()
+        self.proposition_emulation.emulate_creator_type()
         creator_types = CreatorType.objects.all()
         self.assertTrue(creator_types)
         self.command._Command__drop_creator_type()
@@ -77,7 +73,7 @@ class ResetPropositiionTest(TestCase):
         self.assertTrue(creator_types)
     
     def test_drop_domain_with_instance_is_none(self):
-        DomainTest().emulate_domain()
+        self.proposition_emulation.emulate_domain()
         domains = Domain.objects.all()
         self.assertTrue(domains)
         self.command._Command__drop_domain()
@@ -92,7 +88,7 @@ class ResetPropositiionTest(TestCase):
         self.assertTrue(domains)
 
     def test_drop_rating_with_instance_is_none(self):
-        RatingTest().emulate_rating()
+        self.proposition_emulation.emulate_rating()
         ratings = Rating.objects.all()
         self.assertTrue(ratings)
         self.command._Command__drop_rating()
@@ -107,7 +103,7 @@ class ResetPropositiionTest(TestCase):
         self.assertTrue(ratings)
 
     def test_drop_status_with_instance_is_none(self):
-        StatusTest().emulate_status()
+        self.proposition_emulation.emulate_status()
         statuses = Status.objects.all()
         self.assertTrue(statuses)
         self.command._Command__drop_status()
@@ -122,7 +118,7 @@ class ResetPropositiionTest(TestCase):
         self.assertTrue(statuses)
 
     def test_drop_proposition_with_instance_is_none(self):
-        PropositionTest().emulate_proposition()
+        self.proposition_emulation.emulate_proposition()
         propositions = Proposition.objects.all()
         self.assertTrue(propositions)
         self.command._Command__drop_proposition()
@@ -130,7 +126,7 @@ class ResetPropositiionTest(TestCase):
         self.assertFalse(propositions)
 
     def test_drop_blocked_taker_with_instance_is_none(self):
-        BlockedTakerTest().emulate_blocked_taker()
+        self.proposition_emulation.emulate_blocked_taker()
         blocked_takers = BlockedTaker.objects.all()
         self.assertTrue(blocked_takers)
         self.command._Command__drop_blocked_taker()
