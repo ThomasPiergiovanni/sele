@@ -1,12 +1,13 @@
 """Test proposition emulation module.
 """
-from datetime import datetime
+from datetime import datetime, date
 
 from django.utils import timezone
 
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from proposition.models.blocked_taker import BlockedTaker
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
@@ -20,6 +21,13 @@ class PropositionEmulation():
     """
     def __init__(self):
         self.auth_emulation = AuthenticationEmulation()
+
+    def emulate_blocked_taker(self):
+        """
+        """
+        self.emulate_proposition()
+        BlockedTaker.objects.create(id=1,proposition_id=1,custom_user_id=1),
+        BlockedTaker.objects.create(id=2,proposition_id=2,custom_user_id=2),
 
     def emulate_category(self):
         Category.objects.create(id=1, name="Activité")
