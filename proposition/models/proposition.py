@@ -19,22 +19,37 @@ class Proposition(models.Model):
     start_date =  models.DateField(null=False)
     end_date =  models.DateField(null=False)
     duration =  models.IntegerField(null=False)
-    category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, null=False
+    proposition_category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, null=False,
+        related_name="proposition_category"
     )
-    creator = models.ForeignKey(
+    proposition_creator = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE,
-        related_name="creator", null=False
+        related_name="proposition_creator", null=False
     )
-    creator_type = models.ForeignKey(
-        CreatorType, on_delete=models.CASCADE, null=False
+    proposition_creator_type = models.ForeignKey(
+        CreatorType, on_delete=models.CASCADE, null=False,
+        related_name="proposition_creator_type"
     )
-    domain = models.ForeignKey(Domain, on_delete=models.CASCADE, null=False)
-    kind = models.ForeignKey(Kind, on_delete=models.CASCADE, null=False)
-    rating = models.ForeignKey(Rating, on_delete=models.CASCADE, null=False)
-    status = models.ForeignKey(Status, on_delete=models.CASCADE, null=False)
-    taker = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, related_name="taker", null=True
+    proposition_domain = models.ForeignKey(
+        Domain, on_delete=models.CASCADE, null=False,
+        related_name="proposition_domain"
+    )
+    proposition_kind = models.ForeignKey(
+        Kind, on_delete=models.CASCADE, null=False,
+        related_name="proposition_kind"
+    )
+    proposition_rating = models.ForeignKey(
+        Rating, on_delete=models.CASCADE, null=False,
+        related_name="proposition_rating"    
+    )
+    proposition_status = models.ForeignKey(
+        Status, on_delete=models.CASCADE, null=False,
+        related_name="proposition_status"
+    )
+    proposition_taker = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, null=True,
+        related_name="proposition_taker"
     )
     blocked_takers = models.ManyToManyField(
         CustomUser,

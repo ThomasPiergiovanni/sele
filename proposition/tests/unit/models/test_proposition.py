@@ -7,7 +7,6 @@ from django.test import TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
-from authentication.tests.unit.models.test_custom_user import CustomUserTest
 from proposition.models.blocked_taker import BlockedTaker
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
@@ -79,7 +78,7 @@ class PropositionTest(TestCase):
 
     def test_proposition_with_attr_category_characteristic(self):
         self.proposition_emulation.emulate_proposition()
-        attribute = Proposition._meta.get_field('category')
+        attribute = Proposition._meta.get_field('proposition_category')
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
