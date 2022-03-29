@@ -158,53 +158,97 @@ class PropositionFormTest(TestCase):
             'form-control form-control-sm'
         )
 
-    # def test_vf_with_attr_voting_method(self):
-    #     self.assertEqual(
-    #         self.form.fields['voting_method'].widget.attrs['id'],
-    #         'input_voting_voting_method'
-    #     )
-    #     self.assertEqual(
-    #         self.form.fields['voting_method'].label, 'Mode de scrutin'
-    #     )
-    #     self.assertEqual(
-    #         self.form.fields['voting_method'].queryset[0],
-    #         VotingMethod.objects.get(pk=1)
-    #     )
-    #     self.assertEqual(
-    #         self.form.fields['voting_method'].widget.attrs['class'],
-    #         'form-control form-control-sm'
-    #     )
-    #     existing_index = None
-    #     try:
-    #         if self.voting_form.fields['voting_method'].widget.choices[3]:
-    #             existing_index = True 
-    #     except:
-    #         existing_index = False
-    #     self.assertFalse(existing_index)
 
-    # def test_vf_with_all_attr_are_correct(self):
-    #     form = VotingForm(
-    #         data={
-    #             'question': 'Ma question est',
-    #             'description': 'dsdss',
-    #             'opening_date': "2022-01-02",
-    #             'closure_date': "2022-01-25",
-    #             'voting_method': VotingMethod.objects.get(pk=1).id
-    #         }
-    #     )
-    #     self.assertTrue(form.is_valid())
 
-    # def test_vf_with_attr_question_is_empty(self):
-    #     form = VotingForm(
-    #         data={
-    #             'question': '',
-    #             'description': 'dsdss',
-    #             'opening_date': "2022-01-02",
-    #             'closure_date': "2022-01-25",
-    #             'voting_method': VotingMethod.objects.get(pk=1).id
-    #         }
-    #     )
-    #     self.assertFalse(form.is_valid())
+    def test_pf_with_all_attr_are_correct(self):
+        form = PropositionForm(
+            data={
+                'name': 'J\'offre une heure de cours python',
+                'description': 'dsdss',
+                'proposition_kind': Kind.objects.get(pk=1).id,
+                'proposition_category': Category.objects.get(pk=1).id,
+                'proposition_domain': Domain.objects.get(pk=1).id,
+                'start_date': "2022-01-25",
+                'end_date': "2022-01-30",
+                'duration':60
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_pf_with_attr_are_description_is_empty(self):
+        form = PropositionForm(
+            data={
+                'name': 'J\'offre une heure de cours python',
+                'description': '',
+                'proposition_kind': Kind.objects.get(pk=1).id,
+                'proposition_category': Category.objects.get(pk=1).id,
+                'proposition_domain': Domain.objects.get(pk=1).id,
+                'start_date': "2022-01-25",
+                'end_date': "2022-01-30",
+                'duration':60
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    def test_pf_with_attr_are_start_date_is_incorrect(self):
+        form = PropositionForm(
+            data={
+                'name': 'J\'offre une heure de cours python',
+                'description': 'dsdss',
+                'proposition_kind': Kind.objects.get(pk=1).id,
+                'proposition_category': Category.objects.get(pk=1).id,
+                'proposition_domain': Domain.objects.get(pk=1).id,
+                'start_date': "2022-01-32",
+                'end_date': "2022-01-30",
+                'duration':60
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    def test_pf_with_attr_are_start_duration_is_incorrect_neg(self):
+        form = PropositionForm(
+            data={
+                'name': 'J\'offre une heure de cours python',
+                'description': 'dsdss',
+                'proposition_kind': Kind.objects.get(pk=1).id,
+                'proposition_category': Category.objects.get(pk=1).id,
+                'proposition_domain': Domain.objects.get(pk=1).id,
+                'start_date': "2022-01-25",
+                'end_date': "2022-01-30",
+                'duration':-60
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    def test_pf_with_attr_are_start_duration_is_incorrect_float(self):
+        form = PropositionForm(
+            data={
+                'name': 'J\'offre une heure de cours python',
+                'description': 'dsdss',
+                'proposition_kind': Kind.objects.get(pk=1).id,
+                'proposition_category': Category.objects.get(pk=1).id,
+                'proposition_domain': Domain.objects.get(pk=1).id,
+                'start_date': "2022-01-25",
+                'end_date': "2022-01-30",
+                'duration':14.2
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    def test_pf_with_attr_are_end_start_incorrect(self):
+        form = PropositionForm(
+            data={
+                'name': 'J\'offre une heure de cours python',
+                'description': 'dsdss',
+                'proposition_kind': Kind.objects.get(pk=1).id,
+                'proposition_category': Category.objects.get(pk=1).id,
+                'proposition_domain': Domain.objects.get(pk=1).id,
+                'start_date': "2022-01-30",
+                'end_date': "2022-01-25",
+                'duration':14
+            }
+        )
+        self.assertFalse(form.is_valid())
 
     # def test_vf_with_attr_question_is_not_correct(self):
     #     form = VotingForm(

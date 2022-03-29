@@ -36,17 +36,6 @@ class PropositionForm(ModelForm):
             }
         )
     )
-    # closure_date = DateField(
-    #     label='Date de fermeture du vote',
-    #     widget=DateInput(
-    #         attrs={
-    #             'type': 'date',
-    #             'class': 'input-group date form-control form-control-sm',
-    #             'data-target-input': "nearest",
-    #             'id': 'input_voting_closure_date',
-    #         }
-    #     )
-    # )
     proposition_kind = ModelChoiceField(
         queryset=Kind.objects.all(),
         label='Type de proposition (demande/offre)',
