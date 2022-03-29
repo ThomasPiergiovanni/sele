@@ -1,18 +1,14 @@
 """Proposition form class
 """
 from django.forms import (
-    CharField, DateField, DateInput, ModelChoiceField, ModelForm,
-    Select, Textarea, TextInput, 
+    CharField, DateField, DateInput, IntegerField, ModelChoiceField, ModelForm,
+    NumberInput, Select, Textarea, TextInput, 
 )
 
-from authentication.models import CustomUser
 from proposition.models.category import Category
-from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
 from proposition.models.proposition import Proposition
-from proposition.models.rating import Rating
-from proposition.models.status import Status
 
 
 class PropositionForm(ModelForm):
@@ -107,10 +103,20 @@ class PropositionForm(ModelForm):
             }
         )
     )
+    duration = IntegerField(
+        label= 'Temps de travail (minutes)',
+        min_value=1,
+        widget=NumberInput(
+            attrs={
+                'id': 'input_proposition_duration',
+                'class': 'form-control form-control-sm'
+            }
+        )
+    )
 
     class Meta:
         model = Proposition
         fields = (
             'name', 'description', 'proposition_kind', 'proposition_category',
-            'proposition_domain', 'start_date', 'end_date'
+            'proposition_domain', 'start_date', 'end_date', 'duration'
         )

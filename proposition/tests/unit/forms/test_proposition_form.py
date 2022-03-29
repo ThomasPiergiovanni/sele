@@ -1,7 +1,12 @@
 # pylint: disable=C0116
 """Test proposition form module.
 """
-from django.forms import DateField, DateInput, ModelChoiceField, Select
+from calendar import TextCalendar
+from django.forms import (
+    CharField, DateField, DateInput, IntegerField, ModelChoiceField,
+    NumberInput, Select, Textarea, 
+    TextInput
+)
 from django.test import TestCase
 
 from authentication.models import CustomUser
@@ -28,132 +33,129 @@ class PropositionFormTest(TestCase):
         self.form = PropositionForm()
 
     def test_pf_with_attr_name(self):
-        self.assertEqual(self.form.fields['name'].label,'Intitulé')
-        self.assertEqual(self.form.fields['name'].max_length, 128)
+        field = self.form.fields['name']
+        self.assertTrue(field)
+        self.assertIsInstance(field, CharField)
+        self.assertEqual(field.label,'Intitulé')
+        self.assertEqual(field.max_length, 128)
+        self.assertIsInstance(field.widget, TextInput)
+        self.assertEqual(field.widget.attrs['id'],'input_proposition_name')
         self.assertEqual(
-            self.form.fields['name'].widget.attrs['id'],
-            'input_proposition_name'
-        )
-        self.assertEqual(
-            self.form.fields['name'].widget.attrs['class'],
-            'form-control form-control-sm'
+            field.widget.attrs['class'],'form-control form-control-sm'
         )
 
 
     def test_pf_with_attr_description(self):
-        self.assertEqual(self.form.fields['description'].label, 'Description')
+        field = self.form.fields['description']
+        self.assertTrue(field)
+        self.assertIsInstance(field, CharField)
+        self.assertEqual(field.label, 'Description')
         self.assertEqual(
-            self.form.fields['description'].widget.attrs['id'],
-            'input_proposition_description'
+            field.widget.attrs['id'], 'input_proposition_description'
         )
-        self.assertEqual(self.form.fields['description'].max_length, 1000)
+        self.assertEqual(field.max_length, 1000)
+        self.assertIsInstance(field.widget, Textarea)
         self.assertEqual(
-            self.form.fields['description'].widget.attrs['class'],
-            'form-control form-control-sm'
+            field.widget.attrs['class'],'form-control form-control-sm'
         )
-        self.assertEqual(
-            self.form.fields['description'].widget.attrs['rows'], 4
-        )
+        self.assertEqual(field.widget.attrs['rows'], 4)
 
     def test_pf_with_attr_proposition_kind(self):
+        field = self.form.fields['proposition_kind']
+        self.assertTrue(field)
+        self.assertIsInstance(field, ModelChoiceField)
+        self.assertEqual(field.label,'Type de proposition (demande/offre)')
+        self.assertIsInstance(field.widget, Select)
         self.assertEqual(
-            self.form.fields['proposition_kind'].label,
-            'Type de proposition (demande/offre)'
+            field.widget.attrs['id'], 'input_proposition_proposition_kind'
         )
         self.assertEqual(
-            self.form.fields['proposition_kind'].widget.attrs['id'],
-            'input_proposition_proposition_kind'
+            field.widget.attrs['class'], 'form-control form-control-sm'
         )
-        self.assertEqual(
-            self.form.fields['proposition_kind'].widget.attrs['class'],
-            'form-control form-control-sm'
-        )
-        self.assertEqual(
-            self.form.fields['proposition_kind'].queryset[0],
-            Kind.objects.get(pk=1)
-        )
+        self.assertEqual(field.queryset[0],Kind.objects.get(pk=1))
 
     def test_pf_with_attr_proposition_category(self):
+        field = self.form.fields['proposition_category']
+        self.assertTrue(field)
+        self.assertIsInstance(field, ModelChoiceField)
+        self.assertEqual(field.label, 'Nature')
+        self.assertIsInstance(field.widget, Select)
         self.assertEqual(
-            self.form.fields['proposition_category'].label,
-            'Nature'
-        )
-        self.assertEqual(
-            self.form.fields['proposition_category'].widget.attrs['id'],
+            field.widget.attrs['id'],
             'input_proposition_proposition_category'
         )
         self.assertEqual(
-            self.form.fields['proposition_category'].widget.attrs['class'],
-            'form-control form-control-sm'
+            field.widget.attrs['class'], 'form-control form-control-sm'
         )
         self.assertEqual(
-            self.form.fields['proposition_category'].queryset[0],
-            Category.objects.get(pk=1)
+            field.queryset[0], Category.objects.get(pk=1)
         )
 
     def test_pf_with_attr_proposition_domain(self):
-        self.assertIsInstance(
-            self.form.fields['proposition_domain'], ModelChoiceField
-        )
+        field = self.form.fields['proposition_domain']
+        self.assertTrue(field)
+        self.assertIsInstance(field, ModelChoiceField)
+        self.assertEqual(field.label, 'Domaine')
+        self.assertIsInstance(field.widget, Select)
         self.assertEqual(
-            self.form.fields['proposition_domain'].label,
-            'Domaine'
-        )
-        self.assertIsInstance(
-            self.form.fields['proposition_domain'].widget, Select
-        )
-        self.assertEqual(
-            self.form.fields['proposition_domain'].widget.attrs['id'],
+            field.widget.attrs['id'],
             'input_proposition_proposition_domain'
         )
         self.assertEqual(
-            self.form.fields['proposition_domain'].widget.attrs['class'],
-            'form-control form-control-sm'
+            field.widget.attrs['class'], 'form-control form-control-sm'
         )
         self.assertEqual(
-            self.form.fields['proposition_domain'].queryset[0],
-            Domain.objects.get(pk=1)
+            field.queryset[0],Domain.objects.get(pk=1)
         )
 
     def test_pf_with_attr_start_date(self):
-        self.assertIsInstance(self.form.fields['start_date'], DateField)
+        field = self.form.fields['start_date']
+        self.assertTrue(field)
+        self.assertIsInstance(field, DateField)
+        self.assertEqual(field.label, 'Date de début de proposition')
+        self.assertIsInstance(field.widget, DateInput)
         self.assertEqual(
-            self.form.fields['start_date'].label,
-            'Date de début de proposition'
-        )
-        self.assertIsInstance(self.form.fields['end_date'].widget, DateInput)
-        self.assertEqual(
-            self.form.fields['start_date'].widget.attrs['id'],
-            'input_proposition_start_date'
+            field.widget.attrs['id'], 'input_proposition_start_date'
         )
         self.assertEqual(
-            self.form.fields['start_date'].widget.attrs['class'],
+            field.widget.attrs['class'],
             'input-group date form-control form-control-sm'
         )
         self.assertEqual(
-            self.form.fields['start_date']
-            .widget.attrs['data-target-input'],
-            'nearest'
+            field.widget.attrs['data-target-input'],'nearest'
         )
     def test_pf_with_attr_end_date(self):
-        self.assertIsInstance(self.form.fields['end_date'], DateField)
+        field = self.form.fields['end_date']
+        self.assertTrue(field)
+        self.assertIsInstance(field, DateField)
+        self.assertEqual(field.label, 'Date de fin de proposition')
+        self.assertIsInstance(field.widget, DateInput)
         self.assertEqual(
-            self.form.fields['end_date'].label,
-            'Date de fin de proposition'
-        )
-        self.assertIsInstance(self.form.fields['end_date'].widget, DateInput)
-        self.assertEqual(
-            self.form.fields['end_date'].widget.attrs['id'],
+            field.widget.attrs['id'],
             'input_proposition_end_date'
         )
         self.assertEqual(
-            self.form.fields['end_date'].widget.attrs['class'],
+            field.widget.attrs['class'],
             'input-group date form-control form-control-sm'
         )
         self.assertEqual(
-            self.form.fields['end_date']
-            .widget.attrs['data-target-input'],
-            'nearest'
+            field.widget.attrs['data-target-input'],'nearest'
+        )
+
+    def test_pf_with_attr_duration(self):
+        field = self.form.fields['duration']
+        self.assertTrue(field)
+        self.assertIsInstance(field, IntegerField)
+        self.assertEqual(field.label, 'Temps de travail (minutes)')
+        self.assertEqual(field.min_value, 1)
+        self.assertIsInstance(field.widget, NumberInput)
+        self.assertEqual(
+            field.widget.attrs['id'],
+            'input_proposition_duration'
+        )
+        self.assertEqual(
+            field.widget.attrs['class'],
+            'form-control form-control-sm'
         )
 
     # def test_vf_with_attr_voting_method(self):

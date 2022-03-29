@@ -23,7 +23,7 @@ class BlockedTakerTest(TestCase):
 
     def test_blocked_taker_with_attr_custom_user_characteristic(self):
         self.proposition_emulation.emulate_blocked_taker()
-        attribute = BlockedTaker._meta.get_field('custom_user')
+        attribute = BlockedTaker._meta.get_field('blocked_taker_custom_user')
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
@@ -33,7 +33,7 @@ class BlockedTakerTest(TestCase):
 
     def test_blocked_taker_with_attr_proposition_characteristic(self):
         self.proposition_emulation.emulate_blocked_taker()
-        attribute = BlockedTaker._meta.get_field('proposition')
+        attribute = BlockedTaker._meta.get_field('blocked_taker_proposition')
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
@@ -44,8 +44,8 @@ class BlockedTakerTest(TestCase):
     def test_blocked_taker_with_emulated_blocked_taker_instance(self):
         self.proposition_emulation.emulate_blocked_taker()
         blocked_taker = BlockedTaker.objects.get(pk=1)
-        self.assertEqual(blocked_taker.custom_user_id, 1)
-        self.assertEqual(blocked_taker.proposition_id, 1)
+        self.assertEqual(blocked_taker.blocked_taker_custom_user_id, 1)
+        self.assertEqual(blocked_taker.blocked_taker_proposition_id, 1)
         blocked_taker = BlockedTaker.objects.get(pk=2)
-        self.assertEqual(blocked_taker.custom_user_id, 2)
-        self.assertEqual(blocked_taker.proposition_id, 2)
+        self.assertEqual(blocked_taker.blocked_taker_custom_user_id, 2)
+        self.assertEqual(blocked_taker.blocked_taker_proposition_id, 2)

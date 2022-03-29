@@ -1,5 +1,6 @@
 """Proposition module model
 """
+from django.core.validators import MinValueValidator
 from django.db import models
 
 from authentication.models import CustomUser
@@ -18,7 +19,8 @@ class Proposition(models.Model):
     creation_date =  models.DateTimeField(null=False)
     start_date =  models.DateField(null=False)
     end_date =  models.DateField(null=False)
-    duration =  models.IntegerField(null=False)
+    duration =  models.PositiveIntegerField(
+        null=False, default=60,validators=[MinValueValidator(1)])
     proposition_category = models.ForeignKey(
         Category, on_delete=models.CASCADE, null=False,
         related_name="proposition_category"

@@ -73,8 +73,11 @@ class PropositionTest(TestCase):
         self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('duration')
         self.assertTrue(attribute)
-        self.assertEqual(type(attribute), type(models.IntegerField()))
+        self.assertEqual(type(attribute), type(models.PositiveIntegerField()))
         self.assertEqual(attribute.null, False)
+        self.assertEqual(attribute.default, 60)
+        self.assertEqual(attribute.validators[0].limit_value, 1)
+
 
     def test_proposition_with_attr_category_characteristic(self):
         self.proposition_emulation.emulate_proposition()

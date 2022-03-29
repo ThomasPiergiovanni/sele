@@ -8,9 +8,11 @@ from proposition.models.proposition import Proposition
 class BlockedTaker(models.Model):
     """BlockedTaker class model
     """
-    custom_user = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, null=False
+    blocked_taker_custom_user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, null=False,
+        related_name= 'blocked_taker_custom_user'
     )
-    proposition = models.ForeignKey(
-        Proposition, on_delete=models.CASCADE, null=False
+    blocked_taker_proposition = models.ForeignKey(
+        Proposition, on_delete=models.CASCADE, null=False,
+        related_name= 'blocked_taker_custom_user'
     )

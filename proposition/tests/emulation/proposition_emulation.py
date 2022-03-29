@@ -26,8 +26,16 @@ class PropositionEmulation():
         """
         """
         self.emulate_proposition()
-        BlockedTaker.objects.create(id=1,proposition_id=1,custom_user_id=1),
-        BlockedTaker.objects.create(id=2,proposition_id=2,custom_user_id=2),
+        BlockedTaker.objects.create(
+            id=1,
+            blocked_taker_proposition_id=1,
+            blocked_taker_custom_user_id=1
+        ),
+        BlockedTaker.objects.create(
+            id=2,
+            blocked_taker_proposition_id=2,
+            blocked_taker_custom_user_id=2
+        ),
 
     def emulate_category(self):
         Category.objects.create(id=1, name="Activité")
