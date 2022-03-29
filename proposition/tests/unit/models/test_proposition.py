@@ -7,6 +7,9 @@ from django.test import TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from proposition.models.blocked_taker import BlockedTaker
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
@@ -25,6 +28,7 @@ class PropositionTest(TestCase):
     """Test Proposition class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
         self.proposition_emulation = PropositionEmulation()
 
     def test_propositon_with_discussion_class(self):
@@ -247,3 +251,41 @@ class PropositionTest(TestCase):
             proposition.proposition_creator_type.name, "Individuelle"
         )
 
+    def test_proposition_with_wrong_dates(self):   
+        self.auth_emulation.emulate_custom_user()
+        self.proposition_emulation.emulate_category()
+        self.proposition_emulation.emulate_creator_type()
+        self.proposition_emulation.emulate_domain()
+        self.proposition_emulation.emulate_kind()
+        self.proposition_emulation.emulate_rating()
+        self.proposition_emulation.emulate_status()
+        proposition = True
+        try:
+            Proposition.objects.create(
+                id=3,
+                name="Cours de Python",
+                description=(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    " Sed non risus. Suspendisse lectus tortor, dignissim sit"
+                    " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
+                    " ultrices diam. Maecenas ligula massa, varius a, semper"
+                ),
+                creation_date=datetime(
+                    2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc
+                ),
+                start_date=date(2022, 2, 25),
+                end_date=date(2022, 1, 25),
+                duration=120,
+                proposition_category_id=2,
+                proposition_creator_id=1,
+                proposition_creator_type_id=1,
+                proposition_domain_id=1,
+                proposition_kind_id=1,
+                proposition_rating_id=1,
+                proposition_status_id=1,
+                proposition_taker_id=2
+            ),
+            proposition = Proposition.objects.get(pk=3)
+        except:
+            proposition = False
+        self.assertFalse(proposition)

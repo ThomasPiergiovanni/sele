@@ -58,3 +58,10 @@ class Proposition(models.Model):
         through='BlockedTaker',
         related_name="blocked_takers"
     )
+    class Meta:
+        constraints= [
+            models.CheckConstraint(
+                check=models.Q(start_date__lte=models.F('end_date')),
+                name='start_data_lte_end_date'
+            )
+        ]

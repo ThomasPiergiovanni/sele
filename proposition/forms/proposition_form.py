@@ -109,3 +109,12 @@ class PropositionForm(ModelForm):
             'name', 'description', 'proposition_kind', 'proposition_category',
             'proposition_domain', 'start_date', 'end_date', 'duration'
         )
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        try:
+            if cleaned_data['start_date'] > cleaned_data['end_date']:
+                self.add_error(None, "Date de fin < Date de début")
+        except KeyError:
+            pass
+        return cleaned_data
