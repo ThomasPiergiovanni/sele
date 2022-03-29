@@ -82,7 +82,13 @@ class PropositionTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(Category, on_delete=models.CASCADE))
+            type(
+                models.ForeignKey(
+                    Category,
+                    on_delete=models.CASCADE,
+                    related_name='proposition_category'
+                )
+            )
         )
         self.assertEqual(attribute.null, False)
 
@@ -92,7 +98,13 @@ class PropositionTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(CustomUser, on_delete=models.CASCADE))
+            type(
+                models.ForeignKey(
+                    CustomUser,
+                    on_delete=models.CASCADE,
+                    related_name='proposition_creator'
+                )
+            )
         )
         self.assertEqual(attribute.null, False)
 
@@ -102,7 +114,13 @@ class PropositionTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(CreatorType, on_delete=models.CASCADE))
+            type(
+                models.ForeignKey(
+                    CreatorType,
+                    on_delete=models.CASCADE,
+                    related_name='proposition_creator_type'
+                )
+            )
         )
         self.assertEqual(attribute.null, False)
 
@@ -112,7 +130,13 @@ class PropositionTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(Domain, on_delete=models.CASCADE))
+            type(
+                models.ForeignKey(
+                    Domain,
+                    on_delete=models.CASCADE,
+                    related_name='proposition_domain'
+                )
+            )
         )
         self.assertEqual(attribute.null, False)
 
@@ -122,7 +146,13 @@ class PropositionTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(Kind, on_delete=models.CASCADE))
+            type(
+                models.ForeignKey(
+                    Kind,
+                    on_delete=models.CASCADE,
+                    related_name='proposition_kind'
+                )
+            )
         )
         self.assertEqual(attribute.null, False)
 
@@ -132,7 +162,13 @@ class PropositionTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(Rating, on_delete=models.CASCADE))
+            type(
+                models.ForeignKey(
+                    Rating,
+                    on_delete=models.CASCADE,
+                    related_name='proposition_rating'
+                )
+            )
         )
         self.assertEqual(attribute.null, False)
 
@@ -142,7 +178,13 @@ class PropositionTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(Status, on_delete=models.CASCADE))
+            type(
+                models.ForeignKey(
+                    Status,
+                    on_delete=models.CASCADE,
+                    related_name='proposition_status'
+                )
+            )
         )
         self.assertEqual(attribute.null, False)
 
@@ -152,7 +194,13 @@ class PropositionTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(CustomUser, on_delete=models.CASCADE))
+            type(
+                models.ForeignKey(
+                    CustomUser,
+                    on_delete=models.CASCADE,
+                    related_name='proposition_taker'
+                )
+            )
         )
         self.assertEqual(attribute.null, True)
 

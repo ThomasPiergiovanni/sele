@@ -1,6 +1,7 @@
 # pylint: disable=C0116
 """Test proposition form module.
 """
+from django.forms import DateField, DateInput, ModelChoiceField, Select
 from django.test import TestCase
 
 from authentication.models import CustomUser
@@ -26,7 +27,7 @@ class PropositionFormTest(TestCase):
         self.proposition_emulation.emulate_proposition()
         self.form = PropositionForm()
 
-    def test_vf_with_attr_name(self):
+    def test_pf_with_attr_name(self):
         self.assertEqual(self.form.fields['name'].label,'Intitulé')
         self.assertEqual(self.form.fields['name'].max_length, 128)
         self.assertEqual(
@@ -39,7 +40,7 @@ class PropositionFormTest(TestCase):
         )
 
 
-    def test_vf_with_attr_description(self):
+    def test_pf_with_attr_description(self):
         self.assertEqual(self.form.fields['description'].label, 'Description')
         self.assertEqual(
             self.form.fields['description'].widget.attrs['id'],
@@ -54,14 +55,14 @@ class PropositionFormTest(TestCase):
             self.form.fields['description'].widget.attrs['rows'], 4
         )
 
-    def test_vf_with_attr_proposition_kind(self):
-        self.assertEqual(
-            self.form.fields['proposition_kind'].widget.attrs['id'],
-            'input_proposition_proposition_kind'
-        )
+    def test_pf_with_attr_proposition_kind(self):
         self.assertEqual(
             self.form.fields['proposition_kind'].label,
             'Type de proposition (demande/offre)'
+        )
+        self.assertEqual(
+            self.form.fields['proposition_kind'].widget.attrs['id'],
+            'input_proposition_proposition_kind'
         )
         self.assertEqual(
             self.form.fields['proposition_kind'].widget.attrs['class'],
@@ -72,24 +73,88 @@ class PropositionFormTest(TestCase):
             Kind.objects.get(pk=1)
         )
 
-    # def test_vf_with_attr_closure_date_id(self):
-    #     self.assertEqual(
-    #         self.form.fields['closure_date'].widget.attrs['id'],
-    #         'input_voting_closure_date'
-    #     )
-    #     self.assertEqual(
-    #         self.form.fields['closure_date'].label,
-    #         'Date de fermeture du vote'
-    #     )
-    #     self.assertEqual(
-    #         self.form.fields['closure_date'].widget.attrs['class'],
-    #         'input-group date form-control form-control-sm'
-    #     )
-    #     self.assertEqual(
-    #         self.form.fields['closure_date']
-    #         .widget.attrs['data-target-input'],
-    #         'nearest'
-    #     )
+    def test_pf_with_attr_proposition_category(self):
+        self.assertEqual(
+            self.form.fields['proposition_category'].label,
+            'Nature'
+        )
+        self.assertEqual(
+            self.form.fields['proposition_category'].widget.attrs['id'],
+            'input_proposition_proposition_category'
+        )
+        self.assertEqual(
+            self.form.fields['proposition_category'].widget.attrs['class'],
+            'form-control form-control-sm'
+        )
+        self.assertEqual(
+            self.form.fields['proposition_category'].queryset[0],
+            Category.objects.get(pk=1)
+        )
+
+    def test_pf_with_attr_proposition_domain(self):
+        self.assertIsInstance(
+            self.form.fields['proposition_domain'], ModelChoiceField
+        )
+        self.assertEqual(
+            self.form.fields['proposition_domain'].label,
+            'Domaine'
+        )
+        self.assertIsInstance(
+            self.form.fields['proposition_domain'].widget, Select
+        )
+        self.assertEqual(
+            self.form.fields['proposition_domain'].widget.attrs['id'],
+            'input_proposition_proposition_domain'
+        )
+        self.assertEqual(
+            self.form.fields['proposition_domain'].widget.attrs['class'],
+            'form-control form-control-sm'
+        )
+        self.assertEqual(
+            self.form.fields['proposition_domain'].queryset[0],
+            Domain.objects.get(pk=1)
+        )
+
+    def test_pf_with_attr_start_date(self):
+        self.assertIsInstance(self.form.fields['start_date'], DateField)
+        self.assertEqual(
+            self.form.fields['start_date'].label,
+            'Date de début de proposition'
+        )
+        self.assertIsInstance(self.form.fields['end_date'].widget, DateInput)
+        self.assertEqual(
+            self.form.fields['start_date'].widget.attrs['id'],
+            'input_proposition_start_date'
+        )
+        self.assertEqual(
+            self.form.fields['start_date'].widget.attrs['class'],
+            'input-group date form-control form-control-sm'
+        )
+        self.assertEqual(
+            self.form.fields['start_date']
+            .widget.attrs['data-target-input'],
+            'nearest'
+        )
+    def test_pf_with_attr_end_date(self):
+        self.assertIsInstance(self.form.fields['end_date'], DateField)
+        self.assertEqual(
+            self.form.fields['end_date'].label,
+            'Date de fin de proposition'
+        )
+        self.assertIsInstance(self.form.fields['end_date'].widget, DateInput)
+        self.assertEqual(
+            self.form.fields['end_date'].widget.attrs['id'],
+            'input_proposition_end_date'
+        )
+        self.assertEqual(
+            self.form.fields['end_date'].widget.attrs['class'],
+            'input-group date form-control form-control-sm'
+        )
+        self.assertEqual(
+            self.form.fields['end_date']
+            .widget.attrs['data-target-input'],
+            'nearest'
+        )
 
     # def test_vf_with_attr_voting_method(self):
     #     self.assertEqual(
