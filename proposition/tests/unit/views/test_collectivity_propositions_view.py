@@ -9,6 +9,7 @@ class CollectivityPropositionsViewTest(TestCase):
     """PropositionsVotingsViewTest class.
     """
     def setUp(self):
+        self.login_url = CollectivityPropositionsView.login_url
         self.view = CollectivityPropositionsView()
 
     def test_init_with_overview_view_instance(self):
@@ -20,4 +21,5 @@ class CollectivityPropositionsViewTest(TestCase):
             self.view.context['form'], CollectivityPropositionsForm
         )
         self.assertIsNone(self.view.context['page_objects'])
+        self.assertEqual(self.login_url, '/authentication/login/')
 

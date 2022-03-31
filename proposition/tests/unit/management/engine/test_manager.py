@@ -172,27 +172,26 @@ class TestManager(TestCase):
 
 
     
-    # def test_set_session_vars_with_date_desc(self):
-    #     self.vote_emulation.emulate_vote()
-    #     request = RequestFactory().post(
-    #         '', data={'attribute': 'date','order': 'desc'}
-    #     )
-    #     session_middleware = SessionMiddleware(request)
-    #     session_middleware.process_request(request) 
-    #     self.manager.set_session_vars(request, attribute='date', order='desc')
-    #     self.assertEqual(request.session.get('c_v_v_f_attribute'), 'date')
+    def test_set_session_vars_with_proposition_status_desc(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().post('')
+        session_middleware = SessionMiddleware(request)
+        session_middleware.process_request(request) 
+        self.manager.set_session_vars(
+            request, attribute='proposition_status', order='desc')
+        self.assertEqual(
+            request.session.get('c_p_v_f_attribute'), 'proposition_status'
+        )
 
-    # def test_set_session_vars_with_question_asc(self):
-    #     self.vote_emulation.emulate_vote()
-    #     request = RequestFactory().post(
-    #         '', data={'attribute': 'question', 'order': 'asc'}
-    #     )
-    #     session_middleware = SessionMiddleware(request)
-    #     session_middleware.process_request(request) 
-    #     self.manager.set_session_vars(
-    #         request, attribute='question', order='asc'
-    #     )
-    #     self.assertEqual(request.session.get('c_v_v_f_order'), 'asc')
+    def test_set_session_vars_with_question_asc(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().post('')
+        session_middleware = SessionMiddleware(request)
+        session_middleware.process_request(request) 
+        self.manager.set_session_vars(
+            request, attribute='duration', order='asc'
+        )
+        self.assertEqual(request.session.get('c_p_v_f_order'), 'asc')
 
     # def test_create_vote_with_vote_yes(self):
     #     self.vote_emulation.emulate_voting()

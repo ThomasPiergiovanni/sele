@@ -101,7 +101,6 @@ class Manager():
         request.session['c_v_v_f_attribute'] = attribute
         request.session['c_v_v_f_order'] = order
 
-
     def create_vote(self, request, id_voting):
         form_vote = request.POST['form_vote']
         choice = False

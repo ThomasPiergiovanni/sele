@@ -73,3 +73,6 @@ class Manager():
             request.user.collectivity
         ).order_by(parameter)
 
+    def set_session_vars(self, request, attribute, order):
+        request.session['c_p_v_f_attribute'] = attribute
+        request.session['c_p_v_f_order'] = order

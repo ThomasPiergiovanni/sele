@@ -24,8 +24,7 @@ class CollectivityPropositionsViewTest(TestCase):
         self.assertTemplateUsed(response, 'proposition/propositions.html')
         self.assertIsInstance(response.context['page_objects'][0], Proposition)
         self.assertEqual(
-            response.context['page_objects'][0].name,
-            "Cours de Java"
+            response.context['page_objects'][0].name, "Cours de Java"
         )
         self.assertEqual(
             response.context['page_objects'][0].proposition_category,
@@ -42,8 +41,7 @@ class CollectivityPropositionsViewTest(TestCase):
         response = self.client.get(
             '/proposition/collectivity_propositions/', follow=True)
         self.assertEqual(
-            response.context['page_objects'][0].name,
-            "Cours de Python"
+            response.context['page_objects'][0].name, "Cours de Python"
         )
 
     def test_get_with_alternative_scenario_two(self):
@@ -52,54 +50,48 @@ class CollectivityPropositionsViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],
-            '/authentication/login/'
+            response.redirect_chain[0][0], '/authentication/login/'
         )
 
-    # def test_post_with_nominal_scenario(self):
-    #     self.client.login(email='user1@email.com', password='xxx_Xxxx')
-    #     form = {'attribute_selector': 'date', 'order_selector': 'asc'}
-    #     response = self.client.post(
-    #         '/vote/collectivity_votings/', data=form, follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'vote/votings.html')
-    #     self.assertIsInstance(response.context['page_objects'][0], Voting)
-    #     self.assertEqual(
-    #         response.context['page_objects'][0].question,
-    #         "Voulez-vous créer une demande de nettoyage?"
-    #     )
-    #     self.assertEqual(
-    #         response.context['page_objects'][1].question,
-    #         "Voulez-vous créer une demande de python?"
-    #     )
-    # def test_post_with_alternative_scenario_one_missing_input(self):
-    #     self.client.login(email='user1@email.com', password='xxx_Xxxx')
-    #     form = {'attribute_selector': '', 'order_selector': 'asc'}
-    #     response = self.client.post(
-    #         '/vote/collectivity_votings/', data=form, follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'vote/votings.html')
-    #     self.assertIsInstance(response.context['page_objects'][0], Voting)
-    #     self.assertEqual(
-    #         response.context['page_objects'][0].question,
-    #         "Voulez-vous créer une demande de python?"
-    #     )
-    #     self.assertEqual(
-    #         response.context['page_objects'][1].question,
-    #         "Voulez-vous créer une demande de nettoyage?"
-    #     )
-    #     self.assertTrue(response.context['form'].errors)
+    def test_post_with_nominal_scenario(self):
+        self.proposition_emulation.emulate_proposition()
+        self.client.login(email='user1@email.com', password='xxx_Xxxx')
+        form = {
+            'attribute_selector': 'proposition_status',
+            'order_selector': 'desc'
+        }
+        response = self.client.post(
+            '/proposition/collectivity_propositions/', data=form, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'proposition/propositions.html')
+        self.assertIsInstance(response.context['page_objects'][0], Proposition)
+        self.assertEqual(
+            response.context['page_objects'][0].name, "Cours de Java"
+        )
 
-    # def test_post_with_alternative_scenario_two(self):
-    #     form = {'attribute_selector': 'date', 'order_selector': 'asc'}
-    #     response = self.client.post(
-    #         '/vote/collectivity_votings/', data=form, follow=True)
-    #     self.assertEqual(response.status_code, 200)
-    #     response_msg = response.context['messages']._loaded_data[0]
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],reverse('information:home')
-    #     )
-    #     self.assertEqual(response_msg.level_tag, 'error')
-    #     self.assertEqual(response_msg.message, "Authentification requise")
+    def test_post_with_alternative_scenario_one_missing_input(self):
+        self.proposition_emulation.emulate_proposition()
+        self.client.login(email='user1@email.com', password='xxx_Xxxx')
+        form = {'attribute_selector': '', 'order_selector': 'asc'}
+        response = self.client.post(
+            '/proposition/collectivity_propositions/', data=form, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'proposition/propositions.html')
+        self.assertIsInstance(response.context['page_objects'][0], Proposition)
+        self.assertEqual(
+            response.context['page_objects'][0].name, "Cours de Java"
+        )
+        self.assertTrue(response.context['form'].errors)
+
+    def test_post_with_alternative_scenario_two(self):
+        self.proposition_emulation.emulate_proposition()
+        form = {'attribute_selector': 'creation_date', 'order_selector': 'asc'}
+        response = self.client.post(
+            '/proposition/collectivity_propositions/', data=form, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.redirect_chain[0][0], '/authentication/login/'
+        )

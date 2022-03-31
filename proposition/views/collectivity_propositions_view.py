@@ -51,36 +51,28 @@ class CollectivityPropositionsView(LoginRequiredMixin,View):
             )
             return render(request, self.view_template, self.context)
     
-    # def post(self, request):
-    #     if request.user.is_authenticated:
-    #         form = CollectivityVotingsForm(request.POST)
-    #         if form.is_valid():
-    #             attribute = form.cleaned_data['attribute_selector']
-    #             order = form.cleaned_data['order_selector']
-    #             self.context['form'] = (
-    #                 self.manager.set_collectivity_votings_form_context(
-    #                     attribute, order
-    #                 )
-    #             )
-    #             self.context['page_objects'] = (
-    #                 self.manager.set_collectivity_votings_page_objects_context(
-    #                     request, attribute=attribute, order=order
-    #                 )
-    #             )
-    #             self.manager.set_session_vars(request, attribute, order)
-    #             return render(request, self.view_template, self.context)
-    #         else:
-    #             self.context['form'] = form
-    #             self.context['page_objects'] = (
-    #                 self.manager.set_collectivity_votings_page_objects_context(
-    #                     request, attribute='date', order='desc'
-    #                 )
-    #             )
-    #             return render(
-    #                 request, self.view_template,self.context
-    #             )
-    #     else:
-    #         messages.add_message(
-    #                 request, messages.ERROR, "Authentification requise",
-    #             )
-    #         return redirect(self.alternative_view_name)
+    def post(self, request):
+        form = CollectivityPropositionsForm(request.POST)
+        if form.is_valid():
+            attribute = form.cleaned_data['attribute_selector']
+            order = form.cleaned_data['order_selector']
+            self.context['form'] = (
+                self.manager.set_colvity_propositions_form_context(
+                    attribute, order
+                )
+            )
+            self.context['page_objects'] = (
+                self.manager.set_colvity_propositions_page_obj_context(
+                    request, attribute=attribute, order=order
+                )
+            )
+            self.manager.set_session_vars(request, attribute, order)
+            return render(request, self.view_template, self.context)
+        else:
+            self.context['form'] = form
+            self.context['page_objects'] = (
+                self.manager.set_colvity_propositions_page_obj_context(
+                    request, attribute='date', order='desc'
+                )
+            )
+            return render(request, self.view_template, self.context)
