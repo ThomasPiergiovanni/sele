@@ -94,24 +94,24 @@ class TestManager(TestCase):
     #         self.manager._Manager__get_voting_result(votes), 50
     #     )
 
-    def test_set_colvity_proposition_form_context(self):
-        form = self.manager.set_colvity_propositions_form_context(
+    def test_set_form_context(self):
+        form = self.manager.set_form_context(
             'creation_date', 'asc'
         )
         self.assertIsInstance(form, CollectivityPropositionsForm)
         self.assertEqual(
-            form.fields['attribute_selector']._choices[7][0], 'creation_date'
+            form.fields['attribute_selector']._choices[6][0], 'creation_date'
         )
         self.assertEqual(form.fields['order_selector']._choices[0][0], 'asc')
     
-    def test_set_colvity_propositions_page_obj_context(self):
+    def test_set_page_objects_context(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         page_objects = (
-            self.manager.set_colvity_propositions_page_obj_context(
-                request, attribute='creation_date', order='asc'
+            self.manager.set_page_objects_context(
+                request, 'creation_date','asc'
             )
         )
         self.assertEqual(page_objects[0].id, 1)
@@ -122,7 +122,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user
         propositions = self.manager._Manager__get_sorted_propositions(
-            request, attribute='creation_date', order='asc'
+            request, 'creation_date','asc'
         )
         self.assertIsInstance(propositions[0], Proposition)
         self.assertEqual(propositions[0].id, 1)
@@ -133,7 +133,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user
         propositions = self.manager._Manager__get_sorted_propositions(
-            request, attribute='creation_date', order='desc'
+            request, 'creation_date', 'desc'
         )
         self.assertIsInstance(propositions[0], Proposition)
         self.assertEqual(propositions[0].id, 3)
@@ -144,7 +144,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user
         propositions = self.manager._Manager__get_sorted_propositions(
-            request, attribute='proposition_kind', order='asc'
+            request, 'proposition_kind', 'asc'
         )
         self.assertIsInstance(propositions[0], Proposition)
         self.assertEqual(propositions[0].id, 1)
@@ -155,7 +155,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user
         propositions = self.manager._Manager__get_sorted_propositions(
-            request, attribute='proposition_kind', order='desc'
+            request, 'proposition_kind', 'desc'
         )
         self.assertIsInstance(propositions[0], Proposition)
         self.assertEqual(propositions[0].id, 3)
@@ -170,15 +170,12 @@ class TestManager(TestCase):
         )
         self.assertEqual(propositions[0].id, 1)
 
-
-    
     def test_set_session_vars_with_proposition_status_desc(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post('')
         session_middleware = SessionMiddleware(request)
         session_middleware.process_request(request) 
-        self.manager.set_session_vars(
-            request, attribute='proposition_status', order='desc')
+        self.manager.set_session_vars(request, 'proposition_status', 'desc')
         self.assertEqual(
             request.session.get('c_p_v_f_attribute'), 'proposition_status'
         )
@@ -188,9 +185,7 @@ class TestManager(TestCase):
         request = RequestFactory().post('')
         session_middleware = SessionMiddleware(request)
         session_middleware.process_request(request) 
-        self.manager.set_session_vars(
-            request, attribute='duration', order='asc'
-        )
+        self.manager.set_session_vars(request, 'duration', 'asc')
         self.assertEqual(request.session.get('c_p_v_f_order'), 'asc')
 
     # def test_create_vote_with_vote_yes(self):

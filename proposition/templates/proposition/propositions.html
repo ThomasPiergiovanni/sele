@@ -80,49 +80,44 @@
                             <table class="table table-sm table-borderless">
                                 <thead class="">
                                     <tr>
-                                        <th>#</th>
-                                        <th>Nom</th>
-                                        <th>Type</th>
-                                        <th>Domaine</th>
-                                        <th>Catégorie</th>
-                                        <th>Temps de travail</th>
-                                        <th>Status</th>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Nom</th>
+                                        <th class="text-center">Type</th>
+                                        <th class="text-center">Temps de travail</th>
+                                        <th class="text-center">Statut</th>
+                                        <th class="text-center">Créateur</th>
+                                        <th class="text-center">Preneur</th>
                                         <th class="text-center">Date de création</th>
-                                        <th>Créateur</th>
-                                        <th>Preneur</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for proposition in page_objects%}
                                         <tr>
-                                            <td>
+                                            <td class="text-center">
                                                 {{proposition.id}}
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 {{proposition.name}}
                                             </td>
-                                            <td>
-                                                {{proposition.proposition_kind}}
+                                            <td class="text-center">
+                                                {{proposition.proposition_kind.name}}
                                             </td>
-                                            <td>
-                                                {{proposition.proposition_category}}
-                                            </td>
-                                            <td>
+                                            <td class="text-center">
                                                 {{proposition.duration}}
                                             </td>
-                                            <td>
-                                                {{proposition.proposition_status}}
+                                            <td class="text-center">
+                                                {{proposition.proposition_status.name}}
                                             </td>
-                                            <td>
-                                                {{proposition.creation_date}}
-                                            </td>
-                                            <td>
+                                            <td class="text-center">
                                                 {{proposition.proposition_creator}}
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 {{proposition.proposition_taker}}
                                             </td>
+                                            <td class="text-center">
+                                                {{proposition.creation_date}}
+                                            </td class="text-center">
                                             <td>
                                                 <a href="" role="button">
                                                     <button type="button"

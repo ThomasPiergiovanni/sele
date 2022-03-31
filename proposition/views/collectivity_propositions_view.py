@@ -1,9 +1,8 @@
 """CollectivityPropositionsView module.
 """
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 
 from proposition.forms.collectivity_propositions_form import (
     CollectivityPropositionsForm
@@ -17,6 +16,7 @@ class CollectivityPropositionsView(LoginRequiredMixin,View):
     """
     login_url = '/authentication/login/'
     redirect_field_name = None
+
     def __init__(self):
         super().__init__()
         self.manager = Manager()
@@ -33,21 +33,15 @@ class CollectivityPropositionsView(LoginRequiredMixin,View):
         order = request.session.get('c_p_v_f_order', None)
         if attribute and order:
             self.context['form'] = (
-                self.manager.set_colvity_propositions_form_context(
-                    attribute, order
-                )
+                self.manager.set_form_context(attribute, order)
             )
             self.context['page_objects'] = (
-                self.manager.set_colvity_propositions_page_obj_context(
-                    request, attribute=attribute, order=order
-                )
+                self.manager.set_page_objects_context(request, attribute, order)
             )
             return render(request, self.view_template, self.context)
         else:
             self.context['page_objects'] = (
-                self.manager.set_colvity_propositions_page_obj_context(
-                    request, attribute='date', order='desc'
-                )
+                self.manager.set_page_objects_context(request, 'date','desc')
             )
             return render(request, self.view_template, self.context)
     
@@ -57,22 +51,16 @@ class CollectivityPropositionsView(LoginRequiredMixin,View):
             attribute = form.cleaned_data['attribute_selector']
             order = form.cleaned_data['order_selector']
             self.context['form'] = (
-                self.manager.set_colvity_propositions_form_context(
-                    attribute, order
-                )
+                self.manager.set_form_context(attribute, order)
             )
             self.context['page_objects'] = (
-                self.manager.set_colvity_propositions_page_obj_context(
-                    request, attribute=attribute, order=order
-                )
+                self.manager.set_page_objects_context(request, attribute, order)
             )
             self.manager.set_session_vars(request, attribute, order)
             return render(request, self.view_template, self.context)
         else:
             self.context['form'] = form
             self.context['page_objects'] = (
-                self.manager.set_colvity_propositions_page_obj_context(
-                    request, attribute='date', order='desc'
-                )
+                self.manager.set_page_objects_context(request, 'date', 'desc')
             )
             return render(request, self.view_template, self.context)

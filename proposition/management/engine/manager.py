@@ -13,18 +13,13 @@ class Manager():
     def __init__(self):
         pass
 
-    def set_colvity_propositions_form_context(self, attribute, order):
+    def set_form_context(self, attribute, order):
         context_form = CollectivityPropositionsForm(
-            initial = {
-                'attribute_selector': attribute,
-                'order_selector': order
-            }
+            initial = {'attribute_selector': attribute, 'order_selector': order}
         )
         return context_form
 
-    def set_colvity_propositions_page_obj_context(
-        self, request, attribute, order
-    ):
+    def set_page_objects_context(self, request, attribute, order):
         propositions = self.__get_sorted_propositions(request, attribute, order)
         paginator = Paginator(propositions, 3)
         page_number = request.GET.get('page')
