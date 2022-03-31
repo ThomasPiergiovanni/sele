@@ -14,5 +14,5 @@ class BlockedTaker(models.Model):
     )
     blocked_taker_proposition = models.ForeignKey(
         Proposition, on_delete=models.CASCADE, null=False,
-        related_name= 'blocked_taker_custom_user'
+        related_name= 'blocked_taker_proposition'
     )

@@ -111,6 +111,30 @@ class PropositionEmulation():
             proposition_status_id=2,
             proposition_taker_id=1
         )
+        Proposition.objects.create(
+            id=3,
+            name="Cours de Java",
+            description=(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                " Sed non risus. Suspendisse lectus tortor, dignissim sit"
+                " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
+                " ultrices diam. Maecenas ligula massa, varius a, semper"
+            ),
+            creation_date=datetime(
+                2022, 3, 15, 1, 1, 22, tzinfo=timezone.utc
+            ),
+            start_date=date(2022, 3, 15),
+            end_date=date(2022, 3, 25),
+            duration=240,
+            proposition_category_id=2,
+            proposition_creator_id=1,
+            proposition_creator_type_id=2,
+            proposition_domain_id=2,
+            proposition_kind_id=2,
+            proposition_rating_id=2,
+            proposition_status_id=2,
+            proposition_taker_id=1
+        ),
 
     def emulate_rating(self):
         """

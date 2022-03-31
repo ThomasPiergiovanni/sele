@@ -1,0 +1,166 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        {% include 'information/messages.html' %}
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Proposition - <span class="text-primary font-weight-bold font-italic">
+                        {{ user.collectivity.name }} ({{ user.collectivity.postal_code }})</span>
+                </h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <!-- Main row -->
+        <div class="row">
+            <!-- right col -->
+            <!-- one col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col">
+                <!-- Last poposals cards -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-tags mr-1"></i>
+                            Propositions
+                        </h3>
+                    </div>
+                    <div class="card-body mt-3 mb-1">
+                        <!-- Form -->
+                        <form id="collectivity_proposition_form" action="{% url 'proposition:collectivity_propositions'%}" method="post" novalidate>
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-10 offset-md-1">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            {{form.attribute_selector.label}}
+                                            {{form.attribute_selector}}
+                                            {% for error in form.attribute_selector.errors %}
+                                                {% if error %}
+                                                    <p class="text-danger"> {{ error }}</p>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-sm-5">
+                                            {{form.order_selector.label}}
+                                            {{form.order_selector}}
+                                            {% for error in form.order_selector.errors %}
+                                                {% if error %}
+                                                    <p class="text-danger"> {{ error }}</p>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="submit" class="text-secondary btn btn-block btn-light border border-secondary btn-sm mt-4">Trier</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {% if form.non_field_errors %}
+                                            {% for error in form.non_field_errors %}
+                                            <p class="text-danger">{{ error }}</p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card-body-->
+                    <!-- Table . 2nd card-body-->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-borderless">
+                                <thead class="">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Type</th>
+                                        <th>Domaine</th>
+                                        <th>Catégorie</th>
+                                        <th>Temps de travail</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Date de création</th>
+                                        <th>Créateur</th>
+                                        <th>Preneur</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for proposition in page_objects%}
+                                        <tr>
+                                            <td>
+                                                {{proposition.id}}
+                                            </td>
+                                            <td>
+                                                {{proposition.name}}
+                                            </td>
+                                            <td>
+                                                {{proposition.proposition_kind}}
+                                            </td>
+                                            <td>
+                                                {{proposition.proposition_category}}
+                                            </td>
+                                            <td>
+                                                {{proposition.duration}}
+                                            </td>
+                                            <td>
+                                                {{proposition.proposition_status}}
+                                            </td>
+                                            <td>
+                                                {{proposition.creation_date}}
+                                            </td>
+                                            <td>
+                                                {{proposition.proposition_creator}}
+                                            </td>
+                                            <td>
+                                                {{proposition.proposition_taker}}
+                                            </td>
+                                            <td>
+                                                <a href="" role="button">
+                                                    <button type="button"
+                                                        class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="" role="button">
+                                                    <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /end card body -->
+
+                    <div class="card-footer bg-white clearfix">
+                        <div class="row mb-4 mt-4">
+                            <div class="col-sm-8"></div>
+                            <div class="col-sm-4">
+                                <a href="" role="button">
+                                    <button type="button" class="btn btn-block btn-success btn-sm ">Nouvelle proposition</button>
+                                </a>
+                            </div>
+                        </div>
+                        {% include 'information/pagination.html' %}
+                    </div>
+                    <!-- /.card-footer-->
+             </div>
+                <!-- /.card -->
+            </section>
+
+        </div>
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+{% endblock %}
