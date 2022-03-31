@@ -1,6 +1,7 @@
 """CollectivityPropositionsView module.
 """
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.shortcuts import redirect, render
 
@@ -11,51 +12,44 @@ from proposition.management.engine.manager import Manager
 
 
 
-class CollectivityPropositionsView(View):
+class CollectivityPropositionsView(LoginRequiredMixin,View):
     """CollectivityPropositionsView class.
     """
+    login_url = '/authentication/login/'
+    redirect_field_name = None
     def __init__(self):
         super().__init__()
         self.manager = Manager()
         self.view_template = 'proposition/propositions.html'
-        self.alternative_view_name = 'information:home'
         self.context = {
             'form' : CollectivityPropositionsForm(),
             'page_objects': None,
         }
-        self.msg_unauthenticated = "Authentification requise"
     
     def get(self, request):
         """CollectivityPropositionsView method on client get request.
         """
-        if request.user.is_authenticated:
-            attribute = request.session.get('c_p_v_f_attribute', None)
-            order = request.session.get('c_p_v_f_order', None)
-            if attribute and order:
-                self.context['form'] = (
-                    self.manager.set_colvity_propositions_form_context(
-                        attribute, order
-                    )
+        attribute = request.session.get('c_p_v_f_attribute', None)
+        order = request.session.get('c_p_v_f_order', None)
+        if attribute and order:
+            self.context['form'] = (
+                self.manager.set_colvity_propositions_form_context(
+                    attribute, order
                 )
-                self.context['page_objects'] = (
-                    self.manager.set_colvity_propositions_page_obj_context(
-                        request, attribute=attribute, order=order
-                    )
-                )
-                return render(request, self.view_template, self.context)
-            else:
-                self.context['page_objects'] = (
-                    self.manager.set_colvity_propositions_page_obj_context(
-                        request, attribute='date', order='desc'
-                    )
-                )
-                return render(request, self.view_template, self.context)
-
-        else:
-            messages.add_message(
-                request, messages.ERROR, self.msg_unauthenticated
             )
-            return redirect(self.alternative_view_name)
+            self.context['page_objects'] = (
+                self.manager.set_colvity_propositions_page_obj_context(
+                    request, attribute=attribute, order=order
+                )
+            )
+            return render(request, self.view_template, self.context)
+        else:
+            self.context['page_objects'] = (
+                self.manager.set_colvity_propositions_page_obj_context(
+                    request, attribute='date', order='desc'
+                )
+            )
+            return render(request, self.view_template, self.context)
     
     # def post(self, request):
     #     if request.user.is_authenticated:

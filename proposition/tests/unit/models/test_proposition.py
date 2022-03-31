@@ -10,7 +10,6 @@ from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
-from proposition.models.blocked_taker import BlockedTaker
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
@@ -210,22 +209,7 @@ class PropositionTest(TestCase):
             )
         )
         self.assertEqual(attribute.null, True)
-
-    def test_proposition_with_attr_realtion_custom_user_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
-        attribute = Proposition._meta.get_field('blocked_takers')
-        self.assertTrue(attribute)
-        self.assertEqual(
-            type(attribute),
-            type(
-                models.ManyToManyField(
-                    CustomUser,
-                    models.CASCADE,
-                    through='BlockedTaker'
-                )
-            )
-        )
-    
+ 
     def test_proposition_with_emulated_question_instance(self):
         self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=1)

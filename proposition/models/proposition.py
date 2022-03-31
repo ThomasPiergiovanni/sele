@@ -53,11 +53,7 @@ class Proposition(models.Model):
         CustomUser, on_delete=models.CASCADE, null=True,
         related_name="proposition_taker"
     )
-    blocked_takers = models.ManyToManyField(
-        CustomUser,
-        through='BlockedTaker',
-        related_name="blocked_takers"
-    )
+
     class Meta:
         constraints= [
             models.CheckConstraint(

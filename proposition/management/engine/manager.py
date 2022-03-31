@@ -6,6 +6,7 @@ from proposition.forms.collectivity_propositions_form import (
 )
 
 
+
 class Manager():
     """Manager app class.
     """

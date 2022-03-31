@@ -51,12 +51,10 @@ class CollectivityPropositionsViewTest(TestCase):
             '/proposition/collectivity_propositions/', follow=True
         )
         self.assertEqual(response.status_code, 200)
-        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('information:home')
+            response.redirect_chain[0][0],
+            '/authentication/login/'
         )
-        self.assertEqual(response_msg.level_tag, 'error')
-        self.assertEqual(response_msg.message, "Authentification requise")
 
     # def test_post_with_nominal_scenario(self):
     #     self.client.login(email='user1@email.com', password='xxx_Xxxx')

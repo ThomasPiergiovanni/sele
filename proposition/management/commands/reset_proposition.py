@@ -6,7 +6,6 @@ from django.core.management.base import BaseCommand
 from config.settings.data.enumeration import (
     CATEGORIES, CREATOR_TYPES, DOMAINS, KINDS, STATUSES, RATINGS
 )
-from proposition.models.blocked_taker import BlockedTaker
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
@@ -47,7 +46,6 @@ class Command(BaseCommand):
         self.__drop_rating(),
         self.__insert_rating(),
         self.__drop_proposition()
-        self.__drop_blocked_taker()
 
     def __drop_kind(self):
         """Method thats drop kind objects from DB
@@ -137,8 +135,3 @@ class Command(BaseCommand):
         """Method that drop proposition objects from DB
         """
         self.__drop_objects(Proposition)
-
-    def __drop_blocked_taker(self):
-        """Method that drop proposition objects from DB
-        """
-        self.__drop_objects(BlockedTaker)

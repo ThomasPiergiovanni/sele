@@ -4,7 +4,6 @@ from django.db import models
 from django.test import TestCase
 
 from proposition.management.commands.reset_proposition import Command
-from proposition.models.blocked_taker import BlockedTaker
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
@@ -125,10 +124,4 @@ class ResetPropositiionTest(TestCase):
         propositions = Proposition.objects.all()
         self.assertFalse(propositions)
 
-    def test_drop_blocked_taker_with_instance_is_none(self):
-        self.proposition_emulation.emulate_blocked_taker()
-        blocked_takers = BlockedTaker.objects.all()
-        self.assertTrue(blocked_takers)
-        self.command._Command__drop_blocked_taker()
-        blocked_takers = BlockedTaker.objects.all()
-        self.assertFalse(blocked_takers)
+
