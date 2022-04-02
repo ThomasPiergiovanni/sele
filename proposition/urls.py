@@ -6,6 +6,7 @@ from proposition.views.add_view import AddView
 from proposition.views.collectivity_propositions_view import (
     CollectivityPropositionsView
 )
+from proposition.views.create_proposition_view import CreatePropositionView
 from proposition.views.detail_view import DetailView
 from proposition.views.delete_view import DeleteView
 from proposition.views.edit_view import EditView
@@ -20,6 +21,11 @@ urlpatterns = [
         'collectivity_propositions/',
         CollectivityPropositionsView.as_view(),
         name='collectivity_propositions'
+    ),
+    path(
+        'create_proposition/',
+        CreatePropositionView.as_view(),
+        name='create_proposition'
     ),
     path('detail/', DetailView.as_view(), name='detail'),
     path('delete/', DeleteView.as_view(), name='delete'),

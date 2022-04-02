@@ -13,7 +13,12 @@ from authentication.tests.emulation.authentication_emulation import (
 from proposition.forms.collectivity_propositions_form import (
     CollectivityPropositionsForm
 )
+from proposition.forms.proposition_form import PropositionForm
 from proposition.management.engine.manager import Manager
+from proposition.models.category import Category
+from proposition.models.creator_type import CreatorType
+from proposition.models.domain import Domain
+from proposition.models.kind import Kind
 from proposition.models.proposition import Proposition
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
@@ -28,24 +33,31 @@ class TestManager(TestCase):
         self.proposition_emulation = PropositionEmulation()
         self.manager = Manager()
 
-    # def test_create_voting_with_voting_instance(self):
-    #     self.auth_emulation.emulate_custom_user()
-    #     self.vote_emulation.emulate_voting_method()
-    #     form_data = {
-    #         'question': 'Ma question est',
-    #         'description': 'dsdss',
-    #         'opening_date': "2022-01-02",
-    #         'closure_date': "2022-01-25",
-    #         'voting_method': VotingMethod.objects.get(pk=1).id
-    #     }
-    #     form = VotingForm(data=form_data)
-    #     form.is_valid()
-    #     custom_user = CustomUser.objects.get(pk=1)
-    #     self.manager.create_voting(form, custom_user)
-    #     self.assertEqual(
-    #         Voting.objects.all().order_by('-id')[0].description,
-    #         'dsdss'
-    #     )
+    def test_create_proposition_with_proposition_instance(self):
+        self.auth_emulation.emulate_custom_user()
+        self.proposition_emulation.emulate_category()
+        self.proposition_emulation.emulate_domain()
+        self.proposition_emulation.emulate_kind()
+        self.proposition_emulation.emulate_creator_type()
+        self.proposition_emulation.emulate_status()
+        form_data = {
+            'name': 'Cours de Python',
+            'description': 'dsdss',
+            'proposition_kind': Kind.objects.get(pk=1).id,
+            'proposition_category': Category.objects.get(pk=1).id,
+            'proposition_domain': Domain.objects.get(pk=1).id,
+            'start_date': "2022-01-25",
+            'end_date': "2022-01-30",
+            'duration': 45,
+            'proposition_creator_type': CreatorType.objects.get(pk=1).id,
+        }
+        form = PropositionForm(data=form_data)
+        form.is_valid()
+        custom_user = CustomUser.objects.get(pk=1)
+        self.manager.create_proposition(form, custom_user)
+        self.assertEqual(
+            Proposition.objects.all().last().name, 'Cours de Python'
+        )
     
     # def test_set_context_with_return_context(self):
     #     self.vote_emulation.emulate_vote()

@@ -131,3 +131,4 @@ class PropositionEmulation():
         """
         Status.objects.create(id=1, name="Annulé")
         Status.objects.create(id=2, name="En cours")
+        Status.objects.create(id=3, name="Nouveau")

@@ -1,6 +1,10 @@
+from datetime import date
+
 from django.core.paginator import Paginator
+from django.utils import timezone
 
 from proposition.models.proposition import Proposition
+from proposition.models.status import Status
 from proposition.forms.collectivity_propositions_form import (
     CollectivityPropositionsForm
 )
@@ -71,3 +75,23 @@ class Manager():
     def set_session_vars(self, request, attribute, order):
         request.session['c_p_v_f_attribute'] = attribute
         request.session['c_p_v_f_order'] = order
+    
+    def create_proposition(self, form, custom_user):
+        """Method for creating Proposition instances into DB
+        """
+        Proposition.objects.create(
+            name=form.cleaned_data['name'],
+            description=form.cleaned_data['description'],
+            creation_date=timezone.now(),
+            start_date=form.cleaned_data['start_date'],
+            end_date=form.cleaned_data['end_date'],
+            duration=form.cleaned_data['duration'],
+            proposition_category = form.cleaned_data['proposition_category'],
+            proposition_creator=custom_user,
+            proposition_creator_type=(
+                form.cleaned_data['proposition_creator_type']
+            ),
+            proposition_domain=form.cleaned_data['proposition_domain'],
+            proposition_kind=form.cleaned_data['proposition_kind'],
+            proposition_status=Status.objects.get(name__exact="Nouveau"),
+        )

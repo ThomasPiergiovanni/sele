@@ -6,6 +6,7 @@ from django.forms import (
 )
 
 from proposition.models.category import Category
+from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
 from proposition.models.proposition import Proposition
@@ -50,7 +51,7 @@ class PropositionForm(ModelForm):
     )
     proposition_category = ModelChoiceField(
         queryset=Category.objects.all(),
-        label='Nature',
+        label='Nature (activité/produit)',
         empty_label="",
         widget=Select(
             attrs={
@@ -98,8 +99,19 @@ class PropositionForm(ModelForm):
         widget=NumberInput(
             attrs={
                 'id': 'input_proposition_duration',
-                'class': 'form-control form-control-sm'
+                'class': 'form-control form-control-sm',
             }
+        )
+    )
+    proposition_creator_type = ModelChoiceField(
+        queryset=CreatorType.objects.all(),
+        label='Portée de la proposition',
+        empty_label="",
+        widget=Select(
+            attrs={
+                'id': 'input_proposition_proposition_creator_type',
+                'class': 'form-control form-control-sm',
+            },
         )
     )
 
@@ -107,14 +119,25 @@ class PropositionForm(ModelForm):
         model = Proposition
         fields = (
             'name', 'description', 'proposition_kind', 'proposition_category',
-            'proposition_domain', 'start_date', 'end_date', 'duration'
+            'proposition_domain', 'start_date', 'end_date', 'duration',
+            'proposition_creator_type'
         )
     
     def clean(self):
         cleaned_data = super().clean()
         try:
+            kind = Kind.objects.get(name__exact='Offre')
+            creator_type = CreatorType.objects.get(name__exact='Collective')
             if cleaned_data['start_date'] > cleaned_data['end_date']:
                 self.add_error(None, "Date de fin < Date de début")
+            if (
+                cleaned_data['proposition_kind'].name == kind.name and
+                cleaned_data['proposition_creator_type'].name == creator_type.name
+            ):
+                self.add_error(
+                    'proposition_creator_type',
+                    "Une offre ne peut pas être collective"
+                )
         except KeyError:
             pass
         return cleaned_data

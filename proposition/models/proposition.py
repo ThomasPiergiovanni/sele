@@ -42,7 +42,7 @@ class Proposition(models.Model):
         related_name="proposition_kind"
     )
     proposition_rating = models.ForeignKey(
-        Rating, on_delete=models.CASCADE, null=False,
+        Rating, on_delete=models.CASCADE, null=True,
         related_name="proposition_rating"    
     )
     proposition_status = models.ForeignKey(
