@@ -1,4 +1,4 @@
-"""CreatePropositionsView module.
+"""CreatePropositionView module.
 """
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,7 +11,7 @@ from proposition.management.engine.manager import Manager
 
 
 class CreatePropositionView(LoginRequiredMixin,View):
-    """CreatePropositionsView class.
+    """CreatePropositionView class.
     """
     login_url = '/authentication/login/'
     redirect_field_name = None
@@ -28,8 +28,9 @@ class CreatePropositionView(LoginRequiredMixin,View):
         """
         return render(request, self.view_template, self.context)
 
-    
     def post(self, request):
+        """CreatePropositionView method on client post request.
+        """
         form = PropositionForm(request.POST)
         if form.is_valid():
             self.manager.create_proposition(form, request.user)

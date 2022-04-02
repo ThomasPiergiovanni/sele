@@ -21,4 +21,6 @@ class CreatePropositionViewTest(TestCase):
         )
         self.assertIsInstance(self.view.context['form'], PropositionForm)
         self.assertEqual(self.view.post_view_name, 'proposition:collectivity_propositions')
-        self.assertEqual(self.login_url, '/authentication/login/')
+        self.assertEqual(
+            CreatePropositionView.login_url, '/authentication/login/'
+        )

@@ -30,6 +30,7 @@ class CreatePropositionViewTest (TestCase):
         self.proposition_emulation.emulate_creator_type()
         self.proposition_emulation.emulate_domain()
         self.proposition_emulation.emulate_kind()
+        self.proposition_emulation.emulate_status()
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -57,7 +58,7 @@ class CreatePropositionViewTest (TestCase):
             'proposition_kind': Kind.objects.get(pk=1).id,
             'proposition_category': Category.objects.get(pk=1).id,
             'proposition_domain': Domain.objects.get(pk=1).id,
-            'proposition_creator_type' : CreatorType.objects.get(pk=1),
+            'proposition_creator_type' : CreatorType.objects.get(pk=1).id,
             'start_date': "2022-01-25",
             'end_date': "2022-01-30",
             'duration': 45
@@ -68,59 +69,51 @@ class CreatePropositionViewTest (TestCase):
         response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            Proposition.objects.all().last().question, 'Cours de Python'
+            Proposition.objects.all().last().name, 'Cours de Python'
         )
         self.assertEqual(
             response.redirect_chain[0][0],
-            reverse('proposition:collectivity_proposition')
+            reverse('proposition:collectivity_propositions')
         )
         self.assertEqual(response_msg.level_tag, 'success')
         self.assertEqual(response_msg.message, "Création réussie")
 
-    # def test_post_with_nominal_scenario_vote_no(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     self.client.login(email='user1@email.com', password='xxx_Xxxx')
-    #     response = self.client.post(
-    #         '/vote/create_vote/1/', data={'form_vote':'no'}, follow=True
-    #     )
-    #     try:
-    #         vote = Vote.objects.get(pk=1)
-    #     except:
-    #         vote = False
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],
-    #         reverse('vote:detailed_voting', args=[1])
-    #     )
-    #     self.assertTrue(vote)
-    #     self.assertFalse(vote.choice)
-    #     for message in response.context['messages']:
-    #         self.assertEqual(message.level_tag, 'success')
-    #         self.assertEqual(message.message, "A voté!")
-    
-    # def test_post_with_first_alternative_scenario(self):
-    #     self.vote_emulation.emulate_vote()
-    #     self.client.login(email='user1@email.com', password='xxx_Xxxx')
-    #     response = self.client.post(
-    #         '/vote/create_vote/1/', data={'form_vote':'yes'}, follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],
-    #         reverse('vote:detailed_voting', args=[1])
-    #     )
-    #     for message in response.context['messages']:
-    #         self.assertEqual(message.level_tag, 'error')
-    #         self.assertEqual(message.message, "Vous avez déja voté")
+    def test_post_with_alternative_scenario_with_wrong_form(self):
+        self.client.login(email='user1@email.com', password='xxx_Xxxx')
+        form_data = {
+            'name': 'Cours de Python',
+            'description': 'dsdss',
+            'proposition_kind': Kind.objects.get(pk=2).id,
+            'proposition_category': Category.objects.get(pk=1).id,
+            'proposition_domain': Domain.objects.get(pk=1).id,
+            'proposition_creator_type' : CreatorType.objects.get(pk=1).id,
+            'start_date': "2022-01-25",
+            'end_date': "2022-01-30",
+            'duration': 45
+        }
+        response = self.client.post(
+            '/proposition/create_proposition/', data=form_data, follow=True
+        )
+        self.assertTemplateUsed(response, 'proposition/create_proposition.html')
+        self.assertIsInstance(response.context['form'], PropositionForm)
+        self.assertTrue(response.context['form'].errors)
 
-    # def test_post_with_second_alternative_scenario(self):
-    #     response = self.client.post(
-    #         '/vote/create_vote/1/', data={'form_vote':'yes'}, follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     response_msg = response.context['messages']._loaded_data[0]
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],reverse('information:home')
-    #     )
-    #     self.assertEqual(response_msg.level_tag, 'error')
-    #     self.assertEqual(response_msg.message, "Authentification requise")
+    def test_post_with_alternative_scenario_two_unauthenticated_user(self):
+        form_data = {
+            'name': 'Cours de Python',
+            'description': 'dsdss',
+            'proposition_kind': Kind.objects.get(pk=1).id,
+            'proposition_category': Category.objects.get(pk=1).id,
+            'proposition_domain': Domain.objects.get(pk=1).id,
+            'proposition_creator_type' : CreatorType.objects.get(pk=1).id,
+            'start_date': "2022-01-25",
+            'end_date': "2022-01-30",
+            'duration': 45
+        }
+        response = self.client.post(
+            '/proposition/create_proposition/', data=form_data, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.redirect_chain[0][0], '/authentication/login/'
+        )
