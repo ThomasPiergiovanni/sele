@@ -45,12 +45,9 @@ class CollectivityVotingsViewTest(TestCase):
     def test_get_with_alternative_scenario_two(self):
         response = self.client.get('/vote/collectivity_votings/', follow=True)
         self.assertEqual(response.status_code, 200)
-        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('information:home')
+            response.redirect_chain[0][0],reverse('authentication:login')
         )
-        self.assertEqual(response_msg.level_tag, 'error')
-        self.assertEqual(response_msg.message, "Authentification requise")
 
     def test_post_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -93,9 +90,6 @@ class CollectivityVotingsViewTest(TestCase):
         response = self.client.post(
             '/vote/collectivity_votings/', data=form, follow=True)
         self.assertEqual(response.status_code, 200)
-        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('information:home')
+            response.redirect_chain[0][0],reverse('authentication:login')
         )
-        self.assertEqual(response_msg.level_tag, 'error')
-        self.assertEqual(response_msg.message, "Authentification requise")
