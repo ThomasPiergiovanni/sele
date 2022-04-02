@@ -84,10 +84,13 @@
                                         <th class="text-center">Nom</th>
                                         <th class="text-center">Type</th>
                                         <th class="text-center">Temps de travail</th>
-                                        <th class="text-center">Statut</th>
+                                        <th class="text-center bg-light">Statut</th>
+                                        <th class="text-center">Date de création</th>
+                                        <th class="text-center">Début</th>
+                                        <th class="text-center">Fin</th>
                                         <th class="text-center">Créateur</th>
                                         <th class="text-center">Preneur</th>
-                                        <th class="text-center">Date de création</th>
+                                        <th class="text-center">Portée</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -101,14 +104,23 @@
                                                 {{proposition.name}}
                                             </td>
                                             <td class="text-center">
-                                                {{proposition.proposition_kind.name}}
+                                                {{proposition.proposition_kind}}
                                             </td>
                                             <td class="text-center">
                                                 {{proposition.duration}}
                                             </td>
-                                            <td class="text-center">
-                                                {{proposition.proposition_status.name}}
+                                            <td class="text-center font-italic bg-light">
+                                                {{proposition.proposition_status}}
                                             </td>
+                                            <td class="text-center">
+                                                {{proposition.creation_date}}
+                                            </td class="text-center">
+                                            <td class="text-center">
+                                                {{proposition.start_date}}
+                                            </td class="text-center">
+                                            <td class="text-center">
+                                                {{proposition.end_date}}
+                                            </td class="text-center">
                                             <td class="text-center">
                                                 {{proposition.proposition_creator}}
                                             </td>
@@ -116,7 +128,7 @@
                                                 {{proposition.proposition_taker}}
                                             </td>
                                             <td class="text-center">
-                                                {{proposition.creation_date}}
+                                                {{proposition.proposition_creator_type}}
                                             </td class="text-center">
                                             <td>
                                                 <a href="" role="button">

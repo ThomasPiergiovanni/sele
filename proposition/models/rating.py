@@ -11,3 +11,5 @@ class Rating(models.Model):
             MaxValueValidator(5)
         ]
     )
+    def __str__(self):
+        return self.rate

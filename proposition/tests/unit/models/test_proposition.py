@@ -176,7 +176,7 @@ class PropositionTest(TestCase):
                 )
             )
         )
-        self.assertEqual(attribute.null, False)
+        self.assertEqual(attribute.null, True)
 
     def test_proposition_with_attr_status_characteristic(self):
         self.proposition_emulation.emulate_proposition()

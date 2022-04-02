@@ -30,7 +30,7 @@
         <!-- /.card-body-->
         <!-- Table . 2nd card-body-->
         <div class="card-body">
-            <form id="create_proposition_form" action="{% url 'proposition:create_proposition'%}" method="post">
+            <form id="create_proposition_form" action="{% url 'proposition:create_proposition'%}" method="post" novalidate>
                 {% csrf_token %}
                 {% for field in form %}
                 <div class="form-group mb-3">
@@ -60,7 +60,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 mb-2">
-                    <button type="submit" form="create_voting_form" class="btn btn-block btn-success">Créer</button>
+                    <button type="submit" form="create_proposition_form" class="btn btn-block btn-success">Créer</button>
                 </div>
             </div>
         </div>
