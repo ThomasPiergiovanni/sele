@@ -18,6 +18,7 @@ class DeletePropositionViewTest(TestCase):
     """
     def setUp(self):
         self.proposition_emulation = PropositionEmulation()
+        self.proposition_emulation.emulate_proposition()
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')

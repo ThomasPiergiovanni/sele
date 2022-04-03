@@ -31,7 +31,6 @@ class DeletePropositionView(LoginRequiredMixin, View):
     def get(self, request, id_proposition):
         """Delete proposition view method on client get request.
         """
-        print('horo')
         proposition = Proposition.objects.get(pk=id_proposition)
         if proposition.proposition_creator_id == request.user.id:
             self.context['proposition'] = proposition
@@ -46,7 +45,6 @@ class DeletePropositionView(LoginRequiredMixin, View):
         """Delete proposition view method on client post request.
         """
         proposition = Proposition.objects.get(pk=id_proposition)
-        print(proposition.id)
         if proposition.proposition_creator_id == request.user.id:
             proposition.delete()
             messages.add_message(
