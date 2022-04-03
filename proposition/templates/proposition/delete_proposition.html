@@ -1,0 +1,40 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class=" login-page">
+    <div class="login-box ">
+        <div class="login-logo">
+            <a href="../../index2.html"><b>sel-</b>E</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Supprimer la proposition</p>
+                <p class="font-weight-bold"> "{{proposition.name}}"</p>
+                <form id="delete_proposition_form" action="{% url 'proposition:delete_proposition' id_proposition=proposition.id %}" method="post" novalidate>
+                    {% csrf_token %}
+                </form>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="{% url 'proposition:collectivity_propositions' %}" role="button">
+                            <button type="button" class="text-secondary btn btn-block btn-light border border-secondary mt-4">
+                                Retour
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" form="delete_proposition_form" class="btn btn-danger btn-block mt-4" value="no">
+                            Supprimer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
+</div>
+<!-- /.login-page -->
+{% endblock %}
