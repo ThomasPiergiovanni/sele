@@ -19,12 +19,12 @@ class CreateVoteViewTest(TestCase):
             self.view.alternative_one_view_name, 'vote:detailed_voting'
         )
         self.assertEqual(
-            self.view.alternative_two_view_name, 'information:home'
+            CreateVoteView.login_url , '/authentication/login/'
+        )
+        self.assertEqual(
+            CreateVoteView.redirect_field_name , None
         )
         self.assertIsNone(self.view.context['voting'])
-        self.assertEqual(
-            self.view.msg_unauthenticated, "Authentification requise"
-        )
         self.assertEqual(
             self.view.msg_already_voted,
             "Vous avez déja voté"

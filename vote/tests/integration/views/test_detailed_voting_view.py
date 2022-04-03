@@ -27,9 +27,6 @@ class DetailedVotingViewTest(TestCase):
     def test_get_with_alternative_scenario(self):
         response = self.client.get('/vote/detailed_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
-        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('information:home')
+            response.redirect_chain[0][0],reverse('authentication:login')
         )
-        self.assertEqual(response_msg.level_tag, 'error')
-        self.assertEqual(response_msg.message, "Authentification requise")

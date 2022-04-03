@@ -19,12 +19,10 @@ class DeleteVotingViewTest(TestCase):
             self.view.alternative_one_view_name, 'vote:collectivity_votings'
         )
         self.assertEqual(
-            self.view.alternative_two_view_name, 'information:home'
+            DeleteVotingView.login_url , '/authentication/login/'
         )
+        self.assertEqual(DeleteVotingView.redirect_field_name, None)
         self.assertIsNone(self.view.context['voting'])
-        self.assertEqual(
-            self.view.msg_unauthenticated, "Authentification requise"
-        )
         self.assertEqual(
             self.view.msg_not_owner,
             "Le créateur seulement peut supprimer la votation"

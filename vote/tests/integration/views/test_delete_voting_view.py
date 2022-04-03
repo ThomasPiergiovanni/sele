@@ -43,13 +43,9 @@ class DeleteVotingViewTest(TestCase):
     def test_get_with_second_alternative_scenario(self):
         response = self.client.get('/vote/delete_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
-        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('information:home')
+            response.redirect_chain[0][0],reverse('authentication:login')
         )
-        self.assertEqual(response_msg.level_tag, 'error')
-        self.assertEqual(response_msg.message, "Authentification requise")
-
 
     def test_post_with_authenticated_user(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -89,9 +85,6 @@ class DeleteVotingViewTest(TestCase):
     def test_post_with_second_alternative_scenario(self):
         response = self.client.post('/vote/delete_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
-        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('information:home')
+            response.redirect_chain[0][0],reverse('authentication:login')
         )
-        self.assertEqual(response_msg.level_tag, 'error')
-        self.assertEqual(response_msg.message, "Authentification requise")

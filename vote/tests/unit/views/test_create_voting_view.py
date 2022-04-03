@@ -17,6 +17,9 @@ class CreateVotingViewTest(TestCase):
 
     def test_init_with_attr(self):
         self.assertEqual(self.view.view_template,'vote/create_voting.html')
-        self.assertEqual(self.view.alternative_view_name, 'information:home')
+        self.assertEqual(
+            CreateVotingView.login_url , '/authentication/login/'
+        )
+        self.assertEqual(CreateVotingView.redirect_field_name , None)
         self.assertEqual(self.view.post_view_name, 'vote:collectivity_votings')
         self.assertIsInstance(self.view.context['form'], VotingForm)
