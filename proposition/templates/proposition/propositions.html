@@ -131,7 +131,7 @@
                                                 {{proposition.proposition_creator_type}}
                                             </td class="text-center">
                                             <td>
-                                                <a href="" role="button">
+                                                <a href="{% url 'proposition:detailed_proposition' id_proposition=proposition.id %}" role="button">
                                                     <button type="button"
                                                         class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
                                                 </a>

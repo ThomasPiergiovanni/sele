@@ -58,53 +58,6 @@ class TestManager(TestCase):
         self.assertEqual(
             Proposition.objects.all().last().name, 'Cours de Python'
         )
-    
-    # def test_set_context_with_return_context(self):
-    #     self.vote_emulation.emulate_vote()
-    #     context = {
-    #         'voting': None,
-    #         'voting_operation': None, 
-    #         'voting_result': None,  
-    #         'voting_status': None
-    #     }
-    #     voting = Voting.objects.get(pk=1)
-    #     context = self.manager.set_context(context, voting ,'delete')
-    #     self.assertEqual(context['voting'], voting )
-    #     self.assertEqual(context['voting_operation'], 'delete')
-    #     self.assertEqual(context['voting_result'], 50 )
-    #     self.assertEqual(context['voting_status'], 'Fermé' )
-
-    # def test_get_voting_status_with_return_open(self):
-    #     self.auth_emulation.emulate_custom_user()
-    #     self.vote_emulation.emulate_voting_method()
-    #     Voting.objects.create(
-    #         question='Emulated question',
-    #         description='Emulated description',
-    #         creation_date=date.today() - timedelta(2),
-    #         opening_date=date.today() - timedelta(1),
-    #         closure_date=date.today() + timedelta(1),
-    #         voting_method=VotingMethod.objects.get(pk=1),
-    #         voting_custom_user = CustomUser.objects.get(pk=1)    
-        # )
-        # voting = Voting.objects.all().order_by('-id')[0]
-        # self.assertEqual(
-        #     self.manager._Manager__get_voting_status(voting), 'Ouvert'
-        # )
-
-    # def test_get_voting_status_with_return_closed(self):
-    #     self.vote_emulation.emulate_voting()
-    #     voting = Voting.objects.get(pk=1)
-    #     self.assertEqual(
-    #         self.manager._Manager__get_voting_status(voting), 'Fermé'
-    #     )
-    
-    # def test_get_votation_result(self):
-    #     self.vote_emulation.emulate_vote()
-    #     voting = Voting.objects.get(pk=1)
-    #     votes = Vote.objects.filter(vote_voting_id__exact=voting)
-    #     self.assertEqual(
-    #         self.manager._Manager__get_voting_result(votes), 50
-    #     )
 
     def test_set_form_context(self):
         form = self.manager.set_form_context(
