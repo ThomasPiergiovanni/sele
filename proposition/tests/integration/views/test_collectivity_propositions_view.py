@@ -35,8 +35,7 @@ class CollectivityPropositionsViewTest(TestCase):
         self.proposition_emulation.emulate_proposition()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         session = self.client.session
-        session['c_p_v_f_attribute'] = 'proposition_kind'
-        session['c_p_v_f_order'] = 'asc'
+        session['c_p_v_f_search_input'] = 'Python'
         session.save()
         response = self.client.get(
             '/proposition/collectivity_propositions/', follow=True)
@@ -56,38 +55,44 @@ class CollectivityPropositionsViewTest(TestCase):
     def test_post_with_nominal_scenario(self):
         self.proposition_emulation.emulate_proposition()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        form = {
-            'attribute_selector': 'proposition_status',
-            'order_selector': 'desc'
-        }
+        form = {'search_input': 'Python','cpf_search_button': 'yes'}
         response = self.client.post(
             '/proposition/collectivity_propositions/', data=form, follow=True
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'proposition/propositions.html')
         self.assertIsInstance(response.context['page_objects'][0], Proposition)
-        self.assertEqual(
-            response.context['page_objects'][0].name, "Cours de Java"
-        )
+        self.assertEqual(response.context['page_objects'][0].id, 1)
 
     def test_post_with_alternative_scenario_one_missing_input(self):
         self.proposition_emulation.emulate_proposition()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        form = {'attribute_selector': '', 'order_selector': 'asc'}
+        form = {'search_input': '','cpf_search_button': 'yes'}
         response = self.client.post(
             '/proposition/collectivity_propositions/', data=form, follow=True
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'proposition/propositions.html')
         self.assertIsInstance(response.context['page_objects'][0], Proposition)
-        self.assertEqual(
-            response.context['page_objects'][0].name, "Cours de Java"
-        )
+        self.assertEqual(response.context['page_objects'][0].id, 3)
         self.assertTrue(response.context['form'].errors)
 
-    def test_post_with_alternative_scenario_two(self):
+    def test_post_with_alternative_scenario_two_clear(self):
         self.proposition_emulation.emulate_proposition()
-        form = {'attribute_selector': 'creation_date', 'order_selector': 'asc'}
+        self.client.login(email='user1@email.com', password='xxx_Xxxx')
+        form = {'search_input': '', 'cpf_clear_button': 'yes'}
+        response = self.client.post(
+            '/proposition/collectivity_propositions/', data=form, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'proposition/propositions.html')
+        self.assertIsInstance(response.context['page_objects'][0], Proposition)
+        self.assertEqual(response.context['page_objects'][0].id, 3)
+        self.assertFalse(response.context['form'].errors)
+
+    def test_post_with_alternative_scenario_three(self):
+        self.proposition_emulation.emulate_proposition()
+        form = {'search_input': 'Python','cpf_search_button': 'yes'}
         response = self.client.post(
             '/proposition/collectivity_propositions/', data=form, follow=True
         )

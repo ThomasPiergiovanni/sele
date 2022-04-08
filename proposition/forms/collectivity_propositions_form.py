@@ -1,38 +1,19 @@
-"""Collectivity Propositions Form module 
+"""Collectivity Propositions Search Form module 
 """
-from django.forms import ChoiceField, Form, Select
+from django.forms import CharField, Form, TextInput
 
 
 class CollectivityPropositionsForm(Form):
     """CollectivityPropositionsForm class. Used for sorting collectivity
     propositions page objects.
     """
-    attribute_selector = ChoiceField(
-        label='Trier par:',
-        choices=(
-            ('name', 'Nom'),
-            ('proposition_kind', 'Type'),
-            ('duration', 'Temps de travail (minutes)'),
-            ('proposition_status', 'Statut'),
-            ('proposition_creator', 'Créateur'),
-            ('proposition_taker', 'Preneur'),
-            ('creation_date', 'Date de création')
-        ),
-        widget=Select(
+    search_input = CharField(
+        label='Rechercher',
+        max_length=256,
+        widget=TextInput(
             attrs={
+                'id': 'input_search_input',
                 'class': 'form-control form-control-sm',
-                'id': 'input_attribute_selector',
-                'autofocus': False,
-            }
-        )
-    )
-    order_selector = ChoiceField(
-        label='Dans l\'ordre:',
-        choices=(('asc', 'Ascendant'), ('desc', 'Descendant')),
-        widget=Select(
-            attrs={
-                'class': 'form-control form-control-sm',
-                'id': 'input_order_selector',
                 'autofocus': False,
             }
         )

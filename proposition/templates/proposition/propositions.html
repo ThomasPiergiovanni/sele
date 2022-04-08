@@ -35,65 +35,28 @@
                     </div>
                     <div class="card-body mt-3 mb-1">
                         <!-- Form -->
-                        <form id="collectivity_propositions_search_form" name="collectivity_propositions_search_form" action="{% url 'proposition:collectivity_propositions'%}" method="post" novalidate>
+                        <form id="collectivity_propositions_form" name="collectivity_propositions_form" action="{% url 'proposition:collectivity_propositions'%}" method="post" novalidate>
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-10 offset-md-1">
                                     <div class="row">
-                                        <div class="col-sm-8">
-                                            {{search_form.search_input.label}}
-                                            {{search_form.search_input}}
-                                            {% for error in search_form.search_input.errors %}
-                                            {% if error %}
-                                            <p class="text-danger"> {{ error }}</p>
-                                            {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <button type="submit" name="collectivity_propositions_search_form_button" value="yes"
-                                                class="text-secondary btn btn-block btn-light border border-secondary btn-sm mt-4">Rechercher</button>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <button type="submit" name="collectivity_propositions_clear_form_button" value="yes"
-                                                class="text-secondary font-italic btn btn-block btn-light border border-secondary btn-sm mt-4">Effacer</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <form id="collectivity_proposition_sort_form" name="collectivity_proposition_sort_form" action="{% url 'proposition:collectivity_propositions'%}" method="post" novalidate>
-                            {% csrf_token %}
-                            <div class="row">
-                                <div class="col-md-10 offset-md-1">
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            {{sort_form.attribute_selector.label}}
-                                            {{sort_form.attribute_selector}}
-                                            {% for error in sort_form.attribute_selector.errors %}
-                                                {% if error %}
-                                                    <p class="text-danger"> {{ error }}</p>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                        <div class="col-sm-5">
-                                            {{sort_form.order_selector.label}}
-                                            {{sort_form.order_selector}}
-                                            {% for error in sort_form.order_selector.errors %}
+                                        <div class="col-sm-9">
+                                            {{form.search_input.label}}
+                                            {{form.search_input}}
+                                            {% for error in form.search_input.errors %}
                                                 {% if error %}
                                                     <p class="text-danger"> {{ error }}</p>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>
                                         <div class="col-sm-2">
-                                            <button type="submit" name="collectivity_propositions_sort_form_button" class="text-secondary btn btn-block btn-light border border-secondary btn-sm mt-4">Trier</button>
+                                            <button type="submit" name="cpf_search_button" value="yes"
+                                                class="text-dark btn btn-block btn-light border border-secondary btn-sm mt-4">Rechercher</button>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        {% if sort_form.non_field_errors %}
-                                            {% for error in sort_form.non_field_errors %}
-                                            <p class="text-danger">{{ error }}</p>
-                                            {% endfor %}
-                                        {% endif %}
+                                        <div class="col-sm-1">
+                                            <button type="submit" name="cpf_clear_button" value="yes"
+                                                class="text-secondary font-italic btn btn-block btn-light border border-light btn-sm mt-4">Effacer</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -111,12 +74,10 @@
                                         <th class="text-center">Type</th>
                                         <th class="text-center">Temps de travail</th>
                                         <th class="text-center bg-light">Statut</th>
-                                        <th class="text-center">Date de création</th>
                                         <th class="text-center">Début</th>
                                         <th class="text-center">Fin</th>
                                         <th class="text-center">Créateur</th>
                                         <th class="text-center">Preneur</th>
-                                        <th class="text-center">Portée</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -139,9 +100,6 @@
                                                 {{proposition.proposition_status}}
                                             </td>
                                             <td class="text-center">
-                                                {{proposition.creation_date}}
-                                            </td class="text-center">
-                                            <td class="text-center">
                                                 {{proposition.start_date}}
                                             </td class="text-center">
                                             <td class="text-center">
@@ -153,9 +111,6 @@
                                             <td class="text-center">
                                                 {{proposition.proposition_taker}}
                                             </td>
-                                            <td class="text-center">
-                                                {{proposition.proposition_creator_type}}
-                                            </td class="text-center">
                                             <td>
                                                 <a href="{% url 'proposition:read_proposition' id_proposition=proposition.id %}" role="button">
                                                     <button type="button"

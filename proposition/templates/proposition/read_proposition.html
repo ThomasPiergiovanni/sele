@@ -161,7 +161,7 @@
         </div>
         <!-- /end card body -->
         <div class="card-footer bg-white clearfix">
-            {% if proposition.proposition_status %}
+            {% if proposition_operation == 'update' %}
                 <div class="row">
                     <div class="col-sm-6 mb-3">
                         <a href="{% url 'proposition:collectivity_propositions' %}" role="button">
