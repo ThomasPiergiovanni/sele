@@ -6,8 +6,8 @@ from proposition.management.engine.manager import Manager
 from proposition.models.proposition import Proposition
 
 
-class DetailedPropositionView(LoginRequiredMixin, View):
-    """DetailedPropositionView class.
+class ReadPropositionView(LoginRequiredMixin, View):
+    """ReadPropositionView class.
     """
     login_url = '/authentication/login/'
     redirect_field_name = None
@@ -15,7 +15,7 @@ class DetailedPropositionView(LoginRequiredMixin, View):
     def __init__(self):
         super().__init__()
         self.manager = Manager()
-        self.view_template = 'proposition/detailed_proposition.html'
+        self.view_template = 'proposition/read_proposition.html'
         self.context = {
             'proposition': None,
             'proposition_operation': None,                      

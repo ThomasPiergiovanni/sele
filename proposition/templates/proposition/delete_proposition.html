@@ -11,7 +11,7 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Supprimer la proposition</p>
-                <p class="font-weight-bold"> "{{proposition.name}}"</p>
+                <p class="font-weight-bold text-center"> "{{proposition.name}}"</p>
                 <form id="delete_proposition_form" action="{% url 'proposition:delete_proposition' id_proposition=proposition.id %}" method="post" novalidate>
                     {% csrf_token %}
                 </form>

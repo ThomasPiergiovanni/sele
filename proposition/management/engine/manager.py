@@ -23,14 +23,16 @@ class Manager():
         )
         return context_form
 
-    def set_page_objects_context(self, request, attribute, order):
-        propositions = self.__get_sorted_propositions(request, attribute, order)
-        paginator = Paginator(propositions, 3)
+    def set_page_objects_context(self, request, attribute, order, search_input):
+        propositions = self.__get_sorted_propositions(
+            request, attribute, order, search_input
+        )
+        paginator = Paginator(propositions, 1)
         page_number = request.GET.get('page')
         page_objects = paginator.get_page(page_number)
         return page_objects
 
-    def __get_sorted_propositions(self, request, attribute, order):
+    def __get_sorted_propositions(self, request, attribute, order, search_input):
         if attribute == 'name' and order == 'asc':
             return self.__get_proposition_queryset(request, 'creation_date')
         elif attribute == 'name' and order == 'desc':
@@ -63,6 +65,8 @@ class Manager():
             return self.__get_proposition_queryset(request, 'creation_date')
         elif attribute == 'creation_date' and order == 'desc':
             return self.__get_proposition_queryset(request, '-creation_date')
+        elif search_input:
+            return self.__get_proposition_search_queryset(request, search_input)
         else:
             return self.__get_proposition_queryset(request, '-creation_date')   
     
@@ -72,9 +76,29 @@ class Manager():
             request.user.collectivity
         ).order_by(parameter)
 
-    def set_session_vars(self, request, attribute, order):
+    def __get_proposition_search_queryset(self, request, parameter):
+        return Proposition.objects.filter(
+            proposition_creator_id__collectivity_id__exact=
+            request.user.collectivity,
+            name__icontains=parameter
+        ).order_by('-creation_date')| Proposition.objects.filter(
+            proposition_creator_id__collectivity_id__exact=
+            request.user.collectivity,
+            id__icontains=parameter
+        ).order_by('-creation_date')| Proposition.objects.filter(
+            proposition_creator_id__collectivity_id__exact=
+            request.user.collectivity,
+            proposition_creator_id__email__icontains=parameter
+        ).order_by('-creation_date')| Proposition.objects.filter(
+            proposition_creator_id__collectivity_id__exact=
+            request.user.collectivity,
+            proposition_taker_id__email__icontains=parameter
+        ).order_by('-creation_date')
+
+    def set_session_vars(self, request, attribute, order, search_input):
         request.session['c_p_v_f_attribute'] = attribute
         request.session['c_p_v_f_order'] = order
+        request.session['c_p_v_f_search_input'] = search_input
     
     def create_proposition(self, form, custom_user):
         """Method for creating Proposition instances into DB

@@ -8,8 +8,8 @@ from proposition.views.collectivity_propositions_view import (
 )
 from proposition.views.create_proposition_view import CreatePropositionView
 from proposition.views.delete_proposition_view import DeletePropositionView
-from proposition.views.detailed_proposition_view import (
-    DetailedPropositionView
+from proposition.views.read_proposition_view import (
+    ReadPropositionView
 )
 from proposition.views.detail_view import DetailView
 from proposition.views.delete_view import DeleteView
@@ -37,9 +37,9 @@ urlpatterns = [
         name='delete_proposition'
     ),
     path(
-        'detailed_proposition/<int:id_proposition>/',
-        DetailedPropositionView.as_view(),
-        name='detailed_proposition'
+        'read_proposition/<int:id_proposition>/',
+        ReadPropositionView.as_view(),
+        name='read_proposition'
     ),
     path('detail/', DetailView.as_view(), name='detail'),
     path('delete/', DeleteView.as_view(), name='delete'),
