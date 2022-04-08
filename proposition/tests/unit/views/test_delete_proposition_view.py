@@ -26,10 +26,12 @@ class DeletePropositionViewTest(TestCase):
         )
         self.assertEqual(DeletePropositionView.redirect_field_name, None)
         self.assertIsNone(self.view.context['proposition'])
+        self.assertEqual(self.view.msg_post_success,"Suppression réussie")
         self.assertEqual(
             self.view.msg_not_owner,
             "Le créateur seulement peut supprimer la proposition"
         )
         self.assertEqual(
-            self.view.msg_post_success,"Suppression de proposition réussie"
+            self.view.mgs_post_no_delete,
+            "Une proposition avec ce satut ne peut pas être supprimée"
         )
