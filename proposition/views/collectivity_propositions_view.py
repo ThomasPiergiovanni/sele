@@ -49,16 +49,14 @@ class CollectivityPropositionsView(LoginRequiredMixin,View):
                     self.manager.set_page_objects_context(request, search_input)
                 )
                 self.manager.set_session_vars(request, search_input)
-                return render(request, self.view_template, self.context)
             else:
                 self.context['form'] = form
                 self.context['page_objects'] = (
                     self.manager.set_page_objects_context(request, False)
                 )
-                return render(request, self.view_template, self.context)
         else:
             self.context['page_objects'] = (
                 self.manager.set_page_objects_context(request, False)
             )
             self.manager.set_session_vars(request, False)
-            return render(request, self.view_template, self.context)
+        return render(request, self.view_template, self.context)

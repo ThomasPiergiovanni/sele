@@ -16,9 +16,7 @@ class Manager():
         pass
 
     def set_page_objects_context(self, request, search_input):
-        propositions = self.__get_proposition_queryset(
-            request, search_input
-        )
+        propositions = self.__get_proposition_queryset(request, search_input)
         paginator = Paginator(propositions, 1)
         page_number = request.GET.get('page')
         page_objects = paginator.get_page(page_number)

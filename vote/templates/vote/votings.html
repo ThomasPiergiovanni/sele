@@ -40,26 +40,22 @@
                             <div class="row">
                                 <div class="col-md-10 offset-md-1">
                                     <div class="row">
-                                        <div class="col-sm-5">
-                                            {{form.attribute_selector.label}}
-                                            {{form.attribute_selector}}
-                                            {% for error in form.attribute_selector.errors %}
-                                                {% if error %}
-                                                    <p class="text-danger"> {{ error }}</p>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                        <div class="col-sm-5">
-                                            {{form.order_selector.label}}
-                                            {{form.order_selector}}
-                                            {% for error in form.order_selector.errors %}
+                                        <div class="col-sm-9">
+                                            {{form.search_input.label}}
+                                            {{form.search_input}}
+                                            {% for error in form.search_input.errors %}
                                                 {% if error %}
                                                     <p class="text-danger"> {{ error }}</p>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>
                                         <div class="col-sm-2">
-                                            <button type="submit" class="text-secondary btn btn-block btn-light border border-secondary btn-sm mt-4">Trier</button>
+                                            <button type="submit" name="cvf_search_button" value="yes"
+                                                class="text-dark btn btn-block btn-light border border-secondary btn-sm mt-4">Rechercher</button>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <button type="submit" name="cvf_clear_button" value="yes"
+                                                class="text-secondary font-italic btn btn-block btn-light border border-light btn-sm mt-4">Effacer</button>
                                         </div>
                                     </div>
                                     <div class="row">

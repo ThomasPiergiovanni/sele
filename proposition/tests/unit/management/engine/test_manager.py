@@ -1,7 +1,5 @@
 """Test manager module.
 """
-from datetime import date, timedelta
-
 from django.contrib.auth import authenticate
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import RequestFactory, TestCase
@@ -9,9 +7,6 @@ from django.test import RequestFactory, TestCase
 from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
-)
-from proposition.forms.collectivity_propositions_form import (
-    CollectivityPropositionsForm
 )
 from proposition.forms.proposition_form import PropositionForm
 from proposition.management.engine.manager import Manager
@@ -39,9 +34,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         page_objects = (
-            self.manager.set_page_objects_context(
-                request, 'Python',
-            )
+            self.manager.set_page_objects_context(request, 'Python')
         )
         self.assertEqual(page_objects[0].id, 1)
     
@@ -65,7 +58,7 @@ class TestManager(TestCase):
         )
         self.assertEqual(propositions[0].id, 3)
 
-    def test_set_session_vars_with_proposition_status_desc(self):
+    def test_set_session_vars_with_search_input(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post('')
         session_middleware = SessionMiddleware(request)

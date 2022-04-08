@@ -57,49 +57,41 @@ class Manager():
         except ZeroDivisionError:
            return None
     
-    def set_collectivity_votings_form_context(self, attribute, order):
-        context_form = CollectivityVotingsForm(
-            initial = {
-                'attribute_selector': attribute,
-                'order_selector': order
-            }
-        )
-        return context_form
-    
-    def set_collectivity_votings_page_objects_context(
-        self, request, attribute, order
+    def set_page_objects_context(
+            self, request, search_input
     ):
-        votings = self.__get_sorted_votings(request, attribute, order)
+        votings = self.__get_voting_queryset(request, search_input)
         paginator = Paginator(votings, 3)
         page_number = request.GET.get('page')
         page_objects = paginator.get_page(page_number)
         return page_objects
-    
-    def __get_sorted_votings(self, request, attribute, order):
-        if attribute == 'date' and order == 'asc':
-            return Voting.objects.filter(
-                voting_custom_user_id__collectivity_id__exact=
-                request.user.collectivity
-            ).order_by('creation_date')
-        elif attribute == 'date' and order == 'desc':
-            return Voting.objects.filter(
-                voting_custom_user_id__collectivity_id__exact=
-                request.user.collectivity
-            ).order_by('-creation_date')
-        elif attribute == 'question' and order == 'asc':
-            return Voting.objects.filter(
-                voting_custom_user_id__collectivity_id__exact=
-                request.user.collectivity
-            ).order_by('question')
-        else:
-            return Voting.objects.filter(
-                voting_custom_user_id__collectivity_id__exact=
-                request.user.collectivity
-            ).order_by('-question')
 
-    def set_session_vars(self, request, attribute, order):
-        request.session['c_v_v_f_attribute'] = attribute
-        request.session['c_v_v_f_order'] = order
+    def __get_voting_queryset(self, request, search_input):
+        queryset = None
+        if search_input:
+            queryset = (
+                Voting.objects.filter(
+                    voting_custom_user_id__collectivity_id__exact=
+                    request.user.collectivity,
+                    question__icontains=search_input
+                ).order_by('-creation_date')|
+                Voting.objects.filter(
+                    voting_custom_user_id__collectivity_id__exact=
+                    request.user.collectivity,
+                    id__icontains=search_input
+                ).order_by('-creation_date')
+            )
+        else:
+            queryset = (
+                Voting.objects.filter(
+                    voting_custom_user_id__collectivity_id__exact=
+                    request.user.collectivity
+                ).order_by('-creation_date')
+            )
+        return queryset
+    
+    def set_session_vars(self, request, search_input):
+        request.session['c_v_v_f_search_input'] = search_input
 
     def create_vote(self, request, id_voting):
         form_vote = request.POST['form_vote']

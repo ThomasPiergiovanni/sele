@@ -21,26 +21,16 @@ class CollectivityVotingsViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'vote/votings.html')
         self.assertIsInstance(response.context['page_objects'][0], Voting)
-        self.assertEqual(
-            response.context['page_objects'][0].question,
-            "Voulez-vous créer une demande de python?"
-        )
-        self.assertEqual(
-            response.context['page_objects'][1].question,
-            "Voulez-vous créer une demande de nettoyage?"
-        )
+        self.assertEqual(response.context['page_objects'][0].id, 3)
+        self.assertEqual(response.context['page_objects'][1].id, 1)
     
     def test_get_with_alternative_scenario_one(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         session = self.client.session
-        session['c_v_v_f_attribute'] = 'date'
-        session['c_v_v_f_order'] = 'asc'
+        session['c_v_v_f_search_input'] = 'nettoyage'
         session.save()
         response = self.client.get('/vote/collectivity_votings/', follow=True)
-        self.assertEqual(
-            response.context['page_objects'][0].question,
-            "Voulez-vous créer une demande de nettoyage?"
-        )
+        self.assertEqual(response.context['page_objects'][0].id,1)
 
     def test_get_with_alternative_scenario_two(self):
         response = self.client.get('/vote/collectivity_votings/', follow=True)
@@ -51,42 +41,41 @@ class CollectivityVotingsViewTest(TestCase):
 
     def test_post_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        form = {'attribute_selector': 'date', 'order_selector': 'asc'}
+        form = {'search_input': 'nettoyage', 'cvf_search_button': 'yes'}
         response = self.client.post(
             '/vote/collectivity_votings/', data=form, follow=True
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'vote/votings.html')
         self.assertIsInstance(response.context['page_objects'][0], Voting)
-        self.assertEqual(
-            response.context['page_objects'][0].question,
-            "Voulez-vous créer une demande de nettoyage?"
-        )
-        self.assertEqual(
-            response.context['page_objects'][1].question,
-            "Voulez-vous créer une demande de python?"
-        )
+        self.assertEqual(response.context['page_objects'][0].id, 1)
+
     def test_post_with_alternative_scenario_one_missing_input(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        form = {'attribute_selector': '', 'order_selector': 'asc'}
+        form = {'search_input': '', 'cvf_search_button': 'yes'}
         response = self.client.post(
             '/vote/collectivity_votings/', data=form, follow=True
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'vote/votings.html')
         self.assertIsInstance(response.context['page_objects'][0], Voting)
-        self.assertEqual(
-            response.context['page_objects'][0].question,
-            "Voulez-vous créer une demande de python?"
-        )
-        self.assertEqual(
-            response.context['page_objects'][1].question,
-            "Voulez-vous créer une demande de nettoyage?"
-        )
+        self.assertEqual(response.context['page_objects'][0].id, 3)
         self.assertTrue(response.context['form'].errors)
 
-    def test_post_with_alternative_scenario_two(self):
-        form = {'attribute_selector': 'date', 'order_selector': 'asc'}
+    def test_post_with_alternative_scenario_two_missing_input(self):
+        self.client.login(email='user1@email.com', password='xxx_Xxxx')
+        form = {'search_input': '', 'cvf_clear_button': 'yes'}
+        response = self.client.post(
+            '/vote/collectivity_votings/', data=form, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'vote/votings.html')
+        self.assertIsInstance(response.context['page_objects'][0], Voting)
+        self.assertEqual(response.context['page_objects'][0].id, 3)
+        self.assertFalse(response.context['form'].errors)
+
+    def test_post_with_alternative_scenario_three(self):
+        form = {'search_input': 'nettoyage', 'cvf_search_button': 'yes'}
         response = self.client.post(
             '/vote/collectivity_votings/', data=form, follow=True)
         self.assertEqual(response.status_code, 200)

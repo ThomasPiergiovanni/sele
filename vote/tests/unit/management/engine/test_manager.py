@@ -92,94 +92,48 @@ class TestManager(TestCase):
         self.assertEqual(
             self.manager._Manager__get_voting_result(votes), 50
         )
-
-    def test_set_collectivity_votings_form_context(self):
-        form = self.manager.set_collectivity_votings_form_context(
-            'date', 'asc'
-        )
-        self.assertIsInstance(form, CollectivityVotingsForm)
-        self.assertEqual(
-            form.fields['attribute_selector']._choices[1][0], 'date'
-        )
-        self.assertEqual(form.fields['order_selector']._choices[0][0], 'asc')
-    
-    def test_set_collectivity_votings_page_objects_context(self):
+  
+    def test_set_page_objects_context(self):
         self.vote_emulation.emulate_vote()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         page_objects = (
-            self.manager.set_collectivity_votings_page_objects_context(
-                request, attribute='date', order='asc'
+            self.manager.set_page_objects_context(
+                request, 'nettoyage'
             )
         )
         self.assertEqual(page_objects[0].id, 1)
-    
-    def test_get_sorted_votings_with_date_asc(self):
-        self.vote_emulation.emulate_vote()
+
+    def test_get_voting_queryset_with_search_input(self):
+        self.vote_emulation.emulate_voting()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user
-        votings = self.manager._Manager__get_sorted_votings(
-            request, attribute='date', order='asc'
+        request.user = user     
+        votings = self.manager._Manager__get_voting_queryset(
+            request, 'nettoyage'
         )
-        self.assertIsInstance(votings[0],Voting)
         self.assertEqual(votings[0].id, 1)
 
-    def test_get_sorted_votings_with_date_desc(self):
-        self.vote_emulation.emulate_vote()
+    def test_get_voting_queryset_with_search_input_is_false(self):
+        self.vote_emulation.emulate_voting()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user
-        votings = self.manager._Manager__get_sorted_votings(
-            request, attribute='date', order='desc'
+        request.user = user     
+        votings = self.manager._Manager__get_voting_queryset(
+            request, False
         )
-        self.assertIsInstance(votings[0],Voting)
         self.assertEqual(votings[0].id, 3)
 
-    def test_get_sorted_votings_with_question_asc(self):
+    def test_set_session_vars_with_search_input(self):
         self.vote_emulation.emulate_vote()
-        request = RequestFactory().get('', data={'page': 1})        
-        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user
-        votings = self.manager._Manager__get_sorted_votings(
-            request, attribute='question', order='asc'
-        )
-        self.assertIsInstance(votings[0],Voting)
-        self.assertEqual(votings[0].id, 1)
-
-    def test_get_sorted_votings_with_question_desc(self):
-        self.vote_emulation.emulate_vote()
-        request = RequestFactory().get('', data={'page': 1})        
-        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user
-        votings = self.manager._Manager__get_sorted_votings(
-            request, attribute='question', order='desc'
-        )
-        self.assertIsInstance(votings[0],Voting)
-        self.assertEqual(votings[0].id, 3)
-    
-    def test_set_session_vars_with_date_desc(self):
-        self.vote_emulation.emulate_vote()
-        request = RequestFactory().post(
-            '', data={'attribute': 'date','order': 'desc'}
-        )
+        request = RequestFactory().post('')
         session_middleware = SessionMiddleware(request)
         session_middleware.process_request(request) 
-        self.manager.set_session_vars(request, attribute='date', order='desc')
-        self.assertEqual(request.session.get('c_v_v_f_attribute'), 'date')
-
-    def test_set_session_vars_with_question_asc(self):
-        self.vote_emulation.emulate_vote()
-        request = RequestFactory().post(
-            '', data={'attribute': 'question', 'order': 'asc'}
+        self.manager.set_session_vars(request, 'nettoyage')
+        self.assertEqual(request.session.get(
+            'c_v_v_f_search_input'), 'nettoyage'
         )
-        session_middleware = SessionMiddleware(request)
-        session_middleware.process_request(request) 
-        self.manager.set_session_vars(
-            request, attribute='question', order='asc'
-        )
-        self.assertEqual(request.session.get('c_v_v_f_order'), 'asc')
 
     def test_create_vote_with_vote_yes(self):
         self.vote_emulation.emulate_voting()
