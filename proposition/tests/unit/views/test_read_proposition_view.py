@@ -20,4 +20,6 @@ class ReadPropositionViewTest(TestCase):
         )
         self.assertEqual(ReadPropositionView.redirect_field_name, None)
         self.assertIsNone(self.view.context['proposition'])
-        self.assertIsNone(self.view.context['proposition_operation'])
+        self.assertIsNone(self.view.context['href'])
+        self.assertIsNone(self.view.context['class'])
+        self.assertIsNone(self.view.context['text'])

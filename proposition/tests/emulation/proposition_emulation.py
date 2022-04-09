@@ -124,12 +124,30 @@ class PropositionEmulation():
             name="Cours de CSS",
             description=(
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                " Sed non risus. Suspendisse lectus tortor, dignissim sit"
-                " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
-                " ultrices diam. Maecenas ligula massa, varius a, semper"
             ),
             creation_date=datetime(
                 2022, 2, 15, 1, 1, 22, tzinfo=timezone.utc
+            ),
+            start_date=date(2022, 3, 15),
+            end_date=date(2022, 3, 25),
+            duration=240,
+            proposition_category_id=2,
+            proposition_creator_id=1,
+            proposition_creator_type_id=1,
+            proposition_domain_id=2,
+            proposition_kind_id=1,
+            proposition_rating_id=2,
+            proposition_status_id=3,
+            proposition_taker_id=None
+        ),
+        Proposition.objects.create(
+            id=5,
+            name="Cours de JS",
+            description=(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            ),
+            creation_date=datetime(
+                2022, 2, 16, 1, 1, 22, tzinfo=timezone.utc
             ),
             start_date=date(2022, 3, 15),
             end_date=date(2022, 3, 25),
@@ -140,9 +158,94 @@ class PropositionEmulation():
             proposition_domain_id=2,
             proposition_kind_id=2,
             proposition_rating_id=2,
-            proposition_status_id=3,
+            proposition_status_id=4,
             proposition_taker_id=1
         ),
+        Proposition.objects.create(
+            id=6,
+            name="Cours de HTML",
+            description=(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            ),
+            creation_date=datetime(
+                2022, 2, 17, 1, 1, 22, tzinfo=timezone.utc
+            ),
+            start_date=date(2022, 3, 15),
+            end_date=date(2022, 3, 25),
+            duration=240,
+            proposition_category_id=2,
+            proposition_creator_id=1,
+            proposition_creator_type_id=2,
+            proposition_domain_id=2,
+            proposition_kind_id=2,
+            proposition_rating_id=2,
+            proposition_status_id=5,
+            proposition_taker_id=1
+        ),
+        Proposition.objects.create(
+            id=7,
+            name="Cours de Node",
+            description=(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            ),
+            creation_date=datetime(
+                2022, 2, 18, 1, 1, 22, tzinfo=timezone.utc
+            ),
+            start_date=date(2022, 3, 15),
+            end_date=date(2022, 3, 25),
+            duration=240,
+            proposition_category_id=2,
+            proposition_creator_id=1,
+            proposition_creator_type_id=2,
+            proposition_domain_id=2,
+            proposition_kind_id=2,
+            proposition_rating_id=2,
+            proposition_status_id=5,
+            proposition_taker_id=1
+        ),
+        Proposition.objects.create(
+            id=8,
+            name="Cours de React",
+            description=(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            ),
+            creation_date=datetime(
+                2022, 2, 19, 1, 1, 22, tzinfo=timezone.utc
+            ),
+            start_date=date(2022, 3, 15),
+            end_date=date(2022, 3, 25),
+            duration=240,
+            proposition_category_id=2,
+            proposition_creator_id=1,
+            proposition_creator_type_id=2,
+            proposition_domain_id=2,
+            proposition_kind_id=2,
+            proposition_rating_id=2,
+            proposition_status_id=6,
+            proposition_taker_id=3
+        ),
+        Proposition.objects.create(
+            id=9,
+            name="Cours de JQuery",
+            description=(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            ),
+            creation_date=datetime(
+                2022, 2, 20, 1, 1, 22, tzinfo=timezone.utc
+            ),
+            start_date=date(2022, 3, 15),
+            end_date=date(2022, 3, 25),
+            duration=240,
+            proposition_category_id=2,
+            proposition_creator_id=1,
+            proposition_creator_type_id=2,
+            proposition_domain_id=2,
+            proposition_kind_id=2,
+            proposition_rating_id=2,
+            proposition_status_id=7,
+            proposition_taker_id=1
+        ),
+    
 
     def emulate_rating(self):
         """
@@ -156,3 +259,7 @@ class PropositionEmulation():
         Status.objects.create(id=1, name="Annulé")
         Status.objects.create(id=2, name="En cours")
         Status.objects.create(id=3, name="Nouveau")
+        Status.objects.create(id=4, name="Réalisé")
+        Status.objects.create(id=5, name="Rejeté")
+        Status.objects.create(id=6, name="Sélectionné")
+        Status.objects.create(id=7, name="Terminé")

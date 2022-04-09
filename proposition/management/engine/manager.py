@@ -79,3 +79,57 @@ class Manager():
             proposition_kind=form.cleaned_data['proposition_kind'],
             proposition_status=Status.objects.get(name__exact="Nouveau"),
         )
+
+    def set_read_proposition_view_context(self, request, id_proposition):
+        context = {}
+        proposition = Proposition.objects.get(pk=id_proposition)
+        context['proposition'] = proposition
+        if proposition.proposition_kind.name == 'Demande':
+            html_vars = self.__set_demand_button(request, proposition)
+            context['href'] = html_vars['href']
+            context['class'] = html_vars['class']
+            context['text'] = html_vars['text']
+            context['value'] = html_vars['value']
+        else:
+            context['href'] = None
+            context['class'] = None
+            context['text'] = None
+            context['value'] = None
+        return context
+    
+    def __set_demand_button(self, request, proposition):
+        html_vars = {}
+        html_href = (
+            "/proposition/update_proposition/{0}/".format(proposition.id)
+        )
+        success_class = (
+            "text-success btn btn-block btn-light border border-success"
+        )
+        danger_class = (
+            "text-danger btn btn-block btn-light border border-danger"
+        )
+        if (
+                proposition.proposition_status.name == 'Nouveau' and
+                proposition.proposition_taker is None and
+                proposition.proposition_creator != request.user
+        ):
+            html_vars['href'] = html_href
+            html_vars['class'] = success_class
+            html_vars['text'] = "S'assigner"
+            html_vars['value'] = "select"
+        elif (
+                proposition.proposition_status.name == 'Sélectionné' and
+                proposition.proposition_taker == request.user and
+                proposition.proposition_creator != request.user
+        ):
+            html_vars['href'] = html_href
+            html_vars['class'] = danger_class
+            html_vars['text'] = "Annuler l'assignation"
+            html_vars['value'] = "new"
+        else:
+            html_vars['href'] = None
+            html_vars['class'] = None
+            html_vars['text'] = None
+            html_vars['value'] = "select"
+
+        return html_vars
