@@ -24,7 +24,7 @@ class CollectivityPropositionsViewTest(TestCase):
         self.assertTemplateUsed(response, 'proposition/propositions.html')
         self.assertIsInstance(response.context['page_objects'][0], Proposition)
         self.assertEqual(
-            response.context['page_objects'][0].name, "Cours de Java"
+            response.context['page_objects'][0].name, "OCours17"
         )
         self.assertEqual(
             response.context['page_objects'][0].proposition_category,
@@ -35,12 +35,12 @@ class CollectivityPropositionsViewTest(TestCase):
         self.proposition_emulation.emulate_proposition()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         session = self.client.session
-        session['c_p_v_f_search_input'] = 'Python'
+        session['c_p_v_f_search_input'] = 'DCours1'
         session.save()
         response = self.client.get(
             '/proposition/collectivity_propositions/', follow=True)
         self.assertEqual(
-            response.context['page_objects'][0].name, "Cours de Python"
+            response.context['page_objects'][0].id, 1
         )
 
     def test_get_with_alternative_scenario_two(self):
@@ -55,7 +55,7 @@ class CollectivityPropositionsViewTest(TestCase):
     def test_post_with_nominal_scenario(self):
         self.proposition_emulation.emulate_proposition()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        form = {'search_input': 'Python','cpf_search_button': 'yes'}
+        form = {'search_input': 'DCours1','cpf_search_button': 'yes'}
         response = self.client.post(
             '/proposition/collectivity_propositions/', data=form, follow=True
         )
@@ -74,7 +74,7 @@ class CollectivityPropositionsViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'proposition/propositions.html')
         self.assertIsInstance(response.context['page_objects'][0], Proposition)
-        self.assertEqual(response.context['page_objects'][0].id, 3)
+        self.assertEqual(response.context['page_objects'][0].id, 17)
         self.assertTrue(response.context['form'].errors)
 
     def test_post_with_alternative_scenario_two_clear(self):
@@ -87,7 +87,7 @@ class CollectivityPropositionsViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'proposition/propositions.html')
         self.assertIsInstance(response.context['page_objects'][0], Proposition)
-        self.assertEqual(response.context['page_objects'][0].id, 3)
+        self.assertEqual(response.context['page_objects'][0].id, 17)
         self.assertFalse(response.context['form'].errors)
 
     def test_post_with_alternative_scenario_three(self):

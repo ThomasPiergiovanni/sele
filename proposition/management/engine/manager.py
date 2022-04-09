@@ -1,13 +1,9 @@
-from datetime import date
 
-from django.contrib import messages
 from django.core.paginator import Paginator
 from django.utils import timezone
 
 from proposition.models.proposition import Proposition
 from proposition.models.status import Status
-
-
 
 
 class Manager():

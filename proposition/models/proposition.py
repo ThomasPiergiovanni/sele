@@ -59,5 +59,11 @@ class Proposition(models.Model):
             models.CheckConstraint(
                 check=models.Q(start_date__lte=models.F('end_date')),
                 name='start_data_lte_end_date'
+            ),
+            models.CheckConstraint(
+                check=~models.Q(
+                    proposition_creator=models.F('proposition_taker')
+                ),
+                name='creator_not_taker'
             )
         ]

@@ -34,7 +34,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         page_objects = (
-            self.manager.set_page_objects_context(request, 'Python')
+            self.manager.set_page_objects_context(request, 'DCours1')
         )
         self.assertEqual(page_objects[0].id, 1)
     
@@ -44,7 +44,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
         propositions = self.manager._Manager__get_proposition_queryset(
-            request, 'Python'
+            request, 'DCours1'
         )
         self.assertEqual(propositions[0].id, 1)
 
@@ -56,7 +56,7 @@ class TestManager(TestCase):
         propositions = self.manager._Manager__get_proposition_queryset(
             request, False
         )
-        self.assertEqual(propositions[0].id, 3)
+        self.assertEqual(propositions[0].id, 17)
 
     def test_set_session_vars_with_search_input(self):
         self.proposition_emulation.emulate_proposition()
@@ -96,41 +96,43 @@ class TestManager(TestCase):
     
     def test_srpv_context_with_kin_dem_sta_nou_tak_none_cre_not_user(self):
         self.proposition_emulation.emulate_proposition()
-        proposition = Proposition.objects.get(pk=4)
+        proposition = Proposition.objects.get(pk=3)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
         request.user = user     
         context = self.manager.set_read_proposition_view_context(
             request, proposition.id
         )
-        self.assertEqual(context['href'], "/proposition/update_proposition/4/")
+        self.assertEqual(context['href'], "/proposition/update_proposition/3/")
         self.assertEqual(
             context['class'],
             "text-success btn btn-block btn-light border border-success"
         )
         self.assertEqual(context['text'], "S'assigner")
-        self.assertEqual(html_vars['value'], "select")
+        self.assertEqual(context['value'], "select")
 
     def test_set_demand_button_with_sta_nouveau_tak_none_cre_not_user(self):
         self.proposition_emulation.emulate_proposition()
-        proposition = Proposition.objects.get(pk=4)
+        proposition = Proposition.objects.get(pk=3)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
         request.user = user     
         html_vars = self.manager._Manager__set_demand_button(
             request, proposition
         )
-        self.assertEqual(html_vars['href'], "/proposition/update_proposition/4/")
+        self.assertEqual(
+            html_vars['href'], "/proposition/update_proposition/3/"
+        )
         self.assertEqual(
             html_vars['class'],
-            "text-warning btn btn-block btn-light border border-warning"
+            "text-success btn btn-block btn-light border border-success"
         )
         self.assertEqual(html_vars['text'], "S'assigner")
         self.assertEqual(html_vars['value'], "select")
 
     def test_set_demand_button_with_sta_selectionne_tak_user_cre_not_user(self):
         self.proposition_emulation.emulate_proposition()
-        proposition = Proposition.objects.get(pk=8)
+        proposition = Proposition.objects.get(pk=6)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
         request.user = user     
@@ -138,7 +140,7 @@ class TestManager(TestCase):
             request, proposition
         )
         self.assertEqual(
-            html_vars['href'], "/proposition/update_proposition/8/"
+            html_vars['href'], "/proposition/update_proposition/6/"
         )
         self.assertEqual(
             html_vars['class'],

@@ -60,7 +60,7 @@ class DeletePropositionViewTest(TestCase):
     def test_post_with_nominal_scenario_with_status_nouveau(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
-            '/proposition/delete_proposition/4/', follow=True
+            '/proposition/delete_proposition/3/', follow=True
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
@@ -68,7 +68,7 @@ class DeletePropositionViewTest(TestCase):
             reverse('proposition:collectivity_propositions')
         )
         try:
-            proposition = Proposition.objects.get(pk=4)
+            proposition = Proposition.objects.get(pk=3)
         except:
             proposition = False
         self.assertFalse(proposition)
@@ -98,8 +98,8 @@ class DeletePropositionViewTest(TestCase):
             "Une proposition avec ce satut ne peut pas être supprimée"
         )
 
-    def test_post_with_alternative_scenario_two_with_status_en_cours(self):
-        self.client.login(email='user2@email.com', password='yyy_Yyyy')
+    def test_post_with_alternative_scenario_two_with_status_annule(self):
+        self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
             '/proposition/delete_proposition/2/', follow=True
         )

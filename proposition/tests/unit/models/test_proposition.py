@@ -213,26 +213,26 @@ class PropositionTest(TestCase):
     def test_proposition_with_emulated_question_instance(self):
         self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=1)
-        self.assertEqual(proposition.name, "Cours de Python")
+        self.assertEqual(proposition.name, "DCours1")
         self.assertEqual(
             proposition.creation_date,
-            datetime(2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc)
+            datetime(2022, 1, 1, 21, 56, 22, tzinfo=timezone.utc)
         )
         self.assertEqual(
             proposition.proposition_creator.email, "user1@email.com"
         )
         self.assertEqual(
-            proposition.proposition_taker.email, "user2@email.com"
+            proposition.proposition_taker.email, "user3@email.com"
         )
         self.assertEqual(
             proposition.proposition_creator_type.name, "Collective"
         )
         self.assertEqual(proposition.proposition_status.name, "Annulé")
         proposition = Proposition.objects.get(pk=2)
-        self.assertEqual(proposition.name, "Nettoyage du Mur")
-        self.assertEqual(proposition.start_date, date(2021, 12, 28))
+        self.assertEqual(proposition.name, "DCours2")
+        self.assertEqual(proposition.start_date, date(2022, 1, 1))
         self.assertEqual(
-            proposition.proposition_creator_type.name, "Individuelle"
+            proposition.proposition_creator_type.name, "Collective"
         )
 
     def test_proposition_with_wrong_dates(self):   
@@ -246,7 +246,7 @@ class PropositionTest(TestCase):
         proposition = True
         try:
             Proposition.objects.create(
-                id=3,
+                id=100,
                 name="Cours de Python",
                 description=(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
@@ -269,7 +269,46 @@ class PropositionTest(TestCase):
                 proposition_status_id=1,
                 proposition_taker_id=2
             ),
-            proposition = Proposition.objects.get(pk=3)
+            proposition = Proposition.objects.get(pk=100)
+        except:
+            proposition = False
+        self.assertFalse(proposition)
+
+    def test_proposition_with_samecreator_taker(self):   
+        self.auth_emulation.emulate_custom_user()
+        self.proposition_emulation.emulate_category()
+        self.proposition_emulation.emulate_creator_type()
+        self.proposition_emulation.emulate_domain()
+        self.proposition_emulation.emulate_kind()
+        self.proposition_emulation.emulate_rating()
+        self.proposition_emulation.emulate_status()
+        proposition = True
+        try:
+            Proposition.objects.create(
+                id=101,
+                name="Cours de Python",
+                description=(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    " Sed non risus. Suspendisse lectus tortor, dignissim sit"
+                    " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
+                    " ultrices diam. Maecenas ligula massa, varius a, semper"
+                ),
+                creation_date=datetime(
+                    2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc
+                ),
+                start_date=date(2022, 2, 25),
+                end_date=date(2022, 1, 25),
+                duration=120,
+                proposition_category_id=2,
+                proposition_creator_id=1,
+                proposition_creator_type_id=1,
+                proposition_domain_id=1,
+                proposition_kind_id=1,
+                proposition_rating_id=1,
+                proposition_status_id=1,
+                proposition_taker_id=1
+            ),
+            proposition = Proposition.objects.get(pk=101)
         except:
             proposition = False
         self.assertFalse(proposition)
