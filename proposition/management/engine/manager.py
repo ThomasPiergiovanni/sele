@@ -82,14 +82,7 @@ class Manager():
         if proposition.proposition_kind.name == 'Demande':
             context = self.__set_demand_btn(request, proposition)
         else:
-            context['btn1_href'] = None
-            context['btn1_class'] = None
-            context['btn1_text'] = None
-            context['btn1_value'] = None
-            context['btn2_href'] = None
-            context['btn2_class'] = None
-            context['btn2_text'] = None
-            context['btn2_value'] = None
+            context = self.__set_offer_btn(request, proposition)
         context['proposition'] = proposition
         return context
     
@@ -107,26 +100,22 @@ class Manager():
                 proposition.proposition_taker is None and
                 proposition.proposition_creator != request.user
         ):
-            buttons = self.__set_btn_dict(
-                href, success, "Sélectionner", "select",
-            )
+            btn = self.__set_btn_dict(href, success, "Sélectionner", "select")
         elif (
                 proposition.proposition_status.name == 'Sélectionné' and
                 proposition.proposition_taker == request.user
         ):
-            buttons = self.__set_btn_dict(href, danger, "Annuler", "new")
+            btn = self.__set_btn_dict(href, danger, "Annuler", "new")
         elif (
                 proposition.proposition_status.name == 'Sélectionné' and
                 proposition.proposition_creator == request.user
         ):
-            buttons = self.__set_btn_dict(
-                href, success, "Confirmer", "inprogress"
-            )
+            btn = self.__set_btn_dict(href, success, "Confirmer", "inprogress")
         elif (
                 proposition.proposition_status.name == 'En cours' and
                 proposition.proposition_taker == request.user
         ):
-            buttons = self.__set_btn_dict(
+            btn = self.__set_btn_dict(
                 href, success, "Terminer", "realized",
                 href, danger, "Annuler", "new",
             )
@@ -134,7 +123,7 @@ class Manager():
                 proposition.proposition_status.name == 'Réalisé' and
                 proposition.proposition_creator == request.user
         ):
-            buttons = self.__set_btn_dict(
+            btn = self.__set_btn_dict(
                 href, success, "Valider", "done",
                 href, danger, "Rejeter", "rejected",
             )
@@ -142,7 +131,7 @@ class Manager():
                 proposition.proposition_status.name == 'Rejeté' and
                 proposition.proposition_taker == request.user
         ):
-            buttons = self.__set_btn_dict(
+            btn = self.__set_btn_dict(
                 href, success, "Reprendre", "inprogress",
                 href, warning, "Forcer terminer", "done",
             )
@@ -150,30 +139,22 @@ class Manager():
                 proposition.proposition_status.name == 'Rejeté' and
                 proposition.proposition_creator == request.user
         ):
-            buttons = self.__set_btn_dict(href, success, "Valider", "done")
+            btn = self.__set_btn_dict(href, success, "Valider", "done")
         else:
-            buttons = {}
-            buttons['btn1_href'] = None
-            buttons['btn1_class'] = None
-            buttons['btn1_text'] = None
-            buttons['btn1_value'] = None
-            buttons['btn2_href'] = None
-            buttons['btn2_class'] = None
-            buttons['btn2_text'] = None
-            buttons['btn2_value'] = None
-        return buttons
+            btn = self.__set_btn_dict()
+        return btn
     
     def __set_btn_dict(self, *args):
-        buttons = {}
-        buttons['btn1_href'] = self.__check_index(args, 0)
-        buttons['btn1_class'] = self.__check_index(args, 1)
-        buttons['btn1_text'] = self.__check_index(args, 2)
-        buttons['btn1_value'] = self.__check_index(args, 3)
-        buttons['btn2_href'] = self.__check_index(args, 4)
-        buttons['btn2_class'] = self.__check_index(args, 5)
-        buttons['btn2_text'] = self.__check_index(args, 6)
-        buttons['btn2_value'] = self.__check_index(args, 7)
-        return buttons
+        btn = {}
+        btn['btn1_href'] = self.__check_index(args, 0)
+        btn['btn1_class'] = self.__check_index(args, 1)
+        btn['btn1_text'] = self.__check_index(args, 2)
+        btn['btn1_value'] = self.__check_index(args, 3)
+        btn['btn2_href'] = self.__check_index(args, 4)
+        btn['btn2_class'] = self.__check_index(args, 5)
+        btn['btn2_text'] = self.__check_index(args, 6)
+        btn['btn2_value'] = self.__check_index(args, 7)
+        return btn
 
     def __check_index(self, arg, i):
         try:
@@ -181,3 +162,57 @@ class Manager():
         except IndexError:
             return None
 
+    def __set_offer_btn(self, request, proposition):
+        """
+        """
+        href = (
+            "/proposition/update_proposition/{0}/".format(proposition.id)
+        )
+        success = "text-success btn btn-block btn-light border border-success"
+        danger = "text-danger btn btn-block btn-light border border-danger"
+        warning = "text-warning btn btn-block btn-light border border-warning"
+        if (
+                proposition.proposition_status.name == 'Nouveau' and
+                proposition.proposition_taker is None and
+                proposition.proposition_creator != request.user
+        ):
+            btn = self.__set_btn_dict(href, success, "Sélectionner", "select")
+        elif (
+                proposition.proposition_status.name == 'Sélectionné' and
+                proposition.proposition_taker == request.user
+        ):
+            btn = self.__set_btn_dict(href, danger, "Annuler", "new")
+        elif (
+                proposition.proposition_status.name == 'Sélectionné' and
+                proposition.proposition_creator == request.user
+        ):
+            btn = self.__set_btn_dict(href, success, "Commencer", "inprogress")
+        elif (
+                proposition.proposition_status.name == 'En cours' and
+                proposition.proposition_creator == request.user
+        ):
+            btn = self.__set_btn_dict(href, success, "Terminer", "realized")
+        elif (
+                proposition.proposition_status.name == 'Réalisé' and
+                proposition.proposition_taker == request.user
+        ):
+            btn = self.__set_btn_dict(
+                href, success, "Valider", "done",
+                href, danger, "Rejeter", "rejected",
+            )
+        elif (
+                proposition.proposition_status.name == 'Rejeté' and
+                proposition.proposition_taker == request.user
+        ):
+            btn = self.__set_btn_dict(href, success, "Valider", "done")
+        elif (
+                proposition.proposition_status.name == 'Rejeté' and
+                proposition.proposition_creator == request.user
+        ):
+            btn = self.__set_btn_dict(
+                href, success, "Reprendre", "inprogress",
+                href, warning, "Forcer terminer", "done",
+            )
+        else:
+            btn = self.__set_btn_dict()
+        return btn
