@@ -24,10 +24,5 @@ class ReadPropositionView(LoginRequiredMixin, View):
         self.context = self.manager.set_read_proposition_view_context(
             request,id_proposition
         )
-        # self.context['proposition'] = context['proposition']
-        # self.context['href'] = context['btn1_href']
-        # self.context['class'] = context['btn1_class']
-        # self.context['text'] = context['text']
-
         return render(request, self.view_template, self.context)
 

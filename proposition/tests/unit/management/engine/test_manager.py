@@ -106,10 +106,7 @@ class TestManager(TestCase):
         self.assertEqual(
             context['btn1_href'], "/proposition/update_proposition/3/"
         )
-        self.assertEqual(
-            context['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(context['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(context['btn1_text'], "Sélectionner")
         self.assertEqual(context['btn1_value'], "select")
 
@@ -125,10 +122,7 @@ class TestManager(TestCase):
         self.assertEqual(
             context['btn1_href'], "/proposition/update_proposition/16/"
         )
-        self.assertEqual(
-            context['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(context['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(context['btn1_text'], "Commencer")
         self.assertEqual(context['btn1_value'], "inprogress")
 
@@ -140,10 +134,7 @@ class TestManager(TestCase):
         request.user = user     
         btn = self.manager._Manager__set_demand_btn(request, proposition)
         self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/3/")
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Sélectionner")
         self.assertEqual(btn['btn1_value'], "select")
 
@@ -155,10 +146,7 @@ class TestManager(TestCase):
         request.user = user     
         btn = self.manager._Manager__set_demand_btn(request, proposition)
         self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/6/")
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-danger btn btn-block btn-light border border-danger"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-danger")
         self.assertEqual(btn['btn1_text'], "Annuler")
         self.assertEqual(btn['btn1_value'], "new")
 
@@ -170,10 +158,7 @@ class TestManager(TestCase):
         request.user = user     
         btn = self.manager._Manager__set_demand_btn(request, proposition)
         self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/6/")
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Confirmer")
         self.assertEqual(btn['btn1_value'], "inprogress")
 
@@ -185,17 +170,11 @@ class TestManager(TestCase):
         request.user = user     
         btn = self.manager._Manager__set_demand_btn(request, proposition)
         self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/2/")
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Terminer")
         self.assertEqual(btn['btn1_value'], "realized")
         self.assertEqual(btn['btn2_href'], "/proposition/update_proposition/2/")
-        self.assertEqual(
-            btn['btn2_class'],
-            "text-danger btn btn-block btn-light border border-danger"
-        )
+        self.assertEqual(btn['btn2_class'],"btn btn-block btn-danger")
         self.assertEqual(btn['btn2_text'], "Annuler")
         self.assertEqual(btn['btn2_value'], "new")
 
@@ -207,17 +186,11 @@ class TestManager(TestCase):
         request.user = user     
         btn = self.manager._Manager__set_demand_btn(request, proposition)
         self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/4/")
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Valider")
         self.assertEqual(btn['btn1_value'], "done")
         self.assertEqual(btn['btn2_href'], "/proposition/update_proposition/4/")
-        self.assertEqual(
-            btn['btn2_class'],
-            "text-danger btn btn-block btn-light border border-danger"
-        )
+        self.assertEqual(btn['btn2_class'],"btn btn-block btn-danger")
         self.assertEqual(btn['btn2_text'], "Rejeter")
         self.assertEqual(btn['btn2_value'], "rejected")
 
@@ -229,17 +202,11 @@ class TestManager(TestCase):
         request.user = user     
         btn = self.manager._Manager__set_demand_btn(request, proposition)
         self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/5/")
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Reprendre")
         self.assertEqual(btn['btn1_value'], "inprogress")
         self.assertEqual(btn['btn2_href'], "/proposition/update_proposition/5/")
-        self.assertEqual(
-            btn['btn2_class'],
-            "text-warning btn btn-block btn-light border border-warning"
-        )
+        self.assertEqual(btn['btn2_class'],"btn btn-block btn-warning")
         self.assertEqual(btn['btn2_text'], "Forcer terminer")
         self.assertEqual(btn['btn2_value'], "done")
 
@@ -251,10 +218,7 @@ class TestManager(TestCase):
         request.user = user     
         btn = self.manager._Manager__set_demand_btn(request, proposition)
         self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/5/")
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Valider")
         self.assertEqual(btn['btn1_value'], "done")
 
@@ -292,10 +256,7 @@ class TestManager(TestCase):
         self.assertEqual(
             btn['btn1_href'], "/proposition/update_proposition/13/"
         )
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Sélectionner")
         self.assertEqual(btn['btn1_value'], "select")
 
@@ -309,10 +270,7 @@ class TestManager(TestCase):
         self.assertEqual(
             btn['btn1_href'], "/proposition/update_proposition/16/"
         )
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-danger btn btn-block btn-light border border-danger"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-danger")
         self.assertEqual(btn['btn1_text'], "Annuler")
         self.assertEqual(btn['btn1_value'], "new")
 
@@ -326,10 +284,7 @@ class TestManager(TestCase):
         self.assertEqual(
             btn['btn1_href'], "/proposition/update_proposition/16/"
         )
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Commencer")
         self.assertEqual(btn['btn1_value'], "inprogress")
 
@@ -344,10 +299,7 @@ class TestManager(TestCase):
         self.assertEqual(
             btn['btn1_href'], "/proposition/update_proposition/12/"
         )
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Terminer")
         self.assertEqual(btn['btn1_value'], "realized")
 
@@ -361,19 +313,13 @@ class TestManager(TestCase):
         self.assertEqual(
             btn['btn1_href'], "/proposition/update_proposition/14/"
         )
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Valider")
         self.assertEqual(btn['btn1_value'], "done")
         self.assertEqual(
             btn['btn2_href'], "/proposition/update_proposition/14/"
         )
-        self.assertEqual(
-            btn['btn2_class'],
-            "text-danger btn btn-block btn-light border border-danger"
-        )
+        self.assertEqual(btn['btn2_class'],"btn btn-block btn-danger")
         self.assertEqual(btn['btn2_text'], "Rejeter")
         self.assertEqual(btn['btn2_value'], "rejected")
 
@@ -387,10 +333,7 @@ class TestManager(TestCase):
         self.assertEqual(
             btn['btn1_href'], "/proposition/update_proposition/15/"
         )
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Valider")
         self.assertEqual(btn['btn1_value'], "done")
 
@@ -404,18 +347,12 @@ class TestManager(TestCase):
         self.assertEqual(
             btn['btn1_href'], "/proposition/update_proposition/15/"
         )
-        self.assertEqual(
-            btn['btn1_class'],
-            "text-success btn btn-block btn-light border border-success"
-        )
+        self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(btn['btn1_text'], "Reprendre")
         self.assertEqual(btn['btn1_value'], "inprogress")
         self.assertEqual(
             btn['btn2_href'], "/proposition/update_proposition/15/"
         )
-        self.assertEqual(
-            btn['btn2_class'],
-            "text-warning btn btn-block btn-light border border-warning"
-        )
+        self.assertEqual(btn['btn2_class'],"btn btn-block btn-warning")
         self.assertEqual(btn['btn2_text'], "Forcer terminer")
         self.assertEqual(btn['btn2_value'], "done")

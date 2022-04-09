@@ -23,9 +23,10 @@ class ReadPropositionViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'proposition/read_proposition.html')
         self.assertIsInstance(response.context['proposition'], Proposition)
-        self.assertEqual(response.context['href'], None)
-        self.assertEqual(response.context['class'], None)
-        self.assertEqual(response.context['text'], None)
+        self.assertEqual(response.context['btn1_href'], None)
+        self.assertEqual(response.context['btn1_class'], None)
+        self.assertEqual(response.context['btn1_text'], None)
+        self.assertEqual(response.context['btn1_value'], None)
 
     def test_get_with_alternative_scenario(self):
         self.proposition_emulation.emulate_proposition()

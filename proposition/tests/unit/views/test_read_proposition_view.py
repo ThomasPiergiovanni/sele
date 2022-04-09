@@ -19,7 +19,4 @@ class ReadPropositionViewTest(TestCase):
             ReadPropositionView.login_url , '/authentication/login/'
         )
         self.assertEqual(ReadPropositionView.redirect_field_name, None)
-        self.assertIsNone(self.view.context['proposition'])
-        self.assertIsNone(self.view.context['href'])
-        self.assertIsNone(self.view.context['class'])
-        self.assertIsNone(self.view.context['text'])
+        self.assertIsNone(self.view.context)

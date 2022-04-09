@@ -17,7 +17,7 @@
                 </form>
                 <div class="row">
                     <div class="col-6">
-                        <a href="{% url 'vote:collectivity_votings' %}" role="button">
+                        <a href="{{request.META.HTTP_REFERER}}" role="button">
                             <button type="button" class="text-secondary btn btn-block btn-light border border-secondary mt-4">
                                 Retour
                             </button>

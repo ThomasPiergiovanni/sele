@@ -92,9 +92,9 @@ class Manager():
         href = (
             "/proposition/update_proposition/{0}/".format(proposition.id)
         )
-        success = "text-success btn btn-block btn-light border border-success"
-        danger = "text-danger btn btn-block btn-light border border-danger"
-        warning = "text-warning btn btn-block btn-light border border-warning"
+        success = "btn btn-block btn-success"
+        danger = "btn btn-block btn-danger"
+        warning = "btn btn-block btn-warning"
         if (
                 proposition.proposition_status.name == 'Nouveau' and
                 proposition.proposition_taker is None and
@@ -168,9 +168,9 @@ class Manager():
         href = (
             "/proposition/update_proposition/{0}/".format(proposition.id)
         )
-        success = "text-success btn btn-block btn-light border border-success"
-        danger = "text-danger btn btn-block btn-light border border-danger"
-        warning = "text-warning btn btn-block btn-light border border-warning"
+        success = "btn btn-block btn-success"
+        danger = "btn btn-block btn-danger"
+        warning = "btn btn-block btn-warning"
         if (
                 proposition.proposition_status.name == 'Nouveau' and
                 proposition.proposition_taker is None and
