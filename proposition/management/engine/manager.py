@@ -14,7 +14,7 @@ class Manager():
 
     def set_page_objects_context(self, request, search_input):
         propositions = self.__get_proposition_queryset(request, search_input)
-        paginator = Paginator(propositions, 1)
+        paginator = Paginator(propositions, 4)
         page_number = request.GET.get('page')
         page_objects = paginator.get_page(page_number)
         return page_objects
@@ -79,7 +79,6 @@ class Manager():
     def set_read_proposition_view_context(self, request, id_proposition):
         buttons = {}
         proposition = Proposition.objects.get(pk=id_proposition)
-        buttons['proposition'] = proposition
         if proposition.proposition_kind.name == 'Demande':
             buttons = self.__set_demand_buttons(request, proposition)
         else:
@@ -91,6 +90,7 @@ class Manager():
             buttons['btn2_class'] = None
             buttons['btn2_text'] = None
             buttons['btn2_value'] = None
+        buttons['proposition'] = proposition
         return buttons
     
     def __set_demand_buttons(self, request, proposition):
@@ -152,6 +152,7 @@ class Manager():
         ):
             buttons = self.__set_buttons_vars(href, success, "Valider", "done")
         else:
+            buttons = {}
             buttons['btn1_href'] = None
             buttons['btn1_class'] = None
             buttons['btn1_text'] = None

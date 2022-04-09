@@ -16,23 +16,18 @@ class ReadPropositionView(LoginRequiredMixin, View):
         super().__init__()
         self.manager = Manager()
         self.view_template = 'proposition/read_proposition.html'
-        self.context = {
-            'proposition': None,
-            'href': None,  
-            'class': None, 
-            'text': None,          
-        }
+        self.context = None
     
     def get(self, request, id_proposition):
         """Detailed proposition view method on client get request.
         """
-        context = self.manager.set_read_proposition_view_context(
+        self.context = self.manager.set_read_proposition_view_context(
             request,id_proposition
         )
-        self.context['proposition'] = context['proposition']
-        self.context['href'] = context['href']
-        self.context['class'] = context['class']
-        self.context['text'] = context['text']
+        # self.context['proposition'] = context['proposition']
+        # self.context['href'] = context['btn1_href']
+        # self.context['class'] = context['btn1_class']
+        # self.context['text'] = context['text']
 
         return render(request, self.view_template, self.context)
 

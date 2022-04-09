@@ -161,7 +161,7 @@
         </div>
         <!-- /end card body -->
         <div class="card-footer bg-white clearfix">
-            {% if href %}
+            {% if btn1_href and btn2_href is None %}
                 <div class="row">
                     <div class="col-sm-6 mb-3">
                         <a href="{% url 'proposition:collectivity_propositions' %}" role="button">
@@ -171,9 +171,33 @@
                         </a>
                     </div>
                     <div class="col-sm-6 mb-3">
-                        <a href="{{href}}" role="button">
-                            <button type="button" name="update_status_button" class="{{class}}" value="{{value}}">
-                                {{text}}
+                        <a href="{{btn1_href}}" role="button">
+                            <button type="button" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
+                                {{btn1_text}}
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            {% elif btn1_href and btn2_href %}
+                <div class="row">
+                    <div class="col-sm-4 mb-3">
+                        <a href="{% url 'proposition:collectivity_propositions' %}" role="button">
+                            <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
+                                Retour
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <a href="{{btn1_href}}" role="button">
+                            <button type="button" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
+                                {{btn1_text}}
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <a href="{{btn2_href}}" role="button">
+                            <button type="button" name="update_status_button" class="{{btn2_class}}" value="{{btn2_value}}">
+                                {{btn2_text}}
                             </button>
                         </a>
                     </div>
