@@ -117,7 +117,7 @@ class TestManager(TestCase):
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
         request.user = user     
-        buttons = self.manager._Manager__set_demand_buttons(
+        buttons = self.manager._Manager__set_demand_btn(
             request, proposition
         )
         self.assertEqual(
@@ -136,7 +136,7 @@ class TestManager(TestCase):
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
         request.user = user     
-        buttons = self.manager._Manager__set_demand_buttons(
+        buttons = self.manager._Manager__set_demand_btn(
             request, proposition
         )
         self.assertEqual(
@@ -155,7 +155,7 @@ class TestManager(TestCase):
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
-        buttons = self.manager._Manager__set_demand_buttons(
+        buttons = self.manager._Manager__set_demand_btn(
             request, proposition
         )
         self.assertEqual(
@@ -174,7 +174,7 @@ class TestManager(TestCase):
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
         request.user = user     
-        buttons = self.manager._Manager__set_demand_buttons(
+        buttons = self.manager._Manager__set_demand_btn(
             request, proposition
         )
         self.assertEqual(
@@ -202,7 +202,7 @@ class TestManager(TestCase):
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
-        buttons = self.manager._Manager__set_demand_buttons(
+        buttons = self.manager._Manager__set_demand_btn(
             request, proposition
         )
         self.assertEqual(
@@ -230,7 +230,7 @@ class TestManager(TestCase):
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
         request.user = user     
-        buttons = self.manager._Manager__set_demand_buttons(
+        buttons = self.manager._Manager__set_demand_btn(
             request, proposition
         )
         self.assertEqual(
@@ -258,7 +258,7 @@ class TestManager(TestCase):
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
-        buttons = self.manager._Manager__set_demand_buttons(
+        buttons = self.manager._Manager__set_demand_btn(
             request, proposition
         )
         self.assertEqual(
@@ -270,3 +270,15 @@ class TestManager(TestCase):
         )
         self.assertEqual(buttons['btn1_text'], "Valider")
         self.assertEqual(buttons['btn1_value'], "done")
+
+    def test_set_btn_dict_with_argument(self):
+        btn = self.manager._Manager__set_btn_dict('un', 'deux', 'trois')
+        self.assertEqual(btn['btn1_href'],'un')
+        self.assertIsNone(btn['btn1_value'])
+
+    def test_set_check_index_with_list(self):
+        items = ['item1', 'item2', 'item3']
+        item1 = self.manager._Manager__check_index(items,0)
+        item4 = self.manager._Manager__check_index(items,3)
+        self.assertIsNotNone(item1)
+        self.assertIsNone(item4)

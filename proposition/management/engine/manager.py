@@ -77,23 +77,23 @@ class Manager():
         )
 
     def set_read_proposition_view_context(self, request, id_proposition):
-        buttons = {}
+        context = {}
         proposition = Proposition.objects.get(pk=id_proposition)
         if proposition.proposition_kind.name == 'Demande':
-            buttons = self.__set_demand_buttons(request, proposition)
+            context = self.__set_demand_btn(request, proposition)
         else:
-            buttons['btn1_href'] = None
-            buttons['btn1_class'] = None
-            buttons['btn1_text'] = None
-            buttons['btn1_value'] = None
-            buttons['btn2_href'] = None
-            buttons['btn2_class'] = None
-            buttons['btn2_text'] = None
-            buttons['btn2_value'] = None
-        buttons['proposition'] = proposition
-        return buttons
+            context['btn1_href'] = None
+            context['btn1_class'] = None
+            context['btn1_text'] = None
+            context['btn1_value'] = None
+            context['btn2_href'] = None
+            context['btn2_class'] = None
+            context['btn2_text'] = None
+            context['btn2_value'] = None
+        context['proposition'] = proposition
+        return context
     
-    def __set_demand_buttons(self, request, proposition):
+    def __set_demand_btn(self, request, proposition):
         """
         """
         href = (
@@ -107,26 +107,26 @@ class Manager():
                 proposition.proposition_taker is None and
                 proposition.proposition_creator != request.user
         ):
-            buttons = self.__set_buttons_vars(
+            buttons = self.__set_btn_dict(
                 href, success, "Sélectionner", "select",
             )
         elif (
                 proposition.proposition_status.name == 'Sélectionné' and
                 proposition.proposition_taker == request.user
         ):
-            buttons = self.__set_buttons_vars(href, danger, "Annuler", "new")
+            buttons = self.__set_btn_dict(href, danger, "Annuler", "new")
         elif (
                 proposition.proposition_status.name == 'Sélectionné' and
                 proposition.proposition_creator == request.user
         ):
-            buttons = self.__set_buttons_vars(
+            buttons = self.__set_btn_dict(
                 href, success, "Confirmer", "inprogress"
             )
         elif (
                 proposition.proposition_status.name == 'En cours' and
                 proposition.proposition_taker == request.user
         ):
-            buttons = self.__set_buttons_vars(
+            buttons = self.__set_btn_dict(
                 href, success, "Terminer", "realized",
                 href, danger, "Annuler", "new",
             )
@@ -134,7 +134,7 @@ class Manager():
                 proposition.proposition_status.name == 'Réalisé' and
                 proposition.proposition_creator == request.user
         ):
-            buttons = self.__set_buttons_vars(
+            buttons = self.__set_btn_dict(
                 href, success, "Valider", "done",
                 href, danger, "Rejeter", "rejected",
             )
@@ -142,7 +142,7 @@ class Manager():
                 proposition.proposition_status.name == 'Rejeté' and
                 proposition.proposition_taker == request.user
         ):
-            buttons = self.__set_buttons_vars(
+            buttons = self.__set_btn_dict(
                 href, success, "Reprendre", "inprogress",
                 href, warning, "Forcer terminer", "done",
             )
@@ -150,7 +150,7 @@ class Manager():
                 proposition.proposition_status.name == 'Rejeté' and
                 proposition.proposition_creator == request.user
         ):
-            buttons = self.__set_buttons_vars(href, success, "Valider", "done")
+            buttons = self.__set_btn_dict(href, success, "Valider", "done")
         else:
             buttons = {}
             buttons['btn1_href'] = None
@@ -163,18 +163,21 @@ class Manager():
             buttons['btn2_value'] = None
         return buttons
     
-    def __set_buttons_vars(self, *args,):
+    def __set_btn_dict(self, *args):
         buttons = {}
-        try:
-            buttons['btn1_href'] = args[0]
-            buttons['btn1_class'] = args[1]
-            buttons['btn1_text'] = args[2]
-            buttons['btn1_value'] = args[3]
-            buttons['btn2_href'] = args[4]
-            buttons['btn2_class'] = args[5]
-            buttons['btn2_text'] = args[6]
-            buttons['btn2_value'] = args[7]
-        except:
-            pass
+        buttons['btn1_href'] = self.__check_index(args, 0)
+        buttons['btn1_class'] = self.__check_index(args, 1)
+        buttons['btn1_text'] = self.__check_index(args, 2)
+        buttons['btn1_value'] = self.__check_index(args, 3)
+        buttons['btn2_href'] = self.__check_index(args, 4)
+        buttons['btn2_class'] = self.__check_index(args, 5)
+        buttons['btn2_text'] = self.__check_index(args, 6)
+        buttons['btn2_value'] = self.__check_index(args, 7)
         return buttons
+
+    def __check_index(self, arg, i):
+        try:
+            return arg[i]
+        except IndexError:
+            return None
 
