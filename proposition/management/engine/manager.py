@@ -77,55 +77,103 @@ class Manager():
         )
 
     def set_read_proposition_view_context(self, request, id_proposition):
-        context = {}
+        buttons = {}
         proposition = Proposition.objects.get(pk=id_proposition)
-        context['proposition'] = proposition
+        buttons['proposition'] = proposition
         if proposition.proposition_kind.name == 'Demande':
-            html_vars = self.__set_demand_button(request, proposition)
-            context['href'] = html_vars['href']
-            context['class'] = html_vars['class']
-            context['text'] = html_vars['text']
-            context['value'] = html_vars['value']
+            buttons = self.__set_demand_buttons(request, proposition)
         else:
-            context['href'] = None
-            context['class'] = None
-            context['text'] = None
-            context['value'] = None
-        return context
+            buttons['btn1_href'] = None
+            buttons['btn1_class'] = None
+            buttons['btn1_text'] = None
+            buttons['btn1_value'] = None
+            buttons['btn2_href'] = None
+            buttons['btn2_class'] = None
+            buttons['btn2_text'] = None
+            buttons['btn2_value'] = None
+        return buttons
     
-    def __set_demand_button(self, request, proposition):
-        html_vars = {}
-        html_href = (
+    def __set_demand_buttons(self, request, proposition):
+        """
+        """
+        href = (
             "/proposition/update_proposition/{0}/".format(proposition.id)
         )
-        success_class = (
-            "text-success btn btn-block btn-light border border-success"
-        )
-        danger_class = (
-            "text-danger btn btn-block btn-light border border-danger"
-        )
+        success = "text-success btn btn-block btn-light border border-success"
+        danger = "text-danger btn btn-block btn-light border border-danger"
+        warning = "text-warning btn btn-block btn-light border border-warning"
         if (
                 proposition.proposition_status.name == 'Nouveau' and
                 proposition.proposition_taker is None and
                 proposition.proposition_creator != request.user
         ):
-            html_vars['href'] = html_href
-            html_vars['class'] = success_class
-            html_vars['text'] = "S'assigner"
-            html_vars['value'] = "select"
+            buttons = self.__set_buttons_vars(
+                href, success, "Sélectionner", "select",
+            )
         elif (
                 proposition.proposition_status.name == 'Sélectionné' and
-                proposition.proposition_taker == request.user and
-                proposition.proposition_creator != request.user
+                proposition.proposition_taker == request.user
         ):
-            html_vars['href'] = html_href
-            html_vars['class'] = danger_class
-            html_vars['text'] = "Annuler l'assignation"
-            html_vars['value'] = "new"
+            buttons = self.__set_buttons_vars(href, danger, "Annuler", "new")
+        elif (
+                proposition.proposition_status.name == 'Sélectionné' and
+                proposition.proposition_creator == request.user
+        ):
+            buttons = self.__set_buttons_vars(
+                href, success, "Confirmer", "inprogress"
+            )
+        elif (
+                proposition.proposition_status.name == 'En cours' and
+                proposition.proposition_taker == request.user
+        ):
+            buttons = self.__set_buttons_vars(
+                href, success, "Terminer", "realized",
+                href, danger, "Annuler", "new",
+            )
+        elif (
+                proposition.proposition_status.name == 'Réalisé' and
+                proposition.proposition_creator == request.user
+        ):
+            buttons = self.__set_buttons_vars(
+                href, success, "Valider", "done",
+                href, danger, "Rejeter", "rejected",
+            )
+        elif (
+                proposition.proposition_status.name == 'Rejeté' and
+                proposition.proposition_taker == request.user
+        ):
+            buttons = self.__set_buttons_vars(
+                href, success, "Reprendre", "inprogress",
+                href, warning, "Forcer terminer", "done",
+            )
+        elif (
+                proposition.proposition_status.name == 'Rejeté' and
+                proposition.proposition_creator == request.user
+        ):
+            buttons = self.__set_buttons_vars(href, success, "Valider", "done")
         else:
-            html_vars['href'] = None
-            html_vars['class'] = None
-            html_vars['text'] = None
-            html_vars['value'] = "select"
+            buttons['btn1_href'] = None
+            buttons['btn1_class'] = None
+            buttons['btn1_text'] = None
+            buttons['btn1_value'] = None
+            buttons['btn2_href'] = None
+            buttons['btn2_class'] = None
+            buttons['btn2_text'] = None
+            buttons['btn2_value'] = None
+        return buttons
+    
+    def __set_buttons_vars(self, *args,):
+        buttons = {}
+        try:
+            buttons['btn1_href'] = args[0]
+            buttons['btn1_class'] = args[1]
+            buttons['btn1_text'] = args[2]
+            buttons['btn1_value'] = args[3]
+            buttons['btn2_href'] = args[4]
+            buttons['btn2_class'] = args[5]
+            buttons['btn2_text'] = args[6]
+            buttons['btn2_value'] = args[7]
+        except:
+            pass
+        return buttons
 
-        return html_vars

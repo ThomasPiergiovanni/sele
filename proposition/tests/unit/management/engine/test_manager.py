@@ -103,13 +103,13 @@ class TestManager(TestCase):
         context = self.manager.set_read_proposition_view_context(
             request, proposition.id
         )
-        self.assertEqual(context['href'], "/proposition/update_proposition/3/")
+        self.assertEqual(context['btn1_href'], "/proposition/update_proposition/3/")
         self.assertEqual(
-            context['class'],
+            context['btn1_class'],
             "text-success btn btn-block btn-light border border-success"
         )
-        self.assertEqual(context['text'], "S'assigner")
-        self.assertEqual(context['value'], "select")
+        self.assertEqual(context['btn1_text'], "Sélectionner")
+        self.assertEqual(context['btn1_value'], "select")
 
     def test_set_demand_button_with_sta_nouveau_tak_none_cre_not_user(self):
         self.proposition_emulation.emulate_proposition()
@@ -117,34 +117,156 @@ class TestManager(TestCase):
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
         request.user = user     
-        html_vars = self.manager._Manager__set_demand_button(
+        buttons = self.manager._Manager__set_demand_buttons(
             request, proposition
         )
         self.assertEqual(
-            html_vars['href'], "/proposition/update_proposition/3/"
+            buttons['btn1_href'], "/proposition/update_proposition/3/"
         )
         self.assertEqual(
-            html_vars['class'],
+            buttons['btn1_class'],
             "text-success btn btn-block btn-light border border-success"
         )
-        self.assertEqual(html_vars['text'], "S'assigner")
-        self.assertEqual(html_vars['value'], "select")
+        self.assertEqual(buttons['btn1_text'], "Sélectionner")
+        self.assertEqual(buttons['btn1_value'], "select")
 
-    def test_set_demand_button_with_sta_selectionne_tak_user_cre_not_user(self):
+    def test_set_demand_button_with_sta_selectionne_tak_user(self):
         self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=6)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
         request.user = user     
-        html_vars = self.manager._Manager__set_demand_button(
+        buttons = self.manager._Manager__set_demand_buttons(
             request, proposition
         )
         self.assertEqual(
-            html_vars['href'], "/proposition/update_proposition/6/"
+            buttons['btn1_href'], "/proposition/update_proposition/6/"
         )
         self.assertEqual(
-            html_vars['class'],
+            buttons['btn1_class'],
             "text-danger btn btn-block btn-light border border-danger"
         )
-        self.assertEqual(html_vars['text'], "Annuler l'assignation")
-        self.assertEqual(html_vars['value'], "new")
+        self.assertEqual(buttons['btn1_text'], "Annuler")
+        self.assertEqual(buttons['btn1_value'], "new")
+
+    def test_set_demand_button_with_sta_selectionne_cre_user(self):
+        self.proposition_emulation.emulate_proposition()
+        proposition = Proposition.objects.get(pk=6)
+        request = RequestFactory().get('')
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user     
+        buttons = self.manager._Manager__set_demand_buttons(
+            request, proposition
+        )
+        self.assertEqual(
+            buttons['btn1_href'], "/proposition/update_proposition/6/"
+        )
+        self.assertEqual(
+            buttons['btn1_class'],
+            "text-success btn btn-block btn-light border border-success"
+        )
+        self.assertEqual(buttons['btn1_text'], "Confirmer")
+        self.assertEqual(buttons['btn1_value'], "inprogress")
+
+    def test_set_demand_button_with_sta_en_cours_tak_user(self):
+        self.proposition_emulation.emulate_proposition()
+        proposition = Proposition.objects.get(pk=2)
+        request = RequestFactory().get('')
+        user = authenticate(email='user3@email.com', password='xxx_Xxxx')
+        request.user = user     
+        buttons = self.manager._Manager__set_demand_buttons(
+            request, proposition
+        )
+        self.assertEqual(
+            buttons['btn1_href'], "/proposition/update_proposition/2/"
+        )
+        self.assertEqual(
+            buttons['btn1_class'],
+            "text-success btn btn-block btn-light border border-success"
+        )
+        self.assertEqual(buttons['btn1_text'], "Terminer")
+        self.assertEqual(buttons['btn1_value'], "realized")
+        self.assertEqual(
+            buttons['btn2_href'], "/proposition/update_proposition/2/"
+        )
+        self.assertEqual(
+            buttons['btn2_class'],
+            "text-danger btn btn-block btn-light border border-danger"
+        )
+        self.assertEqual(buttons['btn2_text'], "Annuler")
+        self.assertEqual(buttons['btn2_value'], "new")
+
+    def test_set_demand_button_with_sta_realized_cre_user(self):
+        self.proposition_emulation.emulate_proposition()
+        proposition = Proposition.objects.get(pk=4)
+        request = RequestFactory().get('')
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user     
+        buttons = self.manager._Manager__set_demand_buttons(
+            request, proposition
+        )
+        self.assertEqual(
+            buttons['btn1_href'], "/proposition/update_proposition/4/"
+        )
+        self.assertEqual(
+            buttons['btn1_class'],
+            "text-success btn btn-block btn-light border border-success"
+        )
+        self.assertEqual(buttons['btn1_text'], "Valider")
+        self.assertEqual(buttons['btn1_value'], "done")
+        self.assertEqual(
+            buttons['btn2_href'], "/proposition/update_proposition/4/"
+        )
+        self.assertEqual(
+            buttons['btn2_class'],
+            "text-danger btn btn-block btn-light border border-danger"
+        )
+        self.assertEqual(buttons['btn2_text'], "Rejeter")
+        self.assertEqual(buttons['btn2_value'], "rejected")
+
+    def test_set_demand_button_with_sta_rejected_tak_user(self):
+        self.proposition_emulation.emulate_proposition()
+        proposition = Proposition.objects.get(pk=5)
+        request = RequestFactory().get('')
+        user = authenticate(email='user3@email.com', password='xxx_Xxxx')
+        request.user = user     
+        buttons = self.manager._Manager__set_demand_buttons(
+            request, proposition
+        )
+        self.assertEqual(
+            buttons['btn1_href'], "/proposition/update_proposition/5/"
+        )
+        self.assertEqual(
+            buttons['btn1_class'],
+            "text-success btn btn-block btn-light border border-success"
+        )
+        self.assertEqual(buttons['btn1_text'], "Reprendre")
+        self.assertEqual(buttons['btn1_value'], "inprogress")
+        self.assertEqual(
+            buttons['btn2_href'], "/proposition/update_proposition/5/"
+        )
+        self.assertEqual(
+            buttons['btn2_class'],
+            "text-warning btn btn-block btn-light border border-warning"
+        )
+        self.assertEqual(buttons['btn2_text'], "Forcer terminer")
+        self.assertEqual(buttons['btn2_value'], "done")
+
+    def test_set_demand_button_with_sta_rejected_cre_user(self):
+        self.proposition_emulation.emulate_proposition()
+        proposition = Proposition.objects.get(pk=5)
+        request = RequestFactory().get('')
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user     
+        buttons = self.manager._Manager__set_demand_buttons(
+            request, proposition
+        )
+        self.assertEqual(
+            buttons['btn1_href'], "/proposition/update_proposition/5/"
+        )
+        self.assertEqual(
+            buttons['btn1_class'],
+            "text-success btn btn-block btn-light border border-success"
+        )
+        self.assertEqual(buttons['btn1_text'], "Valider")
+        self.assertEqual(buttons['btn1_value'], "done")
