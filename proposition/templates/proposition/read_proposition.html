@@ -54,7 +54,7 @@
                                     <span class="text-warning badge badge-pill badge-light border border-warning">
                                         {{proposition.proposition_status}}
                                     </span>
-                                    {% elif proposition.proposition_status.name == 'Réjeté' %}
+                                    {% elif proposition.proposition_status.name == 'Rejeté' %}
                                     <span class="text-warning badge badge-pill badge-light border border-warning">
                                         {{proposition.proposition_status}}
                                     </span>
@@ -77,13 +77,13 @@
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-8">
-                                <p class="card-text ">Intitulé</br>
+                                <p class="card-text ">Intitulé:</br>
                                     <span class="card-text text-secondary">{{proposition.name}}</span> 
                                 </p>
-                                <p class="card-text">Description</br>
+                                <p class="card-text">Description:</br>
                                     <span class="card-text text-secondary">{{proposition.description}}</span>
                                 </p>                              
-                                <p class="card-text">Temps de travail (minutes)</br>
+                                <p class="card-text">Temps de travail (minutes):</br>
                                     <span class="card-text text-secondary">{{proposition.duration}}</span>
                                 </p>
                                 <p class="card-text">A effectuer entre le...</br>
@@ -136,10 +136,14 @@
                                             </tr>
                                             <tr>
                                                 <td class="card-text">
-                                                    Nom du créateur
+                                                    {% if proposition.proposition_kind.name == 'Demande'%}
+                                                        Nom du demandeur
+                                                    {% else %}
+                                                        Nom de l'offreur
+                                                    {% endif %}
                                                 </td>
                                                 <td class="card-text text-secondary font-italic">
-                                                    {{proposition.proposition_creator}}
+                                                    {{proposition.proposition_creator.user_name}}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -147,7 +151,7 @@
                                                     Nom du preneur
                                                 </td>
                                                 <td class="card-text text-secondary font-italic">
-                                                    {{proposition.proposition_taker}}
+                                                    {{proposition.proposition_taker.user_name}}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -161,62 +165,66 @@
         </div>
         <!-- /end card body -->
         <div class="card-footer bg-white clearfix">
-            {% if btn1_href and btn2_href is None %}
-                <div class="row">
-                    <div class="col-sm-6 mb-3"></div>
-                    <div class="col-sm-3 mb-3">
-                        <a href="{{request.META.HTTP_REFERER}}" role="button">
-                            <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
-                                Retour
-                            </button>
-                        </a>
-                    </div>
-                    <div class="col-sm-3 mb-3">
-                        <a href="{{btn1_href}}" role="button">
-                            <button type="button" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
+            <form id="update_status_form" name="update_status_form" action="{{btn1_href}}"
+                method="post" novalidate>
+                {% csrf_token %}
+                {% if btn1_href and btn2_href is None %}
+                    <div class="row">
+                        <div class="col-sm-6 mb-3"></div>
+                        <div class="col-sm-3 mb-3">
+                            <a href="{{request.META.HTTP_REFERER}}" role="button">
+                                <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
+                                    Retour
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-sm-3 mb-3">
+
+                            <button type="submit" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
                                 {{btn1_text}}
                             </button>
-                        </a>
+
+                        </div>
                     </div>
-                </div>
-            {% elif btn1_href and btn2_href %}
-                <div class="row">
-                    <div class="col-md-6 mb-3"></div>
-                    <div class="col-md-2 mb-3">
-                        <a href="{{request.META.HTTP_REFERER}}" role="button">
-                            <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
-                                Retour
-                            </button>
-                        </a>
+                {% elif btn1_href and btn2_href %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3"></div>
+                        <div class="col-md-2 mb-3">
+                            <a href="{{request.META.HTTP_REFERER}}" role="button">
+                                <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
+                                    Retour
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <a href="{{btn1_href}}" role="button">
+                                <button type="button" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
+                                    {{btn1_text}}
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <a href="{{btn2_href}}" role="button">
+                                <button type="button" name="update_status_button" class="{{btn2_class}}" value="{{btn2_value}}">
+                                    {{btn2_text}}
+                                </button>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-2 mb-3">
-                        <a href="{{btn1_href}}" role="button">
-                            <button type="button" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
-                                {{btn1_text}}
-                            </button>
-                        </a>
+                {% else %}
+                    <div class="row">
+                        <div class="col-sm-6 mb-3"></div>
+                        <div class="col-sm-3 mb-3"></div>
+                        <div class="col-sm-3 mb-3">
+                            <a href="{{request.META.HTTP_REFERER}}" role="button">
+                                <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
+                                    Retour
+                                </button>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-2 mb-3">
-                        <a href="{{btn2_href}}" role="button">
-                            <button type="button" name="update_status_button" class="{{btn2_class}}" value="{{btn2_value}}">
-                                {{btn2_text}}
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            {% else %}
-                <div class="row">
-                    <div class="col-sm-6 mb-3"></div>
-                    <div class="col-sm-3 mb-3"></div>
-                    <div class="col-sm-3 mb-3">
-                        <a href="{{request.META.HTTP_REFERER}}" role="button">
-                            <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
-                                Retour
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </form>
         </div>
         <!-- /.card-footer-->
     </div>

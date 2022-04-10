@@ -21,5 +21,8 @@ class UpdatePropositionViewTest(TestCase):
             UpdatePropositionView.login_url , '/authentication/login/'
         )
         self.assertEqual(UpdatePropositionView.redirect_field_name, None)
-        self.assertEqual(self.view.msg_post_success,"Statut mis-à-jour")
+        self.assertEqual(
+            self.view.msg_post_success,
+            "Statut de la proposition mis-à-jour"
+        )
 

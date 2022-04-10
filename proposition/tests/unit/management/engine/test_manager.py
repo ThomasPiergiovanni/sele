@@ -15,6 +15,7 @@ from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
 from proposition.models.proposition import Proposition
+from proposition.models.status import Status
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )
@@ -206,7 +207,7 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn1_text'], "Reprendre")
         self.assertEqual(btn['btn1_value'], "inprogress")
         self.assertEqual(btn['btn2_href'], "/proposition/update_proposition/5/")
-        self.assertEqual(btn['btn2_class'],"btn btn-block btn-warning")
+        self.assertEqual(btn['btn2_class'],"btn btn-block btn-danger")
         self.assertEqual(btn['btn2_text'], "Forcer terminer")
         self.assertEqual(btn['btn2_value'], "done")
 
@@ -353,6 +354,84 @@ class TestManager(TestCase):
         self.assertEqual(
             btn['btn2_href'], "/proposition/update_proposition/15/"
         )
-        self.assertEqual(btn['btn2_class'],"btn btn-block btn-warning")
+        self.assertEqual(btn['btn2_class'],"btn btn-block btn-danger")
         self.assertEqual(btn['btn2_text'], "Forcer terminer")
         self.assertEqual(btn['btn2_value'], "done")
+
+    def test_set_status_with_select_taker(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().post(
+            '', data={'update_status_button':'select'}
+        )
+        user = authenticate(email='user3@email.com', password='xxx_Xxxx')
+        request.user = user
+        self.manager.set_proposition_status(request, 3)
+        proposition = Proposition.objects.get(pk=3)
+        self.assertEqual(proposition.proposition_status.id,6)
+        self.assertEqual(
+            proposition.proposition_taker.email, 'user3@email.com'
+        )
+
+    def test_set_status_with_new_taker(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().post(
+            '', data={'update_status_button':'new'}
+        )
+        user = authenticate(email='user3@email.com', password='xxx_Xxxx')
+        request.user = user
+        self.manager.set_proposition_status(request, 1)
+        proposition = Proposition.objects.get(pk=1)
+        self.assertEqual(proposition.proposition_status.id,3)
+        self.assertIsNone(proposition.proposition_taker)
+
+    def test_set_status_with_inprogress(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().post(
+            '', data={'update_status_button':'inprogress'}
+        )
+        user = authenticate(email='user3@email.com', password='xxx_Xxxx')
+        request.user = user
+        self.manager.set_proposition_status(request, 6)
+        proposition = Proposition.objects.get(pk=6)
+        self.assertEqual(proposition.proposition_status.id,2)
+
+    def test_set_status_with_realized(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().post(
+            '', data={'update_status_button':'realized'}
+        )
+        user = authenticate(email='user3@email.com', password='xxx_Xxxx')
+        request.user = user
+        self.manager.set_proposition_status(request, 2)
+        proposition = Proposition.objects.get(pk=2)
+        self.assertEqual(proposition.proposition_status.id,4)
+
+    def test_set_status_with_rejected(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().post(
+            '', data={'update_status_button':'rejected'}
+        )
+        user = authenticate(email='user3@email.com', password='xxx_Xxxx')
+        request.user = user
+        self.manager.set_proposition_status(request, 4)
+        proposition = Proposition.objects.get(pk=4)
+        self.assertEqual(proposition.proposition_status.id,5)
+
+    def test_set_status_with_done(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().post(
+            '', data={'update_status_button':'done'}
+        )
+        user = authenticate(email='user3@email.com', password='xxx_Xxxx')
+        request.user = user
+        self.manager.set_proposition_status(request, 4)
+        proposition = Proposition.objects.get(pk=4)
+        self.assertEqual(proposition.proposition_status.id,7)
+
+    def test_set_status_with_selectione(self):
+        self.proposition_emulation.emulate_status()
+        status = self.manager._Manager__set_status('Sélectionné')
+        self.assertEqual(
+            Status.objects.get(name__exact='Sélectionné').name,
+            status.name
+        )

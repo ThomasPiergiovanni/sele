@@ -2,6 +2,7 @@
 from django.core.paginator import Paginator
 from django.utils import timezone
 
+from authentication.models import CustomUser
 from proposition.models.proposition import Proposition
 from proposition.models.status import Status
 
@@ -94,7 +95,6 @@ class Manager():
         )
         success = "btn btn-block btn-success"
         danger = "btn btn-block btn-danger"
-        warning = "btn btn-block btn-warning"
         if (
                 proposition.proposition_status.name == 'Nouveau' and
                 proposition.proposition_taker is None and
@@ -133,7 +133,7 @@ class Manager():
         ):
             btn = self.__set_btn_dict(
                 href, success, "Reprendre", "inprogress",
-                href, warning, "Forcer terminer", "done",
+                href, danger, "Forcer terminer", "done",
             )
         elif (
                 proposition.proposition_status.name == 'Rejeté' and
@@ -170,7 +170,6 @@ class Manager():
         )
         success = "btn btn-block btn-success"
         danger = "btn btn-block btn-danger"
-        warning = "btn btn-block btn-warning"
         if (
                 proposition.proposition_status.name == 'Nouveau' and
                 proposition.proposition_taker is None and
@@ -211,8 +210,34 @@ class Manager():
         ):
             btn = self.__set_btn_dict(
                 href, success, "Reprendre", "inprogress",
-                href, warning, "Forcer terminer", "done",
+                href, danger, "Forcer terminer", "done",
             )
         else:
             btn = self.__set_btn_dict()
         return btn
+
+    def set_proposition_status(self, request, id_proposition):
+        upd_status_btn = request.POST.get('update_status_button')
+        proposition = Proposition.objects.get(pk=id_proposition)
+        custom_user = CustomUser.objects.get(pk=request.user.id)
+        if upd_status_btn == 'select':
+            proposition.proposition_status = self.__set_status('Sélectionné')
+            proposition.proposition_taker = custom_user
+        elif upd_status_btn == 'new':
+            proposition.proposition_status = self.__set_status('Nouveau')
+            proposition.proposition_taker = None
+        elif upd_status_btn == 'inprogress':
+            proposition.proposition_status = self.__set_status('En cours')
+        elif upd_status_btn == 'realized':
+            proposition.proposition_status = self.__set_status('Réalisé')
+        elif upd_status_btn == 'rejected':
+            proposition.proposition_status = self.__set_status('Rejeté')
+        elif upd_status_btn == 'done':
+            proposition.proposition_status = self.__set_status('Terminé')
+        else:
+            print('issue')
+        proposition.save()
+    
+    def __set_status(self, argument):
+        return Status.objects.get(name__exact=argument)
+
