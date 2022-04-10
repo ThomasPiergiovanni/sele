@@ -29,8 +29,5 @@ class ReadDiscussionView(LoginRequiredMixin, View):
         self.context['comments'] = Comment.objects.filter(
             comment_discussion_id__exact=id_discussion
         )
-        # self.context = self.manager.set_discussion_view_context(
-        #     self.context, voting, 'read'
-        # )
         return render(request, self.view_template, self.context)
 

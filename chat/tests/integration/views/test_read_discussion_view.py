@@ -23,9 +23,9 @@ class ReadDiscussionViewTest(TestCase):
         self.assertIsInstance(response.context['discussion'], Discussion)
         self.assertIsInstance(response.context['comments'][0], Comment)
 
-    # def test_get_with_alternative_scenario(self):
-    #     response = self.client.get('/vote/detailed_voting/1/', follow=True)
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],reverse('authentication:login')
-    #     )
+    def test_get_with_alternative_scenario(self):
+        response = self.client.get('/chat/read_discussion/1/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.redirect_chain[0][0],reverse('authentication:login')
+        )

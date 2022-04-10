@@ -20,7 +20,7 @@
 
 <!-- Main content -->
 <section class="content">
-    <div class="card direct-chat direct-chat-light">
+    <div class="card direct-chat direct-chat-light bg-white">
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-comments mr-1"></i>
@@ -30,38 +30,38 @@
         <!-- /.card-body-->
         <!-- Table . 2nd card-body-->
         <div class="card-body">
-            {% if comments %}
-                {% for comment in comments%}
-                <div class="direct-chat-messages">
-                    <div class="direct-chat-msg">
-                        <div class="direct-chat-infos clearfix">
-                            <span class="direct-chat-name float-left">{{ comment.comment_custom_user.user_name }}</span>
-                            <span class="direct-chat-timestamp float-left ml-2">{{ comment.creation_date }} </span>
-                        </div>
-                        <!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">
-                            {{comment.comment}}
-                        </div>
-                        <!-- /.direct-chat-text -->
-                    </div>
-                </div>
-                {% endfor%}
-            {% else %}
-                <div class="direct-chat-messages">
-                    <div class="direct-chat-msg">
-                        <div class="direct-chat-infos clearfix">
-                            <span class="direct-chat-name float-left">Ginette</span>
-                            <span class="direct-chat-timestamp float-left ml-2">01 Jan 2:00 </span>
-                        </div>
-                        <!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">
-                            Bonjour, je me propose pour réaliser ce travail. Par contre je ne peut la réaliser que le 08.
-                        </div>
-                        <!-- /.direct-chat-text -->
-                    </div>
-                </div>
-            {% endif %}
-
+            <div class="direct-chat-messages">
+                {% if comments %}
+                    {% for comment in comments%}
+                        {% if comment.comment_custom_user == user%}
+                            <div class="direct-chat-msg mb-4">
+                                <div class="direct-chat-infos clearfix">
+                                    <span class="direct-chat-name float-left">{{ comment.comment_custom_user.user_name }}</span>
+                                    <span class="direct-chat-timestamp float-left ml-2">{{ comment.creation_date }} </span>
+                                </div>
+                                <!-- /.direct-chat-img -->
+                                <div class="direct-chat-text">
+                                    {{comment.comment}}
+                                </div>
+                                <!-- /.direct-chat-text -->
+                            </div>
+                        {% else %}
+                            <div class="direct-chat-msg right mb-4">
+                                <div class="direct-chat-infos clearfix">
+                                    <span class="direct-chat-name float-right">{{ comment.comment_custom_user.user_name }}</span>
+                                    <span class="direct-chat-timestamp float-right mr-2">{{ comment.creation_date }} </span>
+                                </div>
+                                <!-- /.direct-chat-img -->
+                                <div class="direct-chat-text">
+                                    {{comment.comment}}
+                                </div>
+                                <!-- /.direct-chat-text -->
+                            </div>
+                        {% endif %}
+                    {% endfor%}
+                {% else %}
+                {% endif %}
+            </div>
         </div>
         <!-- /end card body -->
         <div class="card-footer bg-white clearfix">

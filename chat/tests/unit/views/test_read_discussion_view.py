@@ -21,3 +21,4 @@ class ReadDiscussionViewTest(TestCase):
         self.assertEqual(ReadDiscussionView.redirect_field_name, None)
         self.assertIsNone(self.view.context['discussion'])
         self.assertIsNone(self.view.context['comments'])
+ 
