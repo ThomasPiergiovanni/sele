@@ -7,41 +7,17 @@ from django.test import TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
-from authentication.tests.unit.models.test_custom_user import CustomUserTest
+from chat.tests.emulation.chat_emulation import ChatEmulation
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
-from chat.tests.unit.models.test_discussion import DiscussionTest
 
 
 class CommentTest(TestCase):
     """Test comment class.
     """
     def setUp(self):
-        self.emulate_comment()
-
-    def emulate_comment(self):
-        """
-        """
-        DiscussionTest().emulate_discussion()
-        timezone.now()
-        Comment.objects.create(
-            id=1,
-            comment="Comment vas-tu?",
-            creation_date=datetime(
-                2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc
-            ),
-            custom_user_id=1,
-            discussion_id=1
-        ),
-        Comment.objects.create(
-            id=2,
-            comment="Ca vas et toi?",
-            creation_date=datetime(
-                2022, 1, 20, 17, 10, 38, tzinfo=timezone.utc
-            ),
-            custom_user_id=2,
-            discussion_id=1
-        )
+        self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_comment()
 
     def test_comment_with_discussion_class(self):
         comment = Comment.objects.get(pk=1)
@@ -59,15 +35,15 @@ class CommentTest(TestCase):
         self.assertEqual(type(attribute), type(models.DateTimeField()))
 
     def test_comment_with_attr_custom_user_characteristic(self):
-        attribute = Comment._meta.get_field('custom_user')
+        attribute = Comment._meta.get_field('comment_custom_user')
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
-            type(models.ForeignKey(CustomUser, models.CASCADE))
+            type(models.ForeignKey(CustomUser, on_delete=models.CASCADE))
         )
 
     def test_comment_with_attr_relation_custom_user_characteristic(self):
-        attribute = Comment._meta.get_field('discussion')
+        attribute = Comment._meta.get_field('comment_discussion')
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),

@@ -8,5 +8,15 @@ class Comment(models.Model):
     """
     comment = models.CharField(max_length=256)
     creation_date =  models.DateTimeField()
-    custom_user = models.ForeignKey(CustomUser, models.CASCADE)
-    discussion = models.ForeignKey(Discussion, models.CASCADE)
+    comment_custom_user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        null=False,
+        related_name="comment_custom_user"
+    )
+    comment_discussion = models.ForeignKey(
+        Discussion, 
+        on_delete=models.CASCADE,
+        null=False,
+        related_name="comment_discussion"
+    )
