@@ -245,7 +245,7 @@ class Manager():
         elif upd_status_btn == 'done':
             proposition.proposition_status = self.__set_status('Terminé')
         else:
-            print('issue')
+            pass
         proposition.save()
     
     def __set_status(self, argument):
