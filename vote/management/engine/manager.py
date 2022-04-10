@@ -3,7 +3,6 @@ from datetime import date
 from django.core.paginator import Paginator
 from django.utils import timezone
 
-from vote.forms.collectivity_votings_form import CollectivityVotingsForm
 from vote.models.voting import Voting
 from vote.models.vote import Vote
 

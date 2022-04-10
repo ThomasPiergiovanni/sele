@@ -1,6 +1,6 @@
 """Test discussion method module.
 """
-from datetime import datetime
+from datetime import date
 from django.db import models
 from django.test import TestCase
 from django.utils import timezone
@@ -51,7 +51,7 @@ class DiscussionTest(TestCase):
     def test_discussion_with_attr_creation_date_characteristic(self):
         attribute = Discussion._meta.get_field('creation_date')
         self.assertTrue(attribute)
-        self.assertEqual(type(attribute), type(models.DateTimeField()))
+        self.assertEqual(type(attribute), type(models.DateField()))
 
     def test_question_with_attr_custom_user_characteristic(self):
         attribute = Discussion._meta.get_field('custom_user')
@@ -64,11 +64,11 @@ class DiscussionTest(TestCase):
     def test_question_with_emulated_question_instance(self):
         discussion = Discussion.objects.get(pk=1)
         self.assertEqual(discussion.subject, "Travail avec asso Santé")
-        self.assertEqual(discussion.creation_date, datetime(
-            2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc)
+        self.assertEqual(discussion.creation_date, date(
+            2022, 1, 20,)
         )
         discussion = Discussion.objects.get(pk=2)
         self.assertEqual(discussion.subject, "Construction en brique")
-        self.assertEqual(discussion.creation_date, datetime(
-            2022, 1, 20, 17, 10, 38, tzinfo=timezone.utc)
+        self.assertEqual(discussion.creation_date, date(
+            2022, 1, 20)
         )
