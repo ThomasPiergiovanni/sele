@@ -18,7 +18,8 @@ class ReadDiscussionView(LoginRequiredMixin, View):
         self.manager = Manager()
         self.view_template = 'chat/read_discussion.html'
         self.context = {
-            'discussion': None
+            'discussion': None,
+            'comments': None
         }
     
     def get(self, request, id_discussion):
