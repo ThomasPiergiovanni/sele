@@ -43,6 +43,16 @@ class Manager():
                     proposition_creator_id__collectivity_id__exact=
                     request.user.collectivity,
                     proposition_taker_id__email__icontains=search_input
+                ).order_by('-creation_date')|
+                Proposition.objects.filter(
+                    proposition_creator_id__collectivity_id__exact=
+                    request.user.collectivity,
+                    proposition_status_id__name__icontains=search_input
+                ).order_by('-creation_date')|
+                Proposition.objects.filter(
+                    proposition_creator_id__collectivity_id__exact=
+                    request.user.collectivity,
+                    proposition_kind_id__name__icontains=search_input
                 ).order_by('-creation_date')
             )
         else:

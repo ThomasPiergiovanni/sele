@@ -93,7 +93,7 @@
                                     <span class="card-text text-secondary">{{proposition.end_date}}</span>
                                 </p>
                             </div>
-                            <div class="col-12 col-md-4 text-center mt-4">
+                            <div class="col-12 col-md-4 text-center mt-2">
                                 <div class="table text-center text-sm mt-4">
                                     <table class="table table-bordered bg-light table-sm">
                                         <thead>
@@ -102,6 +102,14 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                            <tr>
+                                                <td class="card-text">
+                                                    Identifiant
+                                                </td>
+                                                <td class="card-text text-secondary font-italic">
+                                                    {{proposition.id}}
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td class="card-text">
                                                     Catégorie
@@ -179,11 +187,9 @@
                             </a>
                         </div>
                         <div class="col-sm-3 mb-3">
-
                             <button type="submit" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
                                 {{btn1_text}}
                             </button>
-
                         </div>
                     </div>
                 {% elif btn1_href and btn2_href %}
@@ -197,18 +203,14 @@
                             </a>
                         </div>
                         <div class="col-md-2 mb-3">
-                            <a href="{{btn1_href}}" role="button">
-                                <button type="button" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
-                                    {{btn1_text}}
-                                </button>
-                            </a>
+                            <button type="submit" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
+                                {{btn1_text}}
+                            </button>
                         </div>
                         <div class="col-md-2 mb-3">
-                            <a href="{{btn2_href}}" role="button">
-                                <button type="button" name="update_status_button" class="{{btn2_class}}" value="{{btn2_value}}">
-                                    {{btn2_text}}
-                                </button>
-                            </a>
+                            <button type="submit" name="update_status_button" class="{{btn2_class}}" value="{{btn2_value}}">
+                                {{btn2_text}}
+                            </button>
                         </div>
                     </div>
                 {% else %}

@@ -16,7 +16,7 @@ class UpdatePropositionView(LoginRequiredMixin, View):
         super().__init__()
         self.manager = Manager()
         self.post_view_name = 'proposition:collectivity_propositions'
-        self.msg_post_success = "Statut de la proposition mis-à-jour"
+        self.msg_post_success = "Le statut de la proposition a été mis-à-jour"
     
     def post(self, request, id_proposition):
         """Detailed proposition view method on client get request.

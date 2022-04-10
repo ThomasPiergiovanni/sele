@@ -15,7 +15,7 @@ class UpdatePropositionViewTest(TestCase):
 
     def test_init_with_attr(self):
         self.assertEqual(
-            self.view.post_view_name,'proposition:read_proposition'
+            self.view.post_view_name,'proposition:collectivity_propositions'
         )
         self.assertEqual(
             UpdatePropositionView.login_url , '/authentication/login/'
@@ -23,6 +23,6 @@ class UpdatePropositionViewTest(TestCase):
         self.assertEqual(UpdatePropositionView.redirect_field_name, None)
         self.assertEqual(
             self.view.msg_post_success,
-            "Statut de la proposition mis-à-jour"
+            "Le statut de la proposition a été mis-à-jour"
         )
 
