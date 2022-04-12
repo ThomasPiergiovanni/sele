@@ -1,4 +1,5 @@
 # from chat.models.discussion import Comment
+from django.core.paginator import Paginator
 from datetime import date
 
 
@@ -19,3 +20,32 @@ class Manager():
             creation_date=date.today(),
             discussion_custom_user = custom_user
         )
+
+    def set_page_objects_context(self, request, search_input):
+        discussions = self.__get_discussion_queryset(request, search_input)
+        paginator = Paginator(discussions, 4)
+        page_number = request.GET.get('page')
+        page_objects = paginator.get_page(page_number)
+        return page_objects
+
+    def __get_discussion_queryset(self, request, search_input):
+        queryset = None
+        if search_input:
+            queryset = (
+                Discussion.objects.filter(
+                    discussion_custom_user_id__collectivity_id__exact=
+                    request.user.collectivity,
+                    subject__icontains=search_input
+                ).order_by('-creation_date')
+            )
+        else:
+            queryset = (
+                Discussion.objects.filter(
+                    discussion_custom_user_id__collectivity_id__exact=
+                    request.user.collectivity
+                ).order_by('-creation_date')
+            )
+        return queryset
+
+    def set_session_vars(self, request, search_input):
+        request.session['c_d_v_f_search_input'] = search_input
