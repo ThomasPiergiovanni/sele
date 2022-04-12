@@ -1,0 +1,73 @@
+{% extends 'information/base.html' %}
+{% block content %}
+{% load static %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Discussion - 
+                    <span class="text-primary font-weight-bold font-italic">
+                        Créer
+                    </span>
+                </h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-comments mr-1"></i>
+                Discussion
+            </h3>
+        </div>
+        <!-- /.card-body-->
+        <!-- Table . 2nd card-body-->
+        <div class="card-body">
+            <form id="create_discussion_form" action="{% url 'chat:create_discussion'%}" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group mb-3">
+                    {{ field.label }}
+                    {{ field }}
+                    {% for error in field.errors %}
+                        {% if error %}
+                            <p class="text-danger"> {{ error }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+        <!-- /end card body -->
+        <div class="card-footer bg-white clearfix">
+            <div class="row">
+                <div class="col-sm-6 mb-2"></div>
+                <div class="col-sm-3 mb-2">
+                    <a href="" role="button">
+                        <button type="button"
+                            class="text-secondary btn btn-block btn-light border border-secondary">Retour</button>
+                    </a>
+                </div>
+                <div class="col-sm-3 mb-2">
+                    <button type="submit" form="create_discussion_form" class="btn btn-block btn-success">Créer</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+{% endblock %}
