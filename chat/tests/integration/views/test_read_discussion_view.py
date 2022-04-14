@@ -3,6 +3,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from chat.forms.comment_form import CommentForm
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
@@ -21,6 +22,7 @@ class ReadDiscussionViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'chat/read_discussion.html')
         self.assertIsInstance(response.context['discussion'], Discussion)
+        self.assertIsInstance(response.context['form'], CommentForm)        
         self.assertIsInstance(response.context['comments'][0], Comment)
 
     def test_get_with_alternative_scenario(self):

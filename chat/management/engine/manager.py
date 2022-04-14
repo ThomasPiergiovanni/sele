@@ -1,8 +1,9 @@
 # from chat.models.discussion import Comment
+from django.utils import timezone
 from django.core.paginator import Paginator
 from datetime import date
 
-
+from chat.models.comment import Comment
 from chat.models.discussion import Discussion
 
 
@@ -49,3 +50,11 @@ class Manager():
 
     def set_session_vars(self, request, search_input):
         request.session['c_d_v_f_search_input'] = search_input
+
+    def create_comment(self, form, custom_user, id_discussion):
+        Comment.objects.create(
+            comment=form.cleaned_data['comment'],
+            creation_date=timezone.now(),
+            comment_discussion_id=id_discussion,
+            comment_custom_user_id=custom_user.id
+        )

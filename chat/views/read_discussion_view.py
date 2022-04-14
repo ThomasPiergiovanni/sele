@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.shortcuts import render
 
+from chat.forms.comment_form import CommentForm
 from chat.management.engine.manager import Manager
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
@@ -19,7 +20,8 @@ class ReadDiscussionView(LoginRequiredMixin, View):
         self.view_template = 'chat/read_discussion.html'
         self.context = {
             'discussion': None,
-            'comments': None
+            'comments': None,
+            'form': CommentForm()
         }
     
     def get(self, request, id_discussion):

@@ -12,7 +12,9 @@ from authentication.tests.emulation.authentication_emulation import (
 )
 
 from chat.forms.discussion_form import DiscussionForm
+from chat.forms.comment_form import CommentForm
 from chat.management.engine.manager import Manager
+from chat.models.comment import Comment
 from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
@@ -79,3 +81,16 @@ class TestManager(TestCase):
         self.assertEqual(request.session.get(
             'c_d_v_f_search_input'), 'JS'
         )
+
+    def test_create_comment(self):
+        self.chat_emulation.emulate_discussion()
+        form_data = {
+            'comment': 'Alors???'
+        }
+        form = CommentForm(data=form_data)
+        form.is_valid()
+        discussion = Discussion.objects.get(pk=1)
+        custom_user = CustomUser.objects.get(pk=1)
+        self.manager.create_comment(form, custom_user, discussion.id)
+        comment = Comment.objects.last() 
+        self.assertTrue(comment.comment)
