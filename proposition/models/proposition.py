@@ -4,6 +4,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 from authentication.models import CustomUser
+from chat.models.discussion import Discussion
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
@@ -52,6 +53,10 @@ class Proposition(models.Model):
     proposition_taker = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, null=True,
         related_name="proposition_taker"
+    )
+    proposition_discussion = models.ForeignKey(
+        Discussion, on_delete=models.CASCADE, null=True,
+        related_name="proposition_discussion"
     )
 
     class Meta:

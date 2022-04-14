@@ -10,6 +10,9 @@ from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from chat.models.discussion import Discussion
+from chat.models.discussion_type import DiscussionType
+from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
@@ -209,6 +212,22 @@ class PropositionTest(TestCase):
             )
         )
         self.assertEqual(attribute.null, True)
+
+    def test_proposition_with_attr_proposition_discussion(self):
+        self.proposition_emulation.emulate_proposition()
+        attribute = Proposition._meta.get_field('proposition_discussion')
+        self.assertTrue(attribute)
+        self.assertEqual(
+            type(attribute),
+            type(
+                models.ForeignKey(
+                    Discussion,
+                    on_delete=models.CASCADE,
+                    related_name='proposition_taker'
+                )
+            )
+        )
+        self.assertEqual(attribute.null, True)
  
     def test_proposition_with_emulated_question_instance(self):
         self.proposition_emulation.emulate_proposition()
@@ -228,6 +247,9 @@ class PropositionTest(TestCase):
             proposition.proposition_creator_type.name, "Collective"
         )
         self.assertEqual(proposition.proposition_status.name, "Annulé")
+        self.assertEqual(
+            proposition.proposition_discussion.subject, "Sujet est HTML"
+        )
         proposition = Proposition.objects.get(pk=2)
         self.assertEqual(proposition.name, "DCours2")
         self.assertEqual(proposition.start_date, date(2022, 1, 1))

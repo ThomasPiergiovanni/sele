@@ -27,7 +27,7 @@ class TestManager(TestCase):
         self.chat_emulation = ChatEmulation()
         self.manager = Manager()
 
-    def test_create_voting_with_voting_instance(self):
+    def test_create_discussion_with_voting_instance(self):
         self.auth_emulation.emulate_custom_user()
         form_data = {
             'subject': 'Le sujet est',

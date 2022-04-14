@@ -7,6 +7,7 @@ from django.utils import timezone
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
@@ -20,6 +21,7 @@ class PropositionEmulation():
     """
     def __init__(self):
         self.auth_emulation = AuthenticationEmulation()
+        self.chat_emulation = ChatEmulation()
 
     def emulate_category(self):
         Category.objects.create(id=1, name="Activité")
@@ -40,7 +42,7 @@ class PropositionEmulation():
     def emulate_proposition(self):
         """
         """
-        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation.emulate_discussion()
         self.emulate_category()
         self.emulate_creator_type()
         self.emulate_domain()
@@ -66,7 +68,8 @@ class PropositionEmulation():
             proposition_kind_id=1,
             proposition_rating_id=1,
             proposition_status_id=1,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=2,
