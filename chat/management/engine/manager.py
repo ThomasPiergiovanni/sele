@@ -5,6 +5,7 @@ from datetime import date
 
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
+from chat.models.discussion_type import DiscussionType
 
 
 class Manager():

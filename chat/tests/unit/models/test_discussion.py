@@ -6,6 +6,7 @@ from django.test import TestCase
 
 from authentication.models import CustomUser
 from chat.models.discussion import Discussion
+from chat.models.discussion_type import DiscussionType
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 
@@ -39,6 +40,13 @@ class DiscussionTest(TestCase):
         self.assertEqual(
             type(attribute),
             type(models.ForeignKey(CustomUser, models.CASCADE))
+        )
+    def test_question_with_attr_discussion_discussion_type_characteristic(self):
+        attribute = Discussion._meta.get_field('discussion_discussion_type')
+        self.assertTrue(attribute)
+        self.assertEqual(
+            type(attribute),
+            type(models.ForeignKey(DiscussionType, on_delete=models.CASCADE))
         )
     
     def test_question_with_emulated_question_instance(self):

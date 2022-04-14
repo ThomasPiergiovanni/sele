@@ -31,6 +31,8 @@ STATUSES = [
     "Terminé"
 ]
 
+DISCUSSIONS_TYPE =["Proposition", "Votation"]
+
 RATINGS = [1, 2, 3, 4, 5]
 
 VOTING_METHODS = [

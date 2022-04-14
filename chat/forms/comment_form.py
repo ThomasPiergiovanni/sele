@@ -15,6 +15,7 @@ class CommentForm(ModelForm):
             attrs={
                 'class': 'form-control form-control-sm',
                 'id': 'input_comment_comment',
+                'placeholder' : 'Tapez un message...',
                 'autofocus': True,
             }
         )
