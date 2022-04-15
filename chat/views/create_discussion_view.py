@@ -37,7 +37,7 @@ class CreateDiscussionView(LoginRequiredMixin,View):
         """
         form = DiscussionForm(request.POST)
         if form.is_valid():
-            self.manager.create_discussion(form, request.user)
+            self.manager.create_discussion(form, request.user, None)
             messages.add_message(
                 request, messages.SUCCESS, "Création réussie",
             )

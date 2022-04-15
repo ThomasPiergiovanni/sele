@@ -52,6 +52,10 @@ class CreateDiscussionViewTest(TestCase):
             Discussion.objects.all().last().subject, 'Le sujet est'
         )
         self.assertEqual(
+            Discussion.objects.all().last().discussion_discussion_type,
+            None
+        )
+        self.assertEqual(
             response.redirect_chain[0][0],
             reverse('chat:collectivity_discussions')
         )

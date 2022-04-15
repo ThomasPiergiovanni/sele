@@ -16,6 +16,7 @@ from chat.forms.comment_form import CommentForm
 from chat.management.engine.manager import Manager
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
+from chat.models.discussion_type import DiscussionType
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 
@@ -29,17 +30,23 @@ class TestManager(TestCase):
 
     def test_create_discussion_with_voting_instance(self):
         self.auth_emulation.emulate_custom_user()
+        self.chat_emulation.emulate_discussion_type()
         form_data = {
             'subject': 'Le sujet est',
         }
         form = DiscussionForm(data=form_data)
         form.is_valid()
         custom_user = CustomUser.objects.get(pk=1)
-        self.manager.create_discussion(form, custom_user)
+        discussion_type = DiscussionType.objects.get(pk=1)
+        self.manager.create_discussion(form, custom_user, discussion_type)
         self.assertEqual(Discussion.objects.all().last().subject,'Le sujet est')
         self.assertEqual(
             Discussion.objects.all().last().creation_date,
             date.today()
+        )
+        self.assertEqual(
+            Discussion.objects.all().last().discussion_discussion_type,
+            discussion_type
         )
 
     def test_set_page_objects_context(self):

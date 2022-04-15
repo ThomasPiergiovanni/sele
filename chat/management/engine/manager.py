@@ -14,13 +14,14 @@ class Manager():
     def __init__(self):
         pass
 
-    def create_discussion(self, form, custom_user):
+    def create_discussion(self, form, custom_user, discussion_type):
         """Method creating Discussion instances into DB
         """
         Discussion.objects.create(
             subject=form.cleaned_data['subject'],
             creation_date=date.today(),
-            discussion_custom_user = custom_user
+            discussion_custom_user = custom_user,
+            discussion_discussion_type=discussion_type
         )
 
     def set_page_objects_context(self, request, search_input):

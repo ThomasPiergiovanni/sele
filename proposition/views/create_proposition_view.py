@@ -33,7 +33,10 @@ class CreatePropositionView(LoginRequiredMixin,View):
         """
         form = PropositionForm(request.POST)
         if form.is_valid():
+            # TEST
+            self.manager.create_discussion(form, request.user)
             self.manager.create_proposition(form, request.user)
+            # /TEST
             messages.add_message(
                 request, messages.SUCCESS, "Création réussie",
             )
