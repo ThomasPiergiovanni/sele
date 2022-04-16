@@ -46,11 +46,14 @@ class Command(BaseCommand):
         """Method that insert voting method enumetration objects into DB.
         """
         enumerations = VOTING_METHODS
+        counter = 1
         for enumeration in enumerations:
             voting_method = VotingMethod(
+                id=counter,
                 name=enumeration['name'], percentage=enumeration['percentage']
             )
             voting_method.save()
+            counter += 1
 
     def __drop_voting(self):
         """Method thats drop voting method objects from DB

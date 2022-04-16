@@ -27,7 +27,7 @@ class ChatEmulation():
             subject="Sujet est HTML",
             creation_date=date(2022, 1, 20),
             discussion_custom_user_id=1,
-            discussion_discussion_type_id = 1
+            discussion_discussion_type_id = None
         ),
         Discussion.objects.create(
             id=2,
@@ -41,6 +41,13 @@ class ChatEmulation():
             subject="Sujet est JS",
             creation_date=date(2022, 1, 22),
             discussion_custom_user_id=3,
+            discussion_discussion_type_id = None
+        )
+        Discussion.objects.create(
+            id=4,
+            subject="DCours1",
+            creation_date=date(2022, 1, 1),
+            discussion_custom_user_id=1,
             discussion_discussion_type_id = 1
         )
 

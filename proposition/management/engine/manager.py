@@ -4,6 +4,8 @@ from django.utils import timezone
 
 from authentication.models import CustomUser
 from chat.management.engine.manager import Manager as ChatManager
+from chat.forms.comment_form import CommentForm
+from chat.models.comment import Comment
 from chat.models.discussion import Discussion
 from chat.models.discussion_type import DiscussionType
 from proposition.models.proposition import Proposition
@@ -98,6 +100,7 @@ class Manager():
         discussion_type = DiscussionType.objects.get(name__exact='Proposition')
         chat_manager.create_discussion(form, custom_user, discussion_type)
 
+    # TOTEST
     def set_read_proposition_view_context(self, request, id_proposition):
         context = {}
         proposition = Proposition.objects.get(pk=id_proposition)
@@ -106,8 +109,12 @@ class Manager():
         else:
             context = self.__set_offer_btn(request, proposition)
         context['proposition'] = proposition
+        context['discussion'] = self.__get_discussion(proposition)
+        context['comments'] = self.__get_comments(proposition)
+        context['form'] = CommentForm()
         return context
-    
+    # /TOTEST
+ 
     def __set_demand_btn(self, request, proposition):
         """
         """
@@ -236,6 +243,35 @@ class Manager():
         else:
             btn = self.__set_btn_dict()
         return btn
+
+    #TOTEST
+    def __get_discussion(self, proposition):
+        discussion = None
+        try:
+            discussion = proposition.proposition_discussion
+        except:
+            pass
+        return discussion
+
+    def __get_comments(self, proposition):
+        comments = None
+        try:
+            comments = Comment.objects.filter(
+                comment_discussion_id__exact=proposition
+                .proposition_discussion.id
+            )
+        except:
+            pass
+        return  comments
+
+
+    def create_comment(self, form, custom_user, id_proposition):
+        discussion = (
+            Proposition.objects.get(pk=id_proposition).proposition_discussion
+        )
+        chat_manager = ChatManager()
+        chat_manager.create_comment(form, custom_user, discussion.id)
+    #/TOTEST
 
     def set_proposition_status(self, request, id_proposition):
         upd_status_btn = request.POST.get('update_status_button')

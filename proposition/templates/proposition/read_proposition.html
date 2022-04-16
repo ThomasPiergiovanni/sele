@@ -21,216 +21,297 @@
 
 <!-- Main content -->
 <section class="content">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">
-                <i class="fas fa-vote-yea mr-1"></i>
-                Proposition
-            </h3>
+    <div class="row">
+        <div class="col-xl-9">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-vote-yea mr-1"></i>
+                        Proposition
+                    </h3>
             
-        </div>
-        <!-- /.card-body-->
-        <!-- Table . 2nd card-body-->
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 col-md-8"></div>
-                            <div class="col-12 col-md-4 text-right">
-                                <h4>
-                                    <span class="text-dark badge badge-pill badge-light border border-dark">
-                                        {{proposition.proposition_kind}}
-                                    </span>
-                                    {% if proposition.proposition_status.name == 'En cours' %}
-                                    <span class="text-warning badge badge-pill badge-light border border-warning">
-                                        {{proposition.proposition_status}}
-                                    </span>
-                                    {% elif proposition.proposition_status.name == 'Nouveau' %}
-                                    <span class="text-primary badge badge-pill badge-light border border-primary">
-                                        {{proposition.proposition_status}}
-                                    </span>
-                                    {% elif proposition.proposition_status.name == 'Réalisé' %}
-                                    <span class="text-warning badge badge-pill badge-light border border-warning">
-                                        {{proposition.proposition_status}}
-                                    </span>
-                                    {% elif proposition.proposition_status.name == 'Rejeté' %}
-                                    <span class="text-warning badge badge-pill badge-light border border-warning">
-                                        {{proposition.proposition_status}}
-                                    </span>
-                                    {% elif proposition.proposition_status.name == 'Sélectionné' %}
-                                    <span class="text-warning badge badge-pill badge-light border border-warning">
-                                        {{proposition.proposition_status}}
-                                    </span>
-                                    {% elif proposition.proposition_status.name == 'Terminé' %}
-                                    <span class="text-success badge badge-pill badge-light border border-success">
-                                        {{proposition.proposition_status}}
-                                    </span>
-                                    {% else %}
-                                    <span class="text-secondary badge badge-pill badge-light border border-secondary">
-                                        {{proposition.proposition_status}}
-                                    </span>
-                                    {% endif %}
-                            
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-8">
-                                <p class="card-text ">Intitulé:</br>
-                                    <span class="card-text text-secondary">{{proposition.name}}</span> 
-                                </p>
-                                <p class="card-text">Description:</br>
-                                    <span class="card-text text-secondary">{{proposition.description}}</span>
-                                </p>                              
-                                <p class="card-text">Temps de travail (minutes):</br>
-                                    <span class="card-text text-secondary">{{proposition.duration}}</span>
-                                </p>
-                                <p class="card-text">A effectuer entre le...</br>
-                                    <span class="card-text text-secondary">{{proposition.start_date}}</span>
-                                </p>
-                                <p class="card-text">Et le...</br>
-                                    <span class="card-text text-secondary">{{proposition.end_date}}</span>
-                                </p>
-                            </div>
-                            <div class="col-12 col-md-4 text-center mt-2">
-                                <div class="table text-center text-sm mt-4">
-                                    <table class="table table-bordered bg-light table-sm">
-                                        <thead>
-                                        <tr>
-                                            <th colspan="2" class="text-center">Détails</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="card-text">
-                                                    Identifiant
-                                                </td>
-                                                <td class="card-text text-secondary font-italic">
-                                                    {{proposition.id}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="card-text">
-                                                    Catégorie
-                                                </td>
-                                                <td class="card-text text-secondary font-italic">
-                                                    {{proposition.proposition_category}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="card-text">
-                                                    Domaine
-                                                </td>
-                                                <td class="card-text text-secondary font-italic">
-                                                    {{proposition.proposition_domain}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="card-text">
-                                                    Portée
-                                                </td>
-                                                <td class="card-text text-secondary font-italic">
-                                                    {{proposition.proposition_creator_type}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="card-text">
-                                                    Date de création
-                                                </td>
-                                                <td class="card-text text-secondary font-italic">
-                                                    {{proposition.creation_date}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="card-text">
-                                                    {% if proposition.proposition_kind.name == 'Demande'%}
-                                                        Nom du demandeur
-                                                    {% else %}
-                                                        Nom de l'offreur
-                                                    {% endif %}
-                                                </td>
-                                                <td class="card-text text-secondary font-italic">
-                                                    {{proposition.proposition_creator.user_name}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="card-text">
-                                                    Nom du preneur
-                                                </td>
-                                                <td class="card-text text-secondary font-italic">
-                                                    {{proposition.proposition_taker.user_name}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                </div>
+                <!-- /.card-body-->
+                <!-- Table . 2nd card-body-->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 col-md-8"></div>
+                                    <div class="col-12 col-md-4 text-right">
+                                        <h4>
+                                            <span class="text-dark badge badge-pill badge-light border border-dark">
+                                                {{proposition.proposition_kind}}
+                                            </span>
+                                            {% if proposition.proposition_status.name == 'En cours' %}
+                                            <span class="text-warning badge badge-pill badge-light border border-warning">
+                                                {{proposition.proposition_status}}
+                                            </span>
+                                            {% elif proposition.proposition_status.name == 'Nouveau' %}
+                                            <span class="text-primary badge badge-pill badge-light border border-primary">
+                                                {{proposition.proposition_status}}
+                                            </span>
+                                            {% elif proposition.proposition_status.name == 'Réalisé' %}
+                                            <span class="text-warning badge badge-pill badge-light border border-warning">
+                                                {{proposition.proposition_status}}
+                                            </span>
+                                            {% elif proposition.proposition_status.name == 'Rejeté' %}
+                                            <span class="text-warning badge badge-pill badge-light border border-warning">
+                                                {{proposition.proposition_status}}
+                                            </span>
+                                            {% elif proposition.proposition_status.name == 'Sélectionné' %}
+                                            <span class="text-warning badge badge-pill badge-light border border-warning">
+                                                {{proposition.proposition_status}}
+                                            </span>
+                                            {% elif proposition.proposition_status.name == 'Terminé' %}
+                                            <span class="text-success badge badge-pill badge-light border border-success">
+                                                {{proposition.proposition_status}}
+                                            </span>
+                                            {% else %}
+                                            <span class="text-secondary badge badge-pill badge-light border border-secondary">
+                                                {{proposition.proposition_status}}
+                                            </span>
+                                            {% endif %}
+            
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-8">
+                                        <p class="card-text ">Intitulé:</br>
+                                            <span class="card-text text-secondary">{{proposition.name}}</span>
+                                        </p>
+                                        <p class="card-text">Description:</br>
+                                            <span class="card-text text-secondary">{{proposition.description}}</span>
+                                        </p>
+                                        <p class="card-text">Temps de travail (minutes):</br>
+                                            <span class="card-text text-secondary">{{proposition.duration}}</span>
+                                        </p>
+                                        <p class="card-text">A effectuer entre le...</br>
+                                            <span class="card-text text-secondary">{{proposition.start_date}}</span>
+                                        </p>
+                                        <p class="card-text">Et le...</br>
+                                            <span class="card-text text-secondary">{{proposition.end_date}}</span>
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-md-4 text-center mt-2">
+                                        <div class="table text-center text-sm mt-4">
+                                            <table class="table table-bordered bg-light table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2" class="text-center">Détails</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="card-text">
+                                                            Identifiant
+                                                        </td>
+                                                        <td class="card-text text-secondary font-italic">
+                                                            {{proposition.id}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="card-text">
+                                                            Catégorie
+                                                        </td>
+                                                        <td class="card-text text-secondary font-italic">
+                                                            {{proposition.proposition_category}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="card-text">
+                                                            Domaine
+                                                        </td>
+                                                        <td class="card-text text-secondary font-italic">
+                                                            {{proposition.proposition_domain}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="card-text">
+                                                            Portée
+                                                        </td>
+                                                        <td class="card-text text-secondary font-italic">
+                                                            {{proposition.proposition_creator_type}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="card-text">
+                                                            Date de création
+                                                        </td>
+                                                        <td class="card-text text-secondary font-italic">
+                                                            {{proposition.creation_date}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="card-text">
+                                                            {% if proposition.proposition_kind.name == 'Demande'%}
+                                                            Nom du demandeur
+                                                            {% else %}
+                                                            Nom de l'offreur
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="card-text text-secondary font-italic">
+                                                            {{proposition.proposition_creator.user_name}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="card-text">
+                                                            Nom du preneur
+                                                        </td>
+                                                        <td class="card-text text-secondary font-italic">
+                                                            {{proposition.proposition_taker.user_name}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- /end card body -->
+                <div class="card-footer bg-white clearfix">
+                    <form id="update_status_form" name="update_status_form" action="{{btn1_href}}" method="post" novalidate>
+                        {% csrf_token %}
+                        {% if btn1_href and btn2_href is None %}
+                        <div class="row">
+                            <div class="col-sm-6 mb-3"></div>
+                            <div class="col-sm-3 mb-3">
+                                <a href="{% url 'proposition:collectivity_propositions' %}" role="button">
+                                    <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
+                                        Retour
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col-sm-3 mb-3">
+                                <button type="submit" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
+                                    {{btn1_text}}
+                                </button>
+                            </div>
+                        </div>
+                        {% elif btn1_href and btn2_href %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3"></div>
+                            <div class="col-md-2 mb-3">
+                                <a href="{% url 'proposition:collectivity_propositions' %}" role="button">
+                                    <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
+                                        Retour
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <button type="submit" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
+                                    {{btn1_text}}
+                                </button>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <button type="submit" name="update_status_button" class="{{btn2_class}}" value="{{btn2_value}}">
+                                    {{btn2_text}}
+                                </button>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="row">
+                            <div class="col-sm-6 mb-3"></div>
+                            <div class="col-sm-3 mb-3"></div>
+                            <div class="col-sm-3 mb-3">
+                                <a href="{% url 'proposition:collectivity_propositions' %}" role="button">
+                                    <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
+                                        Retour
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- /.card-footer-->
             </div>
         </div>
-        <!-- /end card body -->
-        <div class="card-footer bg-white clearfix">
-            <form id="update_status_form" name="update_status_form" action="{{btn1_href}}"
-                method="post" novalidate>
-                {% csrf_token %}
-                {% if btn1_href and btn2_href is None %}
-                    <div class="row">
-                        <div class="col-sm-6 mb-3"></div>
-                        <div class="col-sm-3 mb-3">
-                            <a href="{{request.META.HTTP_REFERER}}" role="button">
-                                <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
-                                    Retour
-                                </button>
-                            </a>
+        <div class="col-xl-3">
+            <div class="card direct-chat direct-chat-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-comments mr-1"></i>
+                        Discussion
+                    </h3>
+                </div>
+                <!-- /.card-body-->
+                <!-- Table . 2nd card-body-->
+                <div class="card-body">
+                    <div class="direct-chat-messages">
+                        {% if comments %}
+                        {% for comment in comments%}
+                        {% if comment.comment_custom_user == user%}
+                        <div class="direct-chat-msg mb-4">
+                            <div class="direct-chat-infos clearfix">
+                                <span class="direct-chat-name float-left">{{ comment.comment_custom_user.user_name }}</span>
+                                <span class="direct-chat-timestamp float-right">{{ comment.creation_date }} </span>
+                            </div>
+                            <!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                {{comment.comment}}
+                            </div>
+                            <!-- /.direct-chat-text -->
                         </div>
-                        <div class="col-sm-3 mb-3">
-                            <button type="submit" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
-                                {{btn1_text}}
-                            </button>
+                        {% else %}
+                        <div class="direct-chat-msg right mb-4">
+                            <div class="direct-chat-infos clearfix">
+                                <span class="direct-chat-name float-right">{{ comment.comment_custom_user.user_name }}</span>
+                                <span class="direct-chat-timestamp float-left mr-2">{{ comment.creation_date }} </span>
+                            </div>
+                            <!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                {{comment.comment}}
+                            </div>
+                            <!-- /.direct-chat-text -->
                         </div>
+                        {% endif %}
+                        {% endfor%}
+                        {% else %}
+                        {% endif %}
                     </div>
-                {% elif btn1_href and btn2_href %}
-                    <div class="row">
-                        <div class="col-md-6 mb-3"></div>
-                        <div class="col-md-2 mb-3">
-                            <a href="{{request.META.HTTP_REFERER}}" role="button">
-                                <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
-                                    Retour
+                </div>
+                <!-- /end card body -->
+                <div class="card-footer bg-white clearfix mt-5">
+                    {% if proposition %}
+                    <form id="create_comment_form" action="{% url 'proposition:read_proposition' id_proposition=proposition.id%}"
+                        method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="input-group mb-3">
+                            {{ field }}
+                            <span class="input-group-append">
+                                <button type="submit" id="comment_button"
+                                    class="text-white btn btn-block btn-primary border border-primary btn-sm">
+                                    <i class="fas fa-paper-plane mr-1"></i>
                                 </button>
-                            </a>
+                            </span>
                         </div>
-                        <div class="col-md-2 mb-3">
-                            <button type="submit" name="update_status_button" class="{{btn1_class}}" value="{{btn1_value}}">
-                                {{btn1_text}}
-                            </button>
-                        </div>
-                        <div class="col-md-2 mb-3">
-                            <button type="submit" name="update_status_button" class="{{btn2_class}}" value="{{btn2_value}}">
-                                {{btn2_text}}
-                            </button>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="row">
-                        <div class="col-sm-6 mb-3"></div>
-                        <div class="col-sm-3 mb-3"></div>
-                        <div class="col-sm-3 mb-3">
-                            <a href="{{request.META.HTTP_REFERER}}" role="button">
-                                <button type="button" class="text-secondary btn btn-block btn-light border border-secondary">
-                                    Retour
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                {% endif %}
-            </form>
+                        {% for error in field.errors %}
+                        {% if error %}
+                        <p class="text-danger"> {{ error }}</p>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                        <p class="text-danger">{{ error }}</p>
+                        {% endfor %}
+                        {% endif %}
+                    </form>
+                    {%endif%}
+                </div>
+                <!-- /.card-footer-->
+            </div>
         </div>
-        <!-- /.card-footer-->
     </div>
+
+
     <!-- /.card -->
 </section>
-<!-- /.content -->
 {% endblock %}

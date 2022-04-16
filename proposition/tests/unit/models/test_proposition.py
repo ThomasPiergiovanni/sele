@@ -227,7 +227,7 @@ class PropositionTest(TestCase):
                 )
             )
         )
-        self.assertEqual(attribute.null, True)
+        self.assertEqual(attribute.null, False)
  
     def test_proposition_with_emulated_question_instance(self):
         self.proposition_emulation.emulate_proposition()

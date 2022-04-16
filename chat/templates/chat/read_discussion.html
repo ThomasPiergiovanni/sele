@@ -20,7 +20,7 @@
 
 <!-- Main content -->
 <section class="content">
-    <div class="card direct-chat direct-chat-light bg-white">
+    <div class="card direct-chat direct-chat-secondary">
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-comments mr-1"></i>
@@ -37,7 +37,7 @@
                             <div class="direct-chat-msg mb-4">
                                 <div class="direct-chat-infos clearfix">
                                     <span class="direct-chat-name float-left">{{ comment.comment_custom_user.user_name }}</span>
-                                    <span class="direct-chat-timestamp float-left ml-2">{{ comment.creation_date }} </span>
+                                    <span class="direct-chat-timestamp float-right">{{ comment.creation_date }} </span>
                                 </div>
                                 <!-- /.direct-chat-img -->
                                 <div class="direct-chat-text">
@@ -49,7 +49,7 @@
                             <div class="direct-chat-msg right mb-4">
                                 <div class="direct-chat-infos clearfix">
                                     <span class="direct-chat-name float-right">{{ comment.comment_custom_user.user_name }}</span>
-                                    <span class="direct-chat-timestamp float-right mr-2">{{ comment.creation_date }} </span>
+                                    <span class="direct-chat-timestamp float-left">{{ comment.creation_date }} </span>
                                 </div>
                                 <!-- /.direct-chat-img -->
                                 <div class="direct-chat-text">
@@ -64,7 +64,7 @@
             </div>
         </div>
         <!-- /end card body -->
-        <div class="card-footer bg-light clearfix mt-5">
+        <div class="card-footer bg-white clearfix mt-5">
             {% if discussion %}
                 <form id="create_comment_form" action="{% url 'chat:create_comment' id_discussion=discussion.id %}" method="post">
                     {% csrf_token %}            

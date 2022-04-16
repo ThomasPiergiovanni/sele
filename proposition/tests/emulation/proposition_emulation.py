@@ -16,6 +16,7 @@ from proposition.models.proposition import Proposition
 from proposition.models.rating import Rating
 from proposition.models.status import Status
 
+
 class PropositionEmulation():
     """Test PropositionEmulation class.
     """

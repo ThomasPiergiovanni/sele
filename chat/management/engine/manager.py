@@ -26,11 +26,12 @@ class Manager():
 
     def set_page_objects_context(self, request, search_input):
         discussions = self.__get_discussion_queryset(request, search_input)
-        paginator = Paginator(discussions, 4)
+        paginator = Paginator(discussions, 6)
         page_number = request.GET.get('page')
         page_objects = paginator.get_page(page_number)
         return page_objects
 
+    #TOTEST
     def __get_discussion_queryset(self, request, search_input):
         queryset = None
         if search_input:
@@ -38,6 +39,7 @@ class Manager():
                 Discussion.objects.filter(
                     discussion_custom_user_id__collectivity_id__exact=
                     request.user.collectivity,
+                    discussion_discussion_type_id__exact=None,
                     subject__icontains=search_input
                 ).order_by('-creation_date')
             )
@@ -45,10 +47,12 @@ class Manager():
             queryset = (
                 Discussion.objects.filter(
                     discussion_custom_user_id__collectivity_id__exact=
-                    request.user.collectivity
+                    request.user.collectivity,
+                    discussion_discussion_type_id__exact=None,
                 ).order_by('-creation_date')
             )
         return queryset
+    #/TOTEST
 
     def set_session_vars(self, request, search_input):
         request.session['c_d_v_f_search_input'] = search_input

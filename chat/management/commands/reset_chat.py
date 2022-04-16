@@ -44,6 +44,8 @@ class Command(BaseCommand):
         """Method that insert kind enumetration objects into DB.
         """
         enumerations = DISCUSSIONS_TYPE
+        counter = 1
         for enumeration in enumerations:
-            discussion_type = DiscussionType(name=enumeration)
+            discussion_type = DiscussionType(id=counter, name=enumeration)
             discussion_type.save()
+            counter += 1

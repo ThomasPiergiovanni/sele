@@ -10,7 +10,6 @@ from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
-from proposition.models.proposition import Proposition
 from proposition.models.rating import Rating
 from proposition.models.status import Status
 
@@ -44,8 +43,7 @@ class Command(BaseCommand):
         self.__drop_status(),
         self.__insert_status(),
         self.__drop_rating(),
-        self.__insert_rating(),
-        self.__drop_proposition()
+        self.__insert_rating()
 
     def __drop_kind(self):
         """Method thats drop kind objects from DB
@@ -62,9 +60,11 @@ class Command(BaseCommand):
         """Method that insert kind enumetration objects into DB.
         """
         enumerations = KINDS
+        counter = 1
         for enumeration in enumerations:
-            kind = Kind(name=enumeration)
+            kind = Kind(id=counter, name=enumeration)
             kind.save()
+            counter += 1
 
     def __drop_category(self):
         """Method that drop category objects from DB
@@ -75,9 +75,11 @@ class Command(BaseCommand):
         """Method that insert category enumetration objects into DB.
         """
         enumerations = CATEGORIES
+        counter = 1
         for enumeration in enumerations:
-            category = Category(name=enumeration)
+            category = Category(id=counter, name=enumeration)
             category.save()
+            counter += 1
 
     def __drop_creator_type(self):
         """Method that drops status objects from DB
@@ -88,9 +90,11 @@ class Command(BaseCommand):
         """Method that insert domain enumetration objects into DB.
         """
         enumerations = CREATOR_TYPES
+        counter = 1
         for enumeration in enumerations:
-            creator_type = CreatorType(name=enumeration)
+            creator_type = CreatorType(id=counter, name=enumeration)
             creator_type.save()
+            counter += 1        
 
     def __drop_domain(self):
         """Method that drops domain objects from DB
@@ -101,9 +105,11 @@ class Command(BaseCommand):
         """Method that insert domain enumetration objects into DB.
         """
         enumerations = DOMAINS
+        counter = 1
         for enumeration in enumerations:
-            domain = Domain(name=enumeration)
+            domain = Domain(id=counter, name=enumeration)
             domain.save()
+            counter += 1  
 
     def __drop_status(self):
         """Method that drops status objects from DB
@@ -114,9 +120,11 @@ class Command(BaseCommand):
         """Method that insert domain enumetration objects into DB.
         """
         enumerations = STATUSES
+        counter = 1
         for enumeration in enumerations:
-            status = Status(name=enumeration)
+            status = Status(id=counter, name=enumeration)
             status.save()
+            counter += 1  
 
     def __drop_rating(self):
         """Method that drops status objects from DB
@@ -127,11 +135,8 @@ class Command(BaseCommand):
         """Method that insert domain enumetration objects into DB.
         """
         enumerations = RATINGS
+        counter = 1
         for enumeration in enumerations:
-            rating = Rating(rate=enumeration)
+            rating = Rating(id=counter, rate=enumeration)
             rating.save()
-
-    def __drop_proposition(self):
-        """Method that drop proposition objects from DB
-        """
-        self.__drop_objects(Proposition)
+            counter += 1  

@@ -55,7 +55,7 @@ class Proposition(models.Model):
         related_name="proposition_taker"
     )
     proposition_discussion = models.ForeignKey(
-        Discussion, on_delete=models.CASCADE, null=True,
+        Discussion, on_delete=models.CASCADE, null=False,
         related_name="proposition_discussion"
     )
 
