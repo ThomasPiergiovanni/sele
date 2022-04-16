@@ -1,0 +1,526 @@
+
+from django.contrib.auth.hashers import make_password
+from authentication.models import CustomUser
+from collectivity.models.collectivity import Collectivity
+blr = Collectivity.objects.get(name="Bourg-la-Reine")
+bgx = Collectivity.objects.get(id=107263)
+
+CustomUser.objects.create(
+    id=1,
+    email="thpi1@email.com",
+    password=make_password('xxx_Xxxx'),
+    user_name="thpi1",
+    balance=100,
+    collectivity_id=blr.id
+)
+CustomUser.objects.create(
+    id=2,
+    email="thpi2@email.com",
+    password=make_password('yyy_Yyyy'),
+    user_name="thpi2",
+    balance=-100,
+    collectivity_id=bgx.id
+)
+CustomUser.objects.create(
+    id=3,
+    email="thpi3@email.com",
+    password=make_password('xxx_Xxxx'),
+    user_name="thpi3",
+    balance=200,
+    collectivity_id=blr.id
+)
+
+from vote.models.voting import Voting
+
+Voting.objects.create(
+    id=1,
+    question="Voulez-vous créer une demande de ceci?",
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    creation_date = "2022-03-24",
+    opening_date = "2022-03-24",
+    closure_date = "2022-04-24",
+    voting_method_id=1,
+    voting_custom_user_id=1
+)
+
+Voting.objects.create(
+    id=2,
+    question="Voulez-vous créer une demande de ceCA?",
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    creation_date = "2020-03-24",
+    opening_date = "2020-03-24",
+    closure_date = "2020-04-24",
+    voting_method_id=2,
+    voting_custom_user_id=1
+)
+
+Voting.objects.create(
+    id=2,
+    question="Voulez-vous créer une demande de ceCE?",
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    creation_date = "2022-02-29",
+    opening_date = "2022-03-01",
+    closure_date = "2022-03-30",
+    voting_method_id=3,
+    voting_custom_user_id=1
+)
+
+Voting.objects.create(
+    id=3,
+    question="Voulez-vous créer une demande de ceCO?",
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    creation_date = "2020-01-24",
+    opening_date = "2020-02-24",
+    closure_date = "2020-03-24",
+    voting_method_id=1,
+    voting_custom_user_id=1
+)
+
+Voting.objects.create(
+    id=4,
+    question="Voulez-vous créer une demande de ceCC?",
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    creation_date = "2020-01-24",
+    opening_date = "2020-02-24",
+    closure_date = "2020-03-24",
+    voting_method_id=1,
+    voting_custom_user_id=2
+)
+
+Voting.objects.create(
+    id=5,
+    question="Voulez-vous créer une demande de ceCZ?",
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    creation_date = "2020-03-20",
+    opening_date = "2020-03-20",
+    closure_date = "2020-03-30",
+    voting_method_id=3,
+    voting_custom_user_id=2
+)
+
+
+from proposition.models.proposition import Proposition
+from django.utils import timezone
+from datetime import datetime ,date
+from chat.models.discussion import Discussion
+
+objs = Discussion.objects.all()
+objs.delete()
+objs = Proposition.objects.all()
+objs.delete()
+
+Discussion.objects.create(
+    id=1,
+    subject="Cours de Python",
+    creation_date=date(2022, 1, 1),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=1,
+    name="Cours de Python",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 1, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=1,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+
+Discussion.objects.create(
+    id=2,
+    subject="Cours de Java",
+    creation_date=date(2022, 1, 2),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=2,
+    name="Cours de Java",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 2, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=2,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+Discussion.objects.create(
+    id=3,
+    subject="Cours de CSS",
+    creation_date=date(2022, 1, 3),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=3,
+    name="Cours de CSS",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 3, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=3,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+Discussion.objects.create(
+    id=4,
+    subject="Cours de JS",
+    creation_date=date(2022, 1, 4),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=4,
+    name="Cours de JS",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 4, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=4,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+Discussion.objects.create(
+    id=5,
+    subject="Cours de Node",
+    creation_date=date(2022, 1, 5),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=5,
+    name="Cours de Node",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 5, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=5,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+Discussion.objects.create(
+    id=6,
+    subject="Cours de React",
+    creation_date=date(2022, 1, 6),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=6,
+    name="Cours de React",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 6, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=6,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+Discussion.objects.create(
+    id=7,
+    subject="Cours de HTML",
+    creation_date=date(2022, 1, 7),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=7,
+    name="Cours de HTML",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 7, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=7,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+####
+Discussion.objects.create(
+    id=8,
+    subject="Fabrication de bois",
+    creation_date=date(2022, 1, 11),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=8,
+    name="Fabrication de bois",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 11, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=2, proposition_rating_id=1,
+    proposition_status_id=1,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+Discussion.objects.create(
+    id=9,
+    subject="Fabrication de brique",
+    creation_date=date(2022, 1, 12),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=9,
+    name="Fabrication de brique",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 12, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=2, proposition_rating_id=1,
+    proposition_status_id=2,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+Discussion.objects.create(
+    id=10,
+    subject="Fabrication de ciment",
+    creation_date=date(2022, 1, 13),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=10,
+    name="Fabrication de ciment",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 13, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=2, proposition_rating_id=1,
+    proposition_status_id=3,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+Discussion.objects.create(
+    id=11,
+    subject="Fabrication de tuile",
+    creation_date=date(2022, 1, 14),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=11,
+    name="Fabrication de tuile",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 14, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=4,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+Discussion.objects.create(
+    id=12,
+    subject="Fabrication de timbre",
+    creation_date=date(2022, 1, 15),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=12,
+    name="Fabrication de timbre",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 15, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=5,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+Discussion.objects.create(
+    id=13,
+    subject="Fabrication de verre",
+    creation_date=date(2022, 1, 16),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=13,
+    name="Fabrication de verre",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 16, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=6,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+Discussion.objects.create(
+    id=14,
+    subject="Fabrication de blé",
+    creation_date=date(2022, 1, 17),
+    discussion_custom_user_id=1,
+    discussion_discussion_type_id=1
+)
+Proposition.objects.create(
+    id=14,
+    name="Fabrication de blé",
+    description=(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    ),
+    creation_date=datetime(
+        2022, 1, 17, 10, 56, 22, tzinfo=timezone.utc
+    ),
+    start_date=date(2022, 1, 25), end_date=date(2022, 6, 25),
+    duration=120,
+    proposition_category_id=1, proposition_creator_id=1,
+    proposition_creator_type_id=2, proposition_domain_id=8,
+    proposition_kind_id=1, proposition_rating_id=1,
+    proposition_status_id=7,proposition_taker_id=2,
+    proposition_discussion_id = Discussion.objects.all().last().id
+)
+
+#### PROPOSITION ####
+
+Discussion.objects.create(
+    id=15,
+    subject="Sujet 1",
+    creation_date=date(2022, 2, 1),
+    discussion_custom_user_id=1
+)
+Discussion.objects.create(
+    id=16,
+    subject="Sujet 2",
+    creation_date=date(2022, 2, 2),
+    discussion_custom_user_id=1
+)
+Discussion.objects.create(
+    id=17,
+    subject="Sujet 3",
+    creation_date=date(2022, 2, 3),
+    discussion_custom_user_id=1
+)
+
+
+#### COMMENTS ####
+
+from datetime import datetime ,date
+from chat.models.comment import Comment
+from django.utils import timezone
+
+Comment.objects.create(
+    id=1,
+    comment="Comment vas-tu?",
+    creation_date=datetime(
+        2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc
+    ),
+    comment_custom_user_id=1,
+    comment_discussion_id=1
+),
+Comment.objects.create(
+    id=2,
+    comment="Ca vas et toi?",
+    creation_date=datetime(
+        2022, 1, 20, 17, 10, 38, tzinfo=timezone.utc
+    ),
+    comment_custom_user_id=3,
+    comment_discussion_id=1
+)
+Comment.objects.create(
+    id=3,
+    comment="Ben impeccable",
+    creation_date=datetime(
+        2022, 1, 20, 17, 56, 22, tzinfo=timezone.utc
+    ),
+    comment_custom_user_id=1,
+    comment_discussion_id=1
+),
+Comment.objects.create(
+    id=4,
+    comment="Au fait j'ai oublié de te demander",
+    creation_date=datetime(
+        2022, 1, 20, 18, 1, 22, tzinfo=timezone.utc
+    ),
+    comment_custom_user_id=1,
+    comment_discussion_id=1
+)

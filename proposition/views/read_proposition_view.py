@@ -28,7 +28,7 @@ class ReadPropositionView(LoginRequiredMixin, View):
         return render(request, self.view_template, self.context)
     #TOTEST
     def post(self, request, id_proposition):
-        """Create vote view method on client post request.
+        """Read proposition view method on client post request.
         """
         form = CommentForm(request.POST)        
         if form.is_valid():
