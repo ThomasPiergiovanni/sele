@@ -43,7 +43,7 @@ class PropositionEmulation():
     def emulate_proposition(self):
         """
         """
-        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
         self.emulate_category()
         self.emulate_creator_type()
         self.emulate_domain()
@@ -91,7 +91,8 @@ class PropositionEmulation():
             proposition_kind_id=1,
             proposition_rating_id=1,
             proposition_status_id=2,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         )
         Proposition.objects.create(
             id=3,
@@ -112,7 +113,8 @@ class PropositionEmulation():
             proposition_kind_id=1,
             proposition_rating_id=1,
             proposition_status_id=3,
-            proposition_taker_id=None
+            proposition_taker_id=None,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=4,
@@ -133,7 +135,8 @@ class PropositionEmulation():
             proposition_kind_id=1,
             proposition_rating_id=1,
             proposition_status_id=4,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=5,
@@ -154,7 +157,8 @@ class PropositionEmulation():
             proposition_kind_id=1,
             proposition_rating_id=1,
             proposition_status_id=5,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=6,
@@ -175,7 +179,8 @@ class PropositionEmulation():
             proposition_kind_id=1,
             proposition_rating_id=1,
             proposition_status_id=6,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=7,
@@ -196,7 +201,8 @@ class PropositionEmulation():
             proposition_kind_id=1,
             proposition_rating_id=1,
             proposition_status_id=7,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=11,
@@ -217,7 +223,8 @@ class PropositionEmulation():
             proposition_kind_id=2,
             proposition_rating_id=1,
             proposition_status_id=1,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=12,
@@ -238,7 +245,8 @@ class PropositionEmulation():
             proposition_kind_id=2,
             proposition_rating_id=1,
             proposition_status_id=2,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         )
         Proposition.objects.create(
             id=13,
@@ -259,7 +267,8 @@ class PropositionEmulation():
             proposition_kind_id=2,
             proposition_rating_id=1,
             proposition_status_id=3,
-            proposition_taker_id=None
+            proposition_taker_id=None,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=14,
@@ -280,7 +289,8 @@ class PropositionEmulation():
             proposition_kind_id=2,
             proposition_rating_id=1,
             proposition_status_id=4,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=15,
@@ -301,7 +311,8 @@ class PropositionEmulation():
             proposition_kind_id=2,
             proposition_rating_id=1,
             proposition_status_id=5,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=16,
@@ -322,7 +333,8 @@ class PropositionEmulation():
             proposition_kind_id=2,
             proposition_rating_id=1,
             proposition_status_id=6,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         ),
         Proposition.objects.create(
             id=17,
@@ -343,7 +355,8 @@ class PropositionEmulation():
             proposition_kind_id=2,
             proposition_rating_id=1,
             proposition_status_id=7,
-            proposition_taker_id=3
+            proposition_taker_id=3,
+            proposition_discussion_id=1
         )
 
     

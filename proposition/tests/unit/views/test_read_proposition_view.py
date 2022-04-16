@@ -14,7 +14,12 @@ class ReadPropositionViewTest(TestCase):
         self.assertTrue(self.view)
 
     def test_init_with_attr(self):
-        self.assertEqual(self.view.view_template,'proposition/read_proposition.html')
+        self.assertEqual(
+            self.view.view_template,'proposition/read_proposition.html'
+        )
+        self.assertEqual(
+            self.view.post_view_name,'proposition:read_proposition'
+        )
         self.assertEqual(
             ReadPropositionView.login_url , '/authentication/login/'
         )

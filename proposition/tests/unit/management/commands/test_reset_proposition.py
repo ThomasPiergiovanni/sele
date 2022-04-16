@@ -115,13 +115,3 @@ class ResetPropositiionTest(TestCase):
         self.command._Command__insert_status()
         statuses = Status.objects.all()
         self.assertTrue(statuses)
-
-    def test_drop_proposition_with_instance_is_none(self):
-        self.proposition_emulation.emulate_proposition()
-        propositions = Proposition.objects.all()
-        self.assertTrue(propositions)
-        self.command._Command__drop_proposition()
-        propositions = Proposition.objects.all()
-        self.assertFalse(propositions)
-
-
