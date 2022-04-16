@@ -6,6 +6,7 @@ from django.urls import reverse
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.forms.proposition_form import PropositionForm
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
@@ -25,6 +26,7 @@ class CreatePropositionViewTest (TestCase):
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
         self.auth_emulation.emulate_custom_user()
+        self.chat_emulation = ChatEmulation()
         self.proposition_emulation = PropositionEmulation()
         self.proposition_emulation.emulate_category()
         self.proposition_emulation.emulate_creator_type()
@@ -50,7 +52,8 @@ class CreatePropositionViewTest (TestCase):
             response.redirect_chain[0][0], '/authentication/login/'
         )
 
-    def test_post_with_nominal_scenario(self):    
+    def test_post_with_nominal_scenario(self):
+        self.chat_emulation.emulate_discussion_type()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         form_data = {
             'name': 'Cours de Python',

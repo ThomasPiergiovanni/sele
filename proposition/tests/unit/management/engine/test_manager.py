@@ -8,6 +8,8 @@ from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from chat.models.discussion import Discussion
+from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.forms.proposition_form import PropositionForm
 from proposition.management.engine.manager import Manager
 from proposition.models.category import Category
@@ -27,6 +29,7 @@ class TestManager(TestCase):
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
         self.proposition_emulation = PropositionEmulation()
+        self.chat_emulation = ChatEmulation()
         self.manager = Manager()
 
     def test_set_page_objects_context(self):
@@ -70,7 +73,7 @@ class TestManager(TestCase):
         )
 
     def test_create_proposition_with_proposition_instance(self):
-        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation.emulate_discussion()
         self.proposition_emulation.emulate_category()
         self.proposition_emulation.emulate_domain()
         self.proposition_emulation.emulate_kind()
@@ -85,7 +88,7 @@ class TestManager(TestCase):
             'start_date': "2022-01-25",
             'end_date': "2022-01-30",
             'duration': 45,
-            'proposition_creator_type': CreatorType.objects.get(pk=1).id,
+            'proposition_creator_type': CreatorType.objects.get(pk=1).id
         }
         form = PropositionForm(data=form_data)
         form.is_valid()
@@ -94,6 +97,40 @@ class TestManager(TestCase):
         self.assertEqual(
             Proposition.objects.all().last().name, 'Cours de Python'
         )
+        self.assertEqual(
+            Proposition.objects.all().last()
+            .proposition_discussion.discussion_discussion_type.name,
+            'Proposition'
+        )
+    
+    def test_create_discussion(self):
+        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation.emulate_discussion_type()
+        self.proposition_emulation.emulate_category()
+        self.proposition_emulation.emulate_domain()
+        self.proposition_emulation.emulate_kind()
+        self.proposition_emulation.emulate_creator_type()
+        self.proposition_emulation.emulate_status()
+        form_data = {
+            'name': 'Cours de Python',
+            'description': 'dsdss',
+            'proposition_kind': Kind.objects.get(pk=1).id,
+            'proposition_category': Category.objects.get(pk=1).id,
+            'proposition_domain': Domain.objects.get(pk=1).id,
+            'start_date': "2022-01-25",
+            'end_date': "2022-01-30",
+            'duration': 45,
+            'proposition_creator_type': CreatorType.objects.get(pk=1).id
+        }
+        form = PropositionForm(data=form_data)
+        form.is_valid()
+        custom_user = CustomUser.objects.get(pk=1)
+        self.manager.create_discussion(form, custom_user)
+        self.assertEqual(
+            Discussion.objects.all().last()
+            .discussion_discussion_type.name,'Proposition'
+        )
+
     
     def test_set_read_prop_view_context_with_demand_nouveau_tak_none(self):
         self.proposition_emulation.emulate_proposition()

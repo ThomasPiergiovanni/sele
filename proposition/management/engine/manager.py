@@ -5,6 +5,7 @@ from django.utils import timezone
 from authentication.models import CustomUser
 from chat.management.engine.manager import Manager as ChatManager
 from chat.models.discussion import Discussion
+from chat.models.discussion_type import DiscussionType
 from proposition.models.proposition import Proposition
 from proposition.models.status import Status
 
@@ -69,7 +70,7 @@ class Manager():
     def set_session_vars(self, request, search_input):
         request.session['c_p_v_f_search_input'] = search_input
     
-    # TEST
+
     def create_proposition(self, form, custom_user):
         """Method for creating Proposition instances into DB
         """
@@ -92,10 +93,10 @@ class Manager():
         )
     
     def create_discussion(self, form, custom_user):
+        form.cleaned_data['subject'] = form.cleaned_data['name']
         chat_manager = ChatManager()
-        discussion_type = Discussion.objects.get(name__exact='Proposition')
-        self.chat_manager.create_discussion(form, custom_user, discussion_type)
-    # /TEST
+        discussion_type = DiscussionType.objects.get(name__exact='Proposition')
+        chat_manager.create_discussion(form, custom_user, discussion_type)
 
     def set_read_proposition_view_context(self, request, id_proposition):
         context = {}

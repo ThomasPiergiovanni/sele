@@ -34,14 +34,14 @@ class ChatEmulation():
             subject="Sujet est CSS",
             creation_date=date(2022, 1, 21),
             discussion_custom_user_id=1,
-            discussion_discussion_type_id = 2
+            discussion_discussion_type_id = None
         ),
         Discussion.objects.create(
             id=3,
             subject="Sujet est JS",
             creation_date=date(2022, 1, 22),
             discussion_custom_user_id=3,
-            discussion_discussion_type_id = None
+            discussion_discussion_type_id = 1
         )
 
     def emulate_comment(self):
