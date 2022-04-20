@@ -31,7 +31,6 @@ class Manager():
         page_objects = paginator.get_page(page_number)
         return page_objects
 
-    #TOTEST
     def __get_discussion_queryset(self, request, search_input):
         queryset = None
         if search_input:
@@ -52,7 +51,6 @@ class Manager():
                 ).order_by('-creation_date')
             )
         return queryset
-    #/TOTEST
 
     def set_session_vars(self, request, search_input):
         request.session['c_d_v_f_search_input'] = search_input

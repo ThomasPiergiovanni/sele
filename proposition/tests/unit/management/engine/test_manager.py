@@ -8,6 +8,8 @@ from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from chat.forms.comment_form import CommentForm
+from chat.models.comment import Comment
 from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.forms.proposition_form import PropositionForm
@@ -147,6 +149,16 @@ class TestManager(TestCase):
         self.assertEqual(context['btn1_class'],"btn btn-block btn-success")
         self.assertEqual(context['btn1_text'], "Sélectionner")
         self.assertEqual(context['btn1_value'], "select")
+        self.assertEqual(context['proposition'], proposition)
+        self.assertEqual(
+            context['discussion'],
+            proposition.proposition_discussion
+        )
+        self.assertEqual(
+            context['comments'][0],
+            Comment.objects.get(pk=1)
+        )
+        self.assertIsInstance(context['form'], CommentForm)
 
     def test_set_read_prop_view_context_with_offer_selectionne_creator(self):
         self.proposition_emulation.emulate_proposition()
@@ -471,4 +483,37 @@ class TestManager(TestCase):
         self.assertEqual(
             Status.objects.get(name__exact='Sélectionné').name,
             status.name
+        )
+
+    def test_get_discussion_with_proposition_instance(self):
+        self.proposition_emulation.emulate_proposition()
+        proposition = Proposition.objects.get(pk=1)
+        discussion = self.manager._Manager__get_discussion(proposition)
+        self.assertEqual(discussion, Discussion.objects.get(pk=1))
+
+    def test_get_discussion_with_none(self):
+        proposition = None
+        discussion = self.manager._Manager__get_discussion(proposition)
+        self.assertIsNone(discussion)
+
+    def test_get_comments_with_proposition_instance(self):
+        self.proposition_emulation.emulate_proposition()
+        proposition = Proposition.objects.get(pk=1)
+        comments = self.manager._Manager__get_comments(proposition)
+        self.assertEqual(comments[0], Comment.objects.get(pk=1))
+
+    def test_get_comments_with_none(self):
+        proposition = None
+        comments = self.manager._Manager__get_comments(proposition)
+        self.assertIsNone(comments)
+
+    def test_create_comment(self):
+        self.proposition_emulation.emulate_proposition()
+        form = CommentForm(data={'comment': 'Alors???'})
+        form.is_valid()
+        custom_user = CustomUser.objects.get(pk=1)
+        id_proposition = Proposition.objects.get(pk=1).id
+        self.manager.create_comment(form, custom_user, id_proposition)
+        self.assertEqual(
+            Comment.objects.all().last().comment, 'Alors???'
         )

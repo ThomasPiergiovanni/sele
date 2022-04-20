@@ -100,7 +100,6 @@ class Manager():
         discussion_type = DiscussionType.objects.get(name__exact='Proposition')
         chat_manager.create_discussion(form, custom_user, discussion_type)
 
-    # TOTEST
     def set_read_proposition_view_context(self, request, id_proposition):
         context = {}
         proposition = Proposition.objects.get(pk=id_proposition)
@@ -113,7 +112,6 @@ class Manager():
         context['comments'] = self.__get_comments(proposition)
         context['form'] = CommentForm()
         return context
-    # /TOTEST
  
     def __set_demand_btn(self, request, proposition):
         """
@@ -263,7 +261,6 @@ class Manager():
         except:
             pass
         return  comments
-
 
     def create_comment(self, form, custom_user, id_proposition):
         discussion = (
