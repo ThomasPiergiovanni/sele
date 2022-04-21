@@ -509,6 +509,7 @@ class TestManager(TestCase):
 
     def test_create_comment(self):
         self.proposition_emulation.emulate_proposition()
+        Comment.objects.all().delete()
         form = CommentForm(data={'comment': 'Alors???'})
         form.is_valid()
         custom_user = CustomUser.objects.get(pk=1)

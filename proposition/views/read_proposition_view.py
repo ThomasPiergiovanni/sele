@@ -26,7 +26,7 @@ class ReadPropositionView(LoginRequiredMixin, View):
             request,id_proposition
         )
         return render(request, self.view_template, self.context)
-    #TOTEST
+
     def post(self, request, id_proposition):
         """Read proposition view method on client post request.
         """
@@ -35,9 +35,7 @@ class ReadPropositionView(LoginRequiredMixin, View):
             self.manager.create_comment(form, request.user, id_proposition)
             return redirect(self.post_view_name, id_proposition)
         else:
-            self.context['form'] = form
+            self.context = {'form': form}
             return render(
                 request, self.view_template, self.context
             )
-    #/TOTEST
-

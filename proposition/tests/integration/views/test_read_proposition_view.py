@@ -49,6 +49,8 @@ class ReadPropositionViewTest(TestCase):
         )
 
     def test_post_with_nominal_scenario(self):
+        self.proposition_emulation.emulate_proposition()
+        Comment.objects.all().delete()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         form_data = {'comment':'Alors???'}
         response = self.client.post(
@@ -56,8 +58,32 @@ class ReadPropositionViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            Comment.objects.all().last().comment, 'Alors'
+            Comment.objects.last().comment, 'Alors???'
         )
         self.assertEqual(
             response.redirect_chain[0][0], '/proposition/read_proposition/1/'
+        )
+
+    def test_post_with_alternative_scenario_one(self):
+        self.proposition_emulation.emulate_proposition()
+        Comment.objects.all().delete()
+        self.client.login(email='user1@email.com', password='xxx_Xxxx')
+        form_data = {'comment':''}
+        response = self.client.post(
+            '/proposition/read_proposition/1/', data=form_data, follow=True
+        )
+        self.assertEqual(
+            response.templates[0].name,
+            'proposition/read_proposition.html'
+        )
+        self.assertIsInstance(response.context['form'], CommentForm)
+        self.assertTrue(response.context['form'].errors)
+
+    def test_post_with_alternative_scenario_four(self):
+        response = self.client.post(
+            '/proposition/read_proposition/1/', follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.redirect_chain[0][0],reverse('authentication:login')
         )

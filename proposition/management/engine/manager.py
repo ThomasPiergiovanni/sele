@@ -242,7 +242,6 @@ class Manager():
             btn = self.__set_btn_dict()
         return btn
 
-    #TOTEST
     def __get_discussion(self, proposition):
         discussion = None
         try:
@@ -268,7 +267,6 @@ class Manager():
         )
         chat_manager = ChatManager()
         chat_manager.create_comment(form, custom_user, discussion.id)
-    #/TOTEST
 
     def set_proposition_status(self, request, id_proposition):
         upd_status_btn = request.POST.get('update_status_button')

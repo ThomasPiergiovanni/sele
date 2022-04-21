@@ -6,6 +6,7 @@ from django.urls import reverse
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.forms.proposition_form import PropositionForm
 from proposition.models.category import Category
@@ -73,6 +74,9 @@ class CreatePropositionViewTest (TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             Proposition.objects.all().last().name, 'Cours de Python'
+        )
+        self.assertEqual(
+            Discussion.objects.all().last().subject, 'Cours de Python'
         )
         self.assertEqual(
             response.redirect_chain[0][0],
