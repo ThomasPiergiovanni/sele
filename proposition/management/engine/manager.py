@@ -286,10 +286,39 @@ class Manager():
             proposition.proposition_status = self.__set_status('Rejeté')
         elif upd_status_btn == 'done':
             proposition.proposition_status = self.__set_status('Terminé')
+            self.__set_creator_taker_balance(proposition)
         else:
             pass
         proposition.save()
     
     def __set_status(self, argument):
         return Status.objects.get(name__exact=argument)
-
+    
+    def __set_creator_taker_balance(self, proposition):
+        if (
+                proposition.proposition_kind.name == 'Demande' and 
+                proposition.proposition_creator_type.name == 'Individuelle'
+        ):
+            proposition.proposition_creator.balance -= proposition.duration
+            proposition.proposition_taker.balance += proposition.duration
+            proposition.proposition_creator.save()
+        elif (
+                proposition.proposition_kind.name == 'Offre'
+        ):
+            proposition.proposition_creator.balance += proposition.duration
+            proposition.proposition_taker.balance -= proposition.duration
+            proposition.proposition_creator.save()
+        else :
+            self.__set_custom_users_balances(proposition)
+            proposition.proposition_taker.balance += proposition.duration
+        proposition.proposition_taker.save()
+    
+    def __set_custom_users_balances(self, proposition):
+        custom_users = CustomUser.objects.filter(
+            collectivity_id__exact=
+            proposition.proposition_creator.collectivity.id
+        )
+        for custom_user in custom_users:
+            custom_user.balance -= proposition.duration/len(custom_users)
+            custom_user.save()
+    

@@ -358,6 +358,28 @@ class PropositionEmulation():
             proposition_taker_id=3,
             proposition_discussion_id=1
         )
+        Proposition.objects.create(
+            id=18,
+            name="DCollective",
+            description=(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            ),
+            creation_date=datetime(
+                2022, 1, 4, 21, 56, 22, tzinfo=timezone.utc
+            ),
+            start_date=date(2022, 1, 1),
+            end_date=date(2022, 1, 11),
+            duration=120,
+            proposition_category_id=1,
+            proposition_creator_id=1,
+            proposition_creator_type_id=2,
+            proposition_domain_id=1,
+            proposition_kind_id=1,
+            proposition_rating_id=1,
+            proposition_status_id=4,
+            proposition_taker_id=3,
+            proposition_discussion_id=1
+        ),
 
     
 

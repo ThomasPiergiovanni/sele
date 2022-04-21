@@ -407,7 +407,7 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn2_text'], "Forcer terminer")
         self.assertEqual(btn['btn2_value'], "done")
 
-    def test_set_status_with_select_taker(self):
+    def test_set_proposition_status_with_select_taker(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'select'}
@@ -421,7 +421,7 @@ class TestManager(TestCase):
             proposition.proposition_taker.email, 'user3@email.com'
         )
 
-    def test_set_status_with_new_taker(self):
+    def test_set_proposition_status_with_new_taker(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'new'}
@@ -433,7 +433,7 @@ class TestManager(TestCase):
         self.assertEqual(proposition.proposition_status.id,3)
         self.assertIsNone(proposition.proposition_taker)
 
-    def test_set_status_with_inprogress(self):
+    def test_set_proposition_status_with_inprogress(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'inprogress'}
@@ -444,7 +444,7 @@ class TestManager(TestCase):
         proposition = Proposition.objects.get(pk=6)
         self.assertEqual(proposition.proposition_status.id,2)
 
-    def test_set_status_with_realized(self):
+    def test_set_proposition_status_with_realized(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'realized'}
@@ -455,7 +455,7 @@ class TestManager(TestCase):
         proposition = Proposition.objects.get(pk=2)
         self.assertEqual(proposition.proposition_status.id,4)
 
-    def test_set_status_with_rejected(self):
+    def test_set_proposition_status_with_rejected(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'rejected'}
@@ -466,7 +466,7 @@ class TestManager(TestCase):
         proposition = Proposition.objects.get(pk=4)
         self.assertEqual(proposition.proposition_status.id,5)
 
-    def test_set_status_with_done(self):
+    def test_set_proposition_status_with_done(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'done'}
@@ -476,14 +476,40 @@ class TestManager(TestCase):
         self.manager.set_proposition_status(request, 4)
         proposition = Proposition.objects.get(pk=4)
         self.assertEqual(proposition.proposition_status.id,7)
-
-    def test_set_status_with_selectione(self):
+        self.assertEqual(proposition.proposition_creator.balance, 940)
+        self.assertEqual(proposition.proposition_taker.balance, 3060)
+    
+    def test_set_proposition_status_with_selectione(self):
         self.proposition_emulation.emulate_status()
         status = self.manager._Manager__set_status('Sélectionné')
         self.assertEqual(
             Status.objects.get(name__exact='Sélectionné').name,
             status.name
         )
+
+    def test_set_creator_taker_balance_with_demande_individuelle(self):
+        self.proposition_emulation.emulate_proposition()
+        proposition = Proposition.objects.get(pk=18)
+        self.manager._Manager__set_creator_taker_balance(proposition)
+        proposition = Proposition.objects.get(pk=18)
+        self.assertEqual(proposition.proposition_creator.balance, 880)
+        self.assertEqual(proposition.proposition_taker.balance, 3120)
+    
+    def test_set_creator_taker_balance_with_demande_collective(self):
+        self.proposition_emulation.emulate_proposition()
+        proposition = Proposition.objects.get(pk=4)
+        self.manager._Manager__set_creator_taker_balance(proposition)
+        proposition = Proposition.objects.get(pk=4)
+        self.assertEqual(proposition.proposition_creator.balance, 940)
+        self.assertEqual(proposition.proposition_taker.balance, 3060)
+
+    def test_set_custom_users_balances_with_demande_collective(self):
+        self.proposition_emulation.emulate_proposition()
+        proposition = Proposition.objects.get(pk=4)
+        self.manager._Manager__set_custom_users_balances(proposition)
+        proposition = Proposition.objects.get(pk=4)
+        self.assertEqual(proposition.proposition_creator.balance, 940)
+        self.assertEqual(proposition.proposition_taker.balance, 2940)
 
     def test_get_discussion_with_proposition_instance(self):
         self.proposition_emulation.emulate_proposition()

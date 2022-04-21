@@ -26,7 +26,7 @@ class AuthenticationEmulation():
             email="user1@email.com",
             password=make_password('xxx_Xxxx'),
             user_name="UserName1",
-            balance=12345,
+            balance=1000,
             collectivity_id=blr.id
         )
         CustomUser.objects.create(
@@ -34,7 +34,7 @@ class AuthenticationEmulation():
             email="user2@email.com",
             password=make_password('yyy_Yyyy'),
             user_name="UserName2",
-            balance=-12345,
+            balance=-2000,
             collectivity_id=bgx.id
         )
         CustomUser.objects.create(
@@ -42,7 +42,7 @@ class AuthenticationEmulation():
             email="user3@email.com",
             password=make_password('xxx_Xxxx'),
             user_name="UserName3",
-            balance=22222,
+            balance=3000,
             collectivity_id=blr.id
         )
 
