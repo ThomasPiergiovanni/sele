@@ -5,6 +5,8 @@ from django.urls import reverse
 
 
 from authentication.models import CustomUser
+from chat.models.discussion import Discussion
+from proposition.models.proposition import Proposition
 
 # from chat.forms.comment_form import CommentForm
 # from chat.models.comment import Comment
@@ -34,8 +36,12 @@ class CollectivityDashboardViewTest(TestCase):
         self.assertIsInstance(
             response.context['custom_user_pag_obj'][0], CustomUser
         )
-        self.assertEqual(
-            response.context['custom_users_p_counts'][0]['id'], 1
+        self.assertEqual(response.context['custom_users_p_counts'][0]['id'], 1)
+        self.assertIsInstance(
+            response.context['proposition_pag_obj'][0], Proposition
+        )
+        self.assertIsInstance(
+            response.context['discussion_pag_obj'][0], Discussion
         )
 
 

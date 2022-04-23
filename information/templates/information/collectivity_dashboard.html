@@ -81,8 +81,7 @@
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
-          <section class="col-lg-6">
-            <!-- Custom tabs (Charts with tabs)-->
+          <!-- <section class="col-lg-6">
             <div class="card " style="height: 450px;">
               <div class="card-header">
                 <h3 class="card-title">
@@ -96,18 +95,14 @@
                   <canvas id="lineChart" style="min-height: 250px; height: 360px; max-height: 360px; max-width: 100%;"></canvas>
                 </div>
               </div>
-              <!-- /.card-body -->
             </div>
-              <!-- /.card-body -->
-            <!-- /.card -->
-
-          </section>
+          </section> -->
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-6">
+          <section class="col-xl-6">
 
             <!-- User card -->
-            <div class="card" style="height: 450px;">
+            <div class="card" style="min-height: 400px;">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-users mr-1"></i>
@@ -180,209 +175,92 @@
           
           <!-- right col -->
           <!-- one col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col">
+          <section class="col-xl-6">
           
             <!-- Last poposals cards -->
-            <div class="card">
+            <div class="card" style="min-height: 400px;">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-tags mr-1"></i>
                   Propositions
                 </h3>
               </div>
-              <div class="card-body mt-3 mb-2">
-                <!-- Form -->
-                <form action="">
-                  <div class="row">
-                    <div class="col-md-10 offset-md-1">
-                      <div class="row">
-                        <div class="col-6">
-                          <div class="form-group">
-                            <label>Type de proposition:</label>
-                            <select class="form-control form-control-sm" style="width: 100%;">
-                              <option selected>Toutes</option>
-                              <option>Offre</option>
-                              <option>Demande</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-3">
-                          <div class="form-group">
-                            <label>Ordre de tri:</label>
-                            <select class="form-control form-control-sm" style="width: 100%;">
-                              <option selected>Ascendant</option>
-                              <option>Descendant</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-3">
-                          <div class="form-group">
-                            <label>Order par:</label>
-                            <select class="form-control form-control-sm" style="width: 100%;">
-                              <option selected>Date</option>
-                              <option>Nom</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group input-group-md">
-                          <input type="search" class="form-control form-control-sm" placeholder="Saisir vos mots clés ici"
-                            value="Votre recherche...">
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-sm btn-default">
-                              <i class="fa fa-search"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-                <!-- /Form -->
-              
-              <!-- /.card-body-->
 
               <!-- Table . 2nd card-body-->
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-sm table-borderless">
-                    <thead class="text-center thead-light">
+                    <thead class="">
                       <tr>
-                        <th >#</th>
-                        <th >Nom</th>
-                        <th>Type</th>
-                        <th>Catégorie</th>
-                        <th>Effort(min.)</th>
-                        <th>Statut</th>
-                        <th>Créateur</th>
-                        <th>Preneur</th>
-                        <th></th>
-                        <th></th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Nom</th>
+                        <th class="text-center">Type</th>
+                        <th class="text-center">Temps de travail</th>
+                        <th class="text-center bg-light">Statut</th>
                         <th></th>
                       </tr>
                     </thead>
-                    <tbody class="text-center">
+                    <tbody>
+                      {% for proposition in proposition_pag_obj%}
                       <tr>
-                        <td>1</td>
-                        <td>1 kg de pommes de terres</td>
-                        <td>Offre</td>
-                        <td>Agricole</td>
-                        <td>240</td>
-                        <td><span class="font-weight-bold ">Nouveau</span></td>
-                        <td>ThoPie</td>
-                        <td>-</td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
-                          </a>
+                        <td class="text-center">
+                          {{proposition.id}}
                         </td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
-                          </a>
+                        <td class="text-center">
+                          {{proposition.name}}
                         </td>
+                        <td class="text-center">
+                          {{proposition.proposition_kind}}
+                        </td>
+                        <td class="text-center">
+                          {{proposition.duration}}
+                        </td>
+                        <td class="text-center font-italic bg-light">
+                          {{proposition.proposition_status}}
+                        </td>
+                        <!-- <td class="text-center">
+                          {{proposition.start_date}}
+                        </td class="text-center">
+                        <td class="text-center">
+                          {{proposition.end_date}}
+                        </td class="text-center">
+                        <td class="text-center">
+                          {{proposition.proposition_creator}}
+                        </td>
+                        <td class="text-center">
+                          {{proposition.proposition_taker}}
+                        </td> -->
                         <td>
-                          <a href="" role="button">
-                            <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
+                          <a href="{% url 'proposition:read_proposition' id_proposition=proposition.id %}" role="button">
+                            <button type="button"
+                              class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
                           </a>
                         </td>
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Cours de python</td>
-                        <td>Demande</td>
-                        <td>Education</td>
-                        <td>45</td>
-                        <td><span class="font-weight-bold ">En progression</span></td>
-                        <td>LeNoob</td>
-                        <td>TheBest</td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
-                          </a>
-                        </td>
-                      </tr>     
-                      <tr>
-                        <td>3</td>
-                        <td>Nettoyage du mur Rue du Bac</td>
-                        <td>Demande</td>
-                        <td>Nettoyage</td>
-                        <td>60</td>
-                        <td><span class="font-weight-bold ">Terminé</span></td>
-                        <td>Bourg-la-Reine(Gr.)</td>
-                        <td>ThoPie</td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Aide au devoirs</td>
-                        <td>Offre</td>
-                        <td>Education</td>
-                        <td>45</td>
-                        <td><span class="font-weight-bold ">Annulé</span></td>
-                        <td>TheNoob</td>
-                        <td>TheBest</td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class=" text-success btn btn-block btn-light border border-success btn-sm">Editer</button>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="" role="button">
-                            <button type="button" class="btn btn-block btn-danger btn-sm">Supprimer</button>
-                          </a>
-                        </td>
-                      </tr>
+                      {% endfor%}
+                    </tbody>
                   </table>
                 </div>
-              </div>
               <div class="card-footer bg-white clearfix">
-                <div class="row mb-4">
-                  <div class="col-sm-6 col-md-7 col-lg-6 col-xl-8"></div>
-                  <div class="col-sm-6 col-md-5 col-lg-6 col-xl-4">
-                    <a href="" role="button">
-                      <button type="button" class="btn btn-block btn-success btn-sm ">Ajouter une proposition</button>
-                    </a>
+                <div class="row align-items-end text-center">
+                  <div class="col">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                      {% if proposition_pag_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_objects.previous_page_number }}">&laquo;</a></li>
+                      {% endif %}
+                      {% for i in proposition_pag_obj.paginator.page_range %}
+                        {% if proposition_pag_obj.number == i %}
+                          <li class="page-item active"><a class="page-link" href=?page="{{ i }}">{{i}}</a></li>
+                        {% else %}
+                          <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if proposition_pag_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_objects.next_page_number }}">&raquo;</a></li>
+                      {% endif %}
+                    </ul>
                   </div>
                 </div>
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
               </div>
               <!-- /.card-footer-->
 
@@ -392,25 +270,14 @@
             <!-- /.card -->
           </section>
 
-          <section class="col-lg-6">
+          <section class="col-xl-6">
             <!-- User card -->
-            <div class="card" style="height: 450px;">
+            <div class="card" style="min-height: 400px;">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-comments mr-1"></i>
                   Discussions
                 </h3>
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-          
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
               <!-- /.card-header -->
           
@@ -421,71 +288,63 @@
                       <tr>
                         <th>#</th>
                         <th>Sujet</th>
-                        <th>Date</th>
+                        <th class="text-center">Date de création</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
+                      {% for discussion in discussion_pag_obj %}
                       <tr>
-                        <td>1</td>
-                        <td>Proposition de vote Nettoyage</td>
-                        <td>10-01-2022</td>
                         <td>
-                          <a href="#" role="button">
-                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
+                          {{discussion.id}}
+                        </td>
+                        <td>
+                          {{discussion.subject}}
+                        </td>
+                        <td class="text-center">
+                          {{discussion.creation_date}}
+                        </td>
+                        <td>
+                          <a href="{% url 'chat:read_discussion' id_discussion=discussion.id %}" role="button">
+                            <button type="button"
+                              class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
                           </a>
                         </td>
-                      <tr>
-                        <td>2</td>
-                        <td>Demande de groupe</td>
-                        <td>23-03-2021</td>
-                        <td>
-                          <a href="#" role="button">
-                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
-                          </a>
-                        </td>
-
                       </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>C'est relou le html!</td>
-                        <td>15-10-2021</td>
-                        <td>
-                          <a href="#" role="button">
-                            <button type="button" class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
-                          </a>
-                        </td>
-
-                      </tr>
+                      {% endfor%}
                     </tbody>
                   </table>
                 </div>
               </div>     
               <div class="card-footer bg-white clearfix">
-                <div class="row mb-4">
-                  <div class="col-sm-6 col-md-7 col-lg-6 col-xl-7"></div>
-                  <div class="col-sm-6 col-md-5 col-lg-6 col-xl-5">
-                    <a href="#" role="button">
-                      <button type="button" class="btn btn-block btn-success btn-sm">Nouvelle discussion</button>
-                    </a>
+                <div class="row align-items-end text-center">
+                  <div class="col">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                      {% if discussion_pag_obj.has_previous %}
+                      <li class="page-item"><a class="page-link" href="?page={{ page_objects.previous_page_number }}">&laquo;</a></li>
+                      {% endif %}
+                      {% for i in discussion_pag_obj.paginator.page_range %}
+                      {% if discussion_pag_obj.number == i %}
+                      <li class="page-item active"><a class="page-link" href=?page="{{ i }}">{{i}}</a></li>
+                      {% else %}
+                      <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                      {% endfor %}
+                      {% if discussion_pag_obj.has_next %}
+                      <li class="page-item"><a class="page-link" href="?page={{ page_objects.next_page_number }}">&raquo;</a></li>
+                      {% endif %}
+                    </ul>
                   </div>
                 </div>
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
               </div>
               <!-- /.card-footer-->
             </div>
             <!-- /.card -->
           </section>
 
-          <section class="col-lg-6">
+          <section class="col-xl-6">
             <!-- User card -->
-            <div class="card" style="height: 450px;">
+            <div class="card" style="min-height: 400px;">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-vote-yea mr-1"></i>

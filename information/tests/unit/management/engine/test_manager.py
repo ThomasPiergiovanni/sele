@@ -10,14 +10,14 @@ from authentication.tests.emulation.authentication_emulation import (
 )
 # from chat.forms.comment_form import CommentForm
 # from chat.models.comment import Comment
-# from chat.models.discussion import Discussion
-# from chat.tests.emulation.chat_emulation import ChatEmulation
+from chat.models.discussion import Discussion
+from chat.tests.emulation.chat_emulation import ChatEmulation
 # from proposition.forms.proposition_form import PropositionForm
 # from proposition.models.category import Category
 # from proposition.models.creator_type import CreatorType
 # from proposition.models.domain import Domain
 # from proposition.models.kind import Kind
-# from proposition.models.proposition import Proposition
+from proposition.models.proposition import Proposition
 # from proposition.models.status import Status
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
@@ -32,14 +32,15 @@ class TestManager(TestCase):
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
         self.proposition_emulation = PropositionEmulation()
+        self.chat_emulation = ChatEmulation()
         self.manager = Manager()
 
-    def test_set_cus_use_pag_obj_context(self):
+    def test_set_custom_user_page_obj_context(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
-        page_objects = self.manager.set_cus_use_pag_obj_context(request)
+        page_objects = self.manager.set_custom_user_page_obj_context(request)
         self.assertIsInstance(page_objects[0], CustomUser)
         self.assertEqual(page_objects[0].id, 3)
     
@@ -54,19 +55,58 @@ class TestManager(TestCase):
         self.assertEqual(custom_users[0].id, 3)
         self.assertEqual(custom_users[1].id, 1)
 
-    def test_custom_users_propositions_counts_with(self):
+    def test_custom_users_p_counts_with(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         custom_user_p_counts = (
-            self.manager.set_custom_users_propositions_counts_context(request)
+            self.manager.set_custom_user_p_counts_context(request)
         )
         self.assertEqual(custom_user_p_counts[0]['id'], 1)
         self.assertEqual(custom_user_p_counts[0]['count'], 15)
         self.assertEqual(custom_user_p_counts[1]['id'], 3)
         self.assertEqual(custom_user_p_counts[1]['count'], 13)
 
+    def test_set_proposition_page_obj_context(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().get('', data={'page': 1})        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user  
+        page_objects = self.manager.set_proposition_page_obj_context(request)
+        self.assertIsInstance(page_objects[0], Proposition)
+        self.assertEqual(page_objects[0].id, 17)
+
+    def test_proposition_queryset_with_request_user(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().get('',)        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user     
+        propositions = self.manager._Manager__get_proposition_queryset(
+            request
+        )
+        self.assertEqual(propositions[0].id, 17)
+        self.assertEqual(propositions[1].id, 16)
+
+    def test_set_discussion_page_obj_context(self):
+        self.chat_emulation.emulate_discussion()
+        request = RequestFactory().get('', data={'page': 1})        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user  
+        page_objects = self.manager.set_discussion_page_obj_context(request)
+        self.assertIsInstance(page_objects[0], Discussion)
+        self.assertEqual(page_objects[0].id, 3)
+
+    def test_discussiuon_queryset_with_request_user(self):
+        self.chat_emulation.emulate_discussion()
+        request = RequestFactory().get('',)        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user     
+        discussions = self.manager._Manager__get_discussion_queryset(
+            request
+        )
+        self.assertEqual(discussions[0].id, 3)
+        self.assertEqual(discussions[1].id, 2)
 
 
     #     self.proposition_emulation.emulate_proposition()

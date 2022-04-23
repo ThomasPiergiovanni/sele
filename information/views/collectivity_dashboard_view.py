@@ -27,9 +27,15 @@ class CollectivityDashboardView(LoginRequiredMixin, View):
         """Home page view method on client get request.
         """
         self.context['custom_user_pag_obj'] = (
-            self.manager.set_cus_use_pag_obj_context(request)
+            self.manager.set_custom_user_page_obj_context(request)
         )
         self.context['custom_users_p_counts'] = (
-            self.manager.set_custom_users_propositions_counts_context(request)
+            self.manager.set_custom_user_p_counts_context(request)
+        )
+        self.context['proposition_pag_obj'] = (
+            self.manager.set_proposition_page_obj_context(request)
+        )
+        self.context['discussion_pag_obj'] = (
+            self.manager.set_discussion_page_obj_context(request)
         )
         return render(request, self.view_template, self.context)
