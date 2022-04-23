@@ -130,7 +130,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=1,proposition_taker_id=2,
+    proposition_status_id=1,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -156,7 +156,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=2,proposition_taker_id=2,
+    proposition_status_id=2,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -181,7 +181,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=3,proposition_taker_id=2,
+    proposition_status_id=3,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -206,7 +206,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=4,proposition_taker_id=2,
+    proposition_status_id=4,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -231,7 +231,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=5,proposition_taker_id=2,
+    proposition_status_id=5,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -256,7 +256,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=6,proposition_taker_id=2,
+    proposition_status_id=6,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -281,7 +281,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=7,proposition_taker_id=2,
+    proposition_status_id=7,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -307,7 +307,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=2, proposition_rating_id=1,
-    proposition_status_id=1,proposition_taker_id=2,
+    proposition_status_id=1,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -332,7 +332,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=2, proposition_rating_id=1,
-    proposition_status_id=2,proposition_taker_id=2,
+    proposition_status_id=2,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -357,7 +357,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=2, proposition_rating_id=1,
-    proposition_status_id=3,proposition_taker_id=2,
+    proposition_status_id=3,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -382,7 +382,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=4,proposition_taker_id=2,
+    proposition_status_id=4,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -407,7 +407,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=5,proposition_taker_id=2,
+    proposition_status_id=5,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
@@ -432,7 +432,7 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=6,proposition_taker_id=2,
+    proposition_status_id=6,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 Discussion.objects.create(
@@ -456,11 +456,11 @@ Proposition.objects.create(
     proposition_category_id=1, proposition_creator_id=1,
     proposition_creator_type_id=2, proposition_domain_id=8,
     proposition_kind_id=1, proposition_rating_id=1,
-    proposition_status_id=7,proposition_taker_id=2,
+    proposition_status_id=7,proposition_taker_id=3,
     proposition_discussion_id = Discussion.objects.all().last().id
 )
 
-#### PROPOSITION ####
+#### Discussion ####
 
 Discussion.objects.create(
     id=15,
