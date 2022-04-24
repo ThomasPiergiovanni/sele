@@ -49,6 +49,7 @@ class CollectivityDashboardViewTest(TestCase):
         self.assertIsInstance(
             response.context['discussion_pag_obj'][0], Discussion
         )
+        self.assertEqual(response.context['collectivity_p_counts'], 15)
 
 
     def test_get_with_nominal_scenario_with_voting(self):

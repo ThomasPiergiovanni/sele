@@ -20,7 +20,8 @@ class CollectivityDashboardView(LoginRequiredMixin, View):
             'custom_users_p_counts': None,
             'proposition_pag_obj': None,
             'discussion_pag_obj': None,
-            'voting_pag_obj': None
+            'voting_pag_obj': None,
+            'collectivity_p_counts': None
         }
 
     def get(self, request):

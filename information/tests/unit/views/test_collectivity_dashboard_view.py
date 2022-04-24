@@ -2,9 +2,14 @@
 """
 from django.test import TestCase
 
+# Comment required for avoiding SystemCheckError during tests
+from chat.models.comment import Comment 
 from information.views.collectivity_dashboard_view import (
     CollectivityDashboardView
 )
+# Vote required for avoiding SystemCheckError during tests
+from vote.models.vote import Vote
+
 
 class CollectivityDashboardViewTest(TestCase):
     """TestCollectivityDashboardView class.
@@ -27,4 +32,5 @@ class CollectivityDashboardViewTest(TestCase):
         self.assertIsNone(self.view.context['custom_users_p_counts'])
         self.assertIsNone(self.view.context['proposition_pag_obj'])
         self.assertIsNone(self.view.context['discussion_pag_obj'])        
-        self.assertIsNone(self.view.context['voting_pag_obj'])  
+        self.assertIsNone(self.view.context['voting_pag_obj'])
+        self.assertIsNone(self.view.context['collectivity_p_counts']) 

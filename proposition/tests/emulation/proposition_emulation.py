@@ -381,8 +381,6 @@ class PropositionEmulation():
             proposition_discussion_id=1
         ),
 
-    
-
     def emulate_rating(self):
         """
         """

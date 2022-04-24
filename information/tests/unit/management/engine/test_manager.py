@@ -48,7 +48,8 @@ class TestManager(TestCase):
             'custom_users_p_counts': None,
             'proposition_pag_obj': None,
             'discussion_pag_obj': None,
-            'voting_pag_obj': None
+            'voting_pag_obj': None,
+            'collectivity_p_counts': None
         }
         context = (
             self.manager.set_collectivity_dashboard_context(request, context)
@@ -57,6 +58,7 @@ class TestManager(TestCase):
         self.assertEqual(context['custom_users_p_counts'][0]['count'], 15)
         self.assertIsInstance(context['proposition_pag_obj'][0], Proposition)
         self.assertIsInstance(context['discussion_pag_obj'][0], Discussion)
+        self.assertEqual(context['collectivity_p_counts'], 15)
 
     def test_set_collectivity_dashboard_context_with_voting(self):
         self.vote_emulation.emulate_voting()
@@ -81,7 +83,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         page_objects = (
-            self.manager._Manager__set_custom_user_page_obj_context(request)
+            self.manager._Manager__set_custom_user_page_obj(request)
         )
         self.assertIsInstance(page_objects[0], CustomUser)
         self.assertEqual(page_objects[0].id, 3)
@@ -96,6 +98,19 @@ class TestManager(TestCase):
         )
         self.assertEqual(custom_users[0].id, 3)
         self.assertEqual(custom_users[1].id, 1)
+    
+    def test_set_page_objects(self):
+        self.proposition_emulation.emulate_proposition()
+        custom_users = CustomUser.objects.all().order_by('-balance')
+        request = RequestFactory().get('',)        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user     
+        page_objects = self.manager._Manager__set_page_objects(
+            request, custom_users
+        )
+        self.assertIsInstance(page_objects[0], CustomUser)
+        self.assertEqual(page_objects[0].id, 3)
+
 
     def test_custom_users_p_counts_with(self):
         self.proposition_emulation.emulate_proposition()
@@ -103,7 +118,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         custom_user_p_counts = (
-            self.manager._Manager__set_custom_user_p_counts_context(request)
+            self.manager._Manager__set_custom_user_proposition_counts(request)
         )
         self.assertEqual(custom_user_p_counts[0]['id'], 1)
         self.assertEqual(custom_user_p_counts[0]['count'], 15)
@@ -116,7 +131,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         page_objects = (
-            self.manager._Manager__set_proposition_page_obj_context(request)
+            self.manager._Manager__set_proposition_page_obj(request)
         )
         self.assertIsInstance(page_objects[0], Proposition)
         self.assertEqual(page_objects[0].id, 17)
@@ -138,7 +153,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         page_objects = (
-            self.manager._Manager__set_discussion_page_obj_context(request)
+            self.manager._Manager__set_discussion_page_obj(request)
         )
         self.assertIsInstance(page_objects[0], Discussion)
         self.assertEqual(page_objects[0].id, 3)
@@ -160,7 +175,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         page_objects = (
-            self.manager._Manager__set_voting_page_obj_context(request)
+            self.manager._Manager__set_voting_page_obj(request)
         )
         self.assertIsInstance(page_objects[0], Voting)
         self.assertEqual(page_objects[0].id, 3)
@@ -175,6 +190,16 @@ class TestManager(TestCase):
         )
         self.assertEqual(votings[0].id, 3)
         self.assertEqual(votings[1].id, 1)
+
+    def test_collectivity_proposition_counts(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().get('',)        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user  
+        collectivity_proposition_counts = (
+            self.manager._Manager__set_collectivity_proposition_counts(request)
+        )
+        self.assertEqual(collectivity_proposition_counts, 15)
 
 
     #     self.proposition_emulation.emulate_proposition()

@@ -14,29 +14,26 @@ class Manager():
 
     def set_collectivity_dashboard_context(self, request, context):
         context['custom_user_pag_obj'] = (
-            self.__set_custom_user_page_obj_context(request)
+            self.__set_custom_user_page_obj(request)
         )
         context['custom_users_p_counts'] = (
-            self.__set_custom_user_p_counts_context(request)
+            self.__set_custom_user_proposition_counts(request)
         )
         context['proposition_pag_obj'] = (
-            self.__set_proposition_page_obj_context(request)
+            self.__set_proposition_page_obj(request)
         )
-        context['discussion_pag_obj'] = (
-            self.__set_discussion_page_obj_context(request)
-        )
-        context['voting_pag_obj'] = (self.__set_voting_page_obj_context(request)
+        context['discussion_pag_obj'] = self.__set_discussion_page_obj(request)
+        context['voting_pag_obj'] = self.__set_voting_page_obj(request)
+        context['collectivity_p_counts'] = (
+            self.__set_collectivity_proposition_counts(request)
         )
         return context
 
-    def __set_custom_user_page_obj_context(self, request):
+    def __set_custom_user_page_obj(self, request):
         """This method returns Custom User page objects.
         """
         custom_users = self.__get_custom_user_queryset(request)
-        paginator = Paginator(custom_users, 5)
-        page_number = request.GET.get('page')
-        page_objects = paginator.get_page(page_number)
-        return page_objects
+        return self.__set_page_objects(request, custom_users)
 
     def __get_custom_user_queryset(self, request):
         """This method returns a queryset of Custom User.
@@ -47,8 +44,14 @@ class Manager():
             ).order_by('-balance')[:25]
         )
         return queryset
+    
+    def __set_page_objects(self, request, objects):
+        paginator = Paginator(objects, 5)
+        page_number = request.GET.get('page')
+        page_objects = paginator.get_page(page_number)
+        return page_objects
 
-    def __set_custom_user_p_counts_context(self, request):
+    def __set_custom_user_proposition_counts(self, request):
         """This method returns a list of dictionnary items. Dictionnary keys 
         are custom user id and the counts of propositions involving that
         same custom user.
@@ -72,12 +75,9 @@ class Manager():
             custom_user_p_counts.append(custom_user_p_count)
         return custom_user_p_counts
 
-    def __set_proposition_page_obj_context(self, request):
+    def __set_proposition_page_obj(self, request):
         propositions = self.__get_proposition_queryset(request)
-        paginator = Paginator(propositions, 5)
-        page_number = request.GET.get('page')
-        page_objects = paginator.get_page(page_number)
-        return page_objects
+        return self.__set_page_objects(request, propositions)
 
     def __get_proposition_queryset(self, request):
         queryset = (
@@ -88,12 +88,9 @@ class Manager():
         )
         return queryset
 
-    def __set_discussion_page_obj_context(self, request):
+    def __set_discussion_page_obj(self, request):
         discussions = self.__get_discussion_queryset(request)
-        paginator = Paginator(discussions, 5)
-        page_number = request.GET.get('page')
-        page_objects = paginator.get_page(page_number)
-        return page_objects
+        return self.__set_page_objects(request, discussions)
 
     def __get_discussion_queryset(self, request):
         queryset = (
@@ -105,12 +102,9 @@ class Manager():
         )
         return queryset
 
-    def __set_voting_page_obj_context(self, request):
+    def __set_voting_page_obj(self, request):
         votings = self.__get_voting_queryset(request)
-        paginator = Paginator(votings, 5)
-        page_number = request.GET.get('page')
-        page_objects = paginator.get_page(page_number)
-        return page_objects
+        return self.__set_page_objects(request, votings)
 
     def __get_voting_queryset(self, request):
         queryset = (
@@ -120,3 +114,12 @@ class Manager():
             ).order_by('-creation_date')[:25]
         )
         return queryset
+
+    def __set_collectivity_proposition_counts(self, request):
+        """This method returns the counts of propositions for the custom user 
+        collectivity.
+        """
+        proposition_counts = Proposition.objects.filter(
+            proposition_creator_id__collectivity_id=request.user.collectivity
+        ).count()
+        return proposition_counts
