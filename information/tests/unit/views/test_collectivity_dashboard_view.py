@@ -27,4 +27,4 @@ class CollectivityDashboardViewTest(TestCase):
         self.assertIsNone(self.view.context['custom_users_p_counts'])
         self.assertIsNone(self.view.context['proposition_pag_obj'])
         self.assertIsNone(self.view.context['discussion_pag_obj'])        
-        self.assertIsNone(self.view.context['votation_pag_obj'])  
+        self.assertIsNone(self.view.context['voting_pag_obj'])  

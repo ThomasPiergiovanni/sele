@@ -348,7 +348,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-vote-yea mr-1"></i>
-                  Votes
+                  Votations
                 </h3>
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -371,67 +371,57 @@
                       <tr>
                         <th>#</th>
                         <th>Question</th>
-                        <th>Date</th>
+                        <th class="text-center">Date de création</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
+                      {% for voting in voting_pag_obj%}
                       <tr>
-                        <td>1</td>
-                        <td>Demande-t-on le nettoyage du mur Rue du Bac?</td>
-                        <td>10-01-2022</td>
                         <td>
-                          <a href="#" role="button">
+                          {{voting.id}}
+                        </td>
+                        <td>
+                          {{voting.question}}
+                        </td>
+                        <td class="text-center">
+                          {{voting.creation_date}}
+                        </td>
+                        <td>
+                          <a href="{% url 'vote:detailed_voting' id_voting=voting.id %}" role="button">
                             <button type="button"
                               class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
                           </a>
                         </td>
-                      <tr>
-                        <td>2</td>
-                        <td>Organise-t-on une journée porte ouverte?</td>
-                        <td>23-03-2021</td>
-                        <td>
-                          <a href="#" role="button">
-                            <button type="button"
-                              class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
-                          </a>
-                        </td>
-          
                       </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Créée-t-on une association sel?</td>
-                        <td>15-10-2021</td>
-                        <td>
-                          <a href="#" role="button">
-                            <button type="button"
-                              class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
-                          </a>
-                        </td>
-          
-                      </tr>
+                      {% endfor%}
                     </tbody>
                   </table>
                 </div>
+
               </div>
               <!-- /.card-body-->
 
               <div class="card-footer bg-white clearfix">
-                <div class="row mb-4">
-                  <div class="col-sm-6 col-md-7 col-lg-6 col-xl-7"></div>
-                  <div class="col-sm-6 col-md-5 col-lg-6 col-xl-5">
-                    <a href="#" role="button">
-                      <button type="button" class="btn btn-block btn-success btn-sm">Nouvelle votation</button>
-                    </a>
+                <div class="row align-items-end text-center">
+                  <div class="col">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                      {% if voting_pag_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_objects.previous_page_number }}">&laquo;</a></li>
+                      {% endif %}
+                      {% for i in voting_pag_obj.paginator.page_range %}
+                        {% if voting_pag_obj.number == i %}
+                          <li class="page-item active"><a class="page-link" href=?page="{{ i }}">{{i}}</a></li>
+                        {% else %}
+                          <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if voting_pag_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_objects.next_page_number }}">&raquo;</a></li>
+                      {% endif %}
+                    </ul>
                   </div>
                 </div>
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
               </div>
               <!-- /.card-footer-->
             </div>

@@ -20,22 +20,13 @@ class CollectivityDashboardView(LoginRequiredMixin, View):
             'custom_users_p_counts': None,
             'proposition_pag_obj': None,
             'discussion_pag_obj': None,
-            'votation_pag_obj': None
+            'voting_pag_obj': None
         }
 
     def get(self, request):
         """Home page view method on client get request.
         """
-        self.context['custom_user_pag_obj'] = (
-            self.manager.set_custom_user_page_obj_context(request)
-        )
-        self.context['custom_users_p_counts'] = (
-            self.manager.set_custom_user_p_counts_context(request)
-        )
-        self.context['proposition_pag_obj'] = (
-            self.manager.set_proposition_page_obj_context(request)
-        )
-        self.context['discussion_pag_obj'] = (
-            self.manager.set_discussion_page_obj_context(request)
+        self.context = self.manager.set_collectivity_dashboard_context(
+            request, self.context
         )
         return render(request, self.view_template, self.context)
