@@ -21,7 +21,10 @@ class CollectivityDashboardView(LoginRequiredMixin, View):
             'proposition_pag_obj': None,
             'discussion_pag_obj': None,
             'voting_pag_obj': None,
-            'collectivity_p_counts': None
+            'collectivity_p_counts': None,
+            'collectivity_cu_counts': None,
+            'collectivity_d_counts': None,
+            'collectivity_v_counts': None
         }
 
     def get(self, request):

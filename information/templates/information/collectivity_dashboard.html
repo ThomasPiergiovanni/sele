@@ -37,8 +37,7 @@
             <!-- small box -->
             <div class="small-box bg-white ">
               <div class="inner">
-                <h3>9</h3>
-
+                <h3>{{collectivity_cu_counts}}</h3>
                 <p>Nombre d'utilisateurs</p>
               </div>
               <div class="icon">
@@ -51,8 +50,7 @@
             <!-- small box -->
             <div class="small-box bg-white">
               <div class="inner">
-                <h3>3</h3>
-
+                <h3>{{collectivity_d_counts}}</h3>
                 <p>Nombre de discussions</p>
               </div>
               <div class="icon">
@@ -65,8 +63,7 @@
             <!-- small box -->
             <div class="small-box bg-white">
               <div class="inner">
-                <h3>2</h3>
-
+                <h3>{{collectivity_v_counts}}</h3>
                 <p>Nombre de votes</p>
               </div>
               <div class="icon">
@@ -151,7 +148,7 @@
                   <div class="col">
                     <ul class="pagination pagination-sm m-0 float-right">
                       {% if custom_user_pag_obj.has_previous %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_objects.previous_page_number }}">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ custom_user_pag_obj.previous_page_number }}">&laquo;</a></li>
                       {% endif %}
                       {% for i in custom_user_pag_obj.paginator.page_range %}
                         {% if custom_user_pag_obj.number == i %}
@@ -161,7 +158,7 @@
                         {% endif %}
                       {% endfor %}
                       {% if custom_user_pag_obj.has_next %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_objects.next_page_number }}">&raquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ custom_user_pag_obj.next_page_number }}">&raquo;</a></li>
                       {% endif %}
                     </ul>
                   </div>
@@ -245,7 +242,7 @@
                   <div class="col">
                     <ul class="pagination pagination-sm m-0 float-right">
                       {% if proposition_pag_obj.has_previous %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_objects.previous_page_number }}">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ proposition_pag_obj.previous_page_number }}">&laquo;</a></li>
                       {% endif %}
                       {% for i in proposition_pag_obj.paginator.page_range %}
                         {% if proposition_pag_obj.number == i %}
@@ -255,7 +252,7 @@
                         {% endif %}
                       {% endfor %}
                       {% if proposition_pag_obj.has_next %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_objects.next_page_number }}">&raquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ proposition_pag_obj.next_page_number }}">&raquo;</a></li>
                       {% endif %}
                     </ul>
                   </div>
@@ -320,7 +317,7 @@
                   <div class="col">
                     <ul class="pagination pagination-sm m-0 float-right">
                       {% if discussion_pag_obj.has_previous %}
-                      <li class="page-item"><a class="page-link" href="?page={{ page_objects.previous_page_number }}">&laquo;</a></li>
+                      <li class="page-item"><a class="page-link" href="?page={{ discussion_pag_obj.previous_page_number }}">&laquo;</a></li>
                       {% endif %}
                       {% for i in discussion_pag_obj.paginator.page_range %}
                       {% if discussion_pag_obj.number == i %}
@@ -330,7 +327,7 @@
                       {% endif %}
                       {% endfor %}
                       {% if discussion_pag_obj.has_next %}
-                      <li class="page-item"><a class="page-link" href="?page={{ page_objects.next_page_number }}">&raquo;</a></li>
+                      <li class="page-item"><a class="page-link" href="?page={{ discussion_pag_obj.next_page_number }}">&raquo;</a></li>
                       {% endif %}
                     </ul>
                   </div>
@@ -406,7 +403,7 @@
                   <div class="col">
                     <ul class="pagination pagination-sm m-0 float-right">
                       {% if voting_pag_obj.has_previous %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_objects.previous_page_number }}">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ voting_pag_obj.previous_page_number }}">&laquo;</a></li>
                       {% endif %}
                       {% for i in voting_pag_obj.paginator.page_range %}
                         {% if voting_pag_obj.number == i %}
@@ -416,7 +413,7 @@
                         {% endif %}
                       {% endfor %}
                       {% if voting_pag_obj.has_next %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_objects.next_page_number }}">&raquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ voting_pag_obj.next_page_number }}">&raquo;</a></li>
                       {% endif %}
                     </ul>
                   </div>

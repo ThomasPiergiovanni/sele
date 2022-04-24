@@ -50,6 +50,8 @@ class CollectivityDashboardViewTest(TestCase):
             response.context['discussion_pag_obj'][0], Discussion
         )
         self.assertEqual(response.context['collectivity_p_counts'], 15)
+        self.assertEqual(response.context['collectivity_cu_counts'], 2)
+        self.assertEqual(response.context['collectivity_d_counts'], 3)
 
 
     def test_get_with_nominal_scenario_with_voting(self):
@@ -63,6 +65,7 @@ class CollectivityDashboardViewTest(TestCase):
             response, 'information/collectivity_dashboard.html'
         )
         self.assertIsInstance(response.context['voting_pag_obj'][0], Voting)
+        self.assertEqual(response.context['collectivity_v_counts'], 2)
 
     def test_get_with_alternative_scenario(self):
         self.proposition_emulation.emulate_proposition()

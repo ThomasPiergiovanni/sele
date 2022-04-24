@@ -12,11 +12,6 @@ from authentication.tests.emulation.authentication_emulation import (
 # from chat.models.comment import Comment
 from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
-# from proposition.forms.proposition_form import PropositionForm
-# from proposition.models.category import Category
-# from proposition.models.creator_type import CreatorType
-# from proposition.models.domain import Domain
-# from proposition.models.kind import Kind
 from proposition.models.proposition import Proposition
 # from proposition.models.status import Status
 from proposition.tests.emulation.proposition_emulation import (
@@ -49,7 +44,9 @@ class TestManager(TestCase):
             'proposition_pag_obj': None,
             'discussion_pag_obj': None,
             'voting_pag_obj': None,
-            'collectivity_p_counts': None
+            'collectivity_p_counts': None,
+            'collectivity_cu_counts': None,
+            'collectivity_d_counts': None
         }
         context = (
             self.manager.set_collectivity_dashboard_context(request, context)
@@ -59,6 +56,8 @@ class TestManager(TestCase):
         self.assertIsInstance(context['proposition_pag_obj'][0], Proposition)
         self.assertIsInstance(context['discussion_pag_obj'][0], Discussion)
         self.assertEqual(context['collectivity_p_counts'], 15)
+        self.assertEqual(context['collectivity_cu_counts'], 2)
+        self.assertEqual(context['collectivity_d_counts'], 3)
 
     def test_set_collectivity_dashboard_context_with_voting(self):
         self.vote_emulation.emulate_voting()
@@ -70,12 +69,14 @@ class TestManager(TestCase):
             'custom_users_p_counts': None,
             'proposition_pag_obj': None,
             'discussion_pag_obj': None,
-            'voting_pag_obj': None
+            'voting_pag_obj': None,
+            'collectivity_v_counts': None
         }
         context = (
             self.manager.set_collectivity_dashboard_context(request, context)
         )
         self.assertIsInstance(context['voting_pag_obj'][0], Voting)
+        self.assertEqual(context['collectivity_v_counts'], 2)
 
     def test_set_custom_user_page_obj_context(self):
         self.proposition_emulation.emulate_proposition()
@@ -201,6 +202,35 @@ class TestManager(TestCase):
         )
         self.assertEqual(collectivity_proposition_counts, 15)
 
+    def test_collectivity_proposition_counts(self):
+        self.auth_emulation.emulate_custom_user()
+        request = RequestFactory().get('',)        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user  
+        collectivity_custom_user_counts = (
+            self.manager._Manager__set_collectivity_custom_user_counts(request)
+        )
+        self.assertEqual(collectivity_custom_user_counts, 2)
+
+    def test_collectivity_discussion_counts(self):
+        self.proposition_emulation.emulate_proposition()
+        request = RequestFactory().get('',)        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user  
+        collectivity_discussion_counts = (
+            self.manager._Manager__set_collectivity_discussion_counts(request)
+        )
+        self.assertEqual(collectivity_discussion_counts, 3)
+
+    def test_collectivity_votings_counts(self):
+        self.vote_emulation.emulate_voting()
+        request = RequestFactory().get('',)        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user  
+        collectivity_voting_counts = (
+            self.manager._Manager__set_collectivity_voting_counts(request)
+        )
+        self.assertEqual(collectivity_voting_counts, 2)
 
     #     self.proposition_emulation.emulate_proposition()
     #     request = RequestFactory().get('', data={'page': 1})        

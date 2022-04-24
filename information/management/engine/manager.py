@@ -27,6 +27,15 @@ class Manager():
         context['collectivity_p_counts'] = (
             self.__set_collectivity_proposition_counts(request)
         )
+        context['collectivity_cu_counts'] = (
+            self.__set_collectivity_custom_user_counts(request)
+        )
+        context['collectivity_d_counts'] = (
+            self.__set_collectivity_discussion_counts(request)
+        )
+        context['collectivity_v_counts'] = (
+            self.__set_collectivity_voting_counts(request)
+        )
         return context
 
     def __set_custom_user_page_obj(self, request):
@@ -123,3 +132,33 @@ class Manager():
             proposition_creator_id__collectivity_id=request.user.collectivity
         ).count()
         return proposition_counts
+
+    def __set_collectivity_custom_user_counts(self, request):
+        """This method returns the counts of custom user for the custom user 
+        collectivity.
+        """
+        custom_user_counts = CustomUser.objects.filter(
+            collectivity_id=request.user.collectivity
+        ).count()
+        return custom_user_counts
+
+    def __set_collectivity_discussion_counts(self, request):
+        """This method returns the counts of discussion for the custom user 
+        collectivity. Only discussion of discussion type == None are returned.
+        """
+        discussion_counts = Discussion.objects.filter(
+            discussion_custom_user_id__collectivity_id=
+            request.user.collectivity,
+            discussion_discussion_type_id__exact=None,
+        ).count()
+        return discussion_counts
+
+    def __set_collectivity_voting_counts(self, request):
+        """This method returns the counts of voting for the custom user 
+        collectivity. Only discussion of discussion type == None are returned.
+        """
+        voting_counts = Voting.objects.filter(
+            voting_custom_user_id__collectivity_id=
+            request.user.collectivity,
+        ).count()
+        return voting_counts
