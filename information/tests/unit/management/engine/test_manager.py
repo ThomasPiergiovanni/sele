@@ -1,19 +1,22 @@
 """Test manager module.
 """
+from datetime import date
 from django.contrib.auth import authenticate
-from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import RequestFactory, TestCase
+from django.utils import timezone
+from json import loads
 
 from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
-# from chat.forms.comment_form import CommentForm
-# from chat.models.comment import Comment
 from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
+from collectivity.tests.emulation.collectivity_emulation import (
+    CollectivityEmulation
+)
+from config.settings import MAPBOX_TOKEN
 from proposition.models.proposition import Proposition
-# from proposition.models.status import Status
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )
@@ -27,11 +30,58 @@ class TestManager(TestCase):
     """Test Manager  class.
     """
     def setUp(self):
+        self.collectivty_emulation = CollectivityEmulation()
         self.auth_emulation = AuthenticationEmulation()
         self.proposition_emulation = PropositionEmulation()
         self.chat_emulation = ChatEmulation()
         self.vote_emulation = VoteEmulation()
         self.manager = Manager()
+
+    def test_set_home_context(self):
+        self.proposition_emulation.emulate_proposition()
+        self.collectivty_emulation.emulate_collectivity()
+        context = {
+            'mapbox_url': None,
+            'vector_layer': None,
+            'stats_data': None
+        }
+        context = (
+            self.manager.set_home_context(context)
+        )
+        mapbox_url = loads(context['mapbox_url'])
+        vector_layer = loads(context['vector_layer'])
+        stats_data = loads(context['stats_data'])
+        today = date.today()
+        today = today.replace(day=1)
+        self.assertEqual(
+            mapbox_url['url'],
+            'https://api.mapbox.com/styles/v1/thomaspiergiovanni/ckmm3'+
+            'kryyu79j17ptmgsmg9c9/tiles/{z}/{x}/{y}?access_token=' +
+            MAPBOX_TOKEN
+        )
+        self.assertEqual(
+            vector_layer['features'][0]['properties']['name'], 'Bourg-la-Reine'
+        )
+        self.assertEqual(stats_data['labels'][5],
+        str(today.month)+"-"+str(today.year))
+    
+    def test_set_mapboxurl_json(self):
+        data  = self.manager._Manager__set_mapboxurl_json() 
+        data = loads(data)
+        self.assertEqual(
+            data['url'],
+            'https://api.mapbox.com/styles/v1/thomaspiergiovanni/ckmm3'+
+            'kryyu79j17ptmgsmg9c9/tiles/{z}/{x}/{y}?access_token=' +
+            MAPBOX_TOKEN
+        )
+
+    def test_set_vectorlayer_geojson(self):
+        self.collectivty_emulation.emulate_collectivity()
+        data  = self.manager._Manager__set_vectorlayer_geojson() 
+        data = loads(data)
+        self.assertEqual(
+            data['features'][0]['properties']['name'], 'Bourg-la-Reine'
+        )
 
     def test_set_collectivity_dashboard_context_with_cus_user_prop_dis(self):
         self.proposition_emulation.emulate_proposition()
@@ -119,7 +169,7 @@ class TestManager(TestCase):
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
         custom_user_p_counts = (
-            self.manager._Manager__set_custom_user_proposition_counts(request)
+            self.manager._Manager__set_custom_user_p_counts(request)
         )
         self.assertEqual(custom_user_p_counts[0]['id'], 1)
         self.assertEqual(custom_user_p_counts[0]['count'], 15)
@@ -192,25 +242,25 @@ class TestManager(TestCase):
         self.assertEqual(votings[0].id, 3)
         self.assertEqual(votings[1].id, 1)
 
-    def test_collectivity_proposition_counts(self):
+    def test_collectivity_p_counts(self):
         self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
-        collectivity_proposition_counts = (
-            self.manager._Manager__set_collectivity_proposition_counts(request)
+        collectivity_p_counts = (
+            self.manager._Manager__set_collectivity_p_counts(request)
         )
-        self.assertEqual(collectivity_proposition_counts, 15)
+        self.assertEqual(collectivity_p_counts, 15)
 
-    def test_collectivity_proposition_counts(self):
+    def test_collectivity_cu_counts(self):
         self.auth_emulation.emulate_custom_user()
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
-        collectivity_custom_user_counts = (
-            self.manager._Manager__set_collectivity_custom_user_counts(request)
+        collectivity_cu_counts = (
+            self.manager._Manager__set_collectivity_cu_counts(request)
         )
-        self.assertEqual(collectivity_custom_user_counts, 2)
+        self.assertEqual(collectivity_cu_counts, 2)
 
     def test_collectivity_discussion_counts(self):
         self.proposition_emulation.emulate_proposition()

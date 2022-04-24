@@ -112,10 +112,30 @@ $(function () {
     height: '250px'
   })
 
+  function loadJson(tag, key_name) {
+    return JSON.parse(document.querySelector(tag).getAttribute(key_name));
+  }
+
+  // Function allowing to get value context['mapbox_url']['url']
+  function getMonth(data) {
+    return data.labels;
+  }
+
+  function getCustomUserCounts(data) {
+    return data.cu_counts;
+  }
+  function getPropositionCounts(data) {
+    return data.p_counts;
+  }
+
+  var jsonData = loadJson('#lineChart', 'tp-json');
+  var t_month = getMonth(jsonData);
+  var t_cu_counts = getCustomUserCounts(jsonData)
+  var t_p_counts = getPropositionCounts(jsonData)
 
 //Thomas
   var areaChartData = {
-    labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin'],
+    labels: t_month,
     datasets: [
       {
         label: 'Utilisateurs',
@@ -126,7 +146,7 @@ $(function () {
         pointStrokeColor: 'rgba(2,117,216,1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [28, 48, 40, 19, 86, 27]
+        data: t_cu_counts
       },
       {
         label: 'Propositions',
@@ -137,7 +157,7 @@ $(function () {
         pointStrokeColor: '#c1c7d1',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(220,220,220,1)',
-        data: [65, 59, 80, 81, 56, 55]
+        data: t_p_counts
       },
     ]
   }

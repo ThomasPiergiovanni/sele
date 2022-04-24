@@ -9,15 +9,13 @@ from information.views.home_view import HomeView
 class TestHomeView(TestCase):
     """Test home view class.
     """
-    @classmethod
-    def setUpTestData(cls):
-        cls.home_view = HomeView()
+    def setUp(self):
+        self.view = HomeView()
 
-    def test_init__with_index_view(self):
-        self.assertTrue(self.home_view)
+    def test_init_with_deatile_voting_view_instance(self):
+        self.assertTrue(self.view)
 
-    def test_init_with_attr_data_render(self):
-        self.assertEqual(
-            self.home_view.render,
-            'information/home.html'
-        )
+    def test_init_with_attr(self):
+        self.assertEqual(self.view.view_template,'information/home.html')
+        self.assertIsNone(self.view.context['mapbox_url'])
+        self.assertIsNone(self.view.context['vector_layer'])

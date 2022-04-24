@@ -28,7 +28,7 @@ class CollectivityDashboardView(LoginRequiredMixin, View):
         }
 
     def get(self, request):
-        """Home page view method on client get request.
+        """CollectivityDashboard page view method on client get request.
         """
         self.context = self.manager.set_collectivity_dashboard_context(
             request, self.context
