@@ -1,6 +1,6 @@
 """Test manager module.
 """
-from datetime import date
+from datetime import date, timedelta
 from django.contrib.auth import authenticate
 from django.test import RequestFactory, TestCase
 from django.utils import timezone
@@ -36,6 +36,27 @@ class TestManager(TestCase):
         self.chat_emulation = ChatEmulation()
         self.vote_emulation = VoteEmulation()
         self.manager = Manager()
+    
+    def emulate_ref_date(self):
+        today = timezone.now()
+        return today.replace(day=1)
+    
+    def emulate_ref_dates(self):
+        ref_date = self.emulate_ref_date()
+        def previous_date(d):
+            ld = d - timedelta(days=1)
+            previous_date = ld.replace(day=1)
+            return previous_date
+        ref_date_1 = previous_date(ref_date)
+        ref_date_2 = previous_date(ref_date_1)
+        ref_date_3 = previous_date(ref_date_2)
+        ref_date_4 = previous_date(ref_date_3)
+        ref_date_5 = previous_date(ref_date_4)
+        ref_dates = {
+            'r0': ref_date,'r1': ref_date_1,'r2': ref_date_2, 'r3': ref_date_3,
+            'r4': ref_date_4,'r5': ref_date_5
+        }
+        return ref_dates
 
     def test_set_home_context(self):
         self.proposition_emulation.emulate_proposition()
@@ -51,8 +72,7 @@ class TestManager(TestCase):
         mapbox_url = loads(context['mapbox_url'])
         vector_layer = loads(context['vector_layer'])
         stats_data = loads(context['stats_data'])
-        today = date.today()
-        today = today.replace(day=1)
+        ref_date = self.emulate_ref_date()
         self.assertEqual(
             mapbox_url['url'],
             'https://api.mapbox.com/styles/v1/thomaspiergiovanni/ckmm3'+
@@ -63,7 +83,7 @@ class TestManager(TestCase):
             vector_layer['features'][0]['properties']['name'], 'Bourg-la-Reine'
         )
         self.assertEqual(stats_data['labels'][5],
-        str(today.month)+"-"+str(today.year))
+        str(ref_date.month)+"-"+str(ref_date.year))
     
     def test_set_mapboxurl_json(self):
         data  = self.manager._Manager__set_mapboxurl_json() 
@@ -82,6 +102,46 @@ class TestManager(TestCase):
         self.assertEqual(
             data['features'][0]['properties']['name'], 'Bourg-la-Reine'
         )
+
+    def test_set_stats_data_json_with_label(self):
+        self.proposition_emulation.emulate_proposition()
+        self.collectivty_emulation.emulate_collectivity()
+        ref_date = self.emulate_ref_date()
+        data_json = self.manager._Manager__set_stats_data_json()
+        data_json = loads(data_json)
+        self.assertEqual(
+            data_json['labels'][5],str(ref_date.month)+"-"+str(ref_date.year)
+        )
+
+    def test_set_stats_ref_dates_with_today(self):
+        ref_date = self.emulate_ref_date()
+        ref_dates = self.manager._Manager__set_ref_dates()
+        self.assertEqual(ref_dates['r0'].date(), ref_date.date())
+
+    def test__set_previous_date(self):
+        ref_date = self.emulate_ref_date()
+        last = ref_date - timedelta(days=1)
+        last_first = last.replace(day=1)
+        previous_date = self.manager._Manager__set_previous_date(ref_date)
+        self.assertEqual(previous_date.date(), last_first.date())
+
+    def test_set_stats_label(self):
+        ref_dates = self.emulate_ref_dates()
+        label = self.manager._Manager__set_stats_label(ref_dates)
+        self.assertEqual(
+            label['m_0'],
+            str(ref_dates['r0'].month) + "-" + str(ref_dates['r0'].year)
+        )
+        self.assertEqual(
+            label['m_min_5'],
+            str(ref_dates['r5'].month) + "-" + str(ref_dates['r5'].year)
+        )
+
+    def test_set_mm_yyyy(self):
+        today = timezone.now()
+        r0 = today.replace(day=1)
+        mm_yyyy = self.manager._Manager__set_mm_yyyy(r0)
+        self.assertEqual(mm_yyyy, str(r0.month) + "-" + str(r0.year))      
 
     def test_set_collectivity_dashboard_context_with_cus_user_prop_dis(self):
         self.proposition_emulation.emulate_proposition()
@@ -281,493 +341,3 @@ class TestManager(TestCase):
             self.manager._Manager__set_collectivity_voting_counts(request)
         )
         self.assertEqual(collectivity_voting_counts, 2)
-
-    #     self.proposition_emulation.emulate_proposition()
-    #     request = RequestFactory().get('', data={'page': 1})        
-    #     user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     propositions = self.manager._Manager__get_proposition_queryset(
-    #         request, False
-    #     )
-    #     self.assertEqual(propositions[0].id, 17)
-
-    # def test_set_session_vars_with_search_input(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     request = RequestFactory().post('')
-    #     session_middleware = SessionMiddleware(request)
-    #     session_middleware.process_request(request) 
-    #     self.manager.set_session_vars(request, 'Python')
-    #     self.assertEqual(
-    #         request.session.get('c_p_v_f_search_input'), 'Python'
-    #     )
-
-    # def test_create_proposition_with_proposition_instance(self):
-    #     self.chat_emulation.emulate_discussion()
-    #     self.proposition_emulation.emulate_category()
-    #     self.proposition_emulation.emulate_domain()
-    #     self.proposition_emulation.emulate_kind()
-    #     self.proposition_emulation.emulate_creator_type()
-    #     self.proposition_emulation.emulate_status()
-    #     form_data = {
-    #         'name': 'Cours de Python',
-    #         'description': 'dsdss',
-    #         'proposition_kind': Kind.objects.get(pk=1).id,
-    #         'proposition_category': Category.objects.get(pk=1).id,
-    #         'proposition_domain': Domain.objects.get(pk=1).id,
-    #         'start_date': "2022-01-25",
-    #         'end_date': "2022-01-30",
-    #         'duration': 45,
-    #         'proposition_creator_type': CreatorType.objects.get(pk=1).id
-    #     }
-    #     form = PropositionForm(data=form_data)
-    #     form.is_valid()
-    #     custom_user = CustomUser.objects.get(pk=1)
-    #     self.manager.create_proposition(form, custom_user)
-    #     self.assertEqual(
-    #         Proposition.objects.all().last().name, 'Cours de Python'
-    #     )
-    #     self.assertEqual(
-    #         Proposition.objects.all().last()
-    #         .proposition_discussion.discussion_discussion_type.name,
-    #         'Proposition'
-    #     )
-    
-    # def test_create_discussion(self):
-    #     self.auth_emulation.emulate_custom_user()
-    #     self.chat_emulation.emulate_discussion_type()
-    #     self.proposition_emulation.emulate_category()
-    #     self.proposition_emulation.emulate_domain()
-    #     self.proposition_emulation.emulate_kind()
-    #     self.proposition_emulation.emulate_creator_type()
-    #     self.proposition_emulation.emulate_status()
-    #     form_data = {
-    #         'name': 'Cours de Python',
-    #         'description': 'dsdss',
-    #         'proposition_kind': Kind.objects.get(pk=1).id,
-    #         'proposition_category': Category.objects.get(pk=1).id,
-    #         'proposition_domain': Domain.objects.get(pk=1).id,
-    #         'start_date': "2022-01-25",
-    #         'end_date': "2022-01-30",
-    #         'duration': 45,
-    #         'proposition_creator_type': CreatorType.objects.get(pk=1).id
-    #     }
-    #     form = PropositionForm(data=form_data)
-    #     form.is_valid()
-    #     custom_user = CustomUser.objects.get(pk=1)
-    #     self.manager.create_discussion(form, custom_user)
-    #     self.assertEqual(
-    #         Discussion.objects.all().last()
-    #         .discussion_discussion_type.name,'Proposition'
-    #     )
-
-    
-    # def test_set_read_prop_view_context_with_demand_nouveau_tak_none(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=3)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     context = self.manager.set_read_proposition_view_context(
-    #         request, proposition.id
-    #     )
-    #     self.assertEqual(
-    #         context['btn1_href'], "/proposition/update_proposition/3/"
-    #     )
-    #     self.assertEqual(context['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(context['btn1_text'], "Sélectionner")
-    #     self.assertEqual(context['btn1_value'], "select")
-    #     self.assertEqual(context['proposition'], proposition)
-    #     self.assertEqual(
-    #         context['discussion'],
-    #         proposition.proposition_discussion
-    #     )
-    #     self.assertEqual(
-    #         context['comments'][0],
-    #         Comment.objects.get(pk=1)
-    #     )
-    #     self.assertIsInstance(context['form'], CommentForm)
-
-    # def test_set_read_prop_view_context_with_offer_selectionne_creator(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=16)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     context = self.manager.set_read_proposition_view_context(
-    #         request, proposition.id
-    #     )
-    #     self.assertEqual(
-    #         context['btn1_href'], "/proposition/update_proposition/16/"
-    #     )
-    #     self.assertEqual(context['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(context['btn1_text'], "Commencer")
-    #     self.assertEqual(context['btn1_value'], "inprogress")
-
-    # def test_set_demand_button_with_sta_nouveau_tak_none_cre_not_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=3)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_demand_btn(request, proposition)
-    #     self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/3/")
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Sélectionner")
-    #     self.assertEqual(btn['btn1_value'], "select")
-
-    # def test_set_demand_button_with_sta_selectionne_tak_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=6)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_demand_btn(request, proposition)
-    #     self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/6/")
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-danger")
-    #     self.assertEqual(btn['btn1_text'], "Annuler")
-    #     self.assertEqual(btn['btn1_value'], "new")
-
-    # def test_set_demand_button_with_sta_selectionne_cre_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=6)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_demand_btn(request, proposition)
-    #     self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/6/")
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Confirmer")
-    #     self.assertEqual(btn['btn1_value'], "inprogress")
-
-    # def test_set_demand_button_with_sta_en_cours_tak_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=2)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_demand_btn(request, proposition)
-    #     self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/2/")
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Terminer")
-    #     self.assertEqual(btn['btn1_value'], "realized")
-    #     self.assertEqual(btn['btn2_href'], "/proposition/update_proposition/2/")
-    #     self.assertEqual(btn['btn2_class'],"btn btn-block btn-danger")
-    #     self.assertEqual(btn['btn2_text'], "Annuler")
-    #     self.assertEqual(btn['btn2_value'], "new")
-
-    # def test_set_demand_button_with_sta_realized_cre_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=4)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_demand_btn(request, proposition)
-    #     self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/4/")
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Valider")
-    #     self.assertEqual(btn['btn1_value'], "done")
-    #     self.assertEqual(btn['btn2_href'], "/proposition/update_proposition/4/")
-    #     self.assertEqual(btn['btn2_class'],"btn btn-block btn-danger")
-    #     self.assertEqual(btn['btn2_text'], "Rejeter")
-    #     self.assertEqual(btn['btn2_value'], "rejected")
-
-    # def test_set_demand_button_with_sta_rejected_tak_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=5)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_demand_btn(request, proposition)
-    #     self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/5/")
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Reprendre")
-    #     self.assertEqual(btn['btn1_value'], "inprogress")
-    #     self.assertEqual(btn['btn2_href'], "/proposition/update_proposition/5/")
-    #     self.assertEqual(btn['btn2_class'],"btn btn-block btn-danger")
-    #     self.assertEqual(btn['btn2_text'], "Forcer terminer")
-    #     self.assertEqual(btn['btn2_value'], "done")
-
-    # def test_set_demand_button_with_sta_rejected_cre_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=5)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_demand_btn(request, proposition)
-    #     self.assertEqual(btn['btn1_href'], "/proposition/update_proposition/5/")
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Valider")
-    #     self.assertEqual(btn['btn1_value'], "done")
-
-    # def test_set_demand_button_with_sta_annule_cre_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=1)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_demand_btn(request, proposition)
-    #     self.assertIsNone(btn['btn1_href'])
-    #     self.assertIsNone(btn['btn1_class'])
-    #     self.assertIsNone(btn['btn1_text'])
-    #     self.assertIsNone(btn['btn1_value'])
-
-    # def test_set_btn_dict_with_argument(self):
-    #     btn = self.manager._Manager__set_btn_dict('un', 'deux', 'trois')
-    #     self.assertEqual(btn['btn1_href'],'un')
-    #     self.assertIsNone(btn['btn1_value'])
-
-    # def test_set_check_index_with_list(self):
-    #     items = ['item1', 'item2', 'item3']
-    #     item1 = self.manager._Manager__check_index(items,0)
-    #     item4 = self.manager._Manager__check_index(items,3)
-    #     self.assertIsNotNone(item1)
-    #     self.assertIsNone(item4)
-
-    # def test_set_offer_btn_with_sta_nouveau_tak_none_cre_not_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=13)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_offer_btn(request, proposition)
-    #     self.assertEqual(
-    #         btn['btn1_href'], "/proposition/update_proposition/13/"
-    #     )
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Sélectionner")
-    #     self.assertEqual(btn['btn1_value'], "select")
-
-    # def test_set_offer_btn_with_sta_selectionne_tak_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=16)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_offer_btn(request, proposition)
-    #     self.assertEqual(
-    #         btn['btn1_href'], "/proposition/update_proposition/16/"
-    #     )
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-danger")
-    #     self.assertEqual(btn['btn1_text'], "Annuler")
-    #     self.assertEqual(btn['btn1_value'], "new")
-
-    # def test_set_offer_btn_with_sta_selectionne_cre_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=16)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_offer_btn(request, proposition)
-    #     self.assertEqual(
-    #         btn['btn1_href'], "/proposition/update_proposition/16/"
-    #     )
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Commencer")
-    #     self.assertEqual(btn['btn1_value'], "inprogress")
-
-
-    # def test_set_offer_bun_with_sta_en_cours_cre_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=12)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_offer_btn(request, proposition)
-    #     self.assertEqual(
-    #         btn['btn1_href'], "/proposition/update_proposition/12/"
-    #     )
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Terminer")
-    #     self.assertEqual(btn['btn1_value'], "realized")
-
-    # def test_set_offer_btn_with_sta_realized_tak_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=14)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_offer_btn(request, proposition)
-    #     self.assertEqual(
-    #         btn['btn1_href'], "/proposition/update_proposition/14/"
-    #     )
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Valider")
-    #     self.assertEqual(btn['btn1_value'], "done")
-    #     self.assertEqual(
-    #         btn['btn2_href'], "/proposition/update_proposition/14/"
-    #     )
-    #     self.assertEqual(btn['btn2_class'],"btn btn-block btn-danger")
-    #     self.assertEqual(btn['btn2_text'], "Rejeter")
-    #     self.assertEqual(btn['btn2_value'], "rejected")
-
-    # def test_set_offer_btn_with_sta_rejected_tak_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=15)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_offer_btn(request, proposition)
-    #     self.assertEqual(
-    #         btn['btn1_href'], "/proposition/update_proposition/15/"
-    #     )
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Valider")
-    #     self.assertEqual(btn['btn1_value'], "done")
-
-    # def test_set_offer_btn_with_sta_rejected_cre_user(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=15)
-    #     request = RequestFactory().get('')
-    #     user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-    #     request.user = user     
-    #     btn = self.manager._Manager__set_offer_btn(request, proposition)
-    #     self.assertEqual(
-    #         btn['btn1_href'], "/proposition/update_proposition/15/"
-    #     )
-    #     self.assertEqual(btn['btn1_class'],"btn btn-block btn-success")
-    #     self.assertEqual(btn['btn1_text'], "Reprendre")
-    #     self.assertEqual(btn['btn1_value'], "inprogress")
-    #     self.assertEqual(
-    #         btn['btn2_href'], "/proposition/update_proposition/15/"
-    #     )
-    #     self.assertEqual(btn['btn2_class'],"btn btn-block btn-danger")
-    #     self.assertEqual(btn['btn2_text'], "Forcer terminer")
-    #     self.assertEqual(btn['btn2_value'], "done")
-
-    # def test_set_proposition_status_with_select_taker(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     request = RequestFactory().post(
-    #         '', data={'update_status_button':'select'}
-    #     )
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user
-    #     self.manager.set_proposition_status(request, 3)
-    #     proposition = Proposition.objects.get(pk=3)
-    #     self.assertEqual(proposition.proposition_status.id,6)
-    #     self.assertEqual(
-    #         proposition.proposition_taker.email, 'user3@email.com'
-    #     )
-
-    # def test_set_proposition_status_with_new_taker(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     request = RequestFactory().post(
-    #         '', data={'update_status_button':'new'}
-    #     )
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user
-    #     self.manager.set_proposition_status(request, 1)
-    #     proposition = Proposition.objects.get(pk=1)
-    #     self.assertEqual(proposition.proposition_status.id,3)
-    #     self.assertIsNone(proposition.proposition_taker)
-
-    # def test_set_proposition_status_with_inprogress(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     request = RequestFactory().post(
-    #         '', data={'update_status_button':'inprogress'}
-    #     )
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user
-    #     self.manager.set_proposition_status(request, 6)
-    #     proposition = Proposition.objects.get(pk=6)
-    #     self.assertEqual(proposition.proposition_status.id,2)
-
-    # def test_set_proposition_status_with_realized(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     request = RequestFactory().post(
-    #         '', data={'update_status_button':'realized'}
-    #     )
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user
-    #     self.manager.set_proposition_status(request, 2)
-    #     proposition = Proposition.objects.get(pk=2)
-    #     self.assertEqual(proposition.proposition_status.id,4)
-
-    # def test_set_proposition_status_with_rejected(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     request = RequestFactory().post(
-    #         '', data={'update_status_button':'rejected'}
-    #     )
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user
-    #     self.manager.set_proposition_status(request, 4)
-    #     proposition = Proposition.objects.get(pk=4)
-    #     self.assertEqual(proposition.proposition_status.id,5)
-
-    # def test_set_proposition_status_with_done(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     request = RequestFactory().post(
-    #         '', data={'update_status_button':'done'}
-    #     )
-    #     user = authenticate(email='user3@email.com', password='xxx_Xxxx')
-    #     request.user = user
-    #     self.manager.set_proposition_status(request, 4)
-    #     proposition = Proposition.objects.get(pk=4)
-    #     self.assertEqual(proposition.proposition_status.id,7)
-    #     self.assertEqual(proposition.proposition_creator.balance, 940)
-    #     self.assertEqual(proposition.proposition_taker.balance, 3060)
-    
-    # def test_set_proposition_status_with_selectione(self):
-    #     self.proposition_emulation.emulate_status()
-    #     status = self.manager._Manager__set_status('Sélectionné')
-    #     self.assertEqual(
-    #         Status.objects.get(name__exact='Sélectionné').name,
-    #         status.name
-    #     )
-
-    # def test_set_creator_taker_balance_with_demande_individuelle(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=18)
-    #     self.manager._Manager__set_creator_taker_balance(proposition)
-    #     proposition = Proposition.objects.get(pk=18)
-    #     self.assertEqual(proposition.proposition_creator.balance, 880)
-    #     self.assertEqual(proposition.proposition_taker.balance, 3120)
-    
-    # def test_set_creator_taker_balance_with_demande_collective(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=4)
-    #     self.manager._Manager__set_creator_taker_balance(proposition)
-    #     proposition = Proposition.objects.get(pk=4)
-    #     self.assertEqual(proposition.proposition_creator.balance, 940)
-    #     self.assertEqual(proposition.proposition_taker.balance, 3060)
-
-    # def test_set_custom_users_balances_with_demande_collective(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=4)
-    #     self.manager._Manager__set_custom_users_balances(proposition)
-    #     proposition = Proposition.objects.get(pk=4)
-    #     self.assertEqual(proposition.proposition_creator.balance, 940)
-    #     self.assertEqual(proposition.proposition_taker.balance, 2940)
-
-    # def test_get_discussion_with_proposition_instance(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=1)
-    #     discussion = self.manager._Manager__get_discussion(proposition)
-    #     self.assertEqual(discussion, Discussion.objects.get(pk=1))
-
-    # def test_get_discussion_with_none(self):
-    #     proposition = None
-    #     discussion = self.manager._Manager__get_discussion(proposition)
-    #     self.assertIsNone(discussion)
-
-    # def test_get_comments_with_proposition_instance(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     proposition = Proposition.objects.get(pk=1)
-    #     comments = self.manager._Manager__get_comments(proposition)
-    #     self.assertEqual(comments[0], Comment.objects.get(pk=1))
-
-    # def test_get_comments_with_none(self):
-    #     proposition = None
-    #     comments = self.manager._Manager__get_comments(proposition)
-    #     self.assertIsNone(comments)
-
-    # def test_create_comment(self):
-    #     self.proposition_emulation.emulate_proposition()
-    #     Comment.objects.all().delete()
-    #     form = CommentForm(data={'comment': 'Alors???'})
-    #     form.is_valid()
-    #     custom_user = CustomUser.objects.get(pk=1)
-    #     id_proposition = Proposition.objects.get(pk=1).id
-    #     self.manager.create_comment(form, custom_user, id_proposition)
-    #     self.assertEqual(
-    #         Comment.objects.all().last().comment, 'Alors???'
-    #     )

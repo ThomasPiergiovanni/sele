@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import timedelta
 from django.core.paginator import Paginator
 from django.core.serializers import serialize
 from django.utils import timezone
@@ -48,7 +48,7 @@ class Manager():
     def __set_stats_data_json(self):
         """
         """
-        ref_date = self.__set_ref_date()
+        ref_date = self.__set_ref_dates()
         label = self.__set_stats_label(ref_date)
         cu_counts = self.__set_stats_cu_counts(ref_date)
         p_counts = self.__set_stats_p_counts(ref_date)
@@ -56,24 +56,24 @@ class Manager():
         data_json = dumps(stats_data)
         return data_json
 
-    def __set_ref_date(self):
-        ref_date = {
+    def __set_ref_dates(self):
+        ref_dates = {
             'r0': None,'r1': None,'r2': None, 'r3': None,
             'r4': None,'r5': None
         }
         ref = timezone.now()
-        ref_date['r0'] = ref.replace(day=1)
-        ref_date['r1'] = self.__set_date(ref_date['r0'])
-        ref_date['r2'] = self.__set_date(ref_date['r1'])
-        ref_date['r3'] = self.__set_date(ref_date['r2'])
-        ref_date['r4'] = self.__set_date(ref_date['r3'])
-        ref_date['r5'] = self.__set_date(ref_date['r4'])
-        return ref_date
+        ref_dates['r0'] = ref.replace(day=1)
+        ref_dates['r1'] = self.__set_previous_date(ref_dates['r0'])
+        ref_dates['r2'] = self.__set_previous_date(ref_dates['r1'])
+        ref_dates['r3'] = self.__set_previous_date(ref_dates['r2'])
+        ref_dates['r4'] = self.__set_previous_date(ref_dates['r3'])
+        ref_dates['r5'] = self.__set_previous_date(ref_dates['r4'])
+        return ref_dates
 
-    def __set_date(self, previous_month):
-        month = previous_month - timedelta(days=1)
-        month = month.replace(day=1)
-        return month
+    def __set_previous_date(self, first_day):
+        last_day = first_day - timedelta(days=1)
+        previous_date = last_day.replace(day=1)
+        return previous_date
 
     def __set_stats_label(self, ref_date):
         label = {
