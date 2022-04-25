@@ -141,7 +141,12 @@ class TestManager(TestCase):
         today = timezone.now()
         r0 = today.replace(day=1)
         mm_yyyy = self.manager._Manager__set_mm_yyyy(r0)
-        self.assertEqual(mm_yyyy, str(r0.month) + "-" + str(r0.year))      
+        self.assertEqual(mm_yyyy, str(r0.month) + "-" + str(r0.year))   
+
+    def test_set_stats_cu_counts(self):
+        ref_dates = self.emulate_ref_dates()
+        cu_counts = self.manager._Manager__set_stats_cu_counts(ref_dates)
+        self.assertEqual(cu_counts['cu_0'], 0)
 
     def test_set_collectivity_dashboard_context_with_cus_user_prop_dis(self):
         self.proposition_emulation.emulate_proposition()
