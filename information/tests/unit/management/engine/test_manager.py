@@ -144,9 +144,44 @@ class TestManager(TestCase):
         self.assertEqual(mm_yyyy, str(r0.month) + "-" + str(r0.year))   
 
     def test_set_stats_cu_counts(self):
+        self.auth_emulation.emulate_custom_user()
         ref_dates = self.emulate_ref_dates()
         cu_counts = self.manager._Manager__set_stats_cu_counts(ref_dates)
         self.assertEqual(cu_counts['cu_0'], 0)
+    
+    def test_set_cu_counts(self):
+        self.auth_emulation.emulate_custom_user()
+        ref_date = self.emulate_ref_date()
+        cu_counts = self.manager._Manager__set_cu_counts(ref_date)
+        self.assertEqual(cu_counts, 0)
+
+    def test_set_stats_p_counts(self):
+        self.proposition_emulation.emulate_proposition()
+        ref_dates = self.emulate_ref_dates()
+        p_counts = self.manager._Manager__set_stats_p_counts(ref_dates)
+        self.assertEqual(p_counts['p_0'], 15)
+
+    def test_set_p_counts(self):
+        self.proposition_emulation.emulate_proposition()
+        ref_date = self.emulate_ref_date()
+        p_counts = self.manager._Manager__set_p_counts(ref_date)
+        self.assertEqual(p_counts, 15)
+    
+    def test_set_stats_data(self):
+        label = {
+            'm_0': '04-2022','m_min_1': None,'m_min_2': None, 'm_min_3': None,
+            'm_min_4': None,'m_min_5': '11-2021'
+        }
+        cu_counts = {
+            'cu_0': 4,'cu_min_1': None,'cu_min_2': None, 'cu_min_3': None,
+            'cu_min_4': None,'cu_min_5': 2
+        }
+        p_counts = {
+            'p_0': 6,'p_min_1': None,'p_min_2': None, 'p_min_3': None,
+            'p_min_4': None,'p_min_5': 3
+        }
+        data = self.manager._Manager__set_stats_data(label, cu_counts, p_counts)
+        self.assertEqual(data['p_counts'][0], str(3))
 
     def test_set_collectivity_dashboard_context_with_cus_user_prop_dis(self):
         self.proposition_emulation.emulate_proposition()
