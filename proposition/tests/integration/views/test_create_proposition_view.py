@@ -28,12 +28,10 @@ class CreatePropositionViewTest (TestCase):
         self.auth_emulation = AuthenticationEmulation()
         self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
         self.proposition_emulation = PropositionEmulation()
-        self.proposition_emulation.emulate_category()
-        self.proposition_emulation.emulate_creator_type()
-        self.proposition_emulation.emulate_domain()
-        self.proposition_emulation.emulate_kind()
-        self.proposition_emulation.emulate_status()
+        self.proposition_emulation.emulate_proposition()
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -54,7 +52,8 @@ class CreatePropositionViewTest (TestCase):
         )
 
     def test_post_with_nominal_scenario(self):
-        self.chat_emulation.emulate_discussion_type()
+        propositions = Proposition.objects.all().delete()
+        discussions = Discussion.objects.all().delete()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         form_data = {
             'name': 'Cours de Python',

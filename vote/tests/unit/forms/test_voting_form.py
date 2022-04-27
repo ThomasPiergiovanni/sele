@@ -5,6 +5,10 @@ from django.test import TestCase
 
 from vote.forms.voting_form import VotingForm
 from vote.models.voting_method import VotingMethod
+
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
@@ -12,6 +16,8 @@ class VotingFormTest(TestCase):
     """Test VotingForm form  class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.vote_emulation = VoteEmulation()
         self.vote_emulation.emulate_voting()
         self.form = VotingForm()

@@ -20,7 +20,7 @@ class ChatEmulation():
     def emulate_discussion(self):
         """
         """
-        self.auth_emulation.emulate_custom_user()
+        # self.auth_emulation.emulate_custom_user()
         self.emulate_discussion_type()
         Discussion.objects.create(
             id=1,
@@ -54,7 +54,7 @@ class ChatEmulation():
     def emulate_comment(self):
         """
         """
-        self.emulate_discussion()
+        # self.emulate_discussion()
         timezone.now()
         Comment.objects.create(
             id=1,

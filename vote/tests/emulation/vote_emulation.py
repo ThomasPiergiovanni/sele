@@ -4,9 +4,6 @@ from datetime import datetime
 
 from django.utils import timezone
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from vote.models.vote import Vote
 from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
@@ -15,7 +12,7 @@ class VoteEmulation():
     """Test collectivity class.
     """
     def __init__(self):
-        self.auth_emulation = AuthenticationEmulation()
+        pass
 
     def emulate_voting_method(self):
         """
@@ -26,8 +23,6 @@ class VoteEmulation():
     def emulate_voting(self):
         """
         """
-        self.auth_emulation.emulate_custom_user()
-        self.emulate_voting_method()
         Voting.objects.create(
             id=1,
             question="Voulez-vous créer une demande de nettoyage?",
@@ -89,7 +84,6 @@ class VoteEmulation():
     def emulate_vote(self):
         """
         """
-        self.emulate_voting()
         Vote.objects.create(
             id=1,
             choice=True,

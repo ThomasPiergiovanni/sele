@@ -14,7 +14,7 @@ class HomeView(View):
         self.context = {
             'mapbox_url': None,
             'vector_layer': None,
-            'time_period': None
+            'stats_data': None
         }
 
     def get(self, request):

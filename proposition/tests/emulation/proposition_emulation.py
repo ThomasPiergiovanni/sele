@@ -43,7 +43,7 @@ class PropositionEmulation():
     def emulate_proposition(self):
         """
         """
-        self.chat_emulation.emulate_comment()
+        # self.chat_emulation.emulate_comment()
         self.emulate_category()
         self.emulate_creator_type()
         self.emulate_domain()

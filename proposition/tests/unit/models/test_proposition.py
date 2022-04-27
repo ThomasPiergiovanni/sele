@@ -31,15 +31,18 @@ class PropositionTest(TestCase):
     """
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
         self.proposition_emulation = PropositionEmulation()
+        self.proposition_emulation.emulate_proposition()
 
     def test_propositon_with_discussion_class(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=1)
         self.assertIsInstance(proposition, Proposition)
 
     def test_proposition_with_attr_subject_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('name')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.CharField()))
@@ -47,7 +50,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, False)
 
     def test_proposition_with_attr_description_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('description')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.TextField()))
@@ -55,28 +57,24 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, False)
 
     def test_proposition_with_attr_creation_date_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('creation_date')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.DateTimeField()))
         self.assertEqual(attribute.null, False)
 
     def test_proposition_with_attr_start_date_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('start_date')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.DateField()))
         self.assertEqual(attribute.null, False)
 
     def test_proposition_with_attr_end_date_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('end_date')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.DateField()))
         self.assertEqual(attribute.null, False)
 
     def test_proposition_user_with_attr_duration_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('duration')
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.PositiveIntegerField()))
@@ -86,7 +84,6 @@ class PropositionTest(TestCase):
 
 
     def test_proposition_with_attr_category_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('proposition_category')
         self.assertTrue(attribute)
         self.assertEqual(
@@ -102,7 +99,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, False)
 
     def test_proposition_with_attr_creator_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('proposition_creator')
         self.assertTrue(attribute)
         self.assertEqual(
@@ -118,7 +114,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, False)
 
     def test_proposition_with_attr_creator_type_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('proposition_creator_type')
         self.assertTrue(attribute)
         self.assertEqual(
@@ -134,7 +129,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, False)
 
     def test_proposition_with_attr_domain_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('proposition_domain')
         self.assertTrue(attribute)
         self.assertEqual(
@@ -150,7 +144,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, False)
 
     def test_proposition_with_attr_kind_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('proposition_kind')
         self.assertTrue(attribute)
         self.assertEqual(
@@ -166,7 +159,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, False)
 
     def test_proposition_with_attr_rating_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('proposition_rating')
         self.assertTrue(attribute)
         self.assertEqual(
@@ -182,7 +174,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, True)
 
     def test_proposition_with_attr_status_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('proposition_status')
         self.assertTrue(attribute)
         self.assertEqual(
@@ -198,7 +189,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, False)
 
     def test_proposition_with_attr_taker_characteristic(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('proposition_taker')
         self.assertTrue(attribute)
         self.assertEqual(
@@ -214,7 +204,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, True)
 
     def test_proposition_with_attr_proposition_discussion(self):
-        self.proposition_emulation.emulate_proposition()
         attribute = Proposition._meta.get_field('proposition_discussion')
         self.assertTrue(attribute)
         self.assertEqual(
@@ -230,7 +219,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, False)
  
     def test_proposition_with_emulated_question_instance(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=1)
         self.assertEqual(proposition.name, "DCours1")
         self.assertEqual(
@@ -258,13 +246,7 @@ class PropositionTest(TestCase):
         )
 
     def test_proposition_with_wrong_dates(self):   
-        self.auth_emulation.emulate_custom_user()
-        self.proposition_emulation.emulate_category()
-        self.proposition_emulation.emulate_creator_type()
-        self.proposition_emulation.emulate_domain()
-        self.proposition_emulation.emulate_kind()
-        self.proposition_emulation.emulate_rating()
-        self.proposition_emulation.emulate_status()
+        propositions = Proposition.objects.all().delete()
         proposition = True
         try:
             Proposition.objects.create(
@@ -296,14 +278,8 @@ class PropositionTest(TestCase):
             proposition = False
         self.assertFalse(proposition)
 
-    def test_proposition_with_samecreator_taker(self):   
-        self.auth_emulation.emulate_custom_user()
-        self.proposition_emulation.emulate_category()
-        self.proposition_emulation.emulate_creator_type()
-        self.proposition_emulation.emulate_domain()
-        self.proposition_emulation.emulate_kind()
-        self.proposition_emulation.emulate_rating()
-        self.proposition_emulation.emulate_status()
+    def test_proposition_with_samecreator_taker(self):
+        propositions = Proposition.objects.all().delete()  
         proposition = True
         try:
             Proposition.objects.create(

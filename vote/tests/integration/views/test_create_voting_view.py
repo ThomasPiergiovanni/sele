@@ -4,12 +4,14 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from vote.forms.voting_form import VotingForm
 from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
+from vote.tests.emulation.vote_emulation import VoteEmulation
+
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
@@ -21,6 +23,8 @@ class CreateVotingViewTest(TestCase):
         self.auth_emulation.emulate_custom_user()
         self.vote_emulation = VoteEmulation()
         self.vote_emulation.emulate_voting_method()
+        self.vote_emulation.emulate_voting()
+        self.vote_emulation.emulate_vote()
         self.form_data = {
             'question': 'Ma question est',
             'description': 'dsdss',
@@ -51,6 +55,7 @@ class CreateVotingViewTest(TestCase):
         )
 
     def test_post_with_nominal_scenario(self):
+        Voting.objects.all().delete()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
             '/vote/create_voting/', data=self.form_data, follow=True

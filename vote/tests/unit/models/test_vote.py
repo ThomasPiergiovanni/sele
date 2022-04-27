@@ -8,20 +8,26 @@ from django.utils import timezone
 
 from authentication.models import CustomUser
 
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from vote.tests.emulation.vote_emulation import VoteEmulation
 from vote.models.vote import Vote
 from vote.models.voting import Voting
-
 
 
 class VoteTest(TestCase):
     """Test vote class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting_method()
+        self.vote_emulation.emulate_voting()
+        self.vote_emulation.emulate_vote()
     
     def test_vote_with_vote_class(self):
-        self.vote_emulation.emulate_vote()
         vote = Vote.objects.get(pk=1)
         self.assertIsInstance(vote, Vote)
 
@@ -51,7 +57,6 @@ class VoteTest(TestCase):
         )
     
     def test_status_with_emulated_status_instance(self):
-        self.vote_emulation.emulate_vote()
         vote = Vote.objects.get(pk=1)
         self.assertEqual(vote.choice, True)
         self.assertEqual(

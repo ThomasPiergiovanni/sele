@@ -6,17 +6,24 @@ from django.urls import reverse
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
-from proposition.models.proposition import Proposition
-from vote.models.voting_method import VotingMethod
+from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )
+
+from proposition.models.proposition import Proposition
+from vote.models.voting_method import VotingMethod
 
 
 class UpdatePropositionViewTest(TestCase):
     """Test UpdatePropositionView class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
         self.proposition_emulation = PropositionEmulation()
         self.proposition_emulation.emulate_proposition()
 
@@ -62,71 +69,3 @@ class UpdatePropositionViewTest(TestCase):
             proposition = False
         self.assertTrue(proposition)
         self.assertEqual(proposition.proposition_status.name, "Nouveau")
-
-    # def test_post_with_alternative_scenario_one_with_status_annule(self):
-    #     self.client.login(email='user1@email.com', password='xxx_Xxxx')
-    #     response = self.client.post(
-    #         '/proposition/delete_proposition/1/', follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     try:
-    #         proposition = Proposition.objects.get(pk=1)
-    #     except:
-    #         proposition = False
-    #     self.assertTrue(proposition)
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],
-    #         reverse('proposition:collectivity_propositions')
-    #     )
-    #     response_msg = response.context['messages']._loaded_data[0]
-    #     self.assertEqual(response_msg.level_tag, 'warning')
-    #     self.assertEqual(
-    #         response_msg.message,
-    #         "Une proposition avec ce satut ne peut pas être supprimée"
-    #     )
-
-    # def test_post_with_alternative_scenario_two_with_status_en_cours(self):
-    #     self.client.login(email='user2@email.com', password='yyy_Yyyy')
-    #     response = self.client.post(
-    #         '/proposition/delete_proposition/2/', follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     try:
-    #         proposition = Proposition.objects.get(pk=2)
-    #     except:
-    #         proposition = False
-    #     self.assertTrue(proposition)
-    #     self.assertEqual(proposition.proposition_status.name, 'Annulé')
-    #     response_msg = response.context['messages']._loaded_data[0]
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],
-    #         reverse('proposition:collectivity_propositions')
-    #     )
-    #     self.assertEqual(response_msg.message, "Suppression réussie")
-    #     self.assertEqual(response_msg.level_tag, "success")
-
-    # def test_post_with_alternative_scenario_three_with_status_not_creator(self):
-    #     self.client.login(email='user2@email.com', password='yyy_Yyyy')
-    #     response = self.client.post(
-    #         '/proposition/delete_proposition/1/', follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     response_msg = response.context['messages']._loaded_data[0]
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],
-    #         reverse('proposition:collectivity_propositions')
-    #     )
-    #     self.assertEqual(response_msg.level_tag, 'error')
-    #     self.assertEqual(
-    #         response_msg.message, "Le créateur seulement peut "
-    #         "supprimer la proposition"
-    #     )
-
-    # def test_post_with_alternative_scenario_four(self):
-    #     response = self.client.post(
-    #         '/proposition/delete_proposition/1/', follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(
-    #         response.redirect_chain[0][0],reverse('authentication:login')
-    #     )

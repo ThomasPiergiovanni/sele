@@ -8,10 +8,13 @@ from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from chat.tests.emulation.chat_emulation import ChatEmulation
+from proposition.tests.emulation.proposition_emulation import (
+    PropositionEmulation
+)
 from chat.forms.comment_form import CommentForm
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
-from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.forms.proposition_form import PropositionForm
 from proposition.management.engine.manager import Manager
 from proposition.models.category import Category
@@ -20,9 +23,6 @@ from proposition.models.domain import Domain
 from proposition.models.kind import Kind
 from proposition.models.proposition import Proposition
 from proposition.models.status import Status
-from proposition.tests.emulation.proposition_emulation import (
-    PropositionEmulation
-)
 
 
 class TestManager(TestCase):
@@ -30,12 +30,15 @@ class TestManager(TestCase):
     """
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
-        self.proposition_emulation = PropositionEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
+        self.proposition_emulation = PropositionEmulation()
+        self.proposition_emulation.emulate_proposition()
         self.manager = Manager()
 
     def test_set_page_objects_context(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
@@ -45,7 +48,6 @@ class TestManager(TestCase):
         self.assertEqual(page_objects[0].id, 1)
     
     def test_get_proposition_queryset_with_search_input(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
@@ -55,7 +57,6 @@ class TestManager(TestCase):
         self.assertEqual(propositions[0].id, 1)
 
     def test_get_proposition_queryset_with_search_input_is_false(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
@@ -65,7 +66,6 @@ class TestManager(TestCase):
         self.assertEqual(propositions[0].id, 17)
 
     def test_set_session_vars_with_search_input(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post('')
         session_middleware = SessionMiddleware(request)
         session_middleware.process_request(request) 
@@ -75,12 +75,7 @@ class TestManager(TestCase):
         )
 
     def test_create_proposition_with_proposition_instance(self):
-        self.chat_emulation.emulate_discussion()
-        self.proposition_emulation.emulate_category()
-        self.proposition_emulation.emulate_domain()
-        self.proposition_emulation.emulate_kind()
-        self.proposition_emulation.emulate_creator_type()
-        self.proposition_emulation.emulate_status()
+        propositions = Proposition.objects.all().delete()
         form_data = {
             'name': 'Cours de Python',
             'description': 'dsdss',
@@ -105,37 +100,7 @@ class TestManager(TestCase):
             'Proposition'
         )
     
-    def test_create_discussion(self):
-        self.auth_emulation.emulate_custom_user()
-        self.chat_emulation.emulate_discussion_type()
-        self.proposition_emulation.emulate_category()
-        self.proposition_emulation.emulate_domain()
-        self.proposition_emulation.emulate_kind()
-        self.proposition_emulation.emulate_creator_type()
-        self.proposition_emulation.emulate_status()
-        form_data = {
-            'name': 'Cours de Python',
-            'description': 'dsdss',
-            'proposition_kind': Kind.objects.get(pk=1).id,
-            'proposition_category': Category.objects.get(pk=1).id,
-            'proposition_domain': Domain.objects.get(pk=1).id,
-            'start_date': "2022-01-25",
-            'end_date': "2022-01-30",
-            'duration': 45,
-            'proposition_creator_type': CreatorType.objects.get(pk=1).id
-        }
-        form = PropositionForm(data=form_data)
-        form.is_valid()
-        custom_user = CustomUser.objects.get(pk=1)
-        self.manager.create_discussion(form, custom_user)
-        self.assertEqual(
-            Discussion.objects.all().last()
-            .discussion_discussion_type.name,'Proposition'
-        )
-
-    
     def test_set_read_prop_view_context_with_demand_nouveau_tak_none(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=3)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
@@ -161,7 +126,6 @@ class TestManager(TestCase):
         self.assertIsInstance(context['form'], CommentForm)
 
     def test_set_read_prop_view_context_with_offer_selectionne_creator(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=16)
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
@@ -177,7 +141,6 @@ class TestManager(TestCase):
         self.assertEqual(context['btn1_value'], "inprogress")
 
     def test_set_demand_button_with_sta_nouveau_tak_none_cre_not_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=3)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
@@ -189,7 +152,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn1_value'], "select")
 
     def test_set_demand_button_with_sta_selectionne_tak_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=6)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
@@ -201,7 +163,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn1_value'], "new")
 
     def test_set_demand_button_with_sta_selectionne_cre_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=6)
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
@@ -213,7 +174,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn1_value'], "inprogress")
 
     def test_set_demand_button_with_sta_en_cours_tak_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=2)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
@@ -229,7 +189,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn2_value'], "new")
 
     def test_set_demand_button_with_sta_realized_cre_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=4)
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
@@ -245,7 +204,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn2_value'], "rejected")
 
     def test_set_demand_button_with_sta_rejected_tak_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=5)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
@@ -260,8 +218,7 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn2_text'], "Forcer terminer")
         self.assertEqual(btn['btn2_value'], "done")
 
-    def test_set_demand_button_with_sta_rejected_cre_user(self):
-        self.proposition_emulation.emulate_proposition()
+    def test_set_demand_button_with_sta_rejected_cre_user(self):    
         proposition = Proposition.objects.get(pk=5)
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
@@ -273,7 +230,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn1_value'], "done")
 
     def test_set_demand_button_with_sta_annule_cre_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=1)
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
@@ -297,7 +253,6 @@ class TestManager(TestCase):
         self.assertIsNone(item4)
 
     def test_set_offer_btn_with_sta_nouveau_tak_none_cre_not_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=13)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
@@ -311,7 +266,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn1_value'], "select")
 
     def test_set_offer_btn_with_sta_selectionne_tak_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=16)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
@@ -325,7 +279,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn1_value'], "new")
 
     def test_set_offer_btn_with_sta_selectionne_cre_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=16)
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
@@ -340,7 +293,6 @@ class TestManager(TestCase):
 
 
     def test_set_offer_bun_with_sta_en_cours_cre_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=12)
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
@@ -354,7 +306,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn1_value'], "realized")
 
     def test_set_offer_btn_with_sta_realized_tak_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=14)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
@@ -374,7 +325,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn2_value'], "rejected")
 
     def test_set_offer_btn_with_sta_rejected_tak_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=15)
         request = RequestFactory().get('')
         user = authenticate(email='user3@email.com', password='xxx_Xxxx')
@@ -388,7 +338,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn1_value'], "done")
 
     def test_set_offer_btn_with_sta_rejected_cre_user(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=15)
         request = RequestFactory().get('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
@@ -408,7 +357,6 @@ class TestManager(TestCase):
         self.assertEqual(btn['btn2_value'], "done")
 
     def test_set_proposition_status_with_select_taker(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'select'}
         )
@@ -422,7 +370,6 @@ class TestManager(TestCase):
         )
 
     def test_set_proposition_status_with_new_taker(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'new'}
         )
@@ -434,7 +381,6 @@ class TestManager(TestCase):
         self.assertIsNone(proposition.proposition_taker)
 
     def test_set_proposition_status_with_inprogress(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'inprogress'}
         )
@@ -445,7 +391,6 @@ class TestManager(TestCase):
         self.assertEqual(proposition.proposition_status.id,2)
 
     def test_set_proposition_status_with_realized(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'realized'}
         )
@@ -456,7 +401,6 @@ class TestManager(TestCase):
         self.assertEqual(proposition.proposition_status.id,4)
 
     def test_set_proposition_status_with_rejected(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'rejected'}
         )
@@ -467,7 +411,6 @@ class TestManager(TestCase):
         self.assertEqual(proposition.proposition_status.id,5)
 
     def test_set_proposition_status_with_done(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().post(
             '', data={'update_status_button':'done'}
         )
@@ -480,15 +423,13 @@ class TestManager(TestCase):
         self.assertEqual(proposition.proposition_taker.balance, 3060)
     
     def test_set_proposition_status_with_selectione(self):
-        self.proposition_emulation.emulate_status()
         status = self.manager._Manager__set_status('Sélectionné')
         self.assertEqual(
             Status.objects.get(name__exact='Sélectionné').name,
             status.name
         )
 
-    def test_set_creator_taker_balance_with_demande_individuelle(self):
-        self.proposition_emulation.emulate_proposition()
+    def test_set_creator_taker_balance_with_demande_individuelle(self):    
         proposition = Proposition.objects.get(pk=18)
         self.manager._Manager__set_creator_taker_balance(proposition)
         proposition = Proposition.objects.get(pk=18)
@@ -496,7 +437,6 @@ class TestManager(TestCase):
         self.assertEqual(proposition.proposition_taker.balance, 3120)
     
     def test_set_creator_taker_balance_with_demande_collective(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=4)
         self.manager._Manager__set_creator_taker_balance(proposition)
         proposition = Proposition.objects.get(pk=4)
@@ -504,7 +444,6 @@ class TestManager(TestCase):
         self.assertEqual(proposition.proposition_taker.balance, 3060)
 
     def test_set_custom_users_balances_with_demande_collective(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=4)
         self.manager._Manager__set_custom_users_balances(proposition)
         proposition = Proposition.objects.get(pk=4)
@@ -512,7 +451,6 @@ class TestManager(TestCase):
         self.assertEqual(proposition.proposition_taker.balance, 2940)
 
     def test_get_discussion_with_proposition_instance(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=1)
         discussion = self.manager._Manager__get_discussion(proposition)
         self.assertEqual(discussion, Discussion.objects.get(pk=1))
@@ -523,7 +461,6 @@ class TestManager(TestCase):
         self.assertIsNone(discussion)
 
     def test_get_comments_with_proposition_instance(self):
-        self.proposition_emulation.emulate_proposition()
         proposition = Proposition.objects.get(pk=1)
         comments = self.manager._Manager__get_comments(proposition)
         self.assertEqual(comments[0], Comment.objects.get(pk=1))
@@ -534,7 +471,6 @@ class TestManager(TestCase):
         self.assertIsNone(comments)
 
     def test_create_comment(self):
-        self.proposition_emulation.emulate_proposition()
         Comment.objects.all().delete()
         form = CommentForm(data={'comment': 'Alors???'})
         form.is_valid()

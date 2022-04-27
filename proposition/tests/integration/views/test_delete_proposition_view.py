@@ -6,17 +6,25 @@ from django.urls import reverse
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
-from proposition.models.proposition import Proposition
-from vote.models.voting_method import VotingMethod
+from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )
+
+from proposition.models.proposition import Proposition
+from vote.models.voting_method import VotingMethod
+
 
 
 class DeletePropositionViewTest(TestCase):
     """Test DeletePropositionView class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
         self.proposition_emulation = PropositionEmulation()
         self.proposition_emulation.emulate_proposition()
 

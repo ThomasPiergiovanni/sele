@@ -3,8 +3,11 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from vote.forms.collectivity_votings_form import CollectivityVotingsForm
 from vote.models.voting import Voting
+
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
@@ -12,7 +15,11 @@ class CollectivityVotingsViewTest(TestCase):
     """Test CollectivityVotings view class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting_method()
+        self.vote_emulation.emulate_voting()
         self.vote_emulation.emulate_vote()
 
     def test_get_with_nominal_scenario(self):

@@ -10,13 +10,15 @@ from django.forms import (
 from django.test import TestCase
 
 from authentication.models import CustomUser
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
+from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.forms.proposition_form import PropositionForm
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
-from proposition.models.proposition import Proposition
-
 
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
@@ -27,6 +29,10 @@ class PropositionFormTest(TestCase):
     """Test PorpositionForm class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
         self.proposition_emulation = PropositionEmulation()
         self.proposition_emulation.emulate_proposition()
         self.form = PropositionForm()
