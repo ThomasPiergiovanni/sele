@@ -4,6 +4,10 @@
 from django.test import TestCase
 from json import loads
 
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
+from chat.tests.emulation.chat_emulation import ChatEmulation 
 from collectivity.tests.emulation.collectivity_emulation import (
     CollectivityEmulation
 )
@@ -15,12 +19,17 @@ class HomeViewTest(TestCase):
     """
 
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.collectivity_emulation = CollectivityEmulation()
-        self.emulate_proposition = PropositionEmulation()
+        self.collectivity_emulation.emulate_collectivity()
+        self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
+        self.proposition_emulation = PropositionEmulation()
+        self.proposition_emulation.emulate_proposition()
 
     def test_get_with_nominal_scenario(self):
-        self.collectivity_emulation.emulate_collectivity()
-        self.emulate_proposition.emulate_proposition()
         response = self.client.get(
             '', follow=True
         )
@@ -35,5 +44,9 @@ class HomeViewTest(TestCase):
             vector_layer['features'][0]
             ['properties']['name'], 'Bourg-la-Reine'
         )
-        self.assertEqual(stats_data['cu_counts'][0], 0)
+        self.assertEqual(stats_data['cu_counts'][0], '0')
+        self.assertEqual(response.context['all_p_counts'], 15)
+        self.assertEqual(response.context['all_cu_counts'], 3)    
+        self.assertEqual(response.context['all_co_counts'], 4)
+        self.assertEqual(response.context['all_v_counts'], 3)
 

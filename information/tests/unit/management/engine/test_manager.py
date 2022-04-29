@@ -30,11 +30,17 @@ class TestManager(TestCase):
     """Test Manager  class.
     """
     def setUp(self):
-        self.collectivty_emulation = CollectivityEmulation()
         self.auth_emulation = AuthenticationEmulation()
-        self.proposition_emulation = PropositionEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
+        self.proposition_emulation = PropositionEmulation()
+        self.proposition_emulation.emulate_proposition()
         self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting_method()
+        self.vote_emulation.emulate_voting()
+        self.vote_emulation.emulate_vote()
         self.manager = Manager()
     
     def emulate_ref_date(self):
@@ -59,12 +65,14 @@ class TestManager(TestCase):
         return ref_dates
 
     def test_set_home_context(self):
-        self.proposition_emulation.emulate_proposition()
-        self.collectivty_emulation.emulate_collectivity()
         context = {
             'mapbox_url': None,
             'vector_layer': None,
-            'stats_data': None
+            'stats_data': None,
+            'all_p_counts': None,
+            'all_cu_counts': None,
+            'all_co_counts': None,
+            'all_v_counts': None
         }
         context = (
             self.manager.set_home_context(context)
@@ -83,7 +91,12 @@ class TestManager(TestCase):
             vector_layer['features'][0]['properties']['name'], 'Bourg-la-Reine'
         )
         self.assertEqual(stats_data['labels'][5],
-        str(ref_date.month)+"-"+str(ref_date.year))
+            str(ref_date.month)+"-"+str(ref_date.year)
+        )
+        self.assertEqual(context['all_p_counts'], 15)
+        self.assertEqual(context['all_cu_counts'], 3)        
+        self.assertEqual(context['all_co_counts'], 2)
+        self.assertEqual(context['all_v_counts'], 3)
     
     def test_set_mapboxurl_json(self):
         data  = self.manager._Manager__set_mapboxurl_json() 
@@ -96,7 +109,6 @@ class TestManager(TestCase):
         )
 
     def test_set_vectorlayer_geojson(self):
-        self.collectivty_emulation.emulate_collectivity()
         data  = self.manager._Manager__set_vectorlayer_geojson() 
         data = loads(data)
         self.assertEqual(
@@ -104,8 +116,6 @@ class TestManager(TestCase):
         )
 
     def test_set_stats_data_json_with_label(self):
-        self.proposition_emulation.emulate_proposition()
-        self.collectivty_emulation.emulate_collectivity()
         ref_date = self.emulate_ref_date()
         data_json = self.manager._Manager__set_stats_data_json()
         data_json = loads(data_json)
@@ -144,25 +154,21 @@ class TestManager(TestCase):
         self.assertEqual(mm_yyyy, str(r0.month) + "-" + str(r0.year))   
 
     def test_set_stats_cu_counts(self):
-        self.auth_emulation.emulate_custom_user()
         ref_dates = self.emulate_ref_dates()
         cu_counts = self.manager._Manager__set_stats_cu_counts(ref_dates)
         self.assertEqual(cu_counts['cu_0'], 0)
     
     def test_set_cu_counts(self):
-        self.auth_emulation.emulate_custom_user()
         ref_date = self.emulate_ref_date()
         cu_counts = self.manager._Manager__set_cu_counts(ref_date)
         self.assertEqual(cu_counts, 0)
 
     def test_set_stats_p_counts(self):
-        self.proposition_emulation.emulate_proposition()
         ref_dates = self.emulate_ref_dates()
         p_counts = self.manager._Manager__set_stats_p_counts(ref_dates)
         self.assertEqual(p_counts['p_0'], 15)
 
     def test_set_p_counts(self):
-        self.proposition_emulation.emulate_proposition()
         ref_date = self.emulate_ref_date()
         p_counts = self.manager._Manager__set_p_counts(ref_date)
         self.assertEqual(p_counts, 15)
@@ -182,9 +188,26 @@ class TestManager(TestCase):
         }
         data = self.manager._Manager__set_stats_data(label, cu_counts, p_counts)
         self.assertEqual(data['p_counts'][0], str(3))
+    
+    def test_set_all_co_counts(self):
+        request = RequestFactory().get('',)        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user  
+        all_co_counts = (
+            self.manager._Manager__set_all_co_counts()
+        )
+        self.assertEqual(all_co_counts, 2)
+
+    def test_set_all_v_counts(self):
+        request = RequestFactory().get('',)        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user  
+        all_v_counts = (
+            self.manager._Manager__set_all_v_counts()
+        )
+        self.assertEqual(all_v_counts, 3)
 
     def test_set_collectivity_dashboard_context_with_cus_user_prop_dis(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user 
@@ -210,7 +233,6 @@ class TestManager(TestCase):
         self.assertEqual(context['collectivity_d_counts'], 3)
 
     def test_set_collectivity_dashboard_context_with_voting(self):
-        self.vote_emulation.emulate_voting()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user 
@@ -229,7 +251,6 @@ class TestManager(TestCase):
         self.assertEqual(context['collectivity_v_counts'], 2)
 
     def test_set_custom_user_page_obj_context(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
@@ -240,7 +261,6 @@ class TestManager(TestCase):
         self.assertEqual(page_objects[0].id, 3)
     
     def test_custom_user_queryset_with_request_user(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
@@ -251,7 +271,6 @@ class TestManager(TestCase):
         self.assertEqual(custom_users[1].id, 1)
     
     def test_set_page_objects(self):
-        self.proposition_emulation.emulate_proposition()
         custom_users = CustomUser.objects.all().order_by('-balance')
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
@@ -264,7 +283,6 @@ class TestManager(TestCase):
 
 
     def test_custom_users_p_counts_with(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
@@ -277,7 +295,6 @@ class TestManager(TestCase):
         self.assertEqual(custom_user_p_counts[1]['count'], 13)
 
     def test_set_proposition_page_obj_context(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
@@ -288,7 +305,6 @@ class TestManager(TestCase):
         self.assertEqual(page_objects[0].id, 17)
 
     def test_proposition_queryset_with_request_user(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
@@ -299,7 +315,6 @@ class TestManager(TestCase):
         self.assertEqual(propositions[1].id, 16)
 
     def test_set_discussion_page_obj_context(self):
-        self.chat_emulation.emulate_discussion()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
@@ -310,7 +325,6 @@ class TestManager(TestCase):
         self.assertEqual(page_objects[0].id, 3)
 
     def test_discussiuon_queryset_with_request_user(self):
-        self.chat_emulation.emulate_discussion()
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
@@ -321,7 +335,6 @@ class TestManager(TestCase):
         self.assertEqual(discussions[1].id, 2)
 
     def test_set_voting_page_obj_context(self):
-        self.vote_emulation.emulate_voting()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
@@ -332,7 +345,6 @@ class TestManager(TestCase):
         self.assertEqual(page_objects[0].id, 3)
 
     def test_voting_queryset_with_request_user(self):
-        self.vote_emulation.emulate_voting()
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
@@ -343,7 +355,6 @@ class TestManager(TestCase):
         self.assertEqual(votings[1].id, 1)
 
     def test_collectivity_p_counts(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
@@ -353,7 +364,6 @@ class TestManager(TestCase):
         self.assertEqual(collectivity_p_counts, 15)
 
     def test_collectivity_cu_counts(self):
-        self.auth_emulation.emulate_custom_user()
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
@@ -363,7 +373,6 @@ class TestManager(TestCase):
         self.assertEqual(collectivity_cu_counts, 2)
 
     def test_collectivity_discussion_counts(self):
-        self.proposition_emulation.emulate_proposition()
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
@@ -373,7 +382,6 @@ class TestManager(TestCase):
         self.assertEqual(collectivity_discussion_counts, 3)
 
     def test_collectivity_votings_counts(self):
-        self.vote_emulation.emulate_voting()
         request = RequestFactory().get('',)        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  

@@ -23,6 +23,10 @@ class Manager():
         context['mapbox_url'] = self.__set_mapboxurl_json()
         context['vector_layer'] = self.__set_vectorlayer_geojson()
         context['stats_data'] = self.__set_stats_data_json()
+        context['all_p_counts'] = self.__set_p_counts(timezone.now())
+        context['all_cu_counts'] = self.__set_cu_counts(timezone.now())
+        context['all_co_counts'] = self.__set_all_co_counts()
+        context['all_v_counts'] = self.__set_all_v_counts()
         return context
 
     def __set_mapboxurl_json(self):
@@ -160,6 +164,12 @@ class Manager():
             ]
         }
         return data
+    
+    def __set_all_co_counts(self):
+        return Collectivity.objects.filter(activity__exact='yes').count()
+
+    def __set_all_v_counts(self):
+        return Voting.objects.all().count()
     
     def set_collectivity_dashboard_context(self, request, context):
         context['custom_user_pag_obj'] = (

@@ -14,7 +14,11 @@ class HomeView(View):
         self.context = {
             'mapbox_url': None,
             'vector_layer': None,
-            'stats_data': None
+            'stats_data': None,
+            'all_p_counts': None,
+            'all_cu_counts': None,
+            'all_co_counts': None,
+            'all_v_counts': None
         }
 
     def get(self, request):
