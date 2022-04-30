@@ -72,7 +72,8 @@ class TestManager(TestCase):
             'all_p_counts': None,
             'all_cu_counts': None,
             'all_co_counts': None,
-            'all_v_counts': None
+            'all_v_counts': None,
+            'propositions': None
         }
         context = (
             self.manager.set_home_context(context)
@@ -95,8 +96,9 @@ class TestManager(TestCase):
         )
         self.assertEqual(context['all_p_counts'], 15)
         self.assertEqual(context['all_cu_counts'], 3)        
-        self.assertEqual(context['all_co_counts'], 2)
+        self.assertEqual(context['all_co_counts'], 1)
         self.assertEqual(context['all_v_counts'], 3)
+        self.assertEqual(context['propositions'][0].id, 17)
     
     def test_set_mapboxurl_json(self):
         data  = self.manager._Manager__set_mapboxurl_json() 
@@ -196,7 +198,7 @@ class TestManager(TestCase):
         all_co_counts = (
             self.manager._Manager__set_all_co_counts()
         )
-        self.assertEqual(all_co_counts, 2)
+        self.assertEqual(all_co_counts, 1)
 
     def test_set_all_v_counts(self):
         request = RequestFactory().get('',)        
@@ -206,6 +208,16 @@ class TestManager(TestCase):
             self.manager._Manager__set_all_v_counts()
         )
         self.assertEqual(all_v_counts, 3)
+
+    def test_set_home_propositions(self):
+        request = RequestFactory().get('',)        
+        user = authenticate(email='user1@email.com', password='xxx_Xxxx')
+        request.user = user  
+        propositions = (
+            self.manager._Manager__set_home_propositions()
+        )
+        self.assertEqual(propositions[0].id, 17)
+
 
     def test_set_collectivity_dashboard_context_with_cus_user_prop_dis(self):
         request = RequestFactory().get('', data={'page': 1})        

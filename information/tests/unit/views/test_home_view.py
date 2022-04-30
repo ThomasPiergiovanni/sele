@@ -23,4 +23,5 @@ class TestHomeView(TestCase):
         self.assertIsNone(self.view.context['all_p_counts'])
         self.assertIsNone(self.view.context['all_cu_counts'])
         self.assertIsNone(self.view.context['all_co_counts'])
-        self.assertIsNone(self.view.context['all_v_counts']) 
+        self.assertIsNone(self.view.context['all_v_counts'])
+        self.assertIsNone(self.view.context['propositions'])

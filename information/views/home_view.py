@@ -18,7 +18,8 @@ class HomeView(View):
             'all_p_counts': None,
             'all_cu_counts': None,
             'all_co_counts': None,
-            'all_v_counts': None
+            'all_v_counts': None,
+            'propositions': None
         }
 
     def get(self, request):

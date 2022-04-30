@@ -27,6 +27,7 @@ class Manager():
         context['all_cu_counts'] = self.__set_cu_counts(timezone.now())
         context['all_co_counts'] = self.__set_all_co_counts()
         context['all_v_counts'] = self.__set_all_v_counts()
+        context['propositions'] = self.__set_home_propositions()
         return context
 
     def __set_mapboxurl_json(self):
@@ -170,6 +171,9 @@ class Manager():
 
     def __set_all_v_counts(self):
         return Voting.objects.all().count()
+    
+    def __set_home_propositions(self):
+        return Proposition.objects.all().order_by('-creation_date')[:4]
     
     def set_collectivity_dashboard_context(self, request, context):
         context['custom_user_pag_obj'] = (

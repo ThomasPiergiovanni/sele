@@ -47,6 +47,7 @@ class HomeViewTest(TestCase):
         self.assertEqual(stats_data['cu_counts'][0], '0')
         self.assertEqual(response.context['all_p_counts'], 15)
         self.assertEqual(response.context['all_cu_counts'], 3)    
-        self.assertEqual(response.context['all_co_counts'], 4)
+        self.assertEqual(response.context['all_co_counts'], 2)
         self.assertEqual(response.context['all_v_counts'], 3)
+        self.assertEqual(response.context['propositions'][0].id , 1)
 
