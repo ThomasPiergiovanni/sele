@@ -2,6 +2,7 @@ from django.views import View
 from django.shortcuts import render
 
 from information.management.engine.manager import Manager
+from information.models.question import Question
 
 
 class HomeView(View):
