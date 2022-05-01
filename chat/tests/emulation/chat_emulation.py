@@ -15,12 +15,11 @@ class ChatEmulation():
     """Test ChatEmulation class.
     """
     def __init__(self):
-        self.auth_emulation = AuthenticationEmulation()
+        pass
 
     def emulate_discussion(self):
         """
         """
-        # self.auth_emulation.emulate_custom_user()
         self.emulate_discussion_type()
         Discussion.objects.create(
             id=1,

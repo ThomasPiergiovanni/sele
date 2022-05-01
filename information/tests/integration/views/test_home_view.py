@@ -12,6 +12,7 @@ from collectivity.tests.emulation.collectivity_emulation import (
     CollectivityEmulation
 )
 from proposition.tests.emulation.proposition_emulation import PropositionEmulation
+from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class HomeViewTest(TestCase):
@@ -28,6 +29,10 @@ class HomeViewTest(TestCase):
         self.chat_emulation.emulate_comment()
         self.proposition_emulation = PropositionEmulation()
         self.proposition_emulation.emulate_proposition()
+        self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting_method()
+        self.vote_emulation.emulate_voting()
+        self.vote_emulation.emulate_vote()
 
     def test_get_with_nominal_scenario(self):
         response = self.client.get(
@@ -49,5 +54,5 @@ class HomeViewTest(TestCase):
         self.assertEqual(response.context['all_cu_counts'], 3)    
         self.assertEqual(response.context['all_co_counts'], 2)
         self.assertEqual(response.context['all_v_counts'], 3)
-        self.assertEqual(response.context['propositions'][0].id , 1)
+        self.assertEqual(response.context['propositions'][0].id , 17)
 

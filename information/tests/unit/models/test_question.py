@@ -1,11 +1,15 @@
 """Test voting method module.
 """
-from datetime import date
 from django.db import models
 from django.test import TestCase
 
 from authentication.models import CustomUser
-from authentication.tests.unit.models.test_custom_user import CustomUserTest
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
+from information.tests.emulation.information_emulation import (
+    InformationEmulation
+)
 from information.models.question import Question
 
 
@@ -13,42 +17,12 @@ class QuestionTest(TestCase):
     """Test question class.
     """
     def setUp(self):
-        self.emulate_question()
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
+        self.information_emulation = InformationEmulation()
+        self.information_emulation.emulate_question()
 
-    def emulate_question(self):
-        """
-        """
-        CustomUserTest().emulate_custom_user()
-        Question.objects.create(
-            id=1,
-            question="Qu'est ce qu une demande de groupe?",
-            answer=(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                " Sed non risus. Suspendisse lectus tortor, dignissim sit"
-                " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
-                " ultrices diam. Maecenas ligula massa, varius a, semper"
-                " congue, euismod non, mi. Proin porttitor, orci nec nonummy"
-                " molestie, enim est eleifend mi, non fermentum diam nisl sit"
-                " amet erat. Duis semper. Duis arcu massa, scelerisque vitae,"
-                " consequat in, pretium a, enim. Pellentesque congue"
-            ),
-            custom_user_id=1
-        )
-        Question.objects.create(
-            id=2,
-            question="Ou sont hébergée nos données?",
-            answer=(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                " Sed non risus. Suspendisse lectus tortor, dignissim sit"
-                " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
-                " ultrices diam. Maecenas ligula massa, varius a, semper"
-                " congue, euismod non, mi. Proin porttitor, orci nec nonummy"
-                " molestie, enim est eleifend mi, non fermentum diam nisl sit"
-                " amet erat. Duis semper. Duis arcu massa, scelerisque vitae,"
-                " consequat in, pretium a, enim. Pellentesque congue"
-            ),
-            custom_user_id=2
-        )
+
 
     def test_question_with_question_class(self):
         question = Question.objects.get(pk=1)

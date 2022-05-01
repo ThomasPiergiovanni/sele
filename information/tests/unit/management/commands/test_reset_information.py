@@ -5,7 +5,9 @@ from django.test import TestCase
 
 from information.management.commands.reset_information import Command
 from information.models.question import Question
-from information.tests.unit.models.test_question import QuestionTest
+from information.tests.emulation.information_emulation import (
+    InformationEmulation
+)
 
 
 class ResetInformationTest(TestCase):
@@ -15,9 +17,10 @@ class ResetInformationTest(TestCase):
         """Method that set up data for the entire class
         """
         self.command = Command()
+        self.information_emulation = InformationEmulation()
+        self.information_emulation.emulate_question()
 
     def test_drop_question_with_instance_is_none(self):
-        QuestionTest().emulate_question()
         question = Question.objects.all()
         self.assertTrue(question)
         self.command._Command__drop_question()

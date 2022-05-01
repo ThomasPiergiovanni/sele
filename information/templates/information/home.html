@@ -188,6 +188,7 @@
               </div>
               <div class="card-body">
                 <div class="row">
+                  {% for proposition in propositions%}
                   <div class="col-lg-3 col-6">
                     <div class="card ">
                       <!-- <div class="card-header text-center bg-primary">
@@ -196,20 +197,20 @@
                         <div class="card-body">
                           <div class="text-right">
                             <h6><span class="text-dark font-weight-bold">
-                                Demande
+                                {{proposition.proposition_kind}}
                               </span>
                             </h6>
                           </div>
                           <div class="col-12  text-truncate">
-                          <h5 class="text-left">Nettoyage du mur Rue du Bac </h5>
+                          <h5 class="text-left">{{proposition.name}} </h5>
                           <p class="">
-                            Nature:
+                            Domaine:
                             <span class="text-secondary">
-                              Activité
+                              {{proposition.proposition_domain}}
                             </span></br>
                             Catégorie:
                             <span class="text-secondary">
-                              Nettoyage
+                              {{proposition.proposition_category}}
                             </span></br>
                             Durée de travail:
                             <span class="text-secondary">
@@ -217,164 +218,26 @@
                             </span></br>
                             Description:
                             <span class="text-secondary">
-                              Nous cherchons des volontaires pour nettoyer le
-                              mur dégradé à la Rue du Bac.
+                              {{proposition.description}}
                             </span></br>
                             Créateur(type):
                             <span class="text-secondary">
-                              Groupe
+                              {{proposition.proposition_creator_type}}
                             </span></br>
                             Groupe local:
                             <span class="text-secondary">
-                              Suresnes
-                            </span></br>
-                          </p>
-                          <div class="text-center">
-                            <a href="#" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div><!-- /.card -->
-                  </div>
-                  <div class="col-lg-3 col-6">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="text-right">
-                          <h6><span class="text-dark font-weight-bold">
-                              Offre
-                            </span></h6>
-                        </div>
-                        <div class="col-12  text-truncate">
-                          <h5 class="text-left">Aide au devoirs</h5>
-                  
-                          <p class="">
-                            Nature:
-                            <span class="text-secondary">
-                              Activité
-                            </span></br>
-                            Catégorie:
-                            <span class="text-secondary">
-                              Education
-                            </span></br>
-                            Durée de travail:
-                            <span class="text-secondary">
-                              45 minutes
-                            </span></br>
-                            Description:
-                            <span class="text-secondary">
-                              Je propose de l'aide au devoir.
-                            </span></br>
-                            Créateur(type):
-                            <span class="text-secondary">
-                              Utilsateur
-                            </span></br>
-                            Groupe local:
-                            <span class="text-secondary">
-                              Montreuil
+                              {{proposition.proposition_creator.collectivity}}
                             </span></br>
                           </p>
                           <div class="text-center">
                             <a href="#" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
                           </div>
                         </div>
-                  
                       </div>
                     </div><!-- /.card -->
                   </div>
-                  <div class="col-lg-3 col-6">
-                    <div class="card ">
-                      <div class="card-body">
-                        <div class="text-right">
-                          <h6><span class="text-dark font-weight-bold">
-                              Demande
-                            </span>
-                          </h6>
-                        </div>
-                        <div class="col-12  text-truncate">
-                          <h5 class="text-left">Nettoyage du mur Rue du Bac </h5>
-                          <p class="">
-                            Nature:
-                            <span class="text-secondary">
-                              Activité
-                            </span></br>
-                            Catégorie:
-                            <span class="text-secondary">
-                              Nettoyage
-                            </span></br>
-                            Durée de travail:
-                            <span class="text-secondary">
-                              60 minutes
-                            </span></br>
-                            Description:
-                            <span class="text-secondary">
-                              Nous cherchons des volontaires pour nettoyer le
-                              mur dégradé à la Rue du Bac.
-                            </span></br>
-                            Créateur(type):
-                            <span class="text-secondary">
-                              Groupe
-                            </span></br>
-                            Groupe local:
-                            <span class="text-secondary">
-                              Suresnes
-                            </span></br>
-                          </p>
-                          <div class="text-center">
-                            <a href="#" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
-                          </div>
-                  
-                        </div>
-                      </div>
-                    </div><!-- /.card -->
-                  </div>
-                  <div class="col-lg-3 col-6">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="text-right">
-                          <h6><span class="text-dark font-weight-bold">
-                              Offre
-                            </span>
-                          </h6>
-                        </div>
-                        <div class="col-12  text-truncate">
-                          <h5 class="text-left">Aide au devoirs </h5>
-                          <p class="">
-                            Nature:
-                            <span class="text-secondary">
-                              Activité
-                            </span></br>
-                            Catégorie:
-                            <span class="text-secondary">
-                              Education
-                            </span></br>
-                            Durée de travail:
-                            <span class="text-secondary">
-                              45 minutes
-                            </span></br>
-                            Description:
-                            <span class="text-secondary">
-                              Je propose de l'aide au devoir.
-                            </span></br>
-                            Créateur(type):
-                            <span class="text-secondary">
-                              Utilsateur
-                            </span></br>
-                            Groupe local:
-                            <span class="text-secondary">
-                              Montreuil
-                            </span></br>
-                          </p>
-                          <div class="text-center">
-                            <a href="#" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
-                          </div>
-                        </div>
-                  
-                      </div>
-                    </div><!-- /.card -->
-                  </div>
-
-
+                  {% endfor%}
+                
                 </div>
               </div>
               <!-- /.card-body-->
