@@ -24,8 +24,7 @@ class InformationEmulation():
                 " molestie, enim est eleifend mi, non fermentum diam nisl sit"
                 " amet erat. Duis semper. Duis arcu massa, scelerisque vitae,"
                 " consequat in, pretium a, enim. Pellentesque congue"
-            ),
-            custom_user_id=1
+            )
         )
         Question.objects.create(
             id=2,
@@ -39,6 +38,5 @@ class InformationEmulation():
                 " molestie, enim est eleifend mi, non fermentum diam nisl sit"
                 " amet erat. Duis semper. Duis arcu massa, scelerisque vitae,"
                 " consequat in, pretium a, enim. Pellentesque congue"
-            ),
-            custom_user_id=2
+            )
         )

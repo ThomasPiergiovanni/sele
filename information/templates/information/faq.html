@@ -36,11 +36,13 @@
                     </div>
                     <!-- Table . 2nd card-body-->
                     <div class="card-body">
-                        <h5><span class="font-weight-bold">#1</span>
-                         Peut on changer de groupe?</h5>
+                        {% for question in questions%}
+                        <h5><span class="font-weight-bold">#{{question.id}}</span>
+                        {{question.question}}</h5>
                         <p class="card-text">
-                            Oui c'est possible. Pour cela, rendez-vous dans Gérer mon compte et choissisez la nouvelle commune. 
+                            {{question.answer}}
                         </p>
+                        {% endfor %}
 
                     </div>
                     <div class="card-footer bg-white clearfix">

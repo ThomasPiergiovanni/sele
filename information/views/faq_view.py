@@ -1,7 +1,7 @@
 from django.views import View
 from django.shortcuts import render
 
-from information.forms.navbar_search_form import NavbarSearchForm
+from information.models.question import Question
 
 
 class FaqView(View):
@@ -10,12 +10,11 @@ class FaqView(View):
 
     def __init__(self):
         super().__init__()
-        self.render = 'information/faq.html'
-        self.context = {
-            'navbar_search_form': NavbarSearchForm(),
-        }
+        self.view_template = 'information/faq.html'
+        self.context = {'questions': None}
 
     def get(self, request):
-        """Home page view method on client get request.
+        """Faq page view method on client get request.
         """
-        return render(request, self.render, self.context)
+        self.context['questions'] = Question.objects.all().order_by('id')
+        return render(request, self.view_template, self.context)

@@ -10,12 +10,10 @@ class AboutView(View):
 
     def __init__(self):
         super().__init__()
-        self.render = 'information/about.html'
-        self.context = {
-            'navbar_search_form': NavbarSearchForm(),
-        }
+        self.view_template = 'information/about.html'
+        self.context = {}
 
     def get(self, request):
         """Home page view method on client get request.
         """
-        return render(request, self.render, self.context)
+        return render(request, self.view_template, self.context)
