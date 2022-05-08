@@ -94,7 +94,7 @@
                             {% if voting_status == 'Ouvert' %}
                                 <span class="card-text text-secondary font-italic">Votation en cours...</span>
                             {% else %}
-                                <span class="card-text text-secondary">{{voting_result}} %</span>
+                                <span id="voting_result" class="card-text text-secondary">{{voting_result}} %</span>
                             {% endif %}
                         </p>
                     </div>
