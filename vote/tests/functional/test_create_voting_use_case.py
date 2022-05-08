@@ -10,6 +10,7 @@ from selenium import webdriver
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class CreateVotingUseCaseTest(StaticLiveServerTestCase):
@@ -42,9 +43,11 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         super().tearDownClass()
 
     def setUp(self):
-        # The user logs to the sign up page
+        # The user logs to the login page
         self.auth_emulation = AuthenticationEmulation()
         self.auth_emulation.emulate_custom_user()
+        self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting_method()
         self.browser.get(
             '%s%s' % (
                 self.live_server_url,
@@ -56,10 +59,10 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         # The user types its email and password.
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
-            .send_keys('user1@email.com')
+        .send_keys('user1@email.com')
         sleep(1)
         self.browser.find_element_by_id('input_login_password')\
-            .send_keys('xxx_Xxxx')
+        .send_keys('xxx_Xxxx')
         sleep(1)
 
         # The user clicks then "Se connecter" button and lands on the
@@ -71,34 +74,46 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         )
         sleep(2)
 
-        # The user types "Pain" on the main form
-        # self.browser.find_element_by_id('id_main_form').send_keys('Pain')
-        # sleep(2)
+        # The user selects "Mon groupe Local" on the left navigation sidebar
+        # and the selects "Votes"
+        self.browser.find_element_by_id('sidebar_my_local_group').click()
+        sleep(1)
+        self.browser.find_element_by_id('sidebar_mlg_votings').click()
+        self.assertIn(
+            self.browser.find_element_by_tag_name('h1').text,
+            'Votations - Bourg-la-Reine (92340)',
+        )
+        sleep(2)
 
-        # The user clicks then "Chercher" button ans sees the proposed
-        # substitutes products
-        # self.browser.find_element_by_id('index_search_button').click()
-        # sleep(2)
-        # self.assertTrue(
-        #    self.browser.find_element_by_id('result_searched_product')
-        # )
+        #The user selects the "Créer une votation" button
+        self.browser.find_element_by_id('go_to_create_voting_button').click()
+        self.assertIn(
+            self.browser.find_element_by_tag_name('h1').text,
+            'Votation - Créer',
+        )
+        sleep(2)
+        
+        # The user fills the form anc select the Créer button. The user
+        # should land on the votings page and see is created voting
+        # on th top of the list.
 
-        # On the results page, the user clicks on a product to see its details
-        # self.browser.find_element_by_id('subsitute_product').click()
-        # sleep(2)
-        # self.assertTrue(
-        #    self.browser.find_element_by_id('result_ratings_form')
-        # )
-
-        # On the product deatil page, the user rate the product giving a
-        # three star and then click the sublit button
-        # self.browser.find_element_by_xpath(
-        #     "//div[@id='rating_inputtype_select']/select[@name='ratings']"
-        #     "/option[@value='3']"
-        # ).click()
-        # sleep(2)
-        # self.browser.find_element_by_id('rate_button').click()
-        # sleep(2)
-        # self.assertTrue(
-        #     self.browser.find_element_by_id("three_star_three")
-        # )
+        self.browser.find_element_by_id('input_voting_question')\
+        .send_keys('Voulez-vous améliorer sel-e?')
+        sleep(2)
+        self.browser.find_element_by_id('input_voting_description')\
+        .send_keys('bla bla bla')
+        sleep(2)
+        self.browser.find_element_by_id('input_voting_voting_method')\
+        .send_keys('Majoritaire')
+        sleep(2)
+        self.browser.find_element_by_id('input_voting_opening_date')\
+        .send_keys('2022-02-04')
+        sleep(2)
+        self.browser.find_element_by_id('input_voting_closure_date')\
+        .send_keys('2022-02-11')
+        sleep(2)
+        self.browser.find_element_by_id('create_voting_button').click()
+        self.assertIn(
+            self.browser.find_element_by_tag_name('td').text,'1'
+        )
+        sleep(2)
