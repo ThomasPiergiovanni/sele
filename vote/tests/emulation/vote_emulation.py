@@ -1,6 +1,6 @@
 """Test vote emulation module.
 """
-from datetime import datetime
+from datetime import date, datetime, timedelta
 
 from django.utils import timezone
 
@@ -36,9 +36,9 @@ class VoteEmulation():
                 " amet erat. Duis semper. Duis arcu massa, scelerisque vitae,"
                 " consequat in, pretium a, enim. Pellentesque congue"
             ),
-            creation_date = "2022-01-10",
-            opening_date = "2022-01-11",
-            closure_date = "2022-01-19",
+            creation_date = date.today(),
+            opening_date = date.today(),
+            closure_date = date.today() + timedelta(days=5),
             voting_method_id=1,
             voting_custom_user_id=1
         )

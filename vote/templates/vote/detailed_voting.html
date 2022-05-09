@@ -36,7 +36,7 @@
                         <p class="card-text">Question:</br>
                             <span class="card-text text-secondary">{{voting.question}}</span>
                         </p>
-                        <p class="card-text">Desciption:</br>
+                        <p class="card-text">Description:</br>
                             <span class="card-text text-secondary">{{voting.description}}</span>
                         </p>
                         <p class="card-text">Date de création:</br>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="col-sm-3 mb-3">
                         <a href="{% url 'vote:create_vote' id_voting=voting.id %}" role="button">
-                            <button type="button" class="btn btn-block btn-primary">
+                            <button type="button" id="participate_to_voting_button" class="btn btn-block btn-primary">
                                 Participer au vote!
                             </button>
                         </a>

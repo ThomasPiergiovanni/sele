@@ -28,7 +28,7 @@ class DetailedVotingViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'vote/detailed_voting.html')
         self.assertIsInstance(response.context['voting'], Voting)
-        self.assertEqual(response.context['voting_status'], 'Fermé')
+        self.assertEqual(response.context['voting_status'], 'Ouvert')
         self.assertEqual(response.context['voting_operation'], 'read')
         self.assertEqual(response.context['voting_result'], 50)
 

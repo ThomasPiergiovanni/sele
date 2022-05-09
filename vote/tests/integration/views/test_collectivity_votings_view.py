@@ -28,8 +28,8 @@ class CollectivityVotingsViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'vote/votings.html')
         self.assertIsInstance(response.context['page_objects'][0], Voting)
-        self.assertEqual(response.context['page_objects'][0].id, 3)
-        self.assertEqual(response.context['page_objects'][1].id, 1)
+        self.assertEqual(response.context['page_objects'][0].id, 1)
+        self.assertEqual(response.context['page_objects'][1].id, 3)
     
     def test_get_with_alternative_scenario_one(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -66,7 +66,7 @@ class CollectivityVotingsViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'vote/votings.html')
         self.assertIsInstance(response.context['page_objects'][0], Voting)
-        self.assertEqual(response.context['page_objects'][0].id, 3)
+        self.assertEqual(response.context['page_objects'][0].id, 1)
         self.assertTrue(response.context['form'].errors)
 
     def test_post_with_alternative_scenario_two_missing_input(self):
@@ -78,7 +78,7 @@ class CollectivityVotingsViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'vote/votings.html')
         self.assertIsInstance(response.context['page_objects'][0], Voting)
-        self.assertEqual(response.context['page_objects'][0].id, 3)
+        self.assertEqual(response.context['page_objects'][0].id, 1)
         self.assertFalse(response.context['form'].errors)
 
     def test_post_with_alternative_scenario_three(self):

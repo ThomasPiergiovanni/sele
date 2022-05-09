@@ -1,6 +1,8 @@
 """Test rating use case test module. Functional test
 """
 import os
+from datetime import date, timedelta
+
 
 from time import sleep
 
@@ -55,7 +57,7 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
             )
         )
 
-    def test_rating_use_case(self):
+    def teests_create_voting_use_case(self):
         # The user types its email and password.
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
@@ -106,11 +108,12 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         self.browser.find_element_by_id('input_voting_voting_method')\
         .send_keys('Majoritaire')
         sleep(2)
+        today = date.today()
         self.browser.find_element_by_id('input_voting_opening_date')\
-        .send_keys('2022-02-04')
+        .send_keys(str(today))
         sleep(2)
         self.browser.find_element_by_id('input_voting_closure_date')\
-        .send_keys('2022-02-11')
+        .send_keys(str(today + timedelta(days=5)))
         sleep(2)
         self.browser.find_element_by_id('create_voting_button').click()
         self.assertIn(
