@@ -18,6 +18,7 @@ class Manager():
         """Method creating Discussion instances into DB
         """
         Discussion.objects.create(
+            id=Discussion.objects.all().last().id + 1,
             subject=form.cleaned_data['subject'],
             creation_date=date.today(),
             discussion_custom_user = custom_user,

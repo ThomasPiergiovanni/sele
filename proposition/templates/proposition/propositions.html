@@ -113,7 +113,7 @@
                                             </td>
                                             <td>
                                                 <a href="{% url 'proposition:read_proposition' id_proposition=proposition.id %}" role="button">
-                                                    <button type="button"
+                                                    <button type="button" id="watch_proposition_button"
                                                         class=" text-primary btn btn-block btn-light border border-primary btn-sm">Regarder</button>
                                                 </a>
                                             </td>
@@ -135,7 +135,7 @@
                             <div class="col-sm-8"></div>
                             <div class="col-sm-4">
                                 <a href="{% url 'proposition:create_proposition'%}" role="button">
-                                    <button type="button" class="btn btn-block btn-success">Nouvelle proposition</button>
+                                    <button type="button" id="go_to_create_proposition_button" class="btn btn-block btn-success">Créer une proposition</button>
                                 </a>
                             </div>
                         </div>

@@ -50,10 +50,7 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         self.vote_emulation.emulate_voting_method()
         self.vote_emulation.emulate_voting()
         self.browser.get(
-            '%s%s' % (
-                self.live_server_url,
-                '/authentication/login/'
-            )
+            '%s%s' % (self.live_server_url, '/authentication/login/')
         )
 
     def test_vote_use_case(self):
@@ -69,10 +66,7 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         # The user clicks then "Se connecter" button and lands on the
         # home page.
         self.browser.find_element_by_id('login_button').click()
-        self.assertIn(
-            'sel-e',
-            self.browser.find_element_by_tag_name('h1').text
-        )
+        self.assertIn('sel-e',self.browser.find_element_by_tag_name('h1').text)
         sleep(1)
 
         # The user selects "Mon groupe Local" on the left navigation sidebar
