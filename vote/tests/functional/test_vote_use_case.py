@@ -2,10 +2,9 @@
 """
 import os
 
-from time import sleep
-
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
+from time import sleep
 
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
@@ -35,6 +34,11 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
                 options=firefox_options,
             )
         cls.browser.implicitly_wait(30)
+        cls.auth_emulation = AuthenticationEmulation()
+        cls.auth_emulation.emulate_custom_user()
+        cls.vote_emulation = VoteEmulation()
+        cls.vote_emulation.emulate_voting_method()
+        cls.vote_emulation.emulate_voting()
 
 
     @classmethod
@@ -44,17 +48,13 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
 
     def setUp(self):
         # The user logs to the login page
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
-        self.vote_emulation = VoteEmulation()
-        self.vote_emulation.emulate_voting_method()
-        self.vote_emulation.emulate_voting()
         self.browser.get(
             '%s%s' % (self.live_server_url, '/authentication/login/')
         )
 
     def test_vote_use_case(self):
-        # The user types its email and password.
+        # The user types its email password clicks and then clicks
+        # "Se connecter" button and lands on the home page.
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
         .send_keys('user1@email.com')
@@ -62,17 +62,14 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         self.browser.find_element_by_id('input_login_password')\
         .send_keys('xxx_Xxxx')
         sleep(1)
-
-        # The user clicks then "Se connecter" button and lands on the
-        # home page.
         self.browser.find_element_by_id('login_button').click()
         self.assertIn('sel-e',self.browser.find_element_by_tag_name('h1').text)
-        sleep(1)
+        sleep(2)
 
         # The user selects "Mon groupe Local" on the left navigation sidebar
         # and the selects "Votes"
         self.browser.find_element_by_id('sidebar_my_local_group').click()
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('sidebar_mlg_votings').click()
         sleep(2)
 
