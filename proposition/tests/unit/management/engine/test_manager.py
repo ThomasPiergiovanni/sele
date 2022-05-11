@@ -100,6 +100,26 @@ class TestManager(TestCase):
             'Proposition'
         )
     
+    def test_create_discussion_with_discussion_instance(self):
+        form_data = {
+            'name': 'Cours de Python',
+            'description': 'dsdss',
+            'proposition_kind': Kind.objects.get(pk=1).id,
+            'proposition_category': Category.objects.get(pk=1).id,
+            'proposition_domain': Domain.objects.get(pk=1).id,
+            'start_date': "2022-01-25",
+            'end_date': "2022-01-30",
+            'duration': 45,
+            'proposition_creator_type': CreatorType.objects.get(pk=1).id
+        }
+        form = PropositionForm(data=form_data)
+        form.is_valid()
+        custom_user = CustomUser.objects.get(pk=1)
+        self.manager.create_discussion(form, custom_user)
+        self.assertEqual(
+            Discussion.objects.all().last().subject, 'Cours de Python'
+        )
+    
     def test_set_read_prop_view_context_with_demand_nouveau_tak_none(self):
         proposition = Proposition.objects.get(pk=3)
         request = RequestFactory().get('')
