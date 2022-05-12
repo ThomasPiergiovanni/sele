@@ -37,7 +37,7 @@ class CreateVoteView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.redirect_chain[0][0],
-            reverse('vote:detailed_voting', args=[1])
+            reverse('vote:read_voting', args=[1])
         )
         for message in response.context['messages']:
             self.assertEqual(message.level_tag, 'error')
@@ -63,7 +63,7 @@ class CreateVoteView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.redirect_chain[0][0],
-            reverse('vote:detailed_voting', args=[1])
+            reverse('vote:read_voting', args=[1])
         )
         self.assertTrue(vote)
         self.assertTrue(vote.choice)
@@ -84,7 +84,7 @@ class CreateVoteView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.redirect_chain[0][0],
-            reverse('vote:detailed_voting', args=[1])
+            reverse('vote:read_voting', args=[1])
         )
         self.assertTrue(vote)
         self.assertFalse(vote.choice)
@@ -100,7 +100,7 @@ class CreateVoteView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.redirect_chain[0][0],
-            reverse('vote:detailed_voting', args=[1])
+            reverse('vote:read_voting', args=[1])
         )
         for message in response.context['messages']:
             self.assertEqual(message.level_tag, 'error')

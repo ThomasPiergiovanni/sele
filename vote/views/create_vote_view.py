@@ -20,7 +20,7 @@ class CreateVoteView(LoginRequiredMixin, View):
         super().__init__()
         self.manager = Manager()
         self.view_template = 'vote/create_vote.html'
-        self.alternative_one_view_name = 'vote:detailed_voting'
+        self.alternative_one_view_name = 'vote:read_voting'
         self.context = {
             'voting': None,
         }

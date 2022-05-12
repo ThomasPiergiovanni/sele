@@ -6,8 +6,8 @@ from vote.management.engine.manager import Manager
 from vote.models.voting import Voting
 
 
-class DetailedVotingView(LoginRequiredMixin, View):
-    """DetailedVotingView class.
+class ReadVotingView(LoginRequiredMixin, View):
+    """ReadVotingView class.
     """
     login_url = '/authentication/login/'
     redirect_field_name = None
@@ -15,7 +15,7 @@ class DetailedVotingView(LoginRequiredMixin, View):
     def __init__(self):
         super().__init__()
         self.manager = Manager()
-        self.view_template = 'vote/detailed_voting.html'
+        self.view_template = 'vote/read_voting.html'
         self.context = {
             'voting': None,
             'voting_operation': None, 

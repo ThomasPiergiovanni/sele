@@ -89,7 +89,7 @@ class VotingTest(TestCase):
             voting.question,
             "Voulez-vous créer une demande de nettoyage?"
         )
-        self.assertEqual(voting.opening_date, date(2022, 1, 11))
+        self.assertEqual(voting.opening_date, date.today())
         voting = Voting.objects.get(pk=2)
         self.assertEqual(
             voting.question, 

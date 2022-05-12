@@ -6,7 +6,7 @@ from vote.views.collectivity_votings_view import CollectivityVotingsView
 from vote.views.create_vote_view import CreateVoteView
 from vote.views.create_voting_view import CreateVotingView
 from vote.views.delete_voting_view import DeleteVotingView
-from vote.views.detailed_voting_view import DetailedVotingView
+from vote.views.read_voting_view import ReadVotingView
 
 
 app_name = 'vote'
@@ -29,8 +29,8 @@ urlpatterns = [
         name='delete_voting'
     ),
     path(
-        'detailed_voting/<int:id_voting>/',
-        DetailedVotingView.as_view(),
-        name='detailed_voting'
+        'read_voting/<int:id_voting>/',
+        ReadVotingView.as_view(),
+        name='read_voting'
     ),
 ]

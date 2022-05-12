@@ -12,7 +12,7 @@ class CollectivityDiscussionsForm(Form):
         max_length=256,
         widget=TextInput(
             attrs={
-                'id': 'input_search_input',
+                'id': 'input_search_discussion',
                 'class': 'form-control form-control-sm',
                 'autofocus': False,
             }

@@ -19,6 +19,7 @@ class VotingFormTest(TestCase):
         self.auth_emulation = AuthenticationEmulation()
         self.auth_emulation.emulate_custom_user()
         self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting_method()
         self.vote_emulation.emulate_voting()
         self.form = VotingForm()
 

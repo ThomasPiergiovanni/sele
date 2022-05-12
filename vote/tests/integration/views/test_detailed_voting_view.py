@@ -11,8 +11,8 @@ from authentication.tests.emulation.authentication_emulation import (
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
-class DetailedVotingViewTest(TestCase):
-    """Test DetailedVotingView class.
+class ReadVotingViewTest(TestCase):
+    """Test ReadVotingView class.
     """
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
@@ -24,16 +24,16 @@ class DetailedVotingViewTest(TestCase):
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        response = self.client.get('/vote/detailed_voting/1/', follow=True)
+        response = self.client.get('/vote/read_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'vote/detailed_voting.html')
+        self.assertTemplateUsed(response, 'vote/read_voting.html')
         self.assertIsInstance(response.context['voting'], Voting)
         self.assertEqual(response.context['voting_status'], 'Ouvert')
         self.assertEqual(response.context['voting_operation'], 'read')
         self.assertEqual(response.context['voting_result'], 50)
 
     def test_get_with_alternative_scenario(self):
-        response = self.client.get('/vote/detailed_voting/1/', follow=True)
+        response = self.client.get('/vote/read_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.redirect_chain[0][0],reverse('authentication:login')

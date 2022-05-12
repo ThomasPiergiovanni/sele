@@ -20,7 +20,7 @@ class CollectivityVotingsFormTest(TestCase):
         self.assertEqual(field.label,'Rechercher')
         self.assertEqual(field.max_length, 256)
         self.assertIsInstance(field.widget, TextInput)
-        self.assertEqual(field.widget.attrs['id'],'input_search_input')
+        self.assertEqual(field.widget.attrs['id'],'input_search_votings')
         self.assertEqual(
             field.widget.attrs['class'],'form-control form-control-sm'
         )

@@ -62,7 +62,7 @@ class TestManager(TestCase):
         self.assertEqual(context['voting'], voting )
         self.assertEqual(context['voting_operation'], 'delete')
         self.assertEqual(context['voting_result'], 50 )
-        self.assertEqual(context['voting_status'], 'Fermé' )
+        self.assertEqual(context['voting_status'], 'Ouvert' )
 
     def test_get_voting_status_with_return_open(self):
         Voting.objects.all().delete()
@@ -81,7 +81,7 @@ class TestManager(TestCase):
         )
 
     def test_get_voting_status_with_return_closed(self):
-        voting = Voting.objects.get(pk=1)
+        voting = Voting.objects.get(pk=2)
         self.assertEqual(
             self.manager._Manager__get_voting_status(voting), 'Fermé'
         )
@@ -120,7 +120,7 @@ class TestManager(TestCase):
         votings = self.manager._Manager__get_voting_queryset(
             request, False
         )
-        self.assertEqual(votings[0].id, 3)
+        self.assertEqual(votings[0].id, 1)
 
     def test_set_session_vars_with_search_input(self):
         request = RequestFactory().post('')

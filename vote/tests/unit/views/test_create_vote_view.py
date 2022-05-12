@@ -16,7 +16,7 @@ class CreateVoteViewTest(TestCase):
     def test_init_with_attr(self):
         self.assertEqual(self.view.view_template,'vote/create_vote.html')
         self.assertEqual(
-            self.view.alternative_one_view_name, 'vote:detailed_voting'
+            self.view.alternative_one_view_name, 'vote:read_voting'
         )
         self.assertEqual(
             CreateVoteView.login_url , '/authentication/login/'
