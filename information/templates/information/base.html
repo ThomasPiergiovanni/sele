@@ -111,8 +111,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" role="button">
-                        <button type="button" data-toggle="dropdown" class="btn btn-block btn-primary btn-xs">Connexion</button>
+                    <a href="{% url 'authentication:login' %}" class="nav-link">
+                        <button type="button" class="btn btn-block btn-primary btn-xs">Connexion</button>
                     </a>
                 </li>
             </ul>
@@ -178,7 +178,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{% url 'chat:collectivity_discussions'%}" class="nav-link">
+                                    <a href="{% url 'chat:collectivity_discussions'%}" id="sidebar_mlg_chat" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Discussions</p>
                                     </a>
