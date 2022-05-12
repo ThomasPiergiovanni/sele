@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">FAQ</h1>
+                <h1 class="m-0">Contact</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -28,24 +28,18 @@
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="fas fa-info mr-1"></i>
-                            FAQ
+                            Contact
                         </h3>
                     </div>
-                    <div class="card-body mt-3 mb-2">
-                        <!-- Form -->
-                    </div>
                     <!-- Table . 2nd card-body-->
-                    <div class="card-body">
-                        {% for question in questions%}
-                        <h5><span class="font-weight-bold">#{{question.id}}</span>
-                        {{question.question}}</h5>
-                        <p class="card-text">
-                            {{question.answer}}
+                    <div class="card-body text-center">
+                        <h5><i class="far fa-envelope mr-2"></i></h5>
+                        <p>
+                            
+                            sel-e@outlook.fr
                         </p>
-                        {% endfor %}
-
+                        
                     </div>
-                    <!-- /.card-footer-->
                 </div>
                 <!-- /.card -->
             </section>

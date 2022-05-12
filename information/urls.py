@@ -3,6 +3,7 @@
 from django.urls import path
 
 from information.views.about_view import AboutView
+from information.views.contact_view import ContactView
 from information.views.collectivity_dashboard_view import (
     CollectivityDashboardView
 )
@@ -18,12 +19,13 @@ app_name = 'information'
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('about/', AboutView.as_view(), name='about'),
+    path('contact/', ContactView.as_view(), name='contact'),
+    path('faq/', FaqView.as_view(), name='faq'),
     path(
         'information/collectivity_dashboard/',
         CollectivityDashboardView.as_view(),
         name='collectivity_dashboard'
     ),
-    path('faq/', FaqView.as_view(), name='faq'),
     path('legal/', LegalView.as_view(), name='legal'),
     path(
         'member_dashboard/',

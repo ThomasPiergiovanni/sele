@@ -5,7 +5,7 @@
 <div class=" login-page">
     <div class="login-box ">
         <div class="login-logo">
-            <a href="../../index2.html"><b>sel-</b>E</a>
+            <a href="{% url 'information:home'%}"><b>sel-</b>E</a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
@@ -34,8 +34,8 @@
                     <button type="submit" class="btn btn-primary btn-block mt-5">Créer</button>
                 </form>
                 <!--links -->
-                <p class="mt-2 mb-0 text-center">
-                    <a href="" class="text-center">Déja un compte? Connectez vous</a>
+                <p class="mt-3 mb-0 text-center">
+                    <a href="{% url 'authentication:login'%}" class="text-center">Déja un compte? Connectez vous</a>
                 </p>
                 <!--./links -->
             </div>

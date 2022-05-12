@@ -2,16 +2,16 @@ from django.views import View
 from django.shortcuts import render
 
 
-class LegalView(View):
-    """Legal view  class.
+class ContactView(View):
+    """Contact view  class.
     """
 
     def __init__(self):
         super().__init__()
-        self.view_template = 'information/legal.html'
+        self.view_template = 'information/contact.html'
         self.context = {}
 
     def get(self, request):
-        """Legal view method on client get request.
+        """Contact view method on client get request.
         """
         return render(request, self.view_template, self.context)

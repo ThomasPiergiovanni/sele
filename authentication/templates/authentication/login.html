@@ -61,11 +61,8 @@
 
             <!-- /.social-auth-links -->
 
-            <p class="mt-3 mb-1 text-center">
-                <a href="forgot-password.html">J'ai oublié mon mot de passe</a>
-            </p>
-            <p class="mb-0 text-center">
-                <a href="register.html" class="text-center">Pas de compte? Créer un compte</a>
+            <p class="mt-3 mb-0 text-center">
+                <a href="{% url 'authentication:create_custom_user'%}" class="text-center">Pas de compte? Créer un compte</a>
             </p>
         </div>
         <!-- /.login-card-body -->
