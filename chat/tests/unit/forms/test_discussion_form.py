@@ -2,6 +2,9 @@
 """
 from django.test import TestCase
 
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from chat.forms.discussion_form import DiscussionForm
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
@@ -10,8 +13,8 @@ class DiscussionFormTest(TestCase):
     """Test DiscussionForm   class.
     """
     def setUp(self):
-        self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.form = DiscussionForm()
 
     def test_df_with_all_attr_subject(self):

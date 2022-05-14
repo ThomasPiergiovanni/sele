@@ -19,13 +19,11 @@ from proposition.tests.emulation.proposition_emulation import (
 class CreatePropositionUseCaseTest(StaticLiveServerTestCase):
     """Test create proposition use case test class
     """
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUp(self):
         firefox_options = webdriver.FirefoxOptions()
         if os.name == 'nt':
             firefox_options.headless = False
-            cls.browser = webdriver.Firefox(
+            self.browser = webdriver.Firefox(
                 executable_path=str(
                     r'D:\02_oc\13_p13\config\settings\geckodriver.exe'
                 ),
@@ -33,31 +31,27 @@ class CreatePropositionUseCaseTest(StaticLiveServerTestCase):
             )
         if os.name == 'posix':
             firefox_options.headless = True
-            cls.browser = webdriver.Firefox(
+            self.browser = webdriver.Firefox(
                 executable_path=str('/usr/local/bin/geckodriver'),
                 options=firefox_options,
             )
-        cls.browser.implicitly_wait(30)
-        cls.auth_emulation = AuthenticationEmulation()
-        cls.auth_emulation.emulate_custom_user()
-        cls.chat_emulation = ChatEmulation()
-        cls.chat_emulation.emulate_discussion()
-        cls.chat_emulation.emulate_comment()
-        cls.proposition_emulation = PropositionEmulation()
-        cls.proposition_emulation.emulate_proposition()
+        self.browser.implicitly_wait(30)
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
+        self.proposition_emulation = PropositionEmulation()
+        self.proposition_emulation.emulate_proposition()
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
-        super().tearDownClass()
+    def tearDown(self):
+        self.browser.quit()
 
-    def setUp(self):
-        # The user logs to the login page
+    def test_create_proposition_use_case(self):
+        # The user is on the login page
         self.browser.get(
             '%s%s' % (self.live_server_url, '/authentication/login/')
         )
-
-    def test_create_proposition_use_case(self):
         # The user types its email and password.
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\

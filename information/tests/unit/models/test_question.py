@@ -40,15 +40,7 @@ class QuestionTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.TextField()))
         self.assertEqual(attribute.max_length, 1000)
-
-    def test_question_with_attr_custom_user_characteristic(self):
-        attribute = Question._meta.get_field('custom_user')
-        self.assertTrue(attribute)
-        self.assertEqual(
-            type(attribute),
-            type(models.ForeignKey(CustomUser, models.CASCADE))
-        )
-    
+ 
     def test_question_with_emulated_question_instance(self):
         question= Question.objects.get(pk=1)
         self.assertEqual(

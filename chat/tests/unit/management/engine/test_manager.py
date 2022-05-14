@@ -25,12 +25,13 @@ class TestManager(TestCase):
     """
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
         self.manager = Manager()
 
     def test_create_discussion_with_voting_instance(self):
-        self.auth_emulation.emulate_custom_user()
-        self.chat_emulation.emulate_discussion_type()
+        Discussion.objects.all().delete()
         form_data = {
             'subject': 'Le sujet est',
         }
@@ -50,7 +51,6 @@ class TestManager(TestCase):
         )
 
     def test_set_page_objects_context(self):
-        self.chat_emulation.emulate_discussion()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user  
@@ -60,7 +60,6 @@ class TestManager(TestCase):
         self.assertEqual(page_objects[0].id, 1)
 
     def test_get_discussion_queryset_with_search_input(self):
-        self.chat_emulation.emulate_discussion()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
@@ -70,7 +69,6 @@ class TestManager(TestCase):
         self.assertEqual(votings[0].id, 1)
 
     def test_get_discussion_queryset_with_search_input_is_false(self):
-        self.chat_emulation.emulate_discussion()
         request = RequestFactory().get('', data={'page': 1})        
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
         request.user = user     
@@ -80,7 +78,6 @@ class TestManager(TestCase):
         self.assertEqual(votings[0].id, 3)
 
     def test_set_session_vars_with_search_input(self):
-        self.chat_emulation.emulate_discussion()
         request = RequestFactory().post('')
         session_middleware = SessionMiddleware(request)
         session_middleware.process_request(request) 
@@ -90,7 +87,6 @@ class TestManager(TestCase):
         )
 
     def test_create_comment(self):
-        self.chat_emulation.emulate_discussion()
         form_data = {
             'comment': 'Alors???'
         }

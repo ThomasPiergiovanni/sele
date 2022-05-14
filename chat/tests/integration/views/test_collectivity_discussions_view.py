@@ -3,6 +3,9 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from chat.forms.collectivity_discussions_form import CollectivityDiscussionsForm
 from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
@@ -12,8 +15,10 @@ class CollectivityDIscussionsViewTest(TestCase):
     """Test CollectivityDiscussions view class.
     """
     def setUp(self):
-        self.vote_emulation = ChatEmulation()
-        self.vote_emulation.emulate_discussion()
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')

@@ -18,8 +18,8 @@ class CreateDiscussionViewTest(TestCase):
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
         self.auth_emulation.emulate_custom_user()
-        # self.chat_emulation = ChatEmulation()
-        # self.chat_emulation.emulate_discussion()
+        self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
         self.form_data = {
             'subject': 'Le sujet est'
         }
@@ -42,6 +42,7 @@ class CreateDiscussionViewTest(TestCase):
         )
 
     def test_post_with_nominal_scenario(self):
+        Discussion.objects.all().delete()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
             '/chat/create_discussion/', data=self.form_data, follow=True

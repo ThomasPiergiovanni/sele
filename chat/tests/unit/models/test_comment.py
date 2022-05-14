@@ -7,6 +7,9 @@ from django.test import TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from chat.tests.emulation.chat_emulation import ChatEmulation
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
@@ -16,7 +19,10 @@ class CommentTest(TestCase):
     """Test comment class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
         self.chat_emulation.emulate_comment()
 
     def test_comment_with_discussion_class(self):

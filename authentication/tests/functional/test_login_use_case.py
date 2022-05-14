@@ -15,13 +15,11 @@ from chat.tests.emulation.chat_emulation import ChatEmulation
 class LoginUseCaseTest(StaticLiveServerTestCase):
     """Test create voting use case test class
     """
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUp(self):
         firefox_options = webdriver.FirefoxOptions()
         if os.name == 'nt':
             firefox_options.headless = False
-            cls.browser = webdriver.Firefox(
+            self.browser = webdriver.Firefox(
                 executable_path=str(
                     r'D:\02_oc\13_p13\config\settings\geckodriver.exe'
                 ),
@@ -29,31 +27,27 @@ class LoginUseCaseTest(StaticLiveServerTestCase):
             )
         if os.name == 'posix':
             firefox_options.headless = True
-            cls.browser = webdriver.Firefox(
+            self.browser = webdriver.Firefox(
                 executable_path=str('/usr/local/bin/geckodriver'),
                 options=firefox_options,
             )
-        cls.browser.implicitly_wait(30)
-        cls.auth_emulation = AuthenticationEmulation()
-        cls.auth_emulation.emulate_custom_user()
+        self.browser.implicitly_wait(30)
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
 
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
-        super().tearDownClass()
-
-    def setUp(self):
-        # The user logs to the home page
-        self.browser.get(
-            '%s%s' % (self.live_server_url, '')
-        )
+    def tearDown(self):
+        self.browser.quit()
 
     def test_vote_use_case(self):
-        sleep(2)
+        # The user is on the home page
+        self.browser.get('%s%s' % (self.live_server_url, ''))
+        sleep(1)
         self.assertIn('sel-e',self.browser.find_element_by_tag_name('h1').text)
+
         # The use select the connexion button
+        sleep(2)
         self.browser.find_element_by_id('go_to_login_button').click()
+        sleep(1)
         self.assertIn(
             self.browser.find_element_by_class_name('login-box-msg').text,
             "Connectez-vous à votre compte"

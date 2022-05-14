@@ -52,8 +52,7 @@ class CreatePropositionViewTest (TestCase):
         )
 
     def test_post_with_nominal_scenario(self):
-        propositions = Proposition.objects.all().delete()
-        discussions = Discussion.objects.all().delete()
+        Discussion.objects.all().delete()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         form_data = {
             'name': 'Cours de Python',

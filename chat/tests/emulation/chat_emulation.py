@@ -3,9 +3,6 @@
 from datetime import date, datetime
 from django.utils import timezone
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from chat.models.discussion import Discussion
 from chat.models.discussion_type import DiscussionType
 from chat.models.comment import Comment

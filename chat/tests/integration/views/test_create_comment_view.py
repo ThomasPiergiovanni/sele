@@ -3,6 +3,9 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
@@ -12,11 +15,15 @@ class CreateCommentView(TestCase):
     """Test CreateCommentView class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
 
 
     def test_post_with_nominal_scenario(self):
-        self.chat_emulation.emulate_discussion()
+        Comment.objects.all().delete()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         form_data = {'comment':'Alors???'}
         response = self.client.post(
@@ -39,7 +46,6 @@ class CreateCommentView(TestCase):
 
     
     def test_post_with_alternative_scenario(self):
-        self.chat_emulation.emulate_discussion()
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         form_data = {'comment':''}
         response = self.client.post(

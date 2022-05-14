@@ -2,6 +2,9 @@
 """
 from django.test import TestCase
 
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from chat.forms.comment_form import CommentForm
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
@@ -10,6 +13,8 @@ class CommentFormTest(TestCase):
     """Test CommentForm   class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
         self.chat_emulation.emulate_discussion()
         self.form = CommentForm()

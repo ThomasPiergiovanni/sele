@@ -3,6 +3,9 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
+)
 from chat.forms.comment_form import CommentForm
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
@@ -13,7 +16,10 @@ class ReadDiscussionViewTest(TestCase):
     """Test ReadDiscussionView class.
     """
     def setUp(self):
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_discussion()
         self.chat_emulation.emulate_comment()
 
     def test_get_with_nominal_scenario(self):

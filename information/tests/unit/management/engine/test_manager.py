@@ -158,12 +158,12 @@ class TestManager(TestCase):
     def test_set_stats_cu_counts(self):
         ref_dates = self.emulate_ref_dates()
         cu_counts = self.manager._Manager__set_stats_cu_counts(ref_dates)
-        self.assertEqual(cu_counts['cu_0'], 3)
+        self.assertEqual(cu_counts['cu_0'], 0)
     
     def test_set_cu_counts(self):
         ref_date = self.emulate_ref_date()
         cu_counts = self.manager._Manager__set_cu_counts(ref_date)
-        self.assertEqual(cu_counts, 3)
+        self.assertEqual(cu_counts, 0)
 
     def test_set_stats_p_counts(self):
         ref_dates = self.emulate_ref_dates()
@@ -354,7 +354,7 @@ class TestManager(TestCase):
             self.manager._Manager__set_voting_page_obj(request)
         )
         self.assertIsInstance(page_objects[0], Voting)
-        self.assertEqual(page_objects[0].id, 3)
+        self.assertEqual(page_objects[0].id, 1)
 
     def test_voting_queryset_with_request_user(self):
         request = RequestFactory().get('',)        
@@ -363,8 +363,8 @@ class TestManager(TestCase):
         votings = self.manager._Manager__get_voting_queryset(
             request
         )
-        self.assertEqual(votings[0].id, 3)
-        self.assertEqual(votings[1].id, 1)
+        self.assertEqual(votings[0].id, 1)
+        self.assertEqual(votings[1].id, 3)
 
     def test_collectivity_p_counts(self):
         request = RequestFactory().get('',)        

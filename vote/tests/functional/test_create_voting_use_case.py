@@ -10,19 +10,18 @@ from time import sleep
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from vote.models.voting import Voting
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class CreateVotingUseCaseTest(StaticLiveServerTestCase):
     """Test create voting use case test class
     """
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUp(self):
         firefox_options = webdriver.FirefoxOptions()
         if os.name == 'nt':
             firefox_options.headless = False
-            cls.browser = webdriver.Firefox(
+            self.browser = webdriver.Firefox(
                 executable_path=str(
                     r'D:\02_oc\13_p13\config\settings\geckodriver.exe'
                 ),
@@ -30,31 +29,27 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
             )
         if os.name == 'posix':
             firefox_options.headless = True
-            cls.browser = webdriver.Firefox(
+            self.browser = webdriver.Firefox(
                 executable_path=str('/usr/local/bin/geckodriver'),
                 options=firefox_options,
             )
-        cls.browser.implicitly_wait(30)
-        cls.auth_emulation = AuthenticationEmulation()
-        cls.auth_emulation.emulate_custom_user()
-        cls.vote_emulation = VoteEmulation()
-        cls.vote_emulation.emulate_voting_method()
+        self.browser.implicitly_wait(30)
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
+        self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting_method()
 
+    def tearDown(self):
+        self.browser.quit()
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
-        super().tearDownClass()
-
-    def setUp(self):
-        # The user logs to the login page
+    def tests_create_voting_use_case(self):
+        # The user is on the login page
         self.browser.get(
             '%s%s' % (self.live_server_url,'/authentication/login/')
         )
 
-    def tests_create_voting_use_case(self):
-        # The user types its email password clicks and then clicks
-        # "Se connecter" button and lands on the home page.
+        # The user types its email, password and then clicks
+        # "Se connecter" button. The user lands on the home page.
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
         .send_keys('user1@email.com')
@@ -63,14 +58,16 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         .send_keys('xxx_Xxxx')
         sleep(1)
         self.browser.find_element_by_id('login_button').click()
+        sleep(1)
         self.assertIn('sel-e',self.browser.find_element_by_tag_name('h1').text)
         sleep(2)
 
         # The user selects "Mon groupe Local" on the left navigation sidebar
         # and the selects "Votes"
         self.browser.find_element_by_id('sidebar_my_local_group').click()
-        sleep(2)
+        sleep(1)
         self.browser.find_element_by_id('sidebar_mlg_votings').click()
+        sleep(1)
         self.assertIn(
             self.browser.find_element_by_tag_name('h1').text,
             'Votations - Bourg-la-Reine (92340)',
@@ -79,6 +76,7 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
 
         #The user selects the "Créer une votation" button
         self.browser.find_element_by_id('go_to_create_voting_button').click()
+        sleep(1)
         self.assertIn(
             self.browser.find_element_by_tag_name('h1').text,
             'Votation - Créer',
@@ -105,5 +103,5 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         .send_keys(str(today + timedelta(days=5)))
         sleep(1)
         self.browser.find_element_by_id('create_voting_button').click()
-        self.assertIn(self.browser.find_element_by_tag_name('td').text,'1')
+        self.assertTrue(self.browser.find_element_by_tag_name('td'))
         sleep(2)

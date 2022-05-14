@@ -15,13 +15,11 @@ from vote.tests.emulation.vote_emulation import VoteEmulation
 class CreateVotingUseCaseTest(StaticLiveServerTestCase):
     """Test create voting use case test class
     """
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUp(self):
         firefox_options = webdriver.FirefoxOptions()
         if os.name == 'nt':
             firefox_options.headless = False
-            cls.browser = webdriver.Firefox(
+            self.browser = webdriver.Firefox(
                 executable_path=str(
                     r'D:\02_oc\13_p13\config\settings\geckodriver.exe'
                 ),
@@ -29,30 +27,26 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
             )
         if os.name == 'posix':
             firefox_options.headless = True
-            cls.browser = webdriver.Firefox(
+            self.browser = webdriver.Firefox(
                 executable_path=str('/usr/local/bin/geckodriver'),
                 options=firefox_options,
             )
-        cls.browser.implicitly_wait(30)
-        cls.auth_emulation = AuthenticationEmulation()
-        cls.auth_emulation.emulate_custom_user()
-        cls.vote_emulation = VoteEmulation()
-        cls.vote_emulation.emulate_voting_method()
-        cls.vote_emulation.emulate_voting()
+        self.browser.implicitly_wait(30)
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
+        self.vote_emulation = VoteEmulation()
+        self.vote_emulation.emulate_voting_method()
+        self.vote_emulation.emulate_voting()
 
+    def tearDown(self):
+        self.browser.quit()
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
-        super().tearDownClass()
-
-    def setUp(self):
-        # The user logs to the login page
+    def test_vote_use_case(self):
+        # The user is on the login page
         self.browser.get(
             '%s%s' % (self.live_server_url, '/authentication/login/')
         )
 
-    def test_vote_use_case(self):
         # The user types its email password clicks and then clicks
         # "Se connecter" button and lands on the home page.
         sleep(2)

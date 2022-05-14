@@ -101,6 +101,7 @@ class TestManager(TestCase):
         )
     
     def test_create_discussion_with_discussion_instance(self):
+        Discussion.objects.all().delete()
         form_data = {
             'name': 'Cours de Python',
             'description': 'dsdss',
