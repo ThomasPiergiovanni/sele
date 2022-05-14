@@ -123,5 +123,5 @@ class CreatePropositionUseCaseTest(StaticLiveServerTestCase):
         sleep(1)
         self.browser.find_element_by_id('create_proposition_button').click()
         sleep(1)
-        self.assertIn(self.browser.find_element_by_tag_name('td').text,'1')
+        self.assertTrue(self.browser.find_element_by_tag_name('td'))
         sleep(2)

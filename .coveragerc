@@ -1,0 +1,32 @@
+[run]
+omit =
+    99_other/*
+    authentication/__init__.py
+    authentication/admin.py
+    authentication/tests/*
+    authentication/migrations/*
+    chat/__init__.py
+    chat/admin.py
+    chat/tests/*
+    chat/migrations/*
+    collectivity/__init__.py
+    collectivity/admin.py
+    collectivity/tests/*
+    collectivity/migrations/*
+    config/*
+    env/*
+    information/__init__.py
+    information/admin.py
+    information/tests/*
+    information/migrations/*
+    proposition/__init__.py
+    proposition/admin.py
+    proposition/tests/*
+    proposition/migrations/*
+    vote/__init__.py
+    vote/admin.py
+    vote/tests/*
+    vote/migrations/*
+    manage.py
+    
+
