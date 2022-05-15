@@ -1,33 +1,28 @@
-# pylint: disable=E1101,R0201
+# pylint: disable=R0201, W0106
 """ DB management command
 """
 from django.core.management.base import BaseCommand
 
 from config.settings.data.enumeration import DISCUSSIONS_TYPE
+from chat.models.comment import Comment
+from chat.models.discussion import Discussion
 from chat.models.discussion_type import DiscussionType
 
 
-
 class Command(BaseCommand):
-    """ Reset chat data from DB. Use it with
-    option --all to reset all users as well. This including superuser
+    """Reset chat data from DB.
     """
-    help = "Reset proposition info from DB. Use it with"\
-        " option --all to reset all users as well. This including superuser"
+
+    help = "Reset chat data from DB"
 
     def __init__(self):
         super().__init__()
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--all',
-            action='store_true',
-            help='Reset all DB tables values including users and superusers'
-        )
-
     def handle(self, *args, **options):
         self.__drop_discussion_type(),
         self.__insert_discussion_type(),
+        self.__drop_comment(),
+        self.__drop_discussion(),
 
     def __drop_discussion_type(self):
         """Method thats drop kind objects from DB
@@ -49,3 +44,13 @@ class Command(BaseCommand):
             discussion_type = DiscussionType(id=counter, name=enumeration)
             discussion_type.save()
             counter += 1
+
+    def __drop_comment(self):
+        """Method thats drop Comment from DB
+        """
+        self.__drop_objects(Comment)
+
+    def __drop_discussion(self):
+        """Method thats drop Discussion from DB
+        """
+        self.__drop_objects(Discussion)

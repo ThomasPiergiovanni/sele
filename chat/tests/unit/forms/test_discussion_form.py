@@ -1,24 +1,19 @@
-"""Test discussion form module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,R0801
 from django.test import TestCase
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from chat.forms.discussion_form import DiscussionForm
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 
 class DiscussionFormTest(TestCase):
-    """Test DiscussionForm   class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation = ChatEmulation()
+        self.chat_emulation.emulate_test_setup()
         self.form = DiscussionForm()
 
     def test_df_with_all_attr_subject(self):
-        self.assertEqual(self.form.fields['subject'].label,'Sujet')
+        self.assertEqual(self.form.fields['subject'].label, 'Sujet')
         self.assertEqual(self.form.fields['subject'].max_length, 256)
         self.assertEqual(
             self.form.fields['subject'].widget.attrs['id'],
@@ -28,7 +23,6 @@ class DiscussionFormTest(TestCase):
             self.form.fields['subject'].widget.attrs['class'],
             'form-control form-control-sm'
         )
-
 
     def test_df_with_all_attr_are_correct(self):
         form = DiscussionForm(

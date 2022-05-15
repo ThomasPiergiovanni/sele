@@ -1,24 +1,19 @@
-"""Test collectivity votings view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,R0801
 from django.test import TestCase
 from django.urls import reverse
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
+from chat.forms.collectivity_discussions_form import (
+    CollectivityDiscussionsForm
 )
-from chat.forms.collectivity_discussions_form import CollectivityDiscussionsForm
 from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 
-class CollectivityDIscussionsViewTest(TestCase):
-    """Test CollectivityDiscussions view class.
-    """
+class CollectivityDiscussionsViewTest(TestCase):
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_test_setup()
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -33,7 +28,7 @@ class CollectivityDIscussionsViewTest(TestCase):
         self.assertIsInstance(response.context['page_objects'][0], Discussion)
         self.assertEqual(response.context['page_objects'][0].id, 3)
         self.assertEqual(response.context['page_objects'][1].id, 2)
-    
+
     def test_get_with_alternative_scenario_one(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         session = self.client.session
@@ -42,7 +37,7 @@ class CollectivityDIscussionsViewTest(TestCase):
         response = self.client.get(
             '/chat/collectivity_discussions/', follow=True
         )
-        self.assertEqual(response.context['page_objects'][0].id,3)
+        self.assertEqual(response.context['page_objects'][0].id, 3)
 
     def test_get_with_alternative_scenario_two(self):
         response = self.client.get(
@@ -50,7 +45,7 @@ class CollectivityDIscussionsViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
 
     def test_post_with_nominal_scenario(self):
@@ -94,5 +89,5 @@ class CollectivityDIscussionsViewTest(TestCase):
             '/chat/collectivity_discussions/', data=form, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )

@@ -1,15 +1,14 @@
-# pylint: disable=C0116
-"""Test collectivity discussions form module.
-"""
-from django.forms import CharField,TextInput
+# pylint: disable=C0114,C0115,C0116,E1101,R0201
+from django.forms import CharField, TextInput
 from django.test import TestCase
 
-from chat.forms.collectivity_discussions_form import CollectivityDiscussionsForm
+from chat.forms.collectivity_discussions_form import (
+    CollectivityDiscussionsForm
+)
 
 
-class CollectivityVotingsFormTest(TestCase):
-    """Test CollectivityVotinsForm   class.
-    """
+class CollectivityDiscussionsFormTest(TestCase):
+
     def setUp(self):
         self.form = CollectivityDiscussionsForm()
 
@@ -17,12 +16,12 @@ class CollectivityVotingsFormTest(TestCase):
         field = self.form.fields['search_input']
         self.assertTrue(field)
         self.assertIsInstance(field, CharField)
-        self.assertEqual(field.label,'Rechercher')
+        self.assertEqual(field.label, 'Rechercher')
         self.assertEqual(field.max_length, 256)
         self.assertIsInstance(field.widget, TextInput)
-        self.assertEqual(field.widget.attrs['id'],'input_search_discussion')
+        self.assertEqual(field.widget.attrs['id'], 'input_search_discussion')
         self.assertEqual(
-            field.widget.attrs['class'],'form-control form-control-sm'
+            field.widget.attrs['class'], 'form-control form-control-sm'
         )
 
     def test_cvf_with_all_attr_are_correct(self):
@@ -32,4 +31,3 @@ class CollectivityVotingsFormTest(TestCase):
             }
         )
         self.assertTrue(form.is_valid())
- 

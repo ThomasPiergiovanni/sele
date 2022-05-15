@@ -1,6 +1,4 @@
-"""Test reset chat module module.
-"""
-from django.db import models
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0212
 from django.test import TestCase
 
 from chat.management.commands.reset_chat import Command
@@ -11,13 +9,10 @@ from chat.tests.emulation.chat_emulation import (
 
 
 class ResetChatTest(TestCase):
-    """Test ResetChat class.
-    """
+
     def setUp(self):
-        """Method that set up data for the entire class
-        """
         self.command = Command()
-        self.chat_emulation =ChatEmulation()
+        self.chat_emulation = ChatEmulation()
 
     def test_drop_discussion_type_with_instance_is_none(self):
         self.chat_emulation.emulate_discussion_type()

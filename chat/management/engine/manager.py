@@ -1,30 +1,32 @@
-# from chat.models.discussion import Comment
-from django.utils import timezone
-from django.core.paginator import Paginator
+# pylint: disable=E1101,R0201
+"""Chat manager module.
+"""
 from datetime import date
+
+from django.core.paginator import Paginator
+from django.utils import timezone
 
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
-from chat.models.discussion_type import DiscussionType
 
 
 class Manager():
-    """Manager manager class.
+    """Chat manager class.
     """
-    def __init__(self):
-        pass
 
     def create_discussion(self, form, custom_user, discussion_type):
-        """Method creating Discussion instances into DB
+        """Method creating Discussion into DB
         """
         Discussion.objects.create(
             subject=form.cleaned_data['subject'],
             creation_date=date.today(),
-            discussion_custom_user = custom_user,
+            discussion_custom_user=custom_user,
             discussion_discussion_type=discussion_type
         )
 
     def set_page_objects_context(self, request, search_input):
+        """Method setting Discussion page objects.
+        """
         discussions = self.__get_discussion_queryset(request, search_input)
         paginator = Paginator(discussions, 6)
         page_number = request.GET.get('page')
@@ -32,12 +34,14 @@ class Manager():
         return page_objects
 
     def __get_discussion_queryset(self, request, search_input):
+        """Method getting Discussion queryset.
+        """
         queryset = None
         if search_input:
             queryset = (
                 Discussion.objects.filter(
-                    discussion_custom_user_id__collectivity_id__exact=
-                    request.user.collectivity,
+                    discussion_custom_user_id__collectivity_id__exact=request
+                    .user.collectivity,
                     discussion_discussion_type_id__exact=None,
                     subject__icontains=search_input
                 ).order_by('-creation_date')
@@ -45,17 +49,22 @@ class Manager():
         else:
             queryset = (
                 Discussion.objects.filter(
-                    discussion_custom_user_id__collectivity_id__exact=
-                    request.user.collectivity,
+                    discussion_custom_user_id__collectivity_id__exact=request
+                    .user.collectivity,
                     discussion_discussion_type_id__exact=None,
                 ).order_by('-creation_date')
             )
         return queryset
 
     def set_session_vars(self, request, search_input):
+        """Method setting collectivity discusssion form search to a session
+        variable.
+        """
         request.session['c_d_v_f_search_input'] = search_input
 
     def create_comment(self, form, custom_user, id_discussion):
+        """Method creating Comment into DB.
+        """
         Comment.objects.create(
             comment=form.cleaned_data['comment'],
             creation_date=timezone.now(),

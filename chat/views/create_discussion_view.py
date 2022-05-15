@@ -1,23 +1,18 @@
-"""Creat Discussion view module
+"""CreateDiscussionView module.
 """
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
 from django.shortcuts import redirect, render
 
 from chat.forms.discussion_form import DiscussionForm
-from chat.management.engine.manager import Manager
+from chat.views.generic_chat_view import GenericChatView
 
 
-class CreateDiscussionView(LoginRequiredMixin,View):
+class CreateDiscussionView(GenericChatView):
     """CreateDiscussionView class.
     """
-    login_url = '/authentication/login/'
-    redirect_field_name = None
 
     def __init__(self):
         super().__init__()
-        self.manager =  Manager()
         self.context = {
             'form': DiscussionForm(),
         }
@@ -28,12 +23,10 @@ class CreateDiscussionView(LoginRequiredMixin,View):
     def get(self, request):
         """Create discussions view method on user get request.
         """
-        return render(request, self.view_template, self.context)           
-    
+        return render(request, self.view_template, self.context)
+
     def post(self, request):
-        """Create discussion view method on client post request. Create 
-        discussion into the DB. After Discussion creation, user is redirected to 
-        discussions overview page.
+        """Create discussion view method on client post request.
         """
         form = DiscussionForm(request.POST)
         if form.is_valid():
@@ -42,6 +35,5 @@ class CreateDiscussionView(LoginRequiredMixin,View):
                 request, messages.SUCCESS, "Création réussie",
             )
             return redirect(self.post_view_name)
-        else:
-            self.context['form'] = form
-            return render(request, self.view_template, self.context)
+        self.context['form'] = form
+        return render(request, self.view_template, self.context)

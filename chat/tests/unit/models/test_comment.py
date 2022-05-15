@@ -1,5 +1,4 @@
-"""Test discussion method module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0212
 from datetime import datetime
 
 from django.db import models
@@ -7,23 +6,16 @@ from django.test import TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from chat.tests.emulation.chat_emulation import ChatEmulation
 from chat.models.comment import Comment
 from chat.models.discussion import Discussion
 
 
 class CommentTest(TestCase):
-    """Test comment class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
-        self.chat_emulation.emulate_comment()
+        self.chat_emulation.emulate_test_setup()
 
     def test_comment_with_discussion_class(self):
         comment = Comment.objects.get(pk=1)
@@ -55,7 +47,7 @@ class CommentTest(TestCase):
             type(attribute),
             type(models.ForeignKey(Discussion, models.CASCADE))
         )
-    
+
     def test_question_with_emulated_question_instance(self):
         comment = Comment.objects.get(pk=1)
         self.assertEqual(comment.comment, "Comment vas-tu?")

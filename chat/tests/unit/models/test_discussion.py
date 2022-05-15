@@ -1,13 +1,10 @@
-"""Test discussion method module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0212
 from datetime import date
+
 from django.db import models
 from django.test import TestCase
 
 from authentication.models import CustomUser
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from chat.models.discussion import Discussion
 from chat.models.discussion_type import DiscussionType
 from chat.tests.emulation.chat_emulation import ChatEmulation
@@ -17,10 +14,8 @@ class DiscussionTest(TestCase):
     """Test discussion class.
     """
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_test_setup()
 
     def test_discussion_with_discussion_class(self):
         discussion = Discussion.objects.get(pk=1)
@@ -45,14 +40,15 @@ class DiscussionTest(TestCase):
             type(attribute),
             type(models.ForeignKey(CustomUser, models.CASCADE))
         )
-    def test_question_with_attr_discussion_discussion_type_characteristic(self):
+
+    def test_question_with_attr_discussion_discu_type_characteristic(self):
         attribute = Discussion._meta.get_field('discussion_discussion_type')
         self.assertTrue(attribute)
         self.assertEqual(
             type(attribute),
             type(models.ForeignKey(DiscussionType, on_delete=models.CASCADE))
         )
-    
+
     def test_question_with_emulated_question_instance(self):
         discussion = Discussion.objects.get(pk=1)
         self.assertEqual(discussion.subject, "Sujet est HTML")

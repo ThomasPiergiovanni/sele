@@ -1,10 +1,9 @@
-"""Test create comment use case test module. Functional test
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201
 import os
-
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
 from time import sleep
+
+from selenium import webdriver
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
@@ -13,8 +12,7 @@ from chat.tests.emulation.chat_emulation import ChatEmulation
 
 
 class CreateCommentUseCaseTest(StaticLiveServerTestCase):
-    """Test create voting use case test class
-    """
+
     def setUp(self):
         firefox_options = webdriver.FirefoxOptions()
         if os.name == 'nt':
@@ -42,20 +40,22 @@ class CreateCommentUseCaseTest(StaticLiveServerTestCase):
 
     def test_create_comment_use_case(self):
         # The user is on the login page
-        self.browser.get(
-            '%s%s' % (self.live_server_url, '/authentication/login/')
-        )
+        self.browser.get(f"{self.live_server_url}{'/authentication/login/'}")
+
         # The user types its email password clicks and then clicks
         # "Se connecter" button and lands on the home page.
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
-        .send_keys('user1@email.com')
-        sleep(1)
+            .send_keys('user1@email.com')
+        sleep(2)
         self.browser.find_element_by_id('input_login_password')\
-        .send_keys('xxx_Xxxx')
-        sleep(1)
+            .send_keys('xxx_Xxxx')
+        sleep(2)
         self.browser.find_element_by_id('login_button').click()
-        self.assertIn('sel-e',self.browser.find_element_by_tag_name('h1').text)
+        sleep(2)
+        self.assertIn(
+            'sel-e', self.browser.find_element_by_tag_name('h1').text
+        )
         sleep(2)
 
         # The user selects "Mon groupe local" on the left navigation sidebar
@@ -65,7 +65,7 @@ class CreateCommentUseCaseTest(StaticLiveServerTestCase):
         self.browser.find_element_by_id('sidebar_mlg_chat').click()
         sleep(2)
 
-        # On the "Discussions" page, the user select the "Regarder" button 
+        # On the "Discussions" page, the user select the "Regarder" button
         # on the first Discussion
         self.browser.find_element_by_id('watch_disscussion_button').click()
         sleep(2)
@@ -76,10 +76,9 @@ class CreateCommentUseCaseTest(StaticLiveServerTestCase):
 
         # The user type its comment on the comment form and then sends it.
         self.browser.find_element_by_id('input_comment_comment')\
-        .send_keys('Mon commentaire est celui ci')
+            .send_keys('Mon commentaire est celui ci')
         sleep(2)
-        self.browser.find_element_by_id('comment_button')\
-        .click()
+        self.browser.find_element_by_id('comment_button').click()
         sleep(2)
         self.assertIn(
             self.browser.find_element_by_class_name('direct-chat-text').text,

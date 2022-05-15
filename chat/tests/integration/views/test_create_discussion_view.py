@@ -1,25 +1,17 @@
-# pylint: disable=C0116, E1101
-"""Test create discussion view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0212
 from django.test import TestCase
 from django.urls import reverse
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from chat.forms.discussion_form import DiscussionForm
 from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 
 class CreateDiscussionViewTest(TestCase):
-    """Test CreateDIscussionView class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_test_setup()
         self.form_data = {
             'subject': 'Le sujet est'
         }
@@ -29,7 +21,7 @@ class CreateDiscussionViewTest(TestCase):
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        response = self.client.get('/chat/create_discussion/',follow=True)
+        response = self.client.get('/chat/create_discussion/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'chat/create_discussion.html')
         self.assertIsInstance(response.context['form'], DiscussionForm)
@@ -38,7 +30,7 @@ class CreateDiscussionViewTest(TestCase):
         response = self.client.get('/chat/create_discussion/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
 
     def test_post_with_nominal_scenario(self):
@@ -62,7 +54,7 @@ class CreateDiscussionViewTest(TestCase):
         )
         self.assertEqual(response_msg.level_tag, 'success')
         self.assertEqual(response_msg.message, "Création réussie")
-    
+
     def test_post_with_alternative_scenario_with_wrong_form(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
@@ -78,6 +70,5 @@ class CreateDiscussionViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
-

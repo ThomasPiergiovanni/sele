@@ -1,29 +1,27 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
+# pylint: disable=E1101
+"""ReadDiscussionView module.
+"""
 from django.shortcuts import render
 
 from chat.forms.comment_form import CommentForm
-from chat.management.engine.manager import Manager
-from chat.models.comment import Comment
 from chat.models.discussion import Discussion
+from chat.models.comment import Comment
+from chat.views.generic_chat_view import GenericChatView
 
 
-class ReadDiscussionView(LoginRequiredMixin, View):
+class ReadDiscussionView(GenericChatView):
     """ReadDiscussionView class.
     """
-    login_url = '/authentication/login/'
-    redirect_field_name = None
 
     def __init__(self):
         super().__init__()
-        self.manager = Manager()
         self.view_template = 'chat/read_discussion.html'
         self.context = {
             'discussion': None,
             'comments': None,
             'form': CommentForm()
         }
-    
+
     def get(self, request, id_discussion):
         """Read discussion view method on client get request.
         """
@@ -32,4 +30,3 @@ class ReadDiscussionView(LoginRequiredMixin, View):
             comment_discussion_id__exact=id_discussion
         )
         return render(request, self.view_template, self.context)
-

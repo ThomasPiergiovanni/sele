@@ -1,14 +1,18 @@
+"""Discussion model module.
+"""
 from django.db import models
 
 from authentication.models import CustomUser
+from chat.models.comment import Comment
 from chat.models.discussion_type import DiscussionType
 
 
 class Discussion(models.Model):
-    """Discussion class model
+    """Discussion model class.
     """
+
     subject = models.CharField(max_length=256, unique=False)
-    creation_date =  models.DateField(null=False)
+    creation_date = models.DateField(null=False)
     discussion_custom_user = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
@@ -21,5 +25,5 @@ class Discussion(models.Model):
         null=True
     )
     comments = models.ManyToManyField(
-        CustomUser, through='Comment',  related_name="comments"
+        CustomUser, through=Comment,  related_name="comments"
     )

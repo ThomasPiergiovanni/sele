@@ -1,26 +1,19 @@
-"""Test comment form module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201
 from django.test import TestCase
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from chat.forms.comment_form import CommentForm
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 
 class CommentFormTest(TestCase):
-    """Test CommentForm   class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
         self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_test_setup()
         self.form = CommentForm()
 
     def test_cf_with_all_attr_subject(self):
-        self.assertEqual(self.form.fields['comment'].label,'Commenter')
+        self.assertEqual(self.form.fields['comment'].label, 'Commenter')
         self.assertEqual(self.form.fields['comment'].max_length, 256)
         self.assertEqual(
             self.form.fields['comment'].widget.attrs['id'],
@@ -30,7 +23,6 @@ class CommentFormTest(TestCase):
             self.form.fields['comment'].widget.attrs['class'],
             'form-control form-control-sm'
         )
-
 
     def test_cf_with_all_attr_are_correct(self):
         form = CommentForm(

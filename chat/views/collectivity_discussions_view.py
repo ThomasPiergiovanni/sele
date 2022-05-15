@@ -1,29 +1,25 @@
 """CollectivityDiscussionsView module.
 """
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
 from django.shortcuts import render
 
-from chat.forms.collectivity_discussions_form import CollectivityDiscussionsForm
-from chat.management.engine.manager import Manager
+from chat.forms.collectivity_discussions_form import (
+    CollectivityDiscussionsForm
+)
+from chat.views.generic_chat_view import GenericChatView
 
 
-
-class CollectivityDiscussionsView(LoginRequiredMixin, View):
+class CollectivityDiscussionsView(GenericChatView):
     """CollectivityDiscussionsView class.
     """
-    login_url = '/authentication/login/'
-    redirect_field_name = None
 
     def __init__(self):
         super().__init__()
-        self.manager = Manager()
         self.view_template = 'chat/discussions.html'
         self.context = {
-            'form' : CollectivityDiscussionsForm(),
+            'form': CollectivityDiscussionsForm(),
             'page_objects': None,
         }
-    
+
     def get(self, request):
         """CollectivityDiscussionsView method on client get request.
         """
@@ -32,13 +28,13 @@ class CollectivityDiscussionsView(LoginRequiredMixin, View):
             self.context['page_objects'] = (
                 self.manager.set_page_objects_context(request, search_input)
             )
-            return render(request, self.view_template, self.context)
+            # return render(request, self.view_template, self.context)
         else:
             self.context['page_objects'] = (
                 self.manager.set_page_objects_context(request, False)
             )
-            return render(request, self.view_template, self.context)
-    
+        return render(request, self.view_template, self.context)
+
     def post(self, request):
         """CollectivityDiscussionsView method on client get request.
         """
@@ -47,7 +43,9 @@ class CollectivityDiscussionsView(LoginRequiredMixin, View):
             if form.is_valid():
                 search_input = form.cleaned_data['search_input']
                 self.context['page_objects'] = (
-                    self.manager.set_page_objects_context(request, search_input)
+                    self.manager.set_page_objects_context(
+                        request, search_input
+                    )
                 )
                 self.manager.set_session_vars(request, search_input)
             else:

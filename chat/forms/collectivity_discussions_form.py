@@ -1,12 +1,13 @@
-"""Collectivity Discussions Search Form module 
+"""Collectivity Discussions form module
 """
 from django.forms import CharField, Form, TextInput
 
 
 class CollectivityDiscussionsForm(Form):
-    """CollectivityDiscussionsForm class. Used for sorting discussions
-     page objects.
+    """CollectivityDiscussionsForm class. Used for searching Discussions
+    page objects.
     """
+
     search_input = CharField(
         label='Rechercher',
         max_length=256,

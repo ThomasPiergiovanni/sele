@@ -1,12 +1,14 @@
+# pylint: disable=C0103
 """Urls module
 """
 from django.urls import path
 
-from chat.views.collectivity_discussions_view import CollectivityDiscussionsView
+from chat.views.collectivity_discussions_view import (
+    CollectivityDiscussionsView
+)
 from chat.views.create_comment_view import CreateCommentView
 from chat.views.create_discussion_view import CreateDiscussionView
 from chat.views.read_discussion_view import ReadDiscussionView
-
 
 
 app_name = 'chat'

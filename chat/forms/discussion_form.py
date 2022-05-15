@@ -1,4 +1,5 @@
-"""Voting form class
+# pylint: disable=R0903
+"""Discussion form module
 """
 from django.forms import CharField, ModelForm, TextInput
 
@@ -6,8 +7,9 @@ from chat.models.discussion import Discussion
 
 
 class DiscussionForm(ModelForm):
-    """DiscussionForm class. Used for adding voting.
+    """DiscussionForm class. Used for adding Discussion.
     """
+
     subject = CharField(
         label='Sujet',
         max_length=256,
@@ -19,7 +21,9 @@ class DiscussionForm(ModelForm):
             }
         )
     )
-    
+
     class Meta:
+        """ModelForm used metadata class.
+        """
         model = Discussion
         fields = ('subject',)

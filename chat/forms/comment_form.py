@@ -1,4 +1,5 @@
-"""Comment form class
+# pylint: disable=R0903
+"""Comment form module.
 """
 from django.forms import CharField, ModelForm, TextInput
 
@@ -6,8 +7,9 @@ from chat.models.comment import Comment
 
 
 class CommentForm(ModelForm):
-    """CommentForm class. Used for adding comment.
+    """CommentForm class. Used for adding Comment.
     """
+
     comment = CharField(
         label='Commenter',
         max_length=256,
@@ -15,12 +17,14 @@ class CommentForm(ModelForm):
             attrs={
                 'class': 'form-control form-control-sm',
                 'id': 'input_comment_comment',
-                'placeholder' : 'Tapez un message...',
+                'placeholder': 'Tapez un message...',
                 'autofocus': True,
             }
         )
     )
-    
+
     class Meta:
+        """ModelForm used metadata class.
+        """
         model = Comment
         fields = ('comment',)
