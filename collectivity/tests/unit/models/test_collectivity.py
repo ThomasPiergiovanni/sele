@@ -1,66 +1,19 @@
-"""Test rating module.
-"""
-from django.contrib.gis.utils import LayerMapping
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0212
 from django.contrib.gis.db import models
 from django.test import TestCase
-from pathlib import Path
 
 from collectivity.models.collectivity import Collectivity
 from collectivity.models.postal_code import PostalCode
-from collectivity.tests.unit.models.test_postal_code import PostalCodeTest
-from config.settings import BASE_DIR
+from collectivity.tests.emulation.collectivity_emulation import (
+    CollectivityEmulation
+)
+
 
 class CollectivityTest(TestCase):
-    """Test collectivity class.
-    """
 
     def setUp(self):
-        self.emulate_collectivity()
-
-    def emulate_collectivity(self):
-        """
-        """
-        PostalCodeTest().emulate_postal_code()
-        collectivity_mapping = {
-            'name': 'nom',
-            'insee_code': 'insee',
-            'activity': 'activity',
-            'feat_geom': 'Polygon',
-        }
-        blr_layer = (
-            Path(BASE_DIR).resolve().parent/'config/settings/data/'
-            'bourg_la_reine.geojson'
-        )
-        bag_layer = (
-            Path(BASE_DIR).resolve().parent/'config/settings/data/'
-            'bagneux.geojson'
-        )
-        collectivity = self.__create_collectivity(blr_layer)
-        collectivity.save(strict=True, verbose=False)
-        collectivity = self.__create_collectivity(bag_layer)
-        collectivity.save(strict=True, verbose=False)
-
-    def __create_collectivity(self, layer):
-        collectivity_mapping = {
-            'name': 'nom',
-            'insee_code': 'insee',
-            'activity': 'activity',
-            'feat_geom': 'Polygon',
-        }
-        collectivities = LayerMapping(
-            Collectivity,
-            layer,
-            collectivity_mapping,
-            transform=False
-        )
-        return collectivities
-    
-    def emulate_set_collectivity_postal_code(self):
-        for collectivity in Collectivity.objects.all():
-            for postal_code in PostalCode.objects.all():
-                if collectivity.insee_code == postal_code.insee_code:
-                    collectivity.postal_code_id = postal_code.id
-                    collectivity.save()
+        self.collectivity_emulation = CollectivityEmulation()
+        self.collectivity_emulation.emulate_collectivity()
 
     def test_collectivity_with_collectivity_class(self):
         collectivity = Collectivity.objects.last()
@@ -101,7 +54,9 @@ class CollectivityTest(TestCase):
         )
 
     def test_status_with_emulated_status_instance(self):
-        self.emulate_set_collectivity_postal_code()
+        self.collectivity_emulation.emulate_postal_code()
+        self.collectivity_emulation.emulate_collectivity()
+        self.collectivity_emulation.emulate_set_collectivity_postal_code()
         collectivity = Collectivity.objects.order_by('-id')[:2][0]
         self.assertEqual(collectivity.name, 'Bagneux')
         self.assertEqual(collectivity.postal_code.postal_code, '92220')

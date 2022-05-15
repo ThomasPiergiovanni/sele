@@ -21,7 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('authentication/', include('authentication.urls')),
     path('chat/', include('chat.urls')),
-    path('collectivity/', include('collectivity.urls')),
     path('proposition/', include('proposition.urls')),
     path('vote/', include('vote.urls')),
 ]

@@ -1,19 +1,16 @@
-"""Test rating module.
-"""
-from django.contrib.gis.utils import LayerMapping
+# pylint: disable=C0114,C0115,C0116,E1101,R0201
 from pathlib import Path
+
+from django.contrib.gis.utils import LayerMapping
 
 from collectivity.models.collectivity import Collectivity
 from collectivity.models.postal_code import PostalCode
 from config.settings import BASE_DIR
 
+
 class CollectivityEmulation():
-    """Collectivity emulation class.
-    """
 
     def emulate_postal_code(self):
-        """
-        """
         PostalCode.objects.create(
             id=1, postal_code='92340', insee_code='92014'
         )
@@ -22,14 +19,6 @@ class CollectivityEmulation():
         )
 
     def emulate_collectivity(self):
-        """
-        """
-        collectivity_mapping = {
-            'name': 'nom',
-            'insee_code': 'insee',
-            'activity': 'activity',
-            'feat_geom': 'Polygon',
-        }
         blr_layer = (
             Path(BASE_DIR).resolve().parent/'config/settings/data/'
             'bourg_la_reine.geojson'
@@ -57,7 +46,7 @@ class CollectivityEmulation():
             transform=False
         )
         return collectivities
-    
+
     def emulate_set_collectivity_postal_code(self):
         for collectivity in Collectivity.objects.all():
             for postal_code in PostalCode.objects.all():

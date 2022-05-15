@@ -19,24 +19,27 @@ class Command(BaseCommand):
         super().__init__()
 
     def handle(self, *args, **options):
+        """Method that reset Comment, Discussion and DiscussionType
+        data from DB.
+        """
         self.__drop_discussion_type(),
         self.__insert_discussion_type(),
         self.__drop_comment(),
         self.__drop_discussion(),
 
     def __drop_discussion_type(self):
-        """Method thats drop kind objects from DB
+        """Method thats drop DiscussionType from DB.
         """
         self.__drop_objects(DiscussionType)
 
     def __drop_objects(self, object_class):
-        """Manager method thats drop objects entities from DB
+        """Method thats drop objects entities from DB.
         """
         objects = object_class.objects.all()
         objects.delete()
 
     def __insert_discussion_type(self):
-        """Method that insert kind enumetration objects into DB.
+        """Method that insert DiscussionType enumeration into DB.
         """
         enumerations = DISCUSSIONS_TYPE
         counter = 1
@@ -46,11 +49,11 @@ class Command(BaseCommand):
             counter += 1
 
     def __drop_comment(self):
-        """Method thats drop Comment from DB
+        """Method thats drop Comment from DB.
         """
         self.__drop_objects(Comment)
 
     def __drop_discussion(self):
-        """Method thats drop Discussion from DB
+        """Method thats drop Discussion from DB.
         """
         self.__drop_objects(Discussion)

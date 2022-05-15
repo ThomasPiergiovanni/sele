@@ -1,29 +1,18 @@
-"""Test rating module.
-"""
-
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0212
 from django.db import models
 from django.test import TestCase
-from pathlib import Path
 
 from collectivity.models.postal_code import PostalCode
-
+from collectivity.tests.emulation.collectivity_emulation import (
+    CollectivityEmulation
+)
 
 
 class PostalCodeTest(TestCase):
-    """Test postal code class.
-    """
-    def setUp(self):
-        self.emulate_postal_code()
 
-    def emulate_postal_code(self):
-        """
-        """
-        PostalCode.objects.create(
-            id=1, postal_code='92340', insee_code='92014'
-        )
-        PostalCode.objects.create(
-            id=2, postal_code='92220', insee_code='92007'
-        )
+    def setUp(self):
+        self.collectivity_emulation = CollectivityEmulation()
+        self.collectivity_emulation.emulate_postal_code()
 
     def test_postal_code_with_postal_code_class(self):
         postal_code = PostalCode.objects.last()

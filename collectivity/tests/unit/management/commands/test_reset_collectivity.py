@@ -1,28 +1,22 @@
-"""Test collectivity reset module.
-"""
-from django.contrib.gis.utils import LayerMapping
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0212
 from django.test import TestCase
-from pathlib import Path
 
 from collectivity.management.commands.reset_collectivity import Command
 from collectivity.models.collectivity import Collectivity
 from collectivity.models.postal_code import PostalCode
-from collectivity.tests.unit.models.test_collectivity import CollectivityTest
-from collectivity.tests.unit.models.test_postal_code import PostalCodeTest
-from config.settings import BASE_DIR
+from collectivity.tests.emulation.collectivity_emulation import (
+    CollectivityEmulation
+)
 
 
 class ResetCollectivityTest(TestCase):
-    """Test Reset collectivity class.
-    """
     def setUp(self):
-        """Method that set up data for the entire class
-        """
         self.command = Command()
         self.command.testing = True
+        self.collectivity_emulation = CollectivityEmulation()
 
     def test_drop_postal_code_with_instance_is_none(self):
-        PostalCodeTest().emulate_postal_code()
+        self.collectivity_emulation.emulate_postal_code()
         postal_codes = PostalCode.objects.all()
         self.assertTrue(postal_codes)
         self.command._Command__drop_postal_code()
@@ -37,7 +31,7 @@ class ResetCollectivityTest(TestCase):
         self.assertTrue(postal_codes)
 
     def test_drop_collectivity_with_instance_is_none(self):
-        CollectivityTest().emulate_collectivity()
+        self.collectivity_emulation.emulate_collectivity()
         collectivities = Collectivity.objects.all()
         self.assertTrue(collectivities)
         self.command._Command__drop_collectivity()
@@ -52,7 +46,8 @@ class ResetCollectivityTest(TestCase):
         self.assertTrue(collectivities)
 
     def test___set_collectivity_postal_code_with_instances_is_not_none(self):
-        CollectivityTest().emulate_collectivity()
+        self.collectivity_emulation.emulate_postal_code()
+        self.collectivity_emulation.emulate_collectivity()
         collectivity = Collectivity.objects.all().last()
         self.assertFalse(collectivity.postal_code)
         self.command._Command__set_collectivity_postal_code()
