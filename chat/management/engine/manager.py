@@ -15,7 +15,7 @@ class Manager():
     """
 
     def create_discussion(self, form, custom_user, discussion_type):
-        """Method creating Discussion into DB
+        """Method creating Discussion into DB.
         """
         Discussion.objects.create(
             subject=form.cleaned_data['subject'],

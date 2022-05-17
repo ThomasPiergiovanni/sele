@@ -1,17 +1,13 @@
-# pylint: disable=C0116
-"""Test faq view module.
-"""
+# pylint: disable=C0114,C0115,C0116
+
 from django.test import TestCase
 
 from information.tests.emulation.information_emulation import (
     InformationEmulation
 )
-from information.models.question import Question
 
 
 class FaqViewTest(TestCase):
-    """Test Faq view class.
-    """
 
     def setUp(self):
         self.information_emulation = InformationEmulation()

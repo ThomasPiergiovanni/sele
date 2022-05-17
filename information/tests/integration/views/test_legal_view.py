@@ -1,14 +1,8 @@
-# pylint: disable=C0116
-"""Test legal view module.
-"""
+# pylint: disable=C0114,C0115,C0116
 from django.test import TestCase
 
-class LegalViewTest(TestCase):
-    """Test legal view class.
-    """
 
-    def setUp(self):
-        pass
+class LegalViewTest(TestCase):
 
     def test_get_with_nominal_scenario(self):
         response = self.client.get('/legal/', follow=True)

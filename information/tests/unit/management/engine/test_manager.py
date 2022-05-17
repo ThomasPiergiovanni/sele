@@ -1,10 +1,10 @@
-"""Test manager module.
-"""
-from datetime import date, timedelta
+# pylint: disable=C0114,C0115,C0116,W0212
+from datetime import timedelta
+from json import loads
+
 from django.contrib.auth import authenticate
 from django.test import RequestFactory, TestCase
 from django.utils import timezone
-from json import loads
 
 from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
@@ -12,10 +12,8 @@ from authentication.tests.emulation.authentication_emulation import (
 )
 from chat.models.discussion import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
-from collectivity.tests.emulation.collectivity_emulation import (
-    CollectivityEmulation
-)
 from config.settings import MAPBOX_TOKEN
+from information.management.engine.manager import Manager
 from proposition.models.proposition import Proposition
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
@@ -23,12 +21,9 @@ from proposition.tests.emulation.proposition_emulation import (
 from vote.models.voting import Voting
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
-from information.management.engine.manager import Manager
-
 
 class TestManager(TestCase):
-    """Test Manager  class.
-    """
+
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
         self.auth_emulation.emulate_custom_user()
@@ -188,7 +183,7 @@ class TestManager(TestCase):
             'p_0': 6,'p_min_1': None,'p_min_2': None, 'p_min_3': None,
             'p_min_4': None,'p_min_5': 3
         }
-        data = self.manager._Manager__set_stats_data(label, cu_counts, p_counts)
+        data = self.manager._Manager__set_stats_chart_data(label, cu_counts, p_counts)
         self.assertEqual(data['p_counts'][0], str(3))
     
     def test_set_all_co_counts(self):

@@ -9,9 +9,6 @@ from information.views.collectivity_dashboard_view import (
 )
 from information.views.faq_view import FaqView
 from information.views.legal_view import LegalView
-from information.views.member_dashboard_view import (
-    MemberDashboardView
-)
 from information.views.home_view import HomeView
 
 app_name = 'information'
@@ -27,9 +24,4 @@ urlpatterns = [
         name='collectivity_dashboard'
     ),
     path('legal/', LegalView.as_view(), name='legal'),
-    path(
-        'member_dashboard/',
-        MemberDashboardView.as_view(),
-        name='member_dashboard'
-    ),
 ]

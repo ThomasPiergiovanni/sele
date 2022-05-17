@@ -1,14 +1,8 @@
-# pylint: disable=C0116
-"""Test about view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201
 from django.test import TestCase
 
-class AboutViewTest(TestCase):
-    """Test about view class.
-    """
 
-    def setUp(self):
-        pass
+class AboutViewTest(TestCase):
 
     def test_get_with_nominal_scenario(self):
         response = self.client.get('/about/', follow=True)

@@ -1,5 +1,4 @@
-"""Test reset vote module.
-"""
+# pylint: disable=C0114,C0115,C0116
 from django.db import models
 from django.test import TestCase
 
@@ -11,11 +10,8 @@ from information.tests.emulation.information_emulation import (
 
 
 class ResetInformationTest(TestCase):
-    """Test reset information method class.
-    """
+
     def setUp(self):
-        """Method that set up data for the entire class
-        """
         self.command = Command()
         self.information_emulation = InformationEmulation()
         self.information_emulation.emulate_question()

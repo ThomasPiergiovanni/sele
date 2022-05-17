@@ -1,5 +1,5 @@
 # pylint: disable=R0201, W0106
-""" DB management command
+"""Management command module to reset Chat data from DB.
 """
 from django.core.management.base import BaseCommand
 

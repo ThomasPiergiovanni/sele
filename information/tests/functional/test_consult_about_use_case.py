@@ -1,15 +1,13 @@
-"""Test consult about use case test module. Functional test
-"""
+# pylint: disable=C0114,C0115,C0116
 import os
+from time import sleep
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
-from time import sleep
 
 
 class CreateVotingUseCaseTest(StaticLiveServerTestCase):
-    """Test create voting use case test class
-    """
+
     def setUp(self):
         firefox_options = webdriver.FirefoxOptions()
         if os.name == 'nt':
@@ -33,8 +31,11 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
 
     def tests_create_voting_use_case(self):
         # The user is on the home page
-        self.browser.get('%s%s' % (self.live_server_url,''))
-        self.assertIn('sel-e',self.browser.find_element_by_tag_name('h1').text)
+        self.browser.get(f"{self.live_server_url}{''}")
+        self.assertIn(
+            'sel-e',
+            self.browser.find_element_by_tag_name('h1').text
+        )
         sleep(2)
 
         # The user selects "Info" on the left navigation sidebar

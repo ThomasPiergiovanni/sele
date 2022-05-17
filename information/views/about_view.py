@@ -1,8 +1,6 @@
 from django.views import View
 from django.shortcuts import render
 
-from information.forms.navbar_search_form import NavbarSearchForm
-
 
 class AboutView(View):
     """About view  class.
