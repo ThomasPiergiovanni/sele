@@ -23,7 +23,7 @@ class DiscussionForm(ModelForm):
     )
 
     class Meta:
-        """ModelForm used metadata class.
+        """ModelForm "inner" metadata class.
         """
         model = Discussion
         fields = ('subject',)

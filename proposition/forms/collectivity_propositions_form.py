@@ -1,11 +1,10 @@
-"""Collectivity Propositions Search Form module 
+"""CollectivityPropositionsForm (search form) module.
 """
 from django.forms import CharField, Form, TextInput
 
 
 class CollectivityPropositionsForm(Form):
-    """CollectivityPropositionsForm class. Used for sorting collectivity
-    propositions page objects.
+    """CollectivityPropositionsForm (search form) class.
     """
     search_input = CharField(
         label='Rechercher',

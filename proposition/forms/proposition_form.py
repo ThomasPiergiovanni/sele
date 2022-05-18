@@ -1,8 +1,9 @@
-"""Proposition form class
+# pylint: disable=E1101,R0903
+"""PropositionForm module.
 """
 from django.forms import (
     CharField, DateField, DateInput, IntegerField, ModelChoiceField, ModelForm,
-    NumberInput, Select, Textarea, TextInput, 
+    NumberInput, Select, Textarea, TextInput
 )
 
 from proposition.models.category import Category
@@ -33,7 +34,7 @@ class PropositionForm(ModelForm):
             attrs={
                 'id': 'input_proposition_description',
                 'class': 'form-control form-control-sm',
-                'rows':4
+                'rows': 4
             }
         )
     )
@@ -45,7 +46,6 @@ class PropositionForm(ModelForm):
             attrs={
                 'id': 'input_proposition_proposition_kind',
                 'class': 'form-control form-control-sm',
-
             },
         )
     )
@@ -116,14 +116,18 @@ class PropositionForm(ModelForm):
     )
 
     class Meta:
+        """ModelForm "inner" metadata class.
+        """
         model = Proposition
         fields = (
             'name', 'description', 'proposition_kind', 'proposition_category',
             'proposition_domain', 'start_date', 'end_date', 'duration',
             'proposition_creator_type'
         )
-    
+
     def clean(self):
+        """Method validating Form field on custom criteria.
+        """
         cleaned_data = super().clean()
         try:
             kind = Kind.objects.get(name__exact='Offre')
@@ -132,7 +136,8 @@ class PropositionForm(ModelForm):
                 self.add_error(None, "Date de fin < Date de début")
             if (
                 cleaned_data['proposition_kind'].name == kind.name and
-                cleaned_data['proposition_creator_type'].name == creator_type.name
+                cleaned_data['proposition_creator_type']
+                .name == creator_type.name
             ):
                 self.add_error(
                     'proposition_creator_type',
