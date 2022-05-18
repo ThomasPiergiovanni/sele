@@ -1,28 +1,23 @@
-"""Test voting method module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.db import models
 from django.test import TestCase
 
-from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from information.models.question import Question
 from information.tests.emulation.information_emulation import (
     InformationEmulation
 )
-from information.models.question import Question
 
 
 class QuestionTest(TestCase):
-    """Test question class.
-    """
+
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
         self.auth_emulation.emulate_custom_user()
         self.information_emulation = InformationEmulation()
         self.information_emulation.emulate_question()
-
-
 
     def test_question_with_question_class(self):
         question = Question.objects.get(pk=1)
@@ -40,15 +35,15 @@ class QuestionTest(TestCase):
         self.assertTrue(attribute)
         self.assertEqual(type(attribute), type(models.TextField()))
         self.assertEqual(attribute.max_length, 1000)
- 
+
     def test_question_with_emulated_question_instance(self):
-        question= Question.objects.get(pk=1)
+        question = Question.objects.get(pk=1)
         self.assertEqual(
             question.question,
             "Qu'est ce qu une demande de groupe?"
         )
-        question= Question.objects.get(pk=2)
+        question = Question.objects.get(pk=2)
         self.assertEqual(
-            question.question, 
+            question.question,
             "Ou sont hébergée nos données?"
         )

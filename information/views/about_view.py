@@ -1,9 +1,11 @@
-from django.views import View
+"""AboutView module.
+"""
 from django.shortcuts import render
+from django.views import View
 
 
 class AboutView(View):
-    """About view  class.
+    """About view class.
     """
 
     def __init__(self):
@@ -12,6 +14,6 @@ class AboutView(View):
         self.context = {}
 
     def get(self, request):
-        """Home page view method on client get request.
+        """AboutView method on client get request.
         """
         return render(request, self.view_template, self.context)

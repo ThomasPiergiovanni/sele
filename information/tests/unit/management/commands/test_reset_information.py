@@ -1,5 +1,4 @@
-# pylint: disable=C0114,C0115,C0116
-from django.db import models
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
 
 from information.management.commands.reset_information import Command

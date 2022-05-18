@@ -1,13 +1,16 @@
+"""CollectivityDashboardView module.
+"""
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
 from django.shortcuts import render
+from django.views import View
 
 from information.management.engine.manager import Manager
 
 
 class CollectivityDashboardView(LoginRequiredMixin, View):
-    """Collectivity Dashboard view  class.
+    """CollectivityDashboardView class.
     """
+
     login_url = '/authentication/login/'
     redirect_field_name = None
 
@@ -28,7 +31,7 @@ class CollectivityDashboardView(LoginRequiredMixin, View):
         }
 
     def get(self, request):
-        """CollectivityDashboard page view method on client get request.
+        """CollectivityDashboardView method on client get request.
         """
         self.context = self.manager.set_collectivity_dashboard_context(
             request, self.context

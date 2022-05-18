@@ -1,4 +1,4 @@
-# pylint: disable=C0114,C0115,C0116,W0212
+# pylint: disable=C0114,C0115,C0116,E1136,R0904,R0201,R0801,W0212
 from datetime import timedelta
 from json import loads
 
@@ -7,46 +7,33 @@ from django.test import RequestFactory, TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from chat.models.discussion import Discussion
-from chat.tests.emulation.chat_emulation import ChatEmulation
 from config.settings import MAPBOX_TOKEN
 from information.management.engine.manager import Manager
-from proposition.models.proposition import Proposition
-from proposition.tests.emulation.proposition_emulation import (
-    PropositionEmulation
+from information.tests.emulation.information_emulation import (
+    InformationEmulation
 )
+from proposition.models.proposition import Proposition
 from vote.models.voting import Voting
-from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class TestManager(TestCase):
 
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
-        self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
-        self.chat_emulation.emulate_comment()
-        self.proposition_emulation = PropositionEmulation()
-        self.proposition_emulation.emulate_proposition()
-        self.vote_emulation = VoteEmulation()
-        self.vote_emulation.emulate_voting_method()
-        self.vote_emulation.emulate_voting()
-        self.vote_emulation.emulate_vote()
+        self.information_emulation = InformationEmulation()
+        self.information_emulation.emulate_test_setup()
         self.manager = Manager()
-    
+
     def emulate_ref_date(self):
         today = timezone.now()
         return today.replace(day=1)
-    
+
     def emulate_ref_dates(self):
         ref_date = self.emulate_ref_date()
-        def previous_date(d):
-            ld = d - timedelta(days=1)
-            previous_date = ld.replace(day=1)
+
+        def previous_date(day_one):
+            last_day = day_one - timedelta(days=1)
+            previous_date = last_day.replace(day=1)
             return previous_date
         ref_date_1 = previous_date(ref_date)
         ref_date_2 = previous_date(ref_date_1)
@@ -54,8 +41,8 @@ class TestManager(TestCase):
         ref_date_4 = previous_date(ref_date_3)
         ref_date_5 = previous_date(ref_date_4)
         ref_dates = {
-            'r0': ref_date,'r1': ref_date_1,'r2': ref_date_2, 'r3': ref_date_3,
-            'r4': ref_date_4,'r5': ref_date_5
+            'r0': ref_date, 'r1': ref_date_1, 'r2': ref_date_2,
+            'r3': ref_date_3, 'r4': ref_date_4, 'r5': ref_date_5
         }
         return ref_dates
 
@@ -79,34 +66,34 @@ class TestManager(TestCase):
         ref_date = self.emulate_ref_date()
         self.assertEqual(
             mapbox_url['url'],
-            'https://api.mapbox.com/styles/v1/thomaspiergiovanni/ckmm3'+
+            'https://api.mapbox.com/styles/v1/thomaspiergiovanni/ckmm3' +
             'kryyu79j17ptmgsmg9c9/tiles/{z}/{x}/{y}?access_token=' +
             MAPBOX_TOKEN
         )
         self.assertEqual(
             vector_layer['features'][0]['properties']['name'], 'Bourg-la-Reine'
         )
-        self.assertEqual(stats_data['labels'][5],
-            str(ref_date.month)+"-"+str(ref_date.year)
+        self.assertEqual(
+            stats_data['labels'][5], str(ref_date.month)+"-"+str(ref_date.year)
         )
         self.assertEqual(context['all_p_counts'], 15)
-        self.assertEqual(context['all_cu_counts'], 3)        
-        self.assertEqual(context['all_co_counts'], 1)
+        self.assertEqual(context['all_cu_counts'], 3)
+        self.assertEqual(context['all_co_counts'], 2)
         self.assertEqual(context['all_v_counts'], 3)
         self.assertEqual(context['propositions'][0].id, 17)
-    
+
     def test_set_mapboxurl_json(self):
-        data  = self.manager._Manager__set_mapboxurl_json() 
+        data = self.manager._Manager__set_mapboxurl_json()
         data = loads(data)
         self.assertEqual(
             data['url'],
-            'https://api.mapbox.com/styles/v1/thomaspiergiovanni/ckmm3'+
+            'https://api.mapbox.com/styles/v1/thomaspiergiovanni/ckmm3' +
             'kryyu79j17ptmgsmg9c9/tiles/{z}/{x}/{y}?access_token=' +
             MAPBOX_TOKEN
         )
 
     def test_set_vectorlayer_geojson(self):
-        data  = self.manager._Manager__set_vectorlayer_geojson() 
+        data = self.manager._Manager__set_vectorlayer_geojson()
         data = loads(data)
         self.assertEqual(
             data['features'][0]['properties']['name'], 'Bourg-la-Reine'
@@ -117,7 +104,7 @@ class TestManager(TestCase):
         data_json = self.manager._Manager__set_stats_data_json()
         data_json = loads(data_json)
         self.assertEqual(
-            data_json['labels'][5],str(ref_date.month)+"-"+str(ref_date.year)
+            data_json['labels'][5], str(ref_date.month)+"-"+str(ref_date.year)
         )
 
     def test_set_stats_ref_dates_with_today(self):
@@ -146,15 +133,15 @@ class TestManager(TestCase):
 
     def test_set_mm_yyyy(self):
         today = timezone.now()
-        r0 = today.replace(day=1)
-        mm_yyyy = self.manager._Manager__set_mm_yyyy(r0)
-        self.assertEqual(mm_yyyy, str(r0.month) + "-" + str(r0.year))   
+        day_one = today.replace(day=1)
+        mm_yyyy = self.manager._Manager__set_mm_yyyy(day_one)
+        self.assertEqual(mm_yyyy, str(day_one.month) + "-" + str(day_one.year))
 
     def test_set_stats_cu_counts(self):
         ref_dates = self.emulate_ref_dates()
         cu_counts = self.manager._Manager__set_stats_cu_counts(ref_dates)
         self.assertEqual(cu_counts['cu_0'], 0)
-    
+
     def test_set_cu_counts(self):
         ref_date = self.emulate_ref_date()
         cu_counts = self.manager._Manager__set_cu_counts(ref_date)
@@ -169,55 +156,56 @@ class TestManager(TestCase):
         ref_date = self.emulate_ref_date()
         p_counts = self.manager._Manager__set_p_counts(ref_date)
         self.assertEqual(p_counts, 15)
-    
+
     def test_set_stats_data(self):
         label = {
-            'm_0': '04-2022','m_min_1': None,'m_min_2': None, 'm_min_3': None,
-            'm_min_4': None,'m_min_5': '11-2021'
+            'm_0': '04-2022', 'm_min_1': None, 'm_min_2': None,
+            'm_min_3': None, 'm_min_4': None, 'm_min_5': '11-2021'
         }
         cu_counts = {
-            'cu_0': 4,'cu_min_1': None,'cu_min_2': None, 'cu_min_3': None,
-            'cu_min_4': None,'cu_min_5': 2
+            'cu_0': 4, 'cu_min_1': None, 'cu_min_2': None, 'cu_min_3': None,
+            'cu_min_4': None, 'cu_min_5': 2
         }
         p_counts = {
-            'p_0': 6,'p_min_1': None,'p_min_2': None, 'p_min_3': None,
-            'p_min_4': None,'p_min_5': 3
+            'p_0': 6, 'p_min_1': None, 'p_min_2': None, 'p_min_3': None,
+            'p_min_4': None, 'p_min_5': 3
         }
-        data = self.manager._Manager__set_stats_chart_data(label, cu_counts, p_counts)
+        data = self.manager._Manager__set_stats_chart_data(
+            label, cu_counts, p_counts
+        )
         self.assertEqual(data['p_counts'][0], str(3))
-    
+
     def test_set_all_co_counts(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         all_co_counts = (
             self.manager._Manager__set_all_co_counts()
         )
-        self.assertEqual(all_co_counts, 1)
+        self.assertEqual(all_co_counts, 2)
 
     def test_set_all_v_counts(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         all_v_counts = (
             self.manager._Manager__set_all_v_counts()
         )
         self.assertEqual(all_v_counts, 3)
 
     def test_set_home_propositions(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         propositions = (
             self.manager._Manager__set_home_propositions()
         )
         self.assertEqual(propositions[0].id, 17)
 
-
     def test_set_collectivity_dashboard_context_with_cus_user_prop_dis(self):
-        request = RequestFactory().get('', data={'page': 1})        
+        request = RequestFactory().get('', data={'page': 1})
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user 
+        request.user = user
         context = {
             'custom_user_pag_obj': None,
             'custom_users_p_counts': None,
@@ -240,9 +228,9 @@ class TestManager(TestCase):
         self.assertEqual(context['collectivity_d_counts'], 3)
 
     def test_set_collectivity_dashboard_context_with_voting(self):
-        request = RequestFactory().get('', data={'page': 1})        
+        request = RequestFactory().get('', data={'page': 1})
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user 
+        request.user = user
         context = {
             'custom_user_pag_obj': None,
             'custom_users_p_counts': None,
@@ -258,41 +246,40 @@ class TestManager(TestCase):
         self.assertEqual(context['collectivity_v_counts'], 2)
 
     def test_set_custom_user_page_obj_context(self):
-        request = RequestFactory().get('', data={'page': 1})        
+        request = RequestFactory().get('', data={'page': 1})
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         page_objects = (
             self.manager._Manager__set_custom_user_page_obj(request)
         )
         self.assertIsInstance(page_objects[0], CustomUser)
         self.assertEqual(page_objects[0].id, 3)
-    
+
     def test_custom_user_queryset_with_request_user(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user     
+        request.user = user
         custom_users = self.manager._Manager__get_custom_user_queryset(
             request
         )
         self.assertEqual(custom_users[0].id, 3)
         self.assertEqual(custom_users[1].id, 1)
-    
+
     def test_set_page_objects(self):
         custom_users = CustomUser.objects.all().order_by('-balance')
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user     
+        request.user = user
         page_objects = self.manager._Manager__set_page_objects(
             request, custom_users
         )
         self.assertIsInstance(page_objects[0], CustomUser)
         self.assertEqual(page_objects[0].id, 3)
 
-
     def test_custom_users_p_counts_with(self):
-        request = RequestFactory().get('', data={'page': 1})        
+        request = RequestFactory().get('', data={'page': 1})
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         custom_user_p_counts = (
             self.manager._Manager__set_custom_user_p_counts(request)
         )
@@ -302,9 +289,9 @@ class TestManager(TestCase):
         self.assertEqual(custom_user_p_counts[1]['count'], 13)
 
     def test_set_proposition_page_obj_context(self):
-        request = RequestFactory().get('', data={'page': 1})        
+        request = RequestFactory().get('', data={'page': 1})
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         page_objects = (
             self.manager._Manager__set_proposition_page_obj(request)
         )
@@ -312,9 +299,9 @@ class TestManager(TestCase):
         self.assertEqual(page_objects[0].id, 17)
 
     def test_proposition_queryset_with_request_user(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user     
+        request.user = user
         propositions = self.manager._Manager__get_proposition_queryset(
             request
         )
@@ -322,9 +309,9 @@ class TestManager(TestCase):
         self.assertEqual(propositions[1].id, 16)
 
     def test_set_discussion_page_obj_context(self):
-        request = RequestFactory().get('', data={'page': 1})        
+        request = RequestFactory().get('', data={'page': 1})
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         page_objects = (
             self.manager._Manager__set_discussion_page_obj(request)
         )
@@ -332,9 +319,9 @@ class TestManager(TestCase):
         self.assertEqual(page_objects[0].id, 3)
 
     def test_discussiuon_queryset_with_request_user(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user     
+        request.user = user
         discussions = self.manager._Manager__get_discussion_queryset(
             request
         )
@@ -342,9 +329,9 @@ class TestManager(TestCase):
         self.assertEqual(discussions[1].id, 2)
 
     def test_set_voting_page_obj_context(self):
-        request = RequestFactory().get('', data={'page': 1})        
+        request = RequestFactory().get('', data={'page': 1})
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         page_objects = (
             self.manager._Manager__set_voting_page_obj(request)
         )
@@ -352,9 +339,9 @@ class TestManager(TestCase):
         self.assertEqual(page_objects[0].id, 1)
 
     def test_voting_queryset_with_request_user(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user     
+        request.user = user
         votings = self.manager._Manager__get_voting_queryset(
             request
         )
@@ -362,36 +349,36 @@ class TestManager(TestCase):
         self.assertEqual(votings[1].id, 3)
 
     def test_collectivity_p_counts(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         collectivity_p_counts = (
             self.manager._Manager__set_collectivity_p_counts(request)
         )
         self.assertEqual(collectivity_p_counts, 15)
 
     def test_collectivity_cu_counts(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         collectivity_cu_counts = (
             self.manager._Manager__set_collectivity_cu_counts(request)
         )
         self.assertEqual(collectivity_cu_counts, 2)
 
     def test_collectivity_discussion_counts(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         collectivity_discussion_counts = (
             self.manager._Manager__set_collectivity_discussion_counts(request)
         )
         self.assertEqual(collectivity_discussion_counts, 3)
 
     def test_collectivity_votings_counts(self):
-        request = RequestFactory().get('',)        
+        request = RequestFactory().get('',)
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         collectivity_voting_counts = (
             self.manager._Manager__set_collectivity_voting_counts(request)
         )

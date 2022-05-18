@@ -1,9 +1,11 @@
-from django.views import View
+"""LegalView module.
+"""
 from django.shortcuts import render
+from django.views import View
 
 
 class LegalView(View):
-    """Legal view  class.
+    """LegalView class.
     """
 
     def __init__(self):
@@ -12,6 +14,6 @@ class LegalView(View):
         self.context = {}
 
     def get(self, request):
-        """Legal view method on client get request.
+        """LegalView method on client get request.
         """
         return render(request, self.view_template, self.context)

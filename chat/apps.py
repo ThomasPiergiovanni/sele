@@ -1,10 +1,10 @@
-"""Chat application and its configuration module.
+"""ChatConfig module.
 """
 from django.apps import AppConfig
 
 
 class ChatConfig(AppConfig):
-    """Chat application and its configuration class.
+    """ChatConfig class.
     """
 
     default_auto_field = 'django.db.models.BigAutoField'

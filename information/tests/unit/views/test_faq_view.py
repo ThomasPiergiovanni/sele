@@ -1,14 +1,11 @@
-# pylint: disable=C0116, W0212
-"""Test faq view view module.
-"""
+# pylint: disable=C0114,C0115,C0116,W0212
 from django.test import TestCase
 
 from information.views.faq_view import FaqView
 
 
 class TestFaqView(TestCase):
-    """Test Faq view class.
-    """
+
     def setUp(self):
         self.view = FaqView()
 
@@ -16,5 +13,5 @@ class TestFaqView(TestCase):
         self.assertTrue(self.view)
 
     def test_init_with_attr(self):
-        self.assertEqual(self.view.view_template,'information/faq.html')
+        self.assertEqual(self.view.view_template, 'information/faq.html')
         self.assertIsNone(self.view.context['questions'])

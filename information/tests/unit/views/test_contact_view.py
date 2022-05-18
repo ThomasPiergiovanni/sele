@@ -1,14 +1,11 @@
-# pylint: disable=C0116, W0212
-"""Test contact view module.
-"""
+# pylint: disable=C0114,C0115,C0116,W0212
 from django.test import TestCase
 
 from information.views.contact_view import ContactView
 
 
 class TestContactView(TestCase):
-    """Test contact view class.
-    """
+
     def setUp(self):
         self.view = ContactView()
 
@@ -16,4 +13,4 @@ class TestContactView(TestCase):
         self.assertTrue(self.view)
 
     def test_init_with_attr(self):
-        self.assertEqual(self.view.view_template,'information/contact.html')
+        self.assertEqual(self.view.view_template, 'information/contact.html')

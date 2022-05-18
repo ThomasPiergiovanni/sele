@@ -1,9 +1,11 @@
+"""ContactView module.
+"""
 from django.views import View
 from django.shortcuts import render
 
 
 class ContactView(View):
-    """Contact view  class.
+    """Contact view class.
     """
 
     def __init__(self):
@@ -12,6 +14,6 @@ class ContactView(View):
         self.context = {}
 
     def get(self, request):
-        """Contact view method on client get request.
+        """ContactView method on client get request.
         """
         return render(request, self.view_template, self.context)

@@ -1,12 +1,13 @@
-from django.views import View
+"""HomeView module.
+"""
 from django.shortcuts import render
+from django.views import View
 
 from information.management.engine.manager import Manager
-from information.models.question import Question
 
 
 class HomeView(View):
-    """Home view class.
+    """HomeView class.
     """
     def __init__(self):
         super().__init__()
@@ -24,8 +25,7 @@ class HomeView(View):
         }
 
     def get(self, request):
-        """Home page view method on client get request.
+        """HomeView method on client get request.
         """
         self.context = self.manager.set_home_context(self.context)
         return render(request, self.view_template, self.context)
-    
