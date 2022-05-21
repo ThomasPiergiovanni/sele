@@ -1,16 +1,16 @@
-"""Sign up form module.
+# pylint: disable=R0903,R0801
+"""CreateCustomUserForm module.
 """
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-
 from authentication.models import CustomUser
-from collectivity.models.collectivity import Collectivity
 
 
 class CreateCustomUserForm(UserCreationForm):
-    """Sign up form class.
+    """CreateCustomUserForm module.
     """
+
     email = forms.CharField(
         label="Email (identifiant)",
         max_length=128,
@@ -81,10 +81,10 @@ class CreateCustomUserForm(UserCreationForm):
     field_order = [
         'email', 'password1', 'password2', 'user_name', 'postal_code',
         'collectivity'
-    ] 
+    ]
 
     class Meta:
-        """Meta model gives CustomUser "params" to CreateCustomUser class.
+        """ModelForm "inner" metadata class.
         """
         model = CustomUser
         fields = [

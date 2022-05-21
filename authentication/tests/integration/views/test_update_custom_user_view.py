@@ -1,11 +1,10 @@
-# pylint: disable=C0116, E1101
-"""Test create custom user view module.
-"""
-from django.contrib.auth import logout
+# pylint: disable=C0114,C0115,C0116,E1101,R0801,W0212
 from django.test import TestCase
 from django.urls import reverse
 
-from authentication.forms.update_custom_user_form import UpdateCustomUserForm
+from authentication.forms.update_custom_user_form import (
+    UpdateCustomUserForm
+)
 from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
@@ -13,8 +12,7 @@ from authentication.tests.emulation.authentication_emulation import (
 
 
 class UpdateCustomUserViewTest(TestCase):
-    """Test UpdateCustomUserView view class.
-    """
+
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
         self.auth_emulation.emulate_custom_user()
@@ -49,12 +47,9 @@ class UpdateCustomUserViewTest(TestCase):
         response = self.client.get(
             '/authentication/update_custom_user/', follow=True
         )
-        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('information:home')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
-        self.assertEqual(response_msg.level_tag, 'error')
-        self.assertEqual(response_msg.message, "Authentification requise")
 
     def test_post_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -79,7 +74,10 @@ class UpdateCustomUserViewTest(TestCase):
             data=self.form_data_no_pc,
             follow=True
         )
-        self.assertEqual(response.templates[0].name, 'authentication/update_custom_user.html')
+        self.assertEqual(
+            response.templates[0].name,
+            'authentication/update_custom_user.html'
+        )
         self.assertIsInstance(response.context['form'], UpdateCustomUserForm)
         self.assertTrue(response.context['form'].errors)
 
@@ -91,7 +89,10 @@ class UpdateCustomUserViewTest(TestCase):
             follow=True
         )
         response_msg = response.context['messages']._loaded_data[0]
-        self.assertEqual(response.templates[0].name, 'authentication/update_custom_user.html')
+        self.assertEqual(
+            response.templates[0].name,
+            'authentication/update_custom_user.html'
+        )
         self.assertIsInstance(response.context['form'], UpdateCustomUserForm)
         self.assertFalse(response.context['form'].errors)
         self.assertEqual(response_msg.level_tag, 'error')

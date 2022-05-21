@@ -1,3 +1,5 @@
+"""CreateCustomUserview module.
+"""
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
@@ -20,14 +22,12 @@ class CreateCustomUserView(View):
         self.post_view_name = 'authentication:login'
 
     def get(self, request):
-        """Create custom user view method on client get request.
+        """CreateCustomUserview view method on client get request.
         """
         return render(request, self.view_template, self.context)
 
     def post(self, request):
-        """Create custom user view method on client post request. Create
-        CustomUser into the DB. After Voting creation, user is redirect to
-         voting overview page.
+        """CreateCustomUserview method on client post request.
         """
         form = CreateCustomUserForm(request.POST)
         if form.is_valid():
@@ -39,22 +39,15 @@ class CreateCustomUserView(View):
                 self.manager.create_custom_user(form, collectivity)
                 self.manager.activate_collectivity(collectivity)
                 messages.add_message(
-                    request,
-                    messages.SUCCESS,
-                    "Création de compte réussie",
+                    request, messages.SUCCESS, "Création de compte réussie"
                 )
                 return redirect(self.post_view_name)
-            else:
-                messages.add_message(
-                    request,
-                    messages.ERROR,
-                    "Code postal != Ville",
-                )
-                return render(
-                    request, self.view_template, {'form': form}
-                )
-        else:
+            messages.add_message(
+                request, messages.ERROR, "Code postal != Ville",
+            )
             return render(
                 request, self.view_template, {'form': form}
             )
-
+        return render(
+            request, self.view_template, {'form': form}
+        )

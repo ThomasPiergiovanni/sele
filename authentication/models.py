@@ -4,7 +4,9 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from authentication.management.engine.custom_user_manager import CustomUserManager
+from authentication.management.engine.custom_user_manager import (
+    CustomUserManager
+)
 from collectivity.models.collectivity import Collectivity
 
 
@@ -18,7 +20,9 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_('email address'), max_length=128, unique=True)
     user_name = models.TextField(_('username'), max_length=64, null=False)
     balance = models.BigIntegerField(default=0)
-    collectivity = models.ForeignKey(Collectivity, on_delete=models.CASCADE, null=True)
+    collectivity = models.ForeignKey(
+        Collectivity, on_delete=models.CASCADE, null=True
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name']

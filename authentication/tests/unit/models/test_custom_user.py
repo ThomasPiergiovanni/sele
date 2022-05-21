@@ -1,17 +1,16 @@
-"""Test CustomUser model module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0212
 from django.db import models
 from django.test import TestCase
 
 from authentication.models import CustomUser
-from collectivity.models.collectivity import Collectivity
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
+from collectivity.models.collectivity import Collectivity
+
 
 class CustomUserTest(TestCase):
-    """Test custom user model class.
-    """
+
     def setUp(self):
         AuthenticationEmulation().emulate_custom_user()
 
@@ -44,10 +43,9 @@ class CustomUserTest(TestCase):
             type(attribute),
             type(models.ForeignKey(Collectivity, on_delete=models.CASCADE))
         )
-    
+
     def test_custom_user_with_emulated_custom_user_instance(self):
         custom_user = CustomUser.objects.get(pk=1)
-        self.assertEqual(custom_user.email,"user1@email.com")
+        self.assertEqual(custom_user.email, "user1@email.com")
         custom_user = CustomUser.objects.get(pk=2)
-        self.assertEqual(custom_user.email,"user2@email.com")
-
+        self.assertEqual(custom_user.email, "user2@email.com")

@@ -1,6 +1,4 @@
-# pylint: disable=C0116, E1101
-"""Test create custom user view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0212:
 from django.test import TestCase
 from django.urls import reverse
 
@@ -13,12 +11,12 @@ from collectivity.tests.emulation.collectivity_emulation import (
 
 
 class CreateCustomUserViewTest(TestCase):
-    """Test CreateCustomUserView class.
-    """
+
     def setUp(self):
-        CollectivityEmulation().emulate_postal_code()
-        CollectivityEmulation().emulate_collectivity()
-        CollectivityEmulation().emulate_set_collectivity_postal_code()
+        self.collectivity_emulation = CollectivityEmulation()
+        self.collectivity_emulation.emulate_postal_code()
+        self.collectivity_emulation.emulate_collectivity()
+        self.collectivity_emulation.emulate_set_collectivity_postal_code()
         self.form_data = {
             'email': 'user@email.com',
             'password1': 'xxxx_Xxxx',
@@ -51,7 +49,7 @@ class CreateCustomUserViewTest(TestCase):
             response, 'authentication/create_custom_user.html'
         )
         self.assertIsInstance(response.context['form'], CreateCustomUserForm)
-        
+
     def test_post_nominal_scenario(self):
         response = self.client.post(
             '/authentication/create_custom_user/',
@@ -66,7 +64,7 @@ class CreateCustomUserViewTest(TestCase):
             response.redirect_chain[0][0], reverse('authentication:login')
         )
         self.assertEqual(
-            response.context['messages']._loaded_data[0].message, 
+            response.context['messages']._loaded_data[0].message,
             "Création de compte réussie"
         )
         self.assertEqual(
@@ -74,14 +72,17 @@ class CreateCustomUserViewTest(TestCase):
         )
         collectivity = Collectivity.objects.get(name__exact='Bagneux')
         self.assertEqual(collectivity.activity, 'yes')
-    
+
     def test_post_with_alternative_senario_form_missing_input(self):
         response = self.client.post(
             '/authentication/create_custom_user/',
             data=self.form_data_no_pc,
             follow=True
         )
-        self.assertEqual(response.templates[0].name, 'authentication/create_custom_user.html')
+        self.assertEqual(
+            response.templates[0].name,
+            'authentication/create_custom_user.html'
+        )
         self.assertIsInstance(response.context['form'], CreateCustomUserForm)
         self.assertTrue(response.context['form'].errors)
 
@@ -92,7 +93,10 @@ class CreateCustomUserViewTest(TestCase):
             follow=True
         )
         response_msg = response.context['messages']._loaded_data[0]
-        self.assertEqual(response.templates[0].name, 'authentication/create_custom_user.html')
+        self.assertEqual(
+            response.templates[0].name,
+            'authentication/create_custom_user.html'
+        )
         self.assertIsInstance(response.context['form'], CreateCustomUserForm)
         self.assertFalse(response.context['form'].errors)
         self.assertEqual(response_msg.level_tag, 'error')

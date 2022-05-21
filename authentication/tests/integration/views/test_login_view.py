@@ -1,11 +1,8 @@
-# pylint: disable=C0116, E1101
-"""Test create custom user view module.
-"""
-from django.test import RequestFactory, TestCase
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
+from django.test import TestCase
 from django.urls import reverse
 
 from authentication.forms.login_form import LoginForm
-from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
@@ -15,19 +12,20 @@ class LoginViewTest(TestCase):
     """Test CreateCustomUserView view class.
     """
     def setUp(self):
-        AuthenticationEmulation().emulate_custom_user()
-        self.form={
+        self.authentication_emulation = AuthenticationEmulation()
+        self.authentication_emulation.emulate_custom_user()
+        self.form = {
                 'username': 'user1@email.com',
                 'password': 'xxx_Xxxx'
             }
-        self.form_wrong_pwd={
+        self.form_wrong_pwd = {
                 'username': 'user1@email.com',
                 'password': 'xxx_Yxxx'
             }
-        self.form_empty_pwd={
+        self.form_empty_pwd = {
                 'username': 'user1@email.com',
                 'password': ''
-            }   
+            }
 
     def test_get_with_status_code_200(self):
         response = self.client.get('/authentication/login/')
@@ -53,11 +51,11 @@ class LoginViewTest(TestCase):
         )
         self.assertEqual(self.client.session.get('_auth_user_id'), "1")
         self.assertEqual(
-            response.context['messages']._loaded_data[0].message, 
+            response.context['messages']._loaded_data[0].message,
             "Authentification réussie"
         )
         self.assertEqual(
-            response.context['messages']._loaded_data[0].level_tag, 
+            response.context['messages']._loaded_data[0].level_tag,
             "success"
         )
 
@@ -65,7 +63,9 @@ class LoginViewTest(TestCase):
         response = self.client.post(
             '/authentication/login/', data=self.form_empty_pwd, follow=True
         )
-        self.assertEqual(response.templates[0].name, 'authentication/login.html')
+        self.assertEqual(
+            response.templates[0].name, 'authentication/login.html'
+        )
         self.assertIsInstance(response.context['form'], LoginForm)
         self.assertTrue(response.context['form'].errors)
 
@@ -73,6 +73,8 @@ class LoginViewTest(TestCase):
         response = self.client.post(
             '/authentication/login/', data=self.form_wrong_pwd, follow=True
         )
-        self.assertEqual(response.templates[0].name, 'authentication/login.html')
+        self.assertEqual(
+            response.templates[0].name, 'authentication/login.html'
+        )
         self.assertIsInstance(response.context['form'], LoginForm)
         self.assertTrue(response.context['form'].errors)

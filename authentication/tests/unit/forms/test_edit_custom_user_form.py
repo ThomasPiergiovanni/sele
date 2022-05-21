@@ -1,14 +1,11 @@
-# pylint: disable=C0116
-"""Test ratings form module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0801
 from django.test import TestCase
 
 from authentication.forms.update_custom_user_form import UpdateCustomUserForm
 
 
 class UpdateCustomUserFormTest(TestCase):
-    """Test EditCustomUseForm  class.
-    """
+
     def setUp(self):
         self.form = UpdateCustomUserForm()
 
@@ -18,7 +15,9 @@ class UpdateCustomUserFormTest(TestCase):
             "Nom d'utilisateur.rice"
         )
         self.assertEqual(self.form.fields['user_name'].max_length, 64)
-        self.assertTrue(self.form.fields['user_name'].widget.attrs['autofocus'])
+        self.assertTrue(
+            self.form.fields['user_name'].widget.attrs['autofocus']
+        )
         self.assertEqual(
             self.form.fields['user_name'].widget.attrs['class'],
             'form-control form-control-sm'
@@ -65,15 +64,12 @@ class UpdateCustomUserFormTest(TestCase):
             'ecuf_input_collectivity'
         )
 
-
     def test_ecuf_with_all_attr_are_correct(self):
-        """
-        """
         form = UpdateCustomUserForm(
             data={
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertTrue(form.is_valid())
@@ -83,7 +79,7 @@ class UpdateCustomUserFormTest(TestCase):
             data={
                 'user_name': '',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -91,12 +87,12 @@ class UpdateCustomUserFormTest(TestCase):
     def test_ecuf_with_attr_user_name_is_not_correct(self):
         form = UpdateCustomUserForm(
             data={
-                'user_name':(
+                'user_name': (
                     "dsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsds"
                     "dsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsds"
                 ),
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -106,7 +102,7 @@ class UpdateCustomUserFormTest(TestCase):
             data={
                 'user_name': 'UserName',
                 'collectivity': '',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())

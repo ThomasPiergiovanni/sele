@@ -1,20 +1,17 @@
-"""Test rating use case test module. Functional test
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201
 import os
+from time import sleep
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
-from time import sleep
 
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
-from chat.tests.emulation.chat_emulation import ChatEmulation
 
 
 class LoginUseCaseTest(StaticLiveServerTestCase):
-    """Test create voting use case test class
-    """
+
     def setUp(self):
         firefox_options = webdriver.FirefoxOptions()
         if os.name == 'nt':
@@ -39,12 +36,15 @@ class LoginUseCaseTest(StaticLiveServerTestCase):
         self.browser.quit()
 
     def test_vote_use_case(self):
-        # The user is on the home page
-        self.browser.get('%s%s' % (self.live_server_url, ''))
+        # The user is on the home page.
+        self.browser.get(f"{self.live_server_url}{''}")
         sleep(1)
-        self.assertIn('sel-e',self.browser.find_element_by_tag_name('h1').text)
+        self.assertIn(
+            'sel-e',
+            self.browser.find_element_by_tag_name('h1').text
+        )
 
-        # The use select the connexion button
+        # The user selects the connexion button.
         sleep(2)
         self.browser.find_element_by_id('go_to_login_button').click()
         sleep(1)
@@ -57,11 +57,14 @@ class LoginUseCaseTest(StaticLiveServerTestCase):
         # "Se connecter" button and lands on the home page.
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
-        .send_keys('user1@email.com')
+            .send_keys('user1@email.com')
         sleep(1)
         self.browser.find_element_by_id('input_login_password')\
-        .send_keys('xxx_Xxxx')
+            .send_keys('xxx_Xxxx')
         sleep(1)
         self.browser.find_element_by_id('login_button').click()
-        self.assertIn('sel-e',self.browser.find_element_by_tag_name('h1').text)
+        self.assertIn(
+            'sel-e',
+            self.browser.find_element_by_tag_name('h1').text
+        )
         sleep(2)

@@ -1,13 +1,11 @@
-"""Test login view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201
 from django.test import TestCase
 
 from authentication.views.login_view import LoginView
 
 
 class LoginViewTest(TestCase):
-    """Test LoginView  class.
-    """
+
     def setUp(self):
         self.view = LoginView()
 
@@ -19,6 +17,7 @@ class LoginViewTest(TestCase):
             self.view.view_template,
             'authentication/login.html'
         )
+
     def test_init_with_attr_post_nominal_view_name(self):
         self.assertEqual(
             self.view.post_view_name,

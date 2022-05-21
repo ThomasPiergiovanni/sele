@@ -1,4 +1,5 @@
-"""Sign up form module.
+# pylint: disable=R0903,R0801
+"""UpdateCustomUserForm module.
 """
 from django import forms
 
@@ -6,8 +7,9 @@ from authentication.models import CustomUser
 
 
 class UpdateCustomUserForm(forms.ModelForm):
-    """Edit CustomUser form class.
+    """UpdateCustomUserForm class.
     """
+
     user_name = forms.CharField(
         label="Nom d'utilisateur.rice",
         max_length=64,
@@ -42,10 +44,11 @@ class UpdateCustomUserForm(forms.ModelForm):
             },
         )
     )
-    field_order = ['user_name', 'postal_code', 'collectivity'] 
+    field_order = ['user_name', 'postal_code', 'collectivity']
 
     class Meta:
         """Meta model gives CustomUser "params" to CreateCustomUser class.
         """
+
         model = CustomUser
         fields = ['user_name']

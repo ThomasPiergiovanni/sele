@@ -1,10 +1,15 @@
+"""LogoutView module.
+"""
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-from django.views import View
+
+from authentication.views.generic_authentication_view import (
+    GenericAuthenticationView
+)
 
 
-class LogoutView(View):
+class LogoutView(GenericAuthenticationView):
     """LogoutView class.
     """
 
@@ -13,17 +18,10 @@ class LogoutView(View):
         self.view_name = 'information:home'
 
     def get(self, request):
-        """Logout method on client get request.
+        """LogoutView method on client get request.
         """
-        if request.user.is_authenticated:
-            logout(request)
-            messages.add_message(
-                request, messages.SUCCESS, "Déconnexion réussie",
-            )
-            return redirect(self.view_name)
-        else:
-            messages.add_message(
-                request, messages.WARNING, "L'utilisateur est déja déconnecté"
-            )
-            return redirect(self.view_name)
-
+        logout(request)
+        messages.add_message(
+            request, messages.SUCCESS, "Déconnexion réussie",
+        )
+        return redirect(self.view_name)

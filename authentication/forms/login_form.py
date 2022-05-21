@@ -1,12 +1,13 @@
-"""Login form module.
+"""LoginForm module.
 """
 from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 
 
 class LoginForm(AuthenticationForm):
-    """Login form class.
+    """LoginForm class.
     """
+
     username = forms.CharField(
         label="Email",
         max_length=128,
@@ -29,10 +30,3 @@ class LoginForm(AuthenticationForm):
             }
         )
     )
-    # field_order = ['email', 'password'] 
-
-    # class Meta(AuthenticationForm):
-    #     """Meta model gives CustomUser "params" to CreateCustomUser class.
-    #     """
-    #     model = CustomUser
-    #     fields = ['email', 'password']

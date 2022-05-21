@@ -1,21 +1,17 @@
-# pylint: disable=C0116
-"""Test ratings form module.
-"""
-from django.test import TestCase, RequestFactory
-from django.contrib.auth.hashers import make_password
+# pylint: disable=C0114,C0115,C0116,E1101,R0801
+from django.test import TestCase
 
 from authentication.forms.login_form import LoginForm
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
-from authentication.models import CustomUser
 
 
 class LoginFormTest(TestCase):
-    """Test CreateCustomUseForm  class.
-    """
+
     def setUp(self):
-        AuthenticationEmulation().emulate_custom_user()
+        self.auth_emulation = AuthenticationEmulation()
+        self.auth_emulation.emulate_custom_user()
         self.form = LoginForm()
 
     def test_lf_with_attr_email(self):
@@ -34,9 +30,11 @@ class LoginFormTest(TestCase):
         )
 
     def test_lf_with_attr_password(self):
-        self.assertEqual(self.form.fields['password'].label,"Mot de passe")
+        self.assertEqual(self.form.fields['password'].label, "Mot de passe")
         self.assertEqual(self.form.fields['password'].max_length, 32)
-        self.assertFalse(self.form.fields['password'].widget.attrs['autofocus'])
+        self.assertFalse(
+            self.form.fields['password'].widget.attrs['autofocus']
+        )
         self.assertEqual(
             self.form.fields['password'].widget.attrs['class'],
             'form-control form-control-sm'
@@ -47,14 +45,12 @@ class LoginFormTest(TestCase):
         )
 
     def test_lf_with_all_attr_are_correct(self):
-        """
-        """
         data = {
             'username': 'user1@email.com',
             'password': 'xxx_Xxxx',
         }
         form = LoginForm(data=data)
-        self.assertTrue(form.is_valid())  
+        self.assertTrue(form.is_valid())
 
     def test_lf_with_attr_email_is_empty(self):
         form = LoginForm(
@@ -91,4 +87,3 @@ class LoginFormTest(TestCase):
             }
         )
         self.assertFalse(form.is_valid())
-

@@ -1,7 +1,5 @@
-"""Test manager module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0212
 from django.contrib.auth import authenticate
-from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import RequestFactory, TestCase
 
 from authentication.management.engine.manager import Manager
@@ -14,14 +12,14 @@ from collectivity.tests.emulation.collectivity_emulation import (
     CollectivityEmulation
 )
 
+
 class TestManager(TestCase):
-    """Test Manager  class.
-    """
+
     def setUp(self):
-        self.authentication_emulation=AuthenticationEmulation()
+        self.authentication_emulation = AuthenticationEmulation()
         self.collectivity_emulation = CollectivityEmulation()
         self.manager = Manager()
-    
+
     def test_check_collectivity_with_valid_form_data(self):
         self.collectivity_emulation.emulate_postal_code()
         self.collectivity_emulation.emulate_collectivity()
@@ -54,7 +52,7 @@ class TestManager(TestCase):
             CustomUser.objects.all().last().email,
             'user@email.com'
         )
-    
+
     def test_activate_collectivity(self):
         self.collectivity_emulation.emulate_postal_code()
         self.collectivity_emulation.emulate_collectivity()
@@ -68,9 +66,9 @@ class TestManager(TestCase):
         self.authentication_emulation.emulate_custom_user()
         form = self.authentication_emulation.emulate_update_custom_user_form()
         form.is_valid()
-        request = RequestFactory().post('')        
+        request = RequestFactory().post('')
         user = authenticate(email='user1@email.com', password='xxx_Xxxx')
-        request.user = user  
+        request.user = user
         collectivity = Collectivity.objects.get(pk=user.collectivity_id)
         self.manager.update_custom_user(request, form, collectivity)
         self.assertEqual(

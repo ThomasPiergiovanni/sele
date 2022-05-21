@@ -1,3 +1,5 @@
+"""LoginView module.
+"""
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -7,7 +9,7 @@ from authentication.forms.login_form import LoginForm
 
 
 class LoginView(View):
-    """CreateCustomUserview class.
+    """LoginView class.
     """
 
     def __init__(self):
@@ -19,14 +21,12 @@ class LoginView(View):
         self.post_view_name = 'information:home'
 
     def get(self, request):
-        """Login page view method on client get request.
+        """LoginView method on client get request.
         """
         return render(request, self.view_template, self.context)
 
     def post(self, request):
-        """Login page view method on client post request. Authenticate custom
-        user into session. After login, user is redirect to
-        home page.
+        """LoginView method on client post request.
         """
         logout(request)
         form = LoginForm(data=request.POST)
@@ -42,4 +42,3 @@ class LoginView(View):
                 )
                 return redirect(self.post_view_name)
         return render(request, self.view_template, {'form': form})
-

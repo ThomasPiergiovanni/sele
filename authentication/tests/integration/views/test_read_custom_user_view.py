@@ -1,22 +1,14 @@
-# pylint: disable=C0116, E1101
-"""Test read custom user view module.
-"""
-from django.contrib.auth import logout
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
 from django.urls import reverse
 
-from authentication.forms.update_custom_user_form import UpdateCustomUserForm
-from authentication.models import CustomUser
-from authentication.tests.emulation.authentication_emulation import AuthenticationEmulation
-from collectivity.models.collectivity import Collectivity
-from collectivity.tests.emulation.collectivity_emulation import (
-    CollectivityEmulation
+from authentication.tests.emulation.authentication_emulation import (
+    AuthenticationEmulation
 )
 
 
 class UpdateCustomUserViewTest(TestCase):
-    """Test UpdateCustomUserView view class.
-    """
+
     def setUp(self):
         self.auth_emulation = AuthenticationEmulation()
 
@@ -35,10 +27,6 @@ class UpdateCustomUserViewTest(TestCase):
         response = self.client.get(
             '/authentication/update_custom_user/', follow=True
         )
-        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0],
-            reverse('information:home')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
-        self.assertEqual(response_msg.level_tag, 'error')
-        self.assertEqual(response_msg.message, "Authentification requise")

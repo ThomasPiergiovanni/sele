@@ -1,14 +1,11 @@
-# pylint: disable=C0116
-"""Test ratings form module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0801
 from django.test import TestCase
 
 from authentication.forms.create_custom_user_form import CreateCustomUserForm
 
 
 class CreateCustomUserFormTest(TestCase):
-    """Test CreateCustomUseForm  class.
-    """
+
     def setUp(self):
         self.form = CreateCustomUserForm()
 
@@ -33,7 +30,9 @@ class CreateCustomUserFormTest(TestCase):
             "Nom d'utilisateur.rice (visible dans l'app)"
         )
         self.assertEqual(self.form.fields['user_name'].max_length, 64)
-        self.assertFalse(self.form.fields['user_name'].widget.attrs['autofocus'])
+        self.assertFalse(
+            self.form.fields['user_name'].widget.attrs['autofocus']
+        )
         self.assertEqual(
             self.form.fields['user_name'].widget.attrs['class'],
             'form-control form-control-sm'
@@ -44,9 +43,11 @@ class CreateCustomUserFormTest(TestCase):
         )
 
     def test_ccuf_with_attr_password1(self):
-        self.assertEqual(self.form.fields['password1'].label,"Mot de passe")
+        self.assertEqual(self.form.fields['password1'].label, "Mot de passe")
         self.assertEqual(self.form.fields['password1'].max_length, 32)
-        self.assertFalse(self.form.fields['password1'].widget.attrs['autofocus'])
+        self.assertFalse(
+            self.form.fields['password1'].widget.attrs['autofocus']
+        )
         self.assertEqual(
             self.form.fields['password1'].widget.attrs['class'],
             'form-control form-control-sm'
@@ -92,10 +93,7 @@ class CreateCustomUserFormTest(TestCase):
             'input_postal_code'
         )
 
-
     def test_ccuf_with_all_attr_are_correct(self):
-        """
-        """
         form = CreateCustomUserForm(
             data={
                 'email': 'user@email.com',
@@ -103,7 +101,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password2': 'xxxx_Xxxx',
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertTrue(form.is_valid())
@@ -116,7 +114,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password2': 'xxxx_Xxxx',
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -129,7 +127,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password2': 'xxxx_Xxxx',
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -142,7 +140,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password2': 'xxxx_Xxxx',
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -155,7 +153,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password2': 'xxxx_Xxxx',
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -168,7 +166,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password2': '',
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -181,7 +179,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password2': 'xxxx_Yxxx',
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -194,7 +192,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password2': 'xxxx_Xxxx',
                 'user_name': '',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -205,12 +203,12 @@ class CreateCustomUserFormTest(TestCase):
                 'email': 'user@email.com',
                 'password1': 'xxxx_Xxxx',
                 'password2': 'xxxx_Xxxx',
-                'user_name':(
+                'user_name': (
                     "dsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsds"
                     "dsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsds"
                 ),
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())
@@ -223,7 +221,7 @@ class CreateCustomUserFormTest(TestCase):
                 'password2': 'xxxx_Xxxx',
                 'user_name': 'UserName',
                 'collectivity': '',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         self.assertFalse(form.is_valid())

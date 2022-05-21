@@ -1,6 +1,4 @@
-# pylint: disable=C0116, E1101
-"""Test create custom user view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
 from django.urls import reverse
 
@@ -10,8 +8,7 @@ from authentication.tests.emulation.authentication_emulation import (
 
 
 class LogoutViewTest(TestCase):
-    """Test LogoutView class.
-    """
+
     def setUp(self):
         self.authentication_emulation = AuthenticationEmulation()
 
@@ -24,11 +21,11 @@ class LogoutViewTest(TestCase):
             response.redirect_chain[0][0], reverse('information:home')
         )
         self.assertEqual(
-            response.context['messages']._loaded_data[0].message, 
+            response.context['messages']._loaded_data[0].message,
             "Déconnexion réussie"
         )
         self.assertEqual(
-            response.context['messages']._loaded_data[0].level_tag, 
+            response.context['messages']._loaded_data[0].level_tag,
             "success"
         )
         self.assertEqual(self.client.session.get('_auth_user_id'), None)
@@ -39,18 +36,13 @@ class LogoutViewTest(TestCase):
         self.assertEqual(self.client.session.get('_auth_user_id'), '1')
         response = self.client.get('/authentication/logout/', follow=True)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('information:home')
+            response.redirect_chain[0][0], reverse('information:home')
         )
         self.assertEqual(self.client.session.get('_auth_user_id'), None)
 
     def test_get_with_unauthenticated_user(self):
         response = self.client.get('/authentication/logout/', follow=True)
-        response_msg = response.context['messages']._loaded_data[0]
         self.assertEqual(
-            response.redirect_chain[0][0], reverse('information:home')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
         self.assertEqual(self.client.session.get('_auth_user_id'), None)
-        self.assertEqual(
-            response_msg.message, "L'utilisateur est déja déconnecté"
-        )
-        self.assertEqual(response_msg.level_tag, "warning")

@@ -1,15 +1,13 @@
-"""Test add voting view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201
 from django.test import TestCase
 
 from authentication.views.update_custom_user_view import UpdateCustomUserView
 
 
 class UpdateCustomUserViewTest(TestCase):
-    """TestUpdateCustomUserView view class.
-    """
+
     def setUp(self):
-        self.view =UpdateCustomUserView()
+        self.view = UpdateCustomUserView()
 
     def test_init_with_ecuv_instance(self):
         self.assertTrue(self.view)
@@ -19,8 +17,7 @@ class UpdateCustomUserViewTest(TestCase):
             self.view.view_template,
             'authentication/update_custom_user.html'
         )
-    def test_init_with_attr_alternative_view_name(self):
         self.assertEqual(
-            self.view.alternative_view_name,
-            'information:home'
+            UpdateCustomUserView.login_url, '/authentication/login/'
         )
+        self.assertEqual(UpdateCustomUserView.redirect_field_name, None)

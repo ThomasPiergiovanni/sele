@@ -1,13 +1,11 @@
-"""Test delete custom user module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201
 from django.test import TestCase
 
 from authentication.views.delete_custom_user_view import DeleteCustomUserView
 
 
 class DeleteCustomUserViewTest(TestCase):
-    """Test DeleteCustomUserView class.
-    """
+
     def setUp(self):
         self.view = DeleteCustomUserView()
 
@@ -16,8 +14,9 @@ class DeleteCustomUserViewTest(TestCase):
 
     def test_init_with_attr(self):
         self.assertEqual(
-            self.view.view_template,'authentication/delete_custom_user.html'
+            self.view.view_template, 'authentication/delete_custom_user.html'
         )
         self.assertEqual(
-            self.view.alternative_view_name,'information:home'
+            DeleteCustomUserView.login_url, '/authentication/login/'
         )
+        self.assertEqual(DeleteCustomUserView.redirect_field_name, None)

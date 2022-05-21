@@ -1,5 +1,4 @@
-"""Test rating module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0201
 from django.contrib.auth.hashers import make_password
 
 from authentication.forms.create_custom_user_form import CreateCustomUserForm
@@ -11,14 +10,12 @@ from collectivity.tests.emulation.collectivity_emulation import (
 
 
 class AuthenticationEmulation():
-    """Test collectivity class.
-    """
+
     def emulate_custom_user(self):
-        """
-        """
-        CollectivityEmulation().emulate_postal_code()
-        CollectivityEmulation().emulate_collectivity()
-        CollectivityEmulation().emulate_set_collectivity_postal_code()
+        self.collectivity_emulation = CollectivityEmulation()
+        self.collectivity_emulation.emulate_postal_code()
+        self.collectivity_emulation.emulate_collectivity()
+        self.collectivity_emulation.emulate_set_collectivity_postal_code()
         blr = Collectivity.objects.get(name="Bourg-la-Reine")
         bgx = Collectivity.objects.get(name="Bagneux")
         CustomUser.objects.create(
@@ -54,7 +51,7 @@ class AuthenticationEmulation():
                 'password2': 'xxxx_Xxxx',
                 'user_name': 'UserName',
                 'collectivity': 'Bourg-la-Reine',
-                'postal_code':'92340',
+                'postal_code': '92340',
             }
         )
         return form
@@ -64,7 +61,7 @@ class AuthenticationEmulation():
             data={
                 'user_name': 'UserNameNew',
                 'collectivity': 'Bagneux',
-                'postal_code':'9220',
+                'postal_code': '9220',
             }
         )
         return form

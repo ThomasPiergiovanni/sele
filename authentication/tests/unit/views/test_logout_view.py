@@ -1,13 +1,11 @@
-"""Test logout view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201
 from django.test import TestCase
 
 from authentication.views.logout_view import LogoutView
 
 
 class LogoutViewTest(TestCase):
-    """Test LogoutView  class.
-    """
+
     def setUp(self):
         self.view = LogoutView()
 
@@ -15,7 +13,4 @@ class LogoutViewTest(TestCase):
         self.assertTrue(self.view)
 
     def test_init_with_attr_nominal_view_name(self):
-        self.assertEqual(
-            self.view.view_name,
-            'information:home'
-        )
+        self.assertEqual(self.view.view_name, 'information:home')

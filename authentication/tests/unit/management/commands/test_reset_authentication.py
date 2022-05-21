@@ -1,6 +1,4 @@
-"""Test reset authentication module.
-"""
-from django.db import models
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
 
 from authentication.management.commands.reset_authentication import Command
@@ -11,8 +9,7 @@ from authentication.tests.emulation.authentication_emulation import (
 
 
 class ResetAuthenticationTest(TestCase):
-    """Test reset authentication class.
-    """
+
     def setUp(self):
         """Method that set up data for the entire class
         """
