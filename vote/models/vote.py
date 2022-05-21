@@ -3,6 +3,8 @@
 from django.db import models
 
 from authentication.models import CustomUser
+from vote.models.voting import Voting
+
 
 class Vote(models.Model):
     """Vote model class.
@@ -11,7 +13,7 @@ class Vote(models.Model):
     choice = models.BooleanField(null=False)
     creation_date = models.DateTimeField()
     vote_voting = models.ForeignKey(
-        "Voting",
+        Voting,
         on_delete=models.CASCADE,
         null=False,
         related_name="vote_voting"

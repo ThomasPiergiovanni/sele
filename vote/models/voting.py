@@ -3,7 +3,6 @@
 from django.db import models
 
 from authentication.models import CustomUser
-from vote.models.vote import Vote
 from vote.models.voting_method import VotingMethod
 
 
@@ -23,5 +22,5 @@ class Voting(models.Model):
         CustomUser, on_delete=models.CASCADE, related_name="voting_custom_user"
     )
     votes = models.ManyToManyField(
-        CustomUser, through=Vote,  related_name="votes"
+        CustomUser, through="Vote",  related_name="votes"
     )
