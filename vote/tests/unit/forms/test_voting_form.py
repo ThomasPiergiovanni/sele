@@ -1,14 +1,9 @@
-# pylint: disable=C0116
-"""Test voting form module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101
 from django.test import TestCase
 
 from vote.forms.voting_form import VotingForm
 from vote.models.voting_method import VotingMethod
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
@@ -16,15 +11,12 @@ class VotingFormTest(TestCase):
     """Test VotingForm form  class.
     """
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
         self.vote_emulation = VoteEmulation()
-        self.vote_emulation.emulate_voting_method()
-        self.vote_emulation.emulate_voting()
+        self.vote_emulation.emulate_test_setup()
         self.form = VotingForm()
 
     def test_vf_with_attr_question(self):
-        self.assertEqual(self.form.fields['question'].label,'Question')
+        self.assertEqual(self.form.fields['question'].label, 'Question')
         self.assertEqual(self.form.fields['question'].max_length, 256)
         self.assertEqual(
             self.form.fields['question'].widget.attrs['id'],
@@ -106,8 +98,8 @@ class VotingFormTest(TestCase):
         existing_index = None
         try:
             if self.voting_form.fields['voting_method'].widget.choices[3]:
-                existing_index = True 
-        except:
+                existing_index = True
+        except AttributeError:
             existing_index = False
         self.assertFalse(existing_index)
 

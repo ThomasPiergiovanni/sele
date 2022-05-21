@@ -1,12 +1,11 @@
-"""Test detailed voting view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101
 from django.test import TestCase
 
 from vote.views.read_voting_view import ReadVotingView
 
+
 class ReadVotingViewTest(TestCase):
-    """TestReadVotingView class.
-    """
+
     def setUp(self):
         self.view = ReadVotingView()
 
@@ -14,9 +13,9 @@ class ReadVotingViewTest(TestCase):
         self.assertTrue(self.view)
 
     def test_init_with_attr(self):
-        self.assertEqual(self.view.view_template,'vote/read_voting.html')
+        self.assertEqual(self.view.view_template, 'vote/read_voting.html')
         self.assertEqual(
-            ReadVotingView.login_url , '/authentication/login/'
+            ReadVotingView.login_url, '/authentication/login/'
         )
         self.assertEqual(ReadVotingView.redirect_field_name, None)
         self.assertIsNone(self.view.context['voting'])

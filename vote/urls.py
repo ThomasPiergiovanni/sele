@@ -1,3 +1,4 @@
+# pylint: disable=C0103
 """Urls module
 """
 from django.urls import path
@@ -18,7 +19,7 @@ urlpatterns = [
         name='collectivity_votings'
     ),
     path(
-        'create_vote/<int:id_voting>/', 
+        'create_vote/<int:id_voting>/',
         CreateVoteView.as_view(),
         name='create_vote'
     ),

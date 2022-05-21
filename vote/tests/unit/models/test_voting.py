@@ -1,30 +1,19 @@
-"""Test voting method module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from datetime import date
 from django.db import models
 from django.test import TestCase
 
 from authentication.models import CustomUser
-
 from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
-
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class VotingTest(TestCase):
-    """Test voting class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
         self.vote_emulation = VoteEmulation()
-        self.vote_emulation.emulate_voting_method()
-        self.vote_emulation.emulate_voting()
-        self.vote_emulation.emulate_vote()
+        self.vote_emulation.emulate_test_setup()
 
     def test_voting_with_status_class(self):
         voting = Voting.objects.get(pk=1)
@@ -66,7 +55,7 @@ class VotingTest(TestCase):
             type(attribute),
             type(models.ForeignKey(VotingMethod, on_delete=models.CASCADE))
         )
-        
+
     def test_voting_with_attr_voting_custom_user_characteristic(self):
         attribute = Voting._meta.get_field('voting_custom_user')
         self.assertTrue(attribute)
@@ -82,9 +71,9 @@ class VotingTest(TestCase):
             type(attribute),
             type(models.ManyToManyField(CustomUser))
         )
-    
+
     def test_status_with_emulated_status_instance(self):
-        voting= Voting.objects.get(pk=1)
+        voting = Voting.objects.get(pk=1)
         self.assertEqual(
             voting.question,
             "Voulez-vous créer une demande de nettoyage?"
@@ -92,7 +81,7 @@ class VotingTest(TestCase):
         self.assertEqual(voting.opening_date, date.today())
         voting = Voting.objects.get(pk=2)
         self.assertEqual(
-            voting.question, 
+            voting.question,
             "Voulez-vous créer une offre commune d'aide au devoir?"
         )
         self.assertEqual(voting.opening_date, date(2022, 1, 21))

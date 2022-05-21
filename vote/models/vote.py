@@ -1,10 +1,13 @@
+"""Vote model module.
+"""
 from django.db import models
 
 from authentication.models import CustomUser
 
 class Vote(models.Model):
-    """Vote class model
+    """Vote model class.
     """
+
     choice = models.BooleanField(null=False)
     creation_date = models.DateTimeField()
     vote_voting = models.ForeignKey(

@@ -1,26 +1,16 @@
-"""Test detailed voting view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
 from django.urls import reverse
 
 from vote.models.voting import Voting
-
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class ReadVotingViewTest(TestCase):
-    """Test ReadVotingView class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
         self.vote_emulation = VoteEmulation()
-        self.vote_emulation.emulate_voting_method()
-        self.vote_emulation.emulate_voting()
-        self.vote_emulation.emulate_vote()
+        self.vote_emulation.emulate_test_setup()
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -36,5 +26,5 @@ class ReadVotingViewTest(TestCase):
         response = self.client.get('/vote/read_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )

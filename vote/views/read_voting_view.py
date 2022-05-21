@@ -1,29 +1,27 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
+# pylint: disable=E1101
+"""ReadVotingView module.
+"""
 from django.shortcuts import render
 
-from vote.management.engine.manager import Manager
 from vote.models.voting import Voting
+from vote.views.generic_vote_view import GenericVoteView
 
 
-class ReadVotingView(LoginRequiredMixin, View):
+class ReadVotingView(GenericVoteView):
     """ReadVotingView class.
     """
-    login_url = '/authentication/login/'
-    redirect_field_name = None
 
     def __init__(self):
         super().__init__()
-        self.manager = Manager()
         self.view_template = 'vote/read_voting.html'
         self.context = {
             'voting': None,
-            'voting_operation': None, 
-            'voting_result': None,                       
+            'voting_operation': None,
+            'voting_result': None,
             'voting_status': None
         }
         self.msg_unauthenticated = "Authentification requise"
-    
+
     def get(self, request, id_voting):
         """Detailed voting view method on client get request.
         """
@@ -32,4 +30,3 @@ class ReadVotingView(LoginRequiredMixin, View):
             self.context, voting, 'read'
         )
         return render(request, self.view_template, self.context)
-

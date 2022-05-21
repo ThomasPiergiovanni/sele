@@ -1,23 +1,18 @@
-"""Creat Voting view module
+"""CreateVotingView module.
 """
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
 from django.shortcuts import redirect, render
 
 from vote.forms.voting_form import VotingForm
-from vote.management.engine.manager import Manager
+from vote.views.generic_vote_view import GenericVoteView
 
 
-class CreateVotingView(LoginRequiredMixin,View):
+class CreateVotingView(GenericVoteView):
     """CreateVotingView class.
     """
-    login_url = '/authentication/login/'
-    redirect_field_name = None
 
     def __init__(self):
         super().__init__()
-        self.manager =  Manager()
         self.context = {
             'form': VotingForm(),
         }
@@ -26,14 +21,12 @@ class CreateVotingView(LoginRequiredMixin,View):
         self.post_view_name = 'vote:collectivity_votings'
 
     def get(self, request):
-        """Create voting view method on user get request.
+        """CreateVotingView method on user get request.
         """
-        return render(request, self.view_template, self.context)           
-    
+        return render(request, self.view_template, self.context)
+
     def post(self, request):
-        """Create voting view method on client post request. Create voting
-        into the DB. After Voting creation, user is redirect to voting 
-        overview page.
+        """CreateVotingView method on client post request.
         """
         form = VotingForm(request.POST)
         if form.is_valid():
@@ -42,6 +35,5 @@ class CreateVotingView(LoginRequiredMixin,View):
                 request, messages.SUCCESS, "Création réussie",
             )
             return redirect(self.post_view_name)
-        else:
-            self.context['form'] = form
-            return render(request, self.view_template, self.context)
+        self.context['form'] = form
+        return render(request, self.view_template, self.context)

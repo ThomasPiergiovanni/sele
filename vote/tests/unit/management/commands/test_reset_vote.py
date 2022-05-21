@@ -1,6 +1,4 @@
-"""Test reset vote module.
-"""
-from django.db import models
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
 
 from vote.management.commands.reset_vote import Command
@@ -11,11 +9,8 @@ from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class ResetVoteTest(TestCase):
-    """Test reset vote method class.
-    """
+
     def setUp(self):
-        """Method that set up data for the entire class
-        """
         self.command = Command()
         self.vote_emulation = VoteEmulation()
 
@@ -41,7 +36,7 @@ class ResetVoteTest(TestCase):
         self.command._Command__drop_voting()
         votings = Voting.objects.all()
         self.assertFalse(votings)
-    
+
     def test_drop_vote_with_instance_is_none(self):
         self.vote_emulation.emulate_vote()
         vote = Vote.objects.all()

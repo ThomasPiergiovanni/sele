@@ -1,8 +1,9 @@
-"""Voting form class
+# pylint: disable=E1101,R0903
+"""VotingForm module.
 """
 from django.forms import (
     CharField, DateField, DateInput, ModelChoiceField, ModelForm,
-    Select, Textarea, TextInput, 
+    Select, Textarea, TextInput
 )
 
 from vote.models.voting import Voting
@@ -10,8 +11,9 @@ from vote.models.voting_method import VotingMethod
 
 
 class VotingForm(ModelForm):
-    """VotingForm class. Used for adding voting.
+    """VotingForm class.
     """
+
     question = CharField(
         label='Question',
         max_length=256,
@@ -30,7 +32,7 @@ class VotingForm(ModelForm):
             attrs={
                 'class': 'form-control form-control-sm',
                 'id': 'input_voting_description',
-                'rows':4
+                'rows': 4
             }
         )
     )
@@ -69,6 +71,9 @@ class VotingForm(ModelForm):
     )
 
     class Meta:
+        """ModelForm metadata class.
+        """
+
         model = Voting
         fields = (
             'question', 'description', 'voting_method', 'opening_date',

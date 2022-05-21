@@ -1,10 +1,9 @@
-"""Test rating use case test module. Functional test
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0801
 import os
+from time import sleep
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
-from time import sleep
 
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
@@ -13,8 +12,6 @@ from vote.tests.emulation.vote_emulation import VoteEmulation
 
 
 class CreateVotingUseCaseTest(StaticLiveServerTestCase):
-    """Test create voting use case test class
-    """
     def setUp(self):
         firefox_options = webdriver.FirefoxOptions()
         if os.name == 'nt':
@@ -43,21 +40,22 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
 
     def test_vote_use_case(self):
         # The user is on the login page
-        self.browser.get(
-            '%s%s' % (self.live_server_url, '/authentication/login/')
-        )
+        self.browser.get(f"{self.live_server_url}{'/authentication/login/'}")
 
         # The user types its email password clicks and then clicks
         # "Se connecter" button and lands on the home page.
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
-        .send_keys('user1@email.com')
+            .send_keys('user1@email.com')
         sleep(1)
         self.browser.find_element_by_id('input_login_password')\
-        .send_keys('xxx_Xxxx')
+            .send_keys('xxx_Xxxx')
         sleep(1)
         self.browser.find_element_by_id('login_button').click()
-        self.assertIn('sel-e',self.browser.find_element_by_tag_name('h1').text)
+        self.assertIn(
+            'sel-e',
+            self.browser.find_element_by_tag_name('h1').text
+        )
         sleep(2)
 
         # The user selects "Mon groupe Local" on the left navigation sidebar
@@ -77,7 +75,7 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
 
         # The user select "Participer au vote" button
         self.browser.find_element_by_id('participate_to_voting_button')\
-        .click()
+            .click()
         sleep(2)
         self.assertIn(
             self.browser.find_element_by_class_name('login-box-msg').text,

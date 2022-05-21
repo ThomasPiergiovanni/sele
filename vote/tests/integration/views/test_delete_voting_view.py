@@ -1,28 +1,16 @@
-"""Test delete voting view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,W0212,R0801
 from django.test import TestCase
 from django.urls import reverse
-
 
 from vote.models.voting import Voting
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
-from vote.tests.emulation.vote_emulation import VoteEmulation
-
 
 class DeleteVotingViewTest(TestCase):
-    """Test DeleteVotingView class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
         self.vote_emulation = VoteEmulation()
-        self.vote_emulation.emulate_voting_method()
-        self.vote_emulation.emulate_voting()
-        self.vote_emulation.emulate_vote()
+        self.vote_emulation.emulate_test_setup()
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -49,7 +37,7 @@ class DeleteVotingViewTest(TestCase):
         response = self.client.get('/vote/delete_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
 
     def test_post_with_authenticated_user(self):
@@ -61,15 +49,15 @@ class DeleteVotingViewTest(TestCase):
         )
         try:
             voting = Voting.objects.get(pk=1)
-        except:
+        except Voting.DoesNotExist:
             voting = False
         self.assertFalse(voting)
         self.assertEqual(
-            response.context['messages']._loaded_data[0].message, 
+            response.context['messages']._loaded_data[0].message,
             "Suppression de votation réussie"
         )
         self.assertEqual(
-            response.context['messages']._loaded_data[0].level_tag, 
+            response.context['messages']._loaded_data[0].level_tag,
             "success"
         )
 
@@ -91,5 +79,5 @@ class DeleteVotingViewTest(TestCase):
         response = self.client.post('/vote/delete_voting/1/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )

@@ -1,6 +1,4 @@
-# pylint: disable=C0116, E1101
-"""Test create voting view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
 from django.urls import reverse
 
@@ -9,22 +7,12 @@ from vote.models.voting import Voting
 from vote.models.voting_method import VotingMethod
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
-from vote.tests.emulation.vote_emulation import VoteEmulation
-
 
 class CreateVotingViewTest(TestCase):
-    """Test CreateVotingView class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
         self.vote_emulation = VoteEmulation()
-        self.vote_emulation.emulate_voting_method()
-        self.vote_emulation.emulate_voting()
-        self.vote_emulation.emulate_vote()
+        self.vote_emulation.emulate_test_setup()
         self.form_data = {
             'question': 'Ma question est',
             'description': 'dsdss',
@@ -42,7 +30,7 @@ class CreateVotingViewTest(TestCase):
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        response = self.client.get('/vote/create_voting/',follow=True)
+        response = self.client.get('/vote/create_voting/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'vote/create_voting.html')
         self.assertIsInstance(response.context['form'], VotingForm)
@@ -51,7 +39,7 @@ class CreateVotingViewTest(TestCase):
         response = self.client.get('/vote/create_voting/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
 
     def test_post_with_nominal_scenario(self):
@@ -70,7 +58,7 @@ class CreateVotingViewTest(TestCase):
         )
         self.assertEqual(response_msg.level_tag, 'success')
         self.assertEqual(response_msg.message, "Création réussie")
-    
+
     def test_post_with_alternative_scenario_with_wrong_form(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         response = self.client.post(
@@ -86,6 +74,5 @@ class CreateVotingViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
-

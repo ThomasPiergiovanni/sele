@@ -1,13 +1,16 @@
+"""Voting model module.
+"""
 from django.db import models
 
 from authentication.models import CustomUser
-from vote.models.voting_method import VotingMethod
 from vote.models.vote import Vote
+from vote.models.voting_method import VotingMethod
 
 
 class Voting(models.Model):
-    """Voting class model
+    """Voting model class.
     """
+
     question = models.CharField(max_length=256, unique=False)
     description = models.TextField(max_length=1000)
     creation_date = models.DateField()
@@ -22,4 +25,3 @@ class Voting(models.Model):
     votes = models.ManyToManyField(
         CustomUser, through=Vote,  related_name="votes"
     )
-
