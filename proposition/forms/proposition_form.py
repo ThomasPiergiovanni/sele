@@ -94,7 +94,7 @@ class PropositionForm(ModelForm):
         )
     )
     duration = IntegerField(
-        label= 'Temps de travail (minutes)',
+        label='Temps de travail (minutes)',
         min_value=1,
         widget=NumberInput(
             attrs={

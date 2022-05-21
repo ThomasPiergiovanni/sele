@@ -1,54 +1,38 @@
-# pylint: disable=C0116
-"""Test proposition form module.
-"""
-from calendar import TextCalendar
+# pylint: disable=C0114,C0115,C0116,E1101
 from django.forms import (
     CharField, DateField, DateInput, IntegerField, ModelChoiceField,
-    NumberInput, Select, Textarea, 
-    TextInput
+    NumberInput, Select, Textarea, TextInput
 )
 from django.test import TestCase
 
-from authentication.models import CustomUser
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
-from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.forms.proposition_form import PropositionForm
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
-
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )
 
 
 class PropositionFormTest(TestCase):
-    """Test PorpositionForm class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
-        self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
         self.proposition_emulation = PropositionEmulation()
-        self.proposition_emulation.emulate_proposition()
+        self.proposition_emulation.emulate_test_setup()
         self.form = PropositionForm()
 
     def test_pf_with_attr_name(self):
         field = self.form.fields['name']
         self.assertTrue(field)
         self.assertIsInstance(field, CharField)
-        self.assertEqual(field.label,'Intitulé')
+        self.assertEqual(field.label, 'Intitulé')
         self.assertEqual(field.max_length, 128)
         self.assertIsInstance(field.widget, TextInput)
-        self.assertEqual(field.widget.attrs['id'],'input_proposition_name')
+        self.assertEqual(field.widget.attrs['id'], 'input_proposition_name')
         self.assertEqual(
-            field.widget.attrs['class'],'form-control form-control-sm'
+            field.widget.attrs['class'], 'form-control form-control-sm'
         )
-
 
     def test_pf_with_attr_description(self):
         field = self.form.fields['description']
@@ -61,7 +45,7 @@ class PropositionFormTest(TestCase):
         self.assertEqual(field.max_length, 1000)
         self.assertIsInstance(field.widget, Textarea)
         self.assertEqual(
-            field.widget.attrs['class'],'form-control form-control-sm'
+            field.widget.attrs['class'], 'form-control form-control-sm'
         )
         self.assertEqual(field.widget.attrs['rows'], 4)
 
@@ -69,7 +53,7 @@ class PropositionFormTest(TestCase):
         field = self.form.fields['proposition_kind']
         self.assertTrue(field)
         self.assertIsInstance(field, ModelChoiceField)
-        self.assertEqual(field.label,'Type de proposition (demande/offre)')
+        self.assertEqual(field.label, 'Type de proposition (demande/offre)')
         self.assertIsInstance(field.widget, Select)
         self.assertEqual(
             field.widget.attrs['id'], 'input_proposition_proposition_kind'
@@ -77,7 +61,7 @@ class PropositionFormTest(TestCase):
         self.assertEqual(
             field.widget.attrs['class'], 'form-control form-control-sm'
         )
-        self.assertEqual(field.queryset[0],Kind.objects.get(pk=1))
+        self.assertEqual(field.queryset[0], Kind.objects.get(pk=1))
 
     def test_pf_with_attr_proposition_category(self):
         field = self.form.fields['proposition_category']
@@ -110,7 +94,7 @@ class PropositionFormTest(TestCase):
             field.widget.attrs['class'], 'form-control form-control-sm'
         )
         self.assertEqual(
-            field.queryset[0],Domain.objects.get(pk=1)
+            field.queryset[0], Domain.objects.get(pk=1)
         )
 
     def test_pf_with_attr_start_date(self):
@@ -127,8 +111,9 @@ class PropositionFormTest(TestCase):
             'input-group date form-control form-control-sm'
         )
         self.assertEqual(
-            field.widget.attrs['data-target-input'],'nearest'
+            field.widget.attrs['data-target-input'], 'nearest'
         )
+
     def test_pf_with_attr_end_date(self):
         field = self.form.fields['end_date']
         self.assertTrue(field)
@@ -144,7 +129,7 @@ class PropositionFormTest(TestCase):
             'input-group date form-control form-control-sm'
         )
         self.assertEqual(
-            field.widget.attrs['data-target-input'],'nearest'
+            field.widget.attrs['data-target-input'], 'nearest'
         )
 
     def test_pf_with_attr_duration(self):
@@ -180,8 +165,6 @@ class PropositionFormTest(TestCase):
             field.queryset[0], CreatorType.objects.get(pk=1)
         )
 
-
-
     def test_pf_with_all_attr_are_correct(self):
         form = PropositionForm(
             data={
@@ -192,8 +175,8 @@ class PropositionFormTest(TestCase):
                 'proposition_domain': Domain.objects.get(pk=1).id,
                 'start_date': "2022-01-25",
                 'end_date': "2022-01-30",
-                'duration':60,
-                'proposition_creator_type' : CreatorType.objects.get(pk=2).id
+                'duration': 60,
+                'proposition_creator_type': CreatorType.objects.get(pk=2).id
             }
         )
         self.assertTrue(form.is_valid())
@@ -208,8 +191,8 @@ class PropositionFormTest(TestCase):
                 'proposition_domain': Domain.objects.get(pk=1).id,
                 'start_date': "2022-01-25",
                 'end_date': "2022-01-30",
-                'duration':60,
-                'proposition_creator_type' : CreatorType.objects.get(pk=2).id
+                'duration': 60,
+                'proposition_creator_type': CreatorType.objects.get(pk=2).id
             }
         )
         self.assertFalse(form.is_valid())
@@ -224,8 +207,8 @@ class PropositionFormTest(TestCase):
                 'proposition_domain': Domain.objects.get(pk=1).id,
                 'start_date': "2022-01-32",
                 'end_date': "2022-01-30",
-                'duration':60,
-                'proposition_creator_type' : CreatorType.objects.get(pk=2).id
+                'duration': 60,
+                'proposition_creator_type': CreatorType.objects.get(pk=2).id
             }
         )
         self.assertFalse(form.is_valid())
@@ -240,8 +223,8 @@ class PropositionFormTest(TestCase):
                 'proposition_domain': Domain.objects.get(pk=1).id,
                 'start_date': "2022-01-25",
                 'end_date': "2022-01-30",
-                'duration':-60,
-                'proposition_creator_type' : CreatorType.objects.get(pk=2).id
+                'duration': -60,
+                'proposition_creator_type': CreatorType.objects.get(pk=2).id
             }
         )
         self.assertFalse(form.is_valid())
@@ -256,8 +239,8 @@ class PropositionFormTest(TestCase):
                 'proposition_domain': Domain.objects.get(pk=1).id,
                 'start_date': "2022-01-25",
                 'end_date': "2022-01-30",
-                'duration':14.2,
-                'proposition_creator_type' : CreatorType.objects.get(pk=2).id
+                'duration': 14.2,
+                'proposition_creator_type': CreatorType.objects.get(pk=2).id
             }
         )
         self.assertFalse(form.is_valid())
@@ -272,12 +255,12 @@ class PropositionFormTest(TestCase):
                 'proposition_domain': Domain.objects.get(pk=1).id,
                 'start_date': "2022-01-30",
                 'end_date': "2022-01-25",
-                'duration':14,
-                'proposition_creator_type' : CreatorType.objects.get(pk=2).id
+                'duration': 14,
+                'proposition_creator_type': CreatorType.objects.get(pk=2).id
             }
         )
         self.assertFalse(form.is_valid())
-        self.assertTrue(form.errors)        
+        self.assertTrue(form.errors)
         self.assertEqual(
             form.errors.as_data()['__all__'][0].message,
             "Date de fin < Date de début"
@@ -293,12 +276,12 @@ class PropositionFormTest(TestCase):
                 'proposition_domain': Domain.objects.get(pk=1).id,
                 'start_date': "2022-01-25",
                 'end_date': "2022-01-30",
-                'duration':14,
-                'proposition_creator_type' : CreatorType.objects.get(pk=1).id
+                'duration': 14,
+                'proposition_creator_type': CreatorType.objects.get(pk=1).id
             }
         )
         self.assertFalse(form.is_valid())
-        self.assertTrue(form.errors) 
+        self.assertTrue(form.errors)
         self.assertEqual(
             form.errors.as_data()['proposition_creator_type'][0].message,
             "Une offre ne peut pas être collective"

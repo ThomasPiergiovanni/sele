@@ -1,4 +1,4 @@
-# pylint: disable=E1101,R0201
+# pylint: disable=E1101,R0201,W0106
 """ DB management command
 """
 from django.core.management.base import BaseCommand
@@ -15,21 +15,13 @@ from proposition.models.status import Status
 
 
 class Command(BaseCommand):
-    """ Reset proposition data from DB. Use it with
-    option --all to reset all users as well. This including superuser
+    """ Reset proposition data from DB.
     """
-    help = "Reset proposition info from DB. Use it with"\
-        " option --all to reset all users as well. This including superuser"
+
+    help = "Reset proposition info from DB."
 
     def __init__(self):
         super().__init__()
-
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--all',
-            action='store_true',
-            help='Reset all DB tables values including users and superusers'
-        )
 
     def handle(self, *args, **options):
         self.__drop_kind(),
@@ -94,7 +86,7 @@ class Command(BaseCommand):
         for enumeration in enumerations:
             creator_type = CreatorType(id=counter, name=enumeration)
             creator_type.save()
-            counter += 1        
+            counter += 1
 
     def __drop_domain(self):
         """Method that drops domain objects from DB
@@ -109,7 +101,7 @@ class Command(BaseCommand):
         for enumeration in enumerations:
             domain = Domain(id=counter, name=enumeration)
             domain.save()
-            counter += 1  
+            counter += 1
 
     def __drop_status(self):
         """Method that drops status objects from DB
@@ -124,7 +116,7 @@ class Command(BaseCommand):
         for enumeration in enumerations:
             status = Status(id=counter, name=enumeration)
             status.save()
-            counter += 1  
+            counter += 1
 
     def __drop_rating(self):
         """Method that drops status objects from DB
@@ -139,4 +131,4 @@ class Command(BaseCommand):
         for enumeration in enumerations:
             rating = Rating(id=counter, rate=enumeration)
             rating.save()
-            counter += 1  
+            counter += 1

@@ -1,4 +1,5 @@
-"""Proposition module model
+# pylint: disable=E0307,R0903
+"""Proposition model module.
 """
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -12,16 +13,19 @@ from proposition.models.kind import Kind
 from proposition.models.rating import Rating
 from proposition.models.status import Status
 
+
 class Proposition(models.Model):
-    """Proposition class model
+    """Proposition model class.
     """
+
     name = models.CharField(max_length=128, null=False)
     description = models.TextField(max_length=1000, null=False)
-    creation_date =  models.DateTimeField(null=False)
-    start_date =  models.DateField(null=False)
-    end_date =  models.DateField(null=False)
-    duration =  models.PositiveIntegerField(
-        null=False, default=60,validators=[MinValueValidator(1)])
+    creation_date = models.DateTimeField(null=False)
+    start_date = models.DateField(null=False)
+    end_date = models.DateField(null=False)
+    duration = models.PositiveIntegerField(
+        null=False, default=60, validators=[MinValueValidator(1)]
+    )
     proposition_category = models.ForeignKey(
         Category, on_delete=models.CASCADE, null=False,
         related_name="proposition_category"
@@ -44,7 +48,7 @@ class Proposition(models.Model):
     )
     proposition_rating = models.ForeignKey(
         Rating, on_delete=models.CASCADE, null=True,
-        related_name="proposition_rating"    
+        related_name="proposition_rating"
     )
     proposition_status = models.ForeignKey(
         Status, on_delete=models.CASCADE, null=False,
@@ -60,7 +64,10 @@ class Proposition(models.Model):
     )
 
     class Meta:
-        constraints= [
+        """Model metadata class.
+        """
+
+        constraints = [
             models.CheckConstraint(
                 check=models.Q(start_date__lte=models.F('end_date')),
                 name='start_data_lte_end_date'

@@ -1,6 +1,4 @@
-"""Test category module.
-"""
-from django.db import models
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
 
 from proposition.management.commands.reset_proposition import Command
@@ -8,33 +6,20 @@ from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
 from proposition.models.kind import Kind
-from proposition.models.proposition import Proposition
 from proposition.models.rating import Rating
 from proposition.models.status import Status
-
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
-from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )
 
 
 class ResetPropositiionTest(TestCase):
-    """Test Reset proposition class.
-    """
+
     def setUp(self):
-        """Method that set up data for the entire class
-        """
+
         self.command = Command()
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
-        self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
-        self.chat_emulation.emulate_comment()
         self.proposition_emulation = PropositionEmulation()
-        self.proposition_emulation.emulate_proposition()
+        self.proposition_emulation.emulate_test_setup()
 
     def test_drop_kind_with_instance_is_none(self):
         kinds = Kind.objects.all()
@@ -66,7 +51,6 @@ class ResetPropositiionTest(TestCase):
         categories = Category.objects.all()
         self.assertTrue(categories)
 
-
     def test_drop_creator_type_with_instance_is_none(self):
         creator_types = CreatorType.objects.all()
         self.assertTrue(creator_types)
@@ -81,7 +65,7 @@ class ResetPropositiionTest(TestCase):
         self.command._Command__insert_creator_type()
         creator_types = CreatorType.objects.all()
         self.assertTrue(creator_types)
-    
+
     def test_drop_domain_with_instance_is_none(self):
         domains = Domain.objects.all()
         self.assertTrue(domains)

@@ -1,31 +1,17 @@
-"""Test update proposition view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
-from django.urls import reverse
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
-from chat.tests.emulation.chat_emulation import ChatEmulation
+from proposition.models.proposition import Proposition
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )
 
-from proposition.models.proposition import Proposition
-from vote.models.voting_method import VotingMethod
-
 
 class UpdatePropositionViewTest(TestCase):
-    """Test UpdatePropositionView class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
-        self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
-        self.chat_emulation.emulate_comment()
         self.proposition_emulation = PropositionEmulation()
-        self.proposition_emulation.emulate_proposition()
+        self.proposition_emulation.emulate_test_setup()
 
     def test_post_with_nominal_scenario_with_status_nouveau(self):
         self.client.login(email='user3@email.com', password='xxx_Xxxx')
@@ -41,12 +27,13 @@ class UpdatePropositionViewTest(TestCase):
         )
         try:
             proposition = Proposition.objects.get(pk=3)
-        except:
+        except Proposition.DoesNotExist:
             proposition = False
         self.assertTrue(proposition)
         self.assertEqual(proposition.proposition_status.name, "Sélectionné")
         response_msg = response.context['messages']._loaded_data[0]
-        self.assertEqual(response_msg.message,
+        self.assertEqual(
+            response_msg.message,
             "Le statut de la proposition a été mis-à-jour"
         )
         self.assertEqual(response_msg.level_tag, "success")
@@ -65,7 +52,7 @@ class UpdatePropositionViewTest(TestCase):
         )
         try:
             proposition = Proposition.objects.get(pk=3)
-        except:
+        except Proposition.DoesNotExist:
             proposition = False
         self.assertTrue(proposition)
         self.assertEqual(proposition.proposition_status.name, "Nouveau")

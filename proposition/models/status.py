@@ -1,3 +1,6 @@
+# pylint: disable=E0307
+"""Status model module.
+"""
 from django.db import models
 
 

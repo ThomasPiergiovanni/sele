@@ -1,18 +1,12 @@
-"""Test proposition method module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,W0106,W0212
 from datetime import date, datetime
 
-from django.db import models
+from django.db import models , utils
 from django.test import TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
 from chat.models.discussion import Discussion
-from chat.models.discussion_type import DiscussionType
-from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain
@@ -25,18 +19,12 @@ from proposition.tests.emulation.proposition_emulation import (
 )
 
 
-
 class PropositionTest(TestCase):
     """Test Proposition class.
     """
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
-        self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
-        self.chat_emulation.emulate_comment()
         self.proposition_emulation = PropositionEmulation()
-        self.proposition_emulation.emulate_proposition()
+        self.proposition_emulation.emulate_test_setup()
 
     def test_propositon_with_discussion_class(self):
         proposition = Proposition.objects.get(pk=1)
@@ -81,7 +69,6 @@ class PropositionTest(TestCase):
         self.assertEqual(attribute.null, False)
         self.assertEqual(attribute.default, 60)
         self.assertEqual(attribute.validators[0].limit_value, 1)
-
 
     def test_proposition_with_attr_category_characteristic(self):
         attribute = Proposition._meta.get_field('proposition_category')
@@ -217,7 +204,7 @@ class PropositionTest(TestCase):
             )
         )
         self.assertEqual(attribute.null, False)
- 
+
     def test_proposition_with_emulated_question_instance(self):
         proposition = Proposition.objects.get(pk=1)
         self.assertEqual(proposition.name, "DCours1")
@@ -245,8 +232,8 @@ class PropositionTest(TestCase):
             proposition.proposition_creator_type.name, "Collective"
         )
 
-    def test_proposition_with_wrong_dates(self):   
-        propositions = Proposition.objects.all().delete()
+    def test_proposition_with_wrong_dates(self):
+        Proposition.objects.all().delete()
         proposition = True
         try:
             Proposition.objects.create(
@@ -255,8 +242,8 @@ class PropositionTest(TestCase):
                 description=(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     " Sed non risus. Suspendisse lectus tortor, dignissim sit"
-                    " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
-                    " ultrices diam. Maecenas ligula massa, varius a, semper"
+                    " amet, adipiscing nec, ultricies sed, dolor. Cras elem-"
+                    " entum ultrices diam. Maecenas ligula massa, varius a"
                 ),
                 creation_date=datetime(
                     2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc
@@ -271,15 +258,16 @@ class PropositionTest(TestCase):
                 proposition_kind_id=1,
                 proposition_rating_id=1,
                 proposition_status_id=1,
-                proposition_taker_id=2
-            ),
+                proposition_taker_id=2,
+                proposition_discussion_id=1
+            )
             proposition = Proposition.objects.get(pk=100)
-        except:
+        except utils.IntegrityError:
             proposition = False
         self.assertFalse(proposition)
 
     def test_proposition_with_samecreator_taker(self):
-        propositions = Proposition.objects.all().delete()  
+        Proposition.objects.all().delete()
         proposition = True
         try:
             Proposition.objects.create(
@@ -288,14 +276,14 @@ class PropositionTest(TestCase):
                 description=(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     " Sed non risus. Suspendisse lectus tortor, dignissim sit"
-                    " amet, adipiscing nec, ultricies sed, dolor. Cras elementum"
-                    " ultrices diam. Maecenas ligula massa, varius a, semper"
+                    " amet, adipiscing nec, ultricies sed, dolor. Cras elemen-"
+                    " tum ultrices diam. Maecenas ligula massa, varius a"
                 ),
                 creation_date=datetime(
                     2022, 1, 20, 15, 56, 22, tzinfo=timezone.utc
                 ),
                 start_date=date(2022, 2, 25),
-                end_date=date(2022, 1, 25),
+                end_date=date(2022, 3, 25),
                 duration=120,
                 proposition_category_id=2,
                 proposition_creator_id=1,
@@ -304,9 +292,10 @@ class PropositionTest(TestCase):
                 proposition_kind_id=1,
                 proposition_rating_id=1,
                 proposition_status_id=1,
-                proposition_taker_id=1
-            ),
+                proposition_taker_id=1,
+                proposition_discussion_id=1
+            )
             proposition = Proposition.objects.get(pk=101)
-        except:
+        except utils.IntegrityError:
             proposition = False
         self.assertFalse(proposition)

@@ -1,30 +1,17 @@
-"""Test collectivity propositions view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0801
 from django.test import TestCase
-from django.urls import reverse
 
-from proposition.forms.collectivity_propositions_form import CollectivityPropositionsForm
 from proposition.models.proposition import Proposition
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
-from chat.tests.emulation.chat_emulation import ChatEmulation
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )
 
 
 class CollectivityPropositionsViewTest(TestCase):
-    """Test CollectivityPropositionsView class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
-        self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
-        self.chat_emulation.emulate_comment()
         self.proposition_emulation = PropositionEmulation()
-        self.proposition_emulation.emulate_proposition()
+        self.proposition_emulation.emulate_test_setup()
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -41,7 +28,7 @@ class CollectivityPropositionsViewTest(TestCase):
             response.context['page_objects'][0].proposition_category,
             Proposition.objects.get(pk=3).proposition_category
         )
-    
+
     def test_get_with_alternative_scenario_one(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
         session = self.client.session
@@ -64,7 +51,7 @@ class CollectivityPropositionsViewTest(TestCase):
 
     def test_post_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        form = {'search_input': 'DCours1','cpf_search_button': 'yes'}
+        form = {'search_input': 'DCours1', 'cpf_search_button': 'yes'}
         response = self.client.post(
             '/proposition/collectivity_propositions/', data=form, follow=True
         )
@@ -75,7 +62,7 @@ class CollectivityPropositionsViewTest(TestCase):
 
     def test_post_with_alternative_scenario_one_missing_input(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
-        form = {'search_input': '','cpf_search_button': 'yes'}
+        form = {'search_input': '', 'cpf_search_button': 'yes'}
         response = self.client.post(
             '/proposition/collectivity_propositions/', data=form, follow=True
         )
@@ -98,7 +85,7 @@ class CollectivityPropositionsViewTest(TestCase):
         self.assertFalse(response.context['form'].errors)
 
     def test_post_with_alternative_scenario_three(self):
-        form = {'search_input': 'Python','cpf_search_button': 'yes'}
+        form = {'search_input': 'Python', 'cpf_search_button': 'yes'}
         response = self.client.post(
             '/proposition/collectivity_propositions/', data=form, follow=True
         )

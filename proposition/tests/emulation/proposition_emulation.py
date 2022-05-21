@@ -1,5 +1,4 @@
-"""Test proposition emulation module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,R0201,W0106
 from datetime import datetime, date
 
 from django.utils import timezone
@@ -18,8 +17,6 @@ from proposition.models.status import Status
 
 
 class PropositionEmulation():
-    """Test PropositionEmulation class.
-    """
     def __init__(self):
         self.auth_emulation = AuthenticationEmulation()
         self.chat_emulation = ChatEmulation()
@@ -27,7 +24,7 @@ class PropositionEmulation():
     def emulate_category(self):
         Category.objects.create(id=1, name="Activité")
         Category.objects.create(id=2, name="Produit")
-    
+
     def emulate_creator_type(self):
         CreatorType.objects.create(id=1, name="Collective")
         CreatorType.objects.create(id=2, name="Individuelle")
@@ -41,9 +38,6 @@ class PropositionEmulation():
         Kind.objects.create(id=2, name="Offre")
 
     def emulate_proposition(self):
-        """
-        """
-        # self.chat_emulation.emulate_comment()
         self.emulate_category()
         self.emulate_creator_type()
         self.emulate_domain()
@@ -71,7 +65,7 @@ class PropositionEmulation():
             proposition_status_id=1,
             proposition_taker_id=3,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=2,
             name="DCours2",
@@ -115,7 +109,7 @@ class PropositionEmulation():
             proposition_status_id=3,
             proposition_taker_id=None,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=4,
             name="DCours4",
@@ -137,7 +131,7 @@ class PropositionEmulation():
             proposition_status_id=4,
             proposition_taker_id=3,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=5,
             name="DCours5",
@@ -159,7 +153,7 @@ class PropositionEmulation():
             proposition_status_id=5,
             proposition_taker_id=3,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=6,
             name="DCours6",
@@ -181,7 +175,7 @@ class PropositionEmulation():
             proposition_status_id=6,
             proposition_taker_id=3,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=7,
             name="DCours7",
@@ -203,7 +197,7 @@ class PropositionEmulation():
             proposition_status_id=7,
             proposition_taker_id=3,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=11,
             name="OCours11",
@@ -225,7 +219,7 @@ class PropositionEmulation():
             proposition_status_id=1,
             proposition_taker_id=3,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=12,
             name="OCours12",
@@ -269,7 +263,7 @@ class PropositionEmulation():
             proposition_status_id=3,
             proposition_taker_id=None,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=14,
             name="OCours14",
@@ -291,7 +285,7 @@ class PropositionEmulation():
             proposition_status_id=4,
             proposition_taker_id=3,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=15,
             name="OCours15",
@@ -313,7 +307,7 @@ class PropositionEmulation():
             proposition_status_id=5,
             proposition_taker_id=3,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=16,
             name="OCours16",
@@ -335,7 +329,7 @@ class PropositionEmulation():
             proposition_status_id=6,
             proposition_taker_id=3,
             proposition_discussion_id=1
-        ),
+        )
         Proposition.objects.create(
             id=17,
             name="OCours17",
@@ -379,17 +373,13 @@ class PropositionEmulation():
             proposition_status_id=4,
             proposition_taker_id=3,
             proposition_discussion_id=1
-        ),
+        )
 
     def emulate_rating(self):
-        """
-        """
         Rating.objects.create(id=1, rate=1)
         Rating.objects.create(id=2, rate=2)
 
     def emulate_status(self):
-        """
-        """
         Status.objects.create(id=1, name="Annulé")
         Status.objects.create(id=2, name="En cours")
         Status.objects.create(id=3, name="Nouveau")
@@ -397,3 +387,10 @@ class PropositionEmulation():
         Status.objects.create(id=5, name="Rejeté")
         Status.objects.create(id=6, name="Sélectionné")
         Status.objects.create(id=7, name="Terminé")
+
+    def emulate_test_setup(self):
+        self.auth_emulation.emulate_custom_user()
+        self.chat_emulation.emulate_discussion()
+        self.chat_emulation.emulate_comment()
+        self.proposition_emulation = PropositionEmulation()
+        self.proposition_emulation.emulate_proposition()

@@ -1,5 +1,4 @@
-"""Test collectivity propositions view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
 
 from proposition.forms.collectivity_propositions_form import (
@@ -9,9 +8,9 @@ from proposition.views.collectivity_propositions_view import (
     CollectivityPropositionsView
 )
 
+
 class CollectivityPropositionsViewTest(TestCase):
-    """PropositionsVotingsViewTest class.
-    """
+
     def setUp(self):
         self.login_url = CollectivityPropositionsView.login_url
         self.redirect_field_name = (
@@ -24,7 +23,7 @@ class CollectivityPropositionsViewTest(TestCase):
 
     def test_init_with_attr(self):
         self.assertEqual(
-            self.view.view_template,'proposition/propositions.html'
+            self.view.view_template, 'proposition/propositions.html'
         )
         self.assertIsInstance(
             self.view.context['form'], CollectivityPropositionsForm
@@ -32,4 +31,3 @@ class CollectivityPropositionsViewTest(TestCase):
         self.assertIsNone(self.view.context['page_objects'])
         self.assertEqual(self.login_url, '/authentication/login/')
         self.assertIsNone(self.redirect_field_name)
-

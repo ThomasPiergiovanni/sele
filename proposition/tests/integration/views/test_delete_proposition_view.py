@@ -1,32 +1,18 @@
-"""Test delete voting view module.
-"""
+# pylint: disable=C0114,C0115,C0116,E1101,W0212,R0801
 from django.test import TestCase
 from django.urls import reverse
 
-from authentication.tests.emulation.authentication_emulation import (
-    AuthenticationEmulation
-)
-from chat.tests.emulation.chat_emulation import ChatEmulation
+from proposition.models.proposition import Proposition
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )
 
-from proposition.models.proposition import Proposition
-from vote.models.voting_method import VotingMethod
-
-
 
 class DeletePropositionViewTest(TestCase):
-    """Test DeletePropositionView class.
-    """
+
     def setUp(self):
-        self.auth_emulation = AuthenticationEmulation()
-        self.auth_emulation.emulate_custom_user()
-        self.chat_emulation = ChatEmulation()
-        self.chat_emulation.emulate_discussion()
-        self.chat_emulation.emulate_comment()
         self.proposition_emulation = PropositionEmulation()
-        self.proposition_emulation.emulate_proposition()
+        self.proposition_emulation.emulate_test_setup()
 
     def test_get_with_nominal_scenario(self):
         self.client.login(email='user1@email.com', password='xxx_Xxxx')
@@ -62,7 +48,7 @@ class DeletePropositionViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )
 
     def test_post_with_nominal_scenario_with_status_nouveau(self):
@@ -77,7 +63,7 @@ class DeletePropositionViewTest(TestCase):
         )
         try:
             proposition = Proposition.objects.get(pk=3)
-        except:
+        except Proposition.DoesNotExist:
             proposition = False
         self.assertFalse(proposition)
         response_msg = response.context['messages']._loaded_data[0]
@@ -92,7 +78,7 @@ class DeletePropositionViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         try:
             proposition = Proposition.objects.get(pk=1)
-        except:
+        except Proposition.DoesNotExist:
             proposition = False
         self.assertTrue(proposition)
         self.assertEqual(
@@ -114,7 +100,7 @@ class DeletePropositionViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         try:
             proposition = Proposition.objects.get(pk=2)
-        except:
+        except Proposition.DoesNotExist:
             proposition = False
         self.assertTrue(proposition)
         self.assertEqual(proposition.proposition_status.name, 'Annulé')
@@ -126,7 +112,7 @@ class DeletePropositionViewTest(TestCase):
         self.assertEqual(response_msg.message, "Suppression réussie")
         self.assertEqual(response_msg.level_tag, "success")
 
-    def test_post_with_alternative_scenario_three_with_status_not_creator(self):
+    def test_post_with_alter_scenario_three_with_status_not_creator(self):
         self.client.login(email='user2@email.com', password='yyy_Yyyy')
         response = self.client.post(
             '/proposition/delete_proposition/1/', follow=True
@@ -149,5 +135,5 @@ class DeletePropositionViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.redirect_chain[0][0],reverse('authentication:login')
+            response.redirect_chain[0][0], reverse('authentication:login')
         )

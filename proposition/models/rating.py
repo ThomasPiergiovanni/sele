@@ -1,3 +1,6 @@
+# pylint: disable=E0307
+"""Rating model module.
+"""
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
@@ -11,5 +14,6 @@ class Rating(models.Model):
             MaxValueValidator(5)
         ]
     )
+
     def __str__(self):
         return self.rate

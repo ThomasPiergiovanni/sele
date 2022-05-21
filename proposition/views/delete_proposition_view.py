@@ -1,26 +1,26 @@
-"""Delete proposition view module
+# pylint: disable=E1101
+"""DeletePropositionView module
 """
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
 from django.shortcuts import redirect, render
 
-from proposition.management.engine.manager import Manager
 from proposition.models.proposition import Proposition
 from proposition.models.status import Status
+from proposition.views.generic_proposition_view import (
+    GenericPropositionView
+)
 
 
-class DeletePropositionView(LoginRequiredMixin, View):
+class DeletePropositionView(GenericPropositionView):
     """DeletePropositionView class.
     """
-    login_url = '/authentication/login/'
-    redirect_field_name = None
 
     def __init__(self):
         super().__init__()
-        self.manager = Manager()
         self.view_template = 'proposition/delete_proposition.html'
-        self.alternative_one_view_name = 'proposition:collectivity_propositions'
+        self.alternative_one_view_name = (
+            'proposition:collectivity_propositions'
+        )
         self.context = {
             'proposition': None
         }
@@ -31,22 +31,21 @@ class DeletePropositionView(LoginRequiredMixin, View):
         self.msg_not_owner = (
             "Le créateur seulement peut supprimer la proposition"
         )
-    
+
     def get(self, request, id_proposition):
-        """Delete proposition view method on client get request.
+        """DeletePropositionView method on client get request.
         """
         proposition = Proposition.objects.get(pk=id_proposition)
         if proposition.proposition_creator_id == request.user.id:
             self.context['proposition'] = proposition
             return render(request, self.view_template, self.context)
-        else:
-            messages.add_message(
-                request, messages.ERROR, self.msg_not_owner,
-            )
-            return redirect(self.alternative_one_view_name) 
+        messages.add_message(
+            request, messages.ERROR, self.msg_not_owner,
+        )
+        return redirect(self.alternative_one_view_name)
 
     def post(self, request, id_proposition):
-        """Delete proposition view method on client post request.
+        """DeletePropositionView method on client post request.
         """
         proposition = Proposition.objects.get(pk=id_proposition)
         if proposition.proposition_creator_id == request.user.id:

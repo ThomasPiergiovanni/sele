@@ -1,8 +1,5 @@
-"""Test collectivity propositions form module.
-"""
-from django.forms import (
-    CharField, TextInput
-)
+# pylint: disable=C0114,C0115,C0116,E1101
+from django.forms import CharField, TextInput
 from django.test import TestCase
 
 from proposition.forms.collectivity_propositions_form import (
@@ -11,8 +8,7 @@ from proposition.forms.collectivity_propositions_form import (
 
 
 class CollectivityPropositionsFormTest(TestCase):
-    """Test CollectivityPropositionsForm class.
-    """
+
     def setUp(self):
         self.form = CollectivityPropositionsForm()
 
@@ -20,12 +16,12 @@ class CollectivityPropositionsFormTest(TestCase):
         field = self.form.fields['search_input']
         self.assertTrue(field)
         self.assertIsInstance(field, CharField)
-        self.assertEqual(field.label,'Rechercher')
+        self.assertEqual(field.label, 'Rechercher')
         self.assertEqual(field.max_length, 256)
         self.assertIsInstance(field.widget, TextInput)
-        self.assertEqual(field.widget.attrs['id'],'input_search_proposition')
+        self.assertEqual(field.widget.attrs['id'], 'input_search_proposition')
         self.assertEqual(
-            field.widget.attrs['class'],'form-control form-control-sm'
+            field.widget.attrs['class'], 'form-control form-control-sm'
         )
 
     def test_cpf_with_all_attr_are_correct(self):
@@ -35,4 +31,3 @@ class CollectivityPropositionsFormTest(TestCase):
             }
         )
         self.assertTrue(form.is_valid())
- 
