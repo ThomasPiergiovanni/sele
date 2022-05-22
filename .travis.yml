@@ -18,7 +18,7 @@ before_script:
   - wget https://download.osgeo.org/gdal/3.4.0/gdal-3.4.0.tar.gz
   - tar -zxvf gdal-3.4.0.tar.gz
   - cd gdal-3.4.0
-  - ./configure --with-python
+  - ./configure
   - make
   - sudo make install
   - cd ..
