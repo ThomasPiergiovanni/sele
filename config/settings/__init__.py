@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 
-ENV = 'test'
+ENV = 'staging'
 
 if ENV == 'test':
     from config.settings.testing_env import (
@@ -33,6 +33,19 @@ if ENV == 'test':
     os.environ['PROJ_LIB'] = TENV_PROJ_LIB
     os.environ['PATH'] = TENV_PATH
     GDAL_LIBRARY_PATH = TENV_GDAL_LIBRARY_PATH
+    SECRET_KEY = TENV_SECRET_KEY
+    DEBUG = TENV_DEBUG
+    ALLOWED_HOSTS = TENV_ALLOWED_HOSTS
+    DATABASES = TENV_DATABASES
+    STATIC_URL = TENV_STATIC_URL
+    SECURE_SSL_REDIRECT = TENV_SECURE_SSL_REDIRECT
+    MAPBOX_TOKEN = TENV_MAPBOX_TOKEN
+
+elif ENV == 'staging':
+    from config.settings.testing_env import (
+        TENV_SECRET_KEY, TENV_DEBUG, TENV_ALLOWED_HOSTS, TENV_DATABASES,
+        TENV_STATIC_URL, TENV_SECURE_SSL_REDIRECT, TENV_MAPBOX_TOKEN, 
+    )
     SECRET_KEY = TENV_SECRET_KEY
     DEBUG = TENV_DEBUG
     ALLOWED_HOSTS = TENV_ALLOWED_HOSTS
