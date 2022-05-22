@@ -19,7 +19,7 @@ before_script:
   - tar -zxvf gdal-3.4.0.tar.gz
   - pwd
   - cd gdal-3.4.0
-  - configure
+  - ./configure
   - make
   - sudo make install
   - cd ..
