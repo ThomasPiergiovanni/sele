@@ -16,7 +16,7 @@ before_script:
   - psql -U postgres -c "create extension postgis"
   - psql -c 'create database sele_db;' -U postgres
 
-env: DJANGO_SETTINGS_MODULE="pur_beurre.settings.travis"
+env: DJANGO_SETTINGS_MODULE="config.settings.travis"
 
 script:
   - python manage.py test
