@@ -18,8 +18,12 @@ before_script:
   - wget https://download.osgeo.org/gdal/3.4.0/gdal-3.4.0.tar.gz
   - tar -zxvf gdal-3.4.0.tar.gz
   - pwd
+  - cd /usr/local/bin
+  - pwd
+  - ls
+  - cd /home/travis/build/ThomasPiergiovanni/sele 
   - cd gdal-3.4.0
-  - ./configure
+  - ./configure --with-proj=/usr/local
   - make
   - sudo make install
   - cd ..
