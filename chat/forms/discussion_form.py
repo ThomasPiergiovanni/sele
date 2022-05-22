@@ -3,7 +3,7 @@
 """
 from django.forms import CharField, ModelForm, TextInput
 
-from chat.models.discussion import Discussion
+from chat.models import Discussion
 
 
 class DiscussionForm(ModelForm):

@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from authentication.models import CustomUser
-from chat.models.discussion import Discussion
+from chat.models import Discussion
 from information.tests.emulation.information_emulation import (
     InformationEmulation
 )

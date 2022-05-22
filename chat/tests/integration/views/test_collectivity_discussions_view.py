@@ -5,7 +5,7 @@ from django.urls import reverse
 from chat.forms.collectivity_discussions_form import (
     CollectivityDiscussionsForm
 )
-from chat.models.discussion import Discussion
+from chat.models import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 

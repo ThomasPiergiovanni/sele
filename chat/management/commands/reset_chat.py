@@ -4,9 +4,7 @@
 from django.core.management.base import BaseCommand
 
 from config.settings.data.enumeration import DISCUSSIONS_TYPE
-from chat.models.comment import Comment
-from chat.models.discussion import Discussion
-from chat.models.discussion_type import DiscussionType
+from chat.models import Comment, Discussion, DiscussionType
 
 
 class Command(BaseCommand):

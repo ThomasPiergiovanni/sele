@@ -9,9 +9,7 @@ from authentication.models import CustomUser
 from chat.forms.discussion_form import DiscussionForm
 from chat.forms.comment_form import CommentForm
 from chat.management.engine.manager import Manager
-from chat.models.comment import Comment
-from chat.models.discussion import Discussion
-from chat.models.discussion_type import DiscussionType
+from chat.models import Comment, Discussion, DiscussionType
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 

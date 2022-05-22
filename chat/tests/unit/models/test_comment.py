@@ -7,8 +7,7 @@ from django.utils import timezone
 
 from authentication.models import CustomUser
 from chat.tests.emulation.chat_emulation import ChatEmulation
-from chat.models.comment import Comment
-from chat.models.discussion import Discussion
+from chat.models import Comment, Discussion
 
 
 class CommentTest(TestCase):

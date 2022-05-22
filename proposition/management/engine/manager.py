@@ -7,9 +7,7 @@ from django.utils import timezone
 from authentication.models import CustomUser
 from chat.forms.comment_form import CommentForm
 from chat.management.engine.manager import Manager as ChatManager
-from chat.models.comment import Comment
-from chat.models.discussion import Discussion
-from chat.models.discussion_type import DiscussionType
+from chat.models import Comment, Discussion, DiscussionType
 from proposition.models.proposition import Proposition
 from proposition.models.status import Status
 

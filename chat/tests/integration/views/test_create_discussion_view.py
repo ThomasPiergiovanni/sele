@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from chat.forms.discussion_form import DiscussionForm
-from chat.models.discussion import Discussion
+from chat.models import Discussion
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 

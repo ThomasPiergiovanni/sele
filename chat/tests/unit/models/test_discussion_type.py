@@ -3,7 +3,7 @@ from django.db import models
 from django.test import TestCase
 
 from chat.tests.emulation.chat_emulation import ChatEmulation
-from chat.models.discussion_type import DiscussionType
+from chat.models import DiscussionType
 
 
 class DiscussionTypeTest(TestCase):

@@ -2,7 +2,7 @@
 from django.test import TestCase
 
 from chat.management.commands.reset_chat import Command
-from chat.models.discussion_type import DiscussionType
+from chat.models import DiscussionType
 from chat.tests.emulation.chat_emulation import (
     ChatEmulation
 )

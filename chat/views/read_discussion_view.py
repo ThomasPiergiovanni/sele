@@ -4,8 +4,7 @@
 from django.shortcuts import render
 
 from chat.forms.comment_form import CommentForm
-from chat.models.discussion import Discussion
-from chat.models.comment import Comment
+from chat.models import Comment, Discussion
 from chat.views.generic_chat_view import GenericChatView
 
 

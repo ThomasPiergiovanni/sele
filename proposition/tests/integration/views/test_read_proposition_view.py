@@ -3,8 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from chat.forms.comment_form import CommentForm
-from chat.models.comment import Comment
-from chat.models.discussion import Discussion
+from chat.models import Comment, Discussion
 from proposition.models.proposition import Proposition
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation

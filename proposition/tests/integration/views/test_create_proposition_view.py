@@ -2,7 +2,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from chat.models.discussion import Discussion
+from chat.models import Discussion
 from proposition.forms.proposition_form import PropositionForm
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType

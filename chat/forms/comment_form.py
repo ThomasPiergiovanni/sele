@@ -3,7 +3,7 @@
 """
 from django.forms import CharField, ModelForm, TextInput
 
-from chat.models.comment import Comment
+from chat.models import Comment
 
 
 class CommentForm(ModelForm):

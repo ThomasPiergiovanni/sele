@@ -5,8 +5,7 @@ from django.db import models
 from django.test import TestCase
 
 from authentication.models import CustomUser
-from chat.models.discussion import Discussion
-from chat.models.discussion_type import DiscussionType
+from chat.models import Discussion, DiscussionType
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 

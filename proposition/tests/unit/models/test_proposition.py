@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
-from chat.models.discussion import Discussion
+from chat.models import Discussion
 from proposition.models.category import Category
 from proposition.models.creator_type import CreatorType
 from proposition.models.domain import Domain

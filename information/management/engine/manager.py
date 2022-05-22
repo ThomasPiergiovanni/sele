@@ -9,7 +9,7 @@ from django.core.serializers import serialize
 from django.utils import timezone
 
 from authentication.models import CustomUser
-from chat.models.discussion import Discussion
+from chat.models import Discussion
 from collectivity.models.collectivity import Collectivity
 from config.settings import MAPBOX_TOKEN
 from proposition.models.proposition import Proposition

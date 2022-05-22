@@ -5,8 +5,7 @@ from django.test import RequestFactory, TestCase
 
 from authentication.models import CustomUser
 from chat.forms.comment_form import CommentForm
-from chat.models.comment import Comment
-from chat.models.discussion import Discussion
+from chat.models import Comment, Discussion
 from proposition.forms.proposition_form import PropositionForm
 from proposition.management.engine.manager import Manager
 from proposition.models.category import Category

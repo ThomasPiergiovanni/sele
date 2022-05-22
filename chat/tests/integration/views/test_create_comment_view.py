@@ -2,7 +2,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from chat.models.comment import Comment
+from chat.models import Comment
 from chat.tests.emulation.chat_emulation import ChatEmulation
 
 

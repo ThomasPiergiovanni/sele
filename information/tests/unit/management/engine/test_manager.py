@@ -7,7 +7,7 @@ from django.test import RequestFactory, TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
-from chat.models.discussion import Discussion
+from chat.models import Discussion
 from config.settings import MAPBOX_TOKEN
 from information.management.engine.manager import Manager
 from information.tests.emulation.information_emulation import (
