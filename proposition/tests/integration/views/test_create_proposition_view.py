@@ -4,11 +4,9 @@ from django.urls import reverse
 
 from chat.models import Discussion
 from proposition.forms.proposition_form import PropositionForm
-from proposition.models.category import Category
-from proposition.models.creator_type import CreatorType
-from proposition.models.domain import Domain
-from proposition.models.kind import Kind
-from proposition.models.proposition import Proposition
+from proposition.models import (
+    Category, CreatorType, Domain, Kind, Proposition
+)
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )

@@ -38,7 +38,7 @@ class LoginUseCaseTest(StaticLiveServerTestCase):
     def test_vote_use_case(self):
         # The user is on the home page.
         self.browser.get(f"{self.live_server_url}{''}")
-        sleep(1)
+        sleep(2)
         self.assertIn(
             'sel-e',
             self.browser.find_element_by_tag_name('h1').text
@@ -47,7 +47,7 @@ class LoginUseCaseTest(StaticLiveServerTestCase):
         # The user selects the connexion button.
         sleep(2)
         self.browser.find_element_by_id('go_to_login_button').click()
-        sleep(1)
+        sleep(2)
         self.assertIn(
             self.browser.find_element_by_class_name('login-box-msg').text,
             "Connectez-vous à votre compte"
@@ -58,10 +58,10 @@ class LoginUseCaseTest(StaticLiveServerTestCase):
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
             .send_keys('user1@email.com')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_login_password')\
             .send_keys('xxx_Xxxx')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('login_button').click()
         self.assertIn(
             'sel-e',

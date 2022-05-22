@@ -4,8 +4,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from proposition.models.proposition import Proposition
-from proposition.models.status import Status
+from proposition.models import Proposition, Status
 from proposition.views.generic_proposition_view import (
     GenericPropositionView
 )

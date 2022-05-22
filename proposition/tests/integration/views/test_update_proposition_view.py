@@ -1,7 +1,7 @@
 # pylint: disable=C0114,C0115,C0116,E1101,W0212
 from django.test import TestCase
 
-from proposition.models.proposition import Proposition
+from proposition.models import Proposition
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )

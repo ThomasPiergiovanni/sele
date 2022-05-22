@@ -2,7 +2,7 @@
 from django.db import models
 from django.test import TestCase
 
-from proposition.models.creator_type import CreatorType
+from proposition.models import CreatorType
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )

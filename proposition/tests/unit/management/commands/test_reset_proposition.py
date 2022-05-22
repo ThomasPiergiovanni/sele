@@ -2,12 +2,9 @@
 from django.test import TestCase
 
 from proposition.management.commands.reset_proposition import Command
-from proposition.models.category import Category
-from proposition.models.creator_type import CreatorType
-from proposition.models.domain import Domain
-from proposition.models.kind import Kind
-from proposition.models.rating import Rating
-from proposition.models.status import Status
+from proposition.models import (
+    Category, CreatorType, Domain, Kind, Rating, Status
+)
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )

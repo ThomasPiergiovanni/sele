@@ -2,7 +2,7 @@
 from django.db import models
 from django.test import TestCase
 
-from proposition.models.category import Category
+from proposition.models import Category
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )

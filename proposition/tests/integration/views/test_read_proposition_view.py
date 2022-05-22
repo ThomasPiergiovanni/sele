@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from chat.forms.comment_form import CommentForm
 from chat.models import Comment, Discussion
-from proposition.models.proposition import Proposition
+from proposition.models import Proposition
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )

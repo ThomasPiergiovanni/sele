@@ -2,7 +2,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from proposition.models.proposition import Proposition
+from proposition.models import Proposition
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )

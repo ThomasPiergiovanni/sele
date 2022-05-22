@@ -56,10 +56,10 @@ class CreatePropositionUseCaseTest(StaticLiveServerTestCase):
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
             .send_keys('user1@email.com')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_login_password')\
             .send_keys('xxx_Xxxx')
-        sleep(1)
+        sleep(2)
 
         # The user clicks then "Se connecter" button and lands on the
         # home page.
@@ -91,36 +91,36 @@ class CreatePropositionUseCaseTest(StaticLiveServerTestCase):
         # on the top of the list.
         self.browser.find_element_by_id('input_proposition_name')\
             .send_keys('Cours de python')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_proposition_description')\
             .send_keys('bla bla bla')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_proposition_proposition_kind')\
             .send_keys('Offre')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id(
             'input_proposition_proposition_category'
         ).send_keys('Activité')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id(
             'input_proposition_proposition_domain'
             ).send_keys('Spectacle')
-        sleep(1)
+        sleep(2)
         today = date.today()
         self.browser.find_element_by_id('input_proposition_start_date')\
             .send_keys(str(today))
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_proposition_end_date')\
             .send_keys(str(today + timedelta(days=5)))
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_proposition_duration')\
             .send_keys(60)
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id(
             'input_proposition_proposition_creator_type'
         ).send_keys('Individuelle')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('create_proposition_button').click()
-        sleep(1)
+        sleep(2)
         self.assertTrue(self.browser.find_element_by_tag_name('td'))
         sleep(2)

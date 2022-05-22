@@ -12,7 +12,7 @@ from authentication.models import CustomUser
 from chat.models import Discussion
 from collectivity.models import Collectivity
 from config.settings import MAPBOX_TOKEN
-from proposition.models.proposition import Proposition
+from proposition.models import Proposition
 from vote.models import Voting
 
 

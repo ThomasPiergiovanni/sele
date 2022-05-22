@@ -48,12 +48,12 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
             .send_keys('user1@email.com')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_login_password')\
             .send_keys('xxx_Xxxx')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('login_button').click()
-        sleep(1)
+        sleep(2)
         self.assertIn(
             'sel-e',
             self.browser.find_element_by_tag_name('h1').text
@@ -63,9 +63,9 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         # The user selects "Mon groupe Local" on the left navigation sidebar
         # and the selects "Votes"
         self.browser.find_element_by_id('sidebar_my_local_group').click()
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('sidebar_mlg_votings').click()
-        sleep(1)
+        sleep(2)
         self.assertIn(
             self.browser.find_element_by_tag_name('h1').text,
             'Votations - Bourg-la-Reine (92340)',
@@ -74,7 +74,7 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
 
         # The user selects the "Créer une votation" button
         self.browser.find_element_by_id('go_to_create_voting_button').click()
-        sleep(1)
+        sleep(2)
         self.assertIn(
             self.browser.find_element_by_tag_name('h1').text,
             'Votation - Créer',
@@ -86,20 +86,20 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         # on the top of the list.
         self.browser.find_element_by_id('input_voting_question')\
             .send_keys('Voulez-vous améliorer sel-e?')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_voting_description')\
             .send_keys('bla bla bla')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_voting_voting_method')\
             .send_keys('Majoritaire')
-        sleep(1)
+        sleep(2)
         today = date.today()
         self.browser.find_element_by_id('input_voting_opening_date')\
             .send_keys(str(today))
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_voting_closure_date')\
             .send_keys(str(today + timedelta(days=5)))
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('create_voting_button').click()
         self.assertTrue(self.browser.find_element_by_tag_name('td'))
         sleep(2)

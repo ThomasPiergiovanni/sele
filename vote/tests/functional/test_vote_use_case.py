@@ -47,10 +47,10 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
             .send_keys('user1@email.com')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_login_password')\
             .send_keys('xxx_Xxxx')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('login_button').click()
         self.assertIn(
             'sel-e',

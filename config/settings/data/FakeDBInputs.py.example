@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password
 from authentication.models import CustomUser
 from collectivity.models import Collectivity
 from vote.models import Voting
-from proposition.models.proposition import Proposition
+from proposition.models import Proposition
 from django.utils import timezone
 from datetime import datetime ,date
 from chat.models import Comment, Discussion

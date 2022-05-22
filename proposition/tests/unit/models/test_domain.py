@@ -2,7 +2,7 @@
 from django.db import models
 from django.test import TestCase
 
-from proposition.models.domain import Domain
+from proposition.models import Domain
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )

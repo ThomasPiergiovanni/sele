@@ -2,7 +2,7 @@
 from django.db import models
 from django.test import TestCase
 
-from proposition.models.status import Status
+from proposition.models import Status
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )

@@ -7,13 +7,9 @@ from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
 from chat.tests.emulation.chat_emulation import ChatEmulation
-from proposition.models.category import Category
-from proposition.models.creator_type import CreatorType
-from proposition.models.domain import Domain
-from proposition.models.kind import Kind
-from proposition.models.proposition import Proposition
-from proposition.models.rating import Rating
-from proposition.models.status import Status
+from proposition.models import (
+    Category, CreatorType, Domain, Kind, Proposition, Rating, Status
+)
 
 
 class PropositionEmulation():

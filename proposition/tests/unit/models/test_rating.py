@@ -2,7 +2,7 @@
 from django.db import models
 from django.test import TestCase
 
-from proposition.models.rating import Rating
+from proposition.models import Rating
 from proposition.tests.emulation.proposition_emulation import (
     PropositionEmulation
 )

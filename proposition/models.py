@@ -1,17 +1,73 @@
 # pylint: disable=E0307,R0903
-"""Proposition model module.
+"""Proposition models module.
 """
-from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from authentication.models import CustomUser
 from chat.models import Discussion
-from proposition.models.category import Category
-from proposition.models.creator_type import CreatorType
-from proposition.models.domain import Domain
-from proposition.models.kind import Kind
-from proposition.models.rating import Rating
-from proposition.models.status import Status
+
+
+class Category(models.Model):
+    """Category model class.
+    """
+
+    name = models.CharField(max_length=32, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class CreatorType(models.Model):
+    """CreatorType type model class.
+    """
+
+    name = models.CharField(max_length=16, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Domain(models.Model):
+    """Domain model class.
+    """
+    name = models.CharField(max_length=128, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Kind(models.Model):
+    """Kind model class.
+    """
+
+    name = models.CharField(max_length=32, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Rating(models.Model):
+    """Rating class model
+    """
+    rate = models.IntegerField(
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(5)
+        ]
+    )
+
+    def __str__(self):
+        return self.rate
+
+
+class Status(models.Model):
+    """Status class model
+    """
+    name = models.CharField(max_length=16, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Proposition(models.Model):

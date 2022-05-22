@@ -13,7 +13,7 @@ from information.management.engine.manager import Manager
 from information.tests.emulation.information_emulation import (
     InformationEmulation
 )
-from proposition.models.proposition import Proposition
+from proposition.models import Proposition
 from vote.models import Voting
 
 

@@ -6,12 +6,9 @@ from django.core.management.base import BaseCommand
 from config.settings.data.enumeration import (
     CATEGORIES, CREATOR_TYPES, DOMAINS, KINDS, STATUSES, RATINGS
 )
-from proposition.models.category import Category
-from proposition.models.creator_type import CreatorType
-from proposition.models.domain import Domain
-from proposition.models.kind import Kind
-from proposition.models.rating import Rating
-from proposition.models.status import Status
+from proposition.models import (
+    Category, CreatorType, Domain, Kind, Rating, Status
+)
 
 
 class Command(BaseCommand):

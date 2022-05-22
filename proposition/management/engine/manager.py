@@ -8,8 +8,7 @@ from authentication.models import CustomUser
 from chat.forms.comment_form import CommentForm
 from chat.management.engine.manager import Manager as ChatManager
 from chat.models import Comment, Discussion, DiscussionType
-from proposition.models.proposition import Proposition
-from proposition.models.status import Status
+from proposition.models import Proposition, Status
 
 
 class Manager():

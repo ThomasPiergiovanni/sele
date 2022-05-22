@@ -50,10 +50,10 @@ class CreatePropositionUseCaseTest(StaticLiveServerTestCase):
         sleep(2)
         self.browser.find_element_by_id('input_login_email')\
             .send_keys('user1@email.com')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('input_login_password')\
             .send_keys('xxx_Xxxx')
-        sleep(1)
+        sleep(2)
 
         # The user clicks then "Se connecter" button and lands on the
         # home page.
@@ -75,7 +75,7 @@ class CreatePropositionUseCaseTest(StaticLiveServerTestCase):
         # selects the "Rechercher" button.
         self.browser.find_element_by_id('input_search_proposition')\
             .send_keys('DCours6')
-        sleep(1)
+        sleep(2)
         self.browser.find_element_by_id('search_proposition_button')\
             .click()
         self.assertIn(self.browser.find_element_by_tag_name('td').text, '6')
