@@ -53,6 +53,7 @@ elif ENV == 'staging':
     STATIC_URL = TENV_STATIC_URL
     SECURE_SSL_REDIRECT = TENV_SECURE_SSL_REDIRECT
     MAPBOX_TOKEN = TENV_MAPBOX_TOKEN
+    GDAL_LIBRARY_PATH = '/home/usr/local/lib/libgdal.so'
 
 elif ENV == 'production':
     from config.settings.env import (
