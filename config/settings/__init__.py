@@ -13,12 +13,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 # from pathlib import Path
 import os
 
-from config.settings.env import (
-    ENV_SECRET_KEY, ENV_DEBUG, ENV_ALLOWED_HOSTS, ENV_DATABASES, 
-    ENV_STATIC_URL, ENV_STATIC_ROOT, ENV_SECURE_SSL_REDIRECT,
-    ENV_SECURE_PROXY_SSL_HEADER, ENV_MAPBOX_TOKEN
-)
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,35 +24,34 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENV = 'test'
 
 if ENV == 'test':
-    #Gdal install necessary env variables
-    os.environ['GDAL_DATA'] = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"
-    os.environ['PROJ_LIB'] = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"
-    os.environ['PATH'] = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
-    GDAL_LIBRARY_PATH = r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'
-    
-    SECRET_KEY = 'django-insecure-+f^i^1jx+g5*k$2a13t)^x-0b6$2@nbgd8v$ggufbyh62h*)gc'
-    DEBUG = True
-    ALLOWED_HOSTS = []
-    DATABASES = {
-        'default': {
-            # 'ENGINE': 'django.db.backends.postgresql',
-            'ENGINE': 'django.contrib.gis.db.backends.postgis',
-            'NAME': 'sele_db',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-        }
-    }
-    STATIC_URL = '/static/'
-    SECURE_SSL_REDIRECT = False
-    MAPBOX_TOKEN = ENV_MAPBOX_TOKEN
+    from config.settings.testing_env import (
+        TENV_GDAL_DATA, TENV_PROJ_LIB, TENV_PATH, TENV_GDAL_LIBRARY_PATH,
+        TENV_SECRET_KEY, TENV_DEBUG, TENV_ALLOWED_HOSTS, TENV_DATABASES,
+        TENV_STATIC_URL, TENV_SECURE_SSL_REDIRECT, TENV_MAPBOX_TOKEN, 
+    )
+    os.environ['GDAL_DATA'] = TENV_GDAL_DATA
+    os.environ['PROJ_LIB'] = TENV_PROJ_LIB
+    os.environ['PATH'] = TENV_PATH
+    GDAL_LIBRARY_PATH = TENV_GDAL_LIBRARY_PATH
+    SECRET_KEY = TENV_SECRET_KEY
+    DEBUG = TENV_DEBUG
+    ALLOWED_HOSTS = TENV_ALLOWED_HOSTS
+    DATABASES = TENV_DATABASES
+    STATIC_URL = TENV_STATIC_URL
+    SECURE_SSL_REDIRECT = TENV_SECURE_SSL_REDIRECT
+    MAPBOX_TOKEN = TENV_MAPBOX_TOKEN
 
 elif ENV == 'production':
-    os.environ['GDAL_DATA'] = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"
-    os.environ['PROJ_LIB'] = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"
-    os.environ['PATH'] = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
-    GDAL_LIBRARY_PATH = r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'
+    from config.settings.env import (
+        ENV_GDAL_DATA, ENV_PROJ_LIB, ENV_PATH, ENV_GDAL_LIBRARY_PATH, 
+        ENV_SECRET_KEY, ENV_DEBUG, ENV_ALLOWED_HOSTS, ENV_DATABASES, 
+        ENV_STATIC_URL, ENV_STATIC_ROOT, ENV_SECURE_SSL_REDIRECT,
+        ENV_SECURE_PROXY_SSL_HEADER, ENV_MAPBOX_TOKEN
+    )
+    os.environ['GDAL_DATA'] = ENV_GDAL_DATA
+    os.environ['PROJ_LIB'] = ENV_PROJ_LIB
+    os.environ['PATH'] = ENV_PATH
+    GDAL_LIBRARY_PATH = ENV_GDAL_LIBRARY_PATH
     SECRET_KEY = ENV_SECRET_KEY
     DEBUG = ENV_DEBUG
     ALLOWED_HOSTS = ENV_ALLOWED_HOSTS
