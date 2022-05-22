@@ -1,0 +1,29 @@
+language: python
+python:
+  - '3.9'
+
+addons:
+  postgresql: 13.2
+  apt:
+    packages:
+    - postgresql-13.2-postgis-3.1.1
+
+before_script:
+  - pip install -r requirements.txt
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz
+  - tar -zxvf geckodriver-v0.29.1-linux64.tar.gz
+  - sudo mv geckodriver /usr/local/bin
+  - psql -U postgres -c "create extension postgis"
+  - psql -c 'create database sele_db;' -U postgres
+
+env: DJANGO_SETTINGS_MODULE="pur_beurre.settings.travis"
+
+services:
+  - postgresql
+
+script:
+  - python manage.py test
+
+branches:
+  only:
+    - staging

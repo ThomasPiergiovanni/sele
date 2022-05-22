@@ -27,9 +27,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 
-
-
-
 ENV = 'test'
 
 if ENV == 'test':
@@ -58,6 +55,10 @@ if ENV == 'test':
     MAPBOX_TOKEN = ENV_MAPBOX_TOKEN
 
 elif ENV == 'production':
+    os.environ['GDAL_DATA'] = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"
+    os.environ['PROJ_LIB'] = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"
+    os.environ['PATH'] = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
+    GDAL_LIBRARY_PATH = r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'
     SECRET_KEY = ENV_SECRET_KEY
     DEBUG = ENV_DEBUG
     ALLOWED_HOSTS = ENV_ALLOWED_HOSTS
