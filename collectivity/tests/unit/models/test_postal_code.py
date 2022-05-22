@@ -2,7 +2,7 @@
 from django.db import models
 from django.test import TestCase
 
-from collectivity.models.postal_code import PostalCode
+from collectivity.models import PostalCode
 from collectivity.tests.emulation.collectivity_emulation import (
     CollectivityEmulation
 )

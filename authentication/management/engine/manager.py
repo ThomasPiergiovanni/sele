@@ -2,8 +2,7 @@
 """Authentication Manager module.
 """
 from authentication.models import CustomUser
-from collectivity.models.collectivity import Collectivity
-from collectivity.models.postal_code import PostalCode
+from collectivity.models import Collectivity, PostalCode
 
 
 class Manager():

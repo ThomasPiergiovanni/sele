@@ -3,8 +3,7 @@ from pathlib import Path
 
 from django.contrib.gis.utils import LayerMapping
 
-from collectivity.models.collectivity import Collectivity
-from collectivity.models.postal_code import PostalCode
+from collectivity.models import Collectivity, PostalCode
 from config.settings import BASE_DIR
 
 

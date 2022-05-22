@@ -2,8 +2,7 @@
 from django.contrib.gis.db import models
 from django.test import TestCase
 
-from collectivity.models.collectivity import Collectivity
-from collectivity.models.postal_code import PostalCode
+from collectivity.models import Collectivity, PostalCode
 from collectivity.tests.emulation.collectivity_emulation import (
     CollectivityEmulation
 )

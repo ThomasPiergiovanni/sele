@@ -1,10 +1,17 @@
 # pylint: disable=E0307
-"""Collectivity model module.
+"""Collectivity models module.
 """
 from django.contrib.gis.db import models
 
-from collectivity.models.postal_code import PostalCode
 
+class PostalCode(models.Model):
+    """PostalCode model class.
+    """
+    postal_code = models.CharField(max_length=5, unique=False)
+    insee_code = models.CharField(max_length=5, unique=False, default=None)
+
+    def __str__(self):
+        return self.postal_code
 
 class Collectivity(models.Model):
     """Collectivity model class.

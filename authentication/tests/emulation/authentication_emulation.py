@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password
 
 from authentication.forms.create_custom_user_form import CreateCustomUserForm
 from authentication.models import CustomUser
-from collectivity.models.collectivity import Collectivity
+from collectivity.models import Collectivity
 from collectivity.tests.emulation.collectivity_emulation import (
     CollectivityEmulation
 )

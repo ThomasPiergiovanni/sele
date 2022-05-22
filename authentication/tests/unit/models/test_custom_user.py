@@ -6,7 +6,7 @@ from authentication.models import CustomUser
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
-from collectivity.models.collectivity import Collectivity
+from collectivity.models import Collectivity
 
 
 class CustomUserTest(TestCase):

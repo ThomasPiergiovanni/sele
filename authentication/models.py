@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from authentication.management.engine.custom_user_manager import (
     CustomUserManager
 )
-from collectivity.models.collectivity import Collectivity
+from collectivity.models import Collectivity
 
 
 class CustomUser(AbstractUser):
