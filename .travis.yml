@@ -7,6 +7,8 @@ addons:
   apt:
     packages:
     - postgresql-10-postgis-2.4
+    - gdal-bin
+    - libgdal-dev
 
 before_script:
   - pip install -r requirements.txt
@@ -15,8 +17,6 @@ before_script:
   - sudo mv geckodriver /usr/local/bin
   - psql -U postgres -c "create extension postgis"
   - psql -c 'create database sele_db;' -U postgres
-  - wget https://sourceforge.net/projects/gdal-wheels-for-linux/files/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl/download
-  - pip install GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
 
 env: DJANGO_SETTINGS_MODULE="config.settings.travis"
 
