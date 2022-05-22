@@ -4,9 +4,8 @@
 from django.core.management.base import BaseCommand
 
 from config.settings.data.enumeration import VOTING_METHODS
-from vote.models.vote import Vote
-from vote.models.voting import Voting
-from vote.models.voting_method import VotingMethod
+from vote.models import Vote, Voting, VotingMethod
+
 
 
 class Command(BaseCommand):

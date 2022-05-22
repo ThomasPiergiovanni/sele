@@ -6,8 +6,7 @@ from datetime import date
 from django.core.paginator import Paginator
 from django.utils import timezone
 
-from vote.models.voting import Voting
-from vote.models.vote import Vote
+from vote.models import Vote, Voting
 
 
 class Manager():

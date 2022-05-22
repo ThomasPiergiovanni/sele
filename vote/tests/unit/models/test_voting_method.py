@@ -2,7 +2,7 @@
 from django.db import models
 from django.test import TestCase
 
-from vote.models.voting_method import VotingMethod
+from vote.models import VotingMethod
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 

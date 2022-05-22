@@ -2,9 +2,7 @@
 from django.test import TestCase
 
 from vote.management.commands.reset_vote import Command
-from vote.models.vote import Vote
-from vote.models.voting import Voting
-from vote.models.voting_method import VotingMethod
+from vote.models import Vote, Voting, VotingMethod
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 

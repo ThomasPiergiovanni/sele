@@ -6,10 +6,7 @@ from django.utils import timezone
 from authentication.tests.emulation.authentication_emulation import (
     AuthenticationEmulation
 )
-from vote.models.vote import Vote
-from vote.models.voting import Voting
-from vote.models.voting_method import VotingMethod
-
+from vote.models import Vote, Voting, VotingMethod
 
 class VoteEmulation():
 

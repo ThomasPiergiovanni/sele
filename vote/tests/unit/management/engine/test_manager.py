@@ -8,9 +8,7 @@ from django.test import RequestFactory, TestCase
 from authentication.models import CustomUser
 from vote.forms.voting_form import VotingForm
 from vote.management.engine.manager import Manager
-from vote.models.vote import Vote
-from vote.models.voting import Voting
-from vote.models.voting_method import VotingMethod
+from vote.models import Vote, Voting, VotingMethod
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 

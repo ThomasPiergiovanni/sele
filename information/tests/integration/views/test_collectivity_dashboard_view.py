@@ -8,7 +8,7 @@ from information.tests.emulation.information_emulation import (
     InformationEmulation
 )
 from proposition.models.proposition import Proposition
-from vote.models.voting import Voting
+from vote.models import Voting
 
 
 class CollectivityDashboardViewTest(TestCase):

@@ -3,8 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from vote.forms.voting_form import VotingForm
-from vote.models.voting import Voting
-from vote.models.voting_method import VotingMethod
+from vote.models import Voting, VotingMethod
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 

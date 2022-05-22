@@ -6,8 +6,7 @@ from django.forms import (
     Select, Textarea, TextInput
 )
 
-from vote.models.voting import Voting
-from vote.models.voting_method import VotingMethod
+from vote.models import Voting, VotingMethod
 
 
 class VotingForm(ModelForm):

@@ -6,8 +6,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from authentication.models import CustomUser
-from vote.models.vote import Vote
-from vote.models.voting import Voting
+from vote.models import Vote, Voting
 from vote.tests.emulation.vote_emulation import VoteEmulation
 
 

@@ -4,8 +4,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from vote.models.voting import Voting
-from vote.models.vote import Vote
+from vote.models import Vote, Voting
 from vote.views.generic_vote_view import GenericVoteView
 
 
