@@ -17,9 +17,9 @@ before_script:
   - psql -c 'create database sele_db;' -U postgres
   - wget https://download.osgeo.org/gdal/3.4.0/gdal-3.4.0.tar.gz
   - tar -zxvf gdal-3.4.0.tar.gz
+  - pwd
   - cd gdal-3.4.0
-  - ls
-  - sudo ./configure
+  - configure
   - make
   - sudo make install
   - cd ..
