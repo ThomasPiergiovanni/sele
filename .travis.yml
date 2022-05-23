@@ -23,6 +23,12 @@ before_script:
   - ls
   - cd ..
   - ls
+  - cd ..
+  - ls
+  - cd ..
+  - ls
+  - cd ..
+  - ls
 
   # - pip install /home/travis/build/ThomasPiergiovanni/sele/config/settings/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl 
 
