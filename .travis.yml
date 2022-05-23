@@ -15,14 +15,13 @@ before_script:
   - sudo mv geckodriver /usr/local/bin
   - psql -U postgres -c "create extension postgis"
   - psql -c 'create database sele_db;' -U postgres
-  - wget https://download.osgeo.org/gdal/3.4.0/gdal-3.4.0.tar.gz
-  - tar -zxvf gdal-3.4.0.tar.gz
-  - cd gdal-3.4.0
-  - ./configure --with-python
-  - make
-  - sudo make install
-  - cd ..
-  - pwd
+  # - wget https://download.osgeo.org/gdal/3.4.0/gdal-3.4.0.tar.gz
+  # - tar -zxvf gdal-3.4.0.tar.gz
+  # - cd gdal-3.4.0
+  - cd ThomasPiergiovanni/sele/config/settings/
+  - ls
+  # - pip install ThomasPiergiovanni/sele/config/settings/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl 
+
 
 env: DJANGO_SETTINGS_MODULE="config.settings.travis"
 
