@@ -18,10 +18,9 @@ before_script:
   # - wget https://download.osgeo.org/gdal/3.4.0/gdal-3.4.0.tar.gz
   # - tar -zxvf gdal-3.4.0.tar.gz
   # - cd gdal-3.4.0
+  # - pip install config/settings/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl 
+  - pwd
   - ls
-  - cd ..
-  - ls
-  # - pip install ThomasPiergiovanni/sele/config/settings/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl 
 
 
 env: DJANGO_SETTINGS_MODULE="config.settings.travis"
