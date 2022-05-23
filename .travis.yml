@@ -19,7 +19,17 @@ before_script:
   # - tar -zxvf gdal-3.4.0.tar.gz
   # - cd gdal-3.4.0
   - ls
-  - cd /home/travis/build/virtualenv/
+  - cd ..
+  - pwd
+  - ls
+  - cd ..
+  - pwd
+  - ls
+  - cd ..
+  - pwd
+  - ls
+  - cd ..
+  - pwd
   - ls
  
 
