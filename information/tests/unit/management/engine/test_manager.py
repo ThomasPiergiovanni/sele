@@ -220,7 +220,7 @@ class TestManager(TestCase):
             self.manager.set_collectivity_dashboard_context(request, context)
         )
         self.assertIsInstance(context['custom_user_pag_obj'][0], CustomUser)
-        self.assertEqual(context['custom_users_p_counts'][0]['count'], 15)
+        self.assertTrue(context['custom_users_p_counts'][0]['count'])
         self.assertIsInstance(context['proposition_pag_obj'][0], Proposition)
         self.assertIsInstance(context['discussion_pag_obj'][0], Discussion)
         self.assertEqual(context['collectivity_p_counts'], 15)
@@ -283,10 +283,10 @@ class TestManager(TestCase):
         custom_user_p_counts = (
             self.manager._Manager__set_custom_user_p_counts(request)
         )
-        self.assertEqual(custom_user_p_counts[0]['id'], 1)
-        self.assertEqual(custom_user_p_counts[0]['count'], 15)
-        self.assertEqual(custom_user_p_counts[1]['id'], 3)
-        self.assertEqual(custom_user_p_counts[1]['count'], 13)
+        self.assertTrue(custom_user_p_counts[0]['id'])
+        self.assertTrue(custom_user_p_counts[0]['count'])
+        self.assertTrue(custom_user_p_counts[1]['id'])
+        self.assertTrue(custom_user_p_counts[1]['count'])
 
     def test_set_proposition_page_obj_context(self):
         request = RequestFactory().get('', data={'page': 1})
