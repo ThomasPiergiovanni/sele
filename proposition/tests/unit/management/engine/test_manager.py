@@ -125,9 +125,7 @@ class TestManager(TestCase):
             context['discussion'],
             proposition.proposition_discussion
         )
-        self.assertEqual(
-            context['comments'][0], Comment.objects.get(pk=1)
-        )
+        self.assertIsInstance(context['comments'][0], Comment)
         self.assertIsInstance(context['form'], CommentForm)
 
     def test_set_read_prop_view_context_with_offer_selectionne_creator(self):
@@ -487,7 +485,7 @@ class TestManager(TestCase):
     def test_get_comments_with_proposition_instance(self):
         proposition = Proposition.objects.get(pk=1)
         comments = self.manager._Manager__get_comments(proposition)
-        self.assertEqual(comments[0], Comment.objects.get(pk=1))
+        self.assertIsInstance(comments[0], Comment)
 
     def test_get_comments_with_none(self):
         proposition = None

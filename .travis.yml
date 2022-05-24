@@ -10,27 +10,13 @@ addons:
 
 before_script:
   - pip install -r requirements.txt
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz
-  - tar -zxvf geckodriver-v0.29.1-linux64.tar.gz
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
+  - tar -zxvf geckodriver-v0.31.0-linux64.tar.gz
   - sudo mv geckodriver /usr/local/bin
   - psql -U postgres -c "create extension postgis"
   - psql -c 'create database sele_db;' -U postgres
-  # - wget https://download.osgeo.org/gdal/3.4.0/gdal-3.4.0.tar.gz
-  # - tar -zxvf gdal-3.4.0.tar.gz
-  # - cd gdal-3.4.0
   - pip install /home/travis/build/ThomasPiergiovanni/sele/config/settings/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
-  - cd /home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/
-  - ls
-  - cd /home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/lib/
-  - ls
-  - cd /home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/
-  - ls
   - cd /home/travis/build/ThomasPiergiovanni/sele/
-  - ls
-
-
-  # - pip install /home/travis/build/ThomasPiergiovanni/sele/config/settings/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl 
-
 
 env: DJANGO_SETTINGS_MODULE="config.settings.travis"
 

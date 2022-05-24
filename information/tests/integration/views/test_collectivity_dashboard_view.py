@@ -29,7 +29,7 @@ class CollectivityDashboardViewTest(TestCase):
         self.assertIsInstance(
             response.context['custom_user_pag_obj'][0], CustomUser
         )
-        self.assertEqual(response.context['custom_users_p_counts'][0]['id'], 1)
+        self.assertTrue(response.context['custom_users_p_counts'][0])
         self.assertIsInstance(
             response.context['proposition_pag_obj'][0], Proposition
         )
