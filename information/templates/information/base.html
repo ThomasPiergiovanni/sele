@@ -1,295 +1,292 @@
 <!doctype html>
 <html lang="en">
-{% load static %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="sel-e is a POC of an alternative economic system">
+        <meta name="author" content="sel-e creator">
+        <title>sel-e | home</title>
+        {% load static %}
+        <link rel="icon" type="image/x-icon" href="{% static 'information/images/sele_blue.ico' %}">
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{% static 'information/plugins/fontawesome-free/css/all.min.css' %}">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Tempusdominus Bootstrap 4 -->
+        <link rel="stylesheet"
+            href="{% static 'information/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+        <!-- iCheck -->
+        <link rel="stylesheet" href="{% static 'information/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+        <!-- JQVMap -->
+        <link rel="stylesheet" href="{% static 'information/plugins/jqvmap/jqvmap.min.css' %}">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="{% static 'information/plugins/select2/css/select2.min.css' %}">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{% static 'information/dist/css/adminlte.min.css' %}">
+        <!-- overlayScrollbars -->
+        <link rel="stylesheet" href="{% static 'information/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+        <!-- Daterange picker -->
+        <link rel="stylesheet" href="{% static 'information/plugins/daterangepicker/daterangepicker.css' %}">
+        <!-- summernote -->
+        <link rel="stylesheet" href="{% static 'information/plugins/summernote/summernote-bs4.min.css' %}">
+        <!--Leaflet-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+            crossorigin="">
+    </head>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="sel-e is a POC of an alternative economic system"/>
-    <meta name="author" content="sel-e creator"/>
-    <title>sel-e | home</title>
+    <body class="hold-transition sidebar-mini layout-fixed">
+        <div class="wrapper">
 
-    <link rel="icon" type="image/x-icon" href="{% static 'information/images/sele_blue.ico' %}" />
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'information/plugins/fontawesome-free/css/all.min.css' %}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-        href="{% static 'information/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{% static 'information/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+            <!-- Preloader -->
+            <div class="preloader flex-column justify-content-center align-items-center">
+                <img class="animation__shake" src="{% static 'information/images/sele_blue.jpg' %}" alt="SeleLogo" height="60">
+            </div>
+
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+                <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{% url 'information:home'%}" class="nav-link">Accueil</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{% url 'information:about'%}" class="nav-link">Qu'est ce que sel-e ?</a>
+                    </li>
+                </ul>
+
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- User account settings Dropdown Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="fas fa-cog"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <span class="dropdown-item dropdown-header">Gérer mon compte</span>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'authentication:read_custom_user' %}" class="dropdown-item">
+                                <i class="fas fa-user-check mr-2"></i> Consulter
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'authentication:update_custom_user' %}" class="dropdown-item">
+                                <i class="fas fa-user-edit mr-2"></i> Modifier
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'authentication:delete_custom_user' %}" class="dropdown-item text-danger">
+                                <i class="fas fa-user-minus  mr-2"></i> Supprimer
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'authentication:login' %}" class="nav-link">
+                            <button type="button" class="btn btn-block btn-primary btn-xs">Connexion</button>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.navbar -->
+
+            <!-- Main Sidebar Container -->
+            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                <!-- Brand Logo -->
+                <a href="{% url 'information:home'%}" class="brand-link">
+                    <img src="{% static 'information/images/sele_blue.jpg' %}" alt="Sel-e Logo"
+                        class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <span class="brand-text font-weight-light">sel-e</span>
+                </a>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="info ">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'authentication:read_custom_user'%}" class="d-block text-primary">
+                                    # {{user.user_name}}
+                                </a>
+                            {% else %}
+                                <a href="{% url 'authentication:login'%}" class="d-block">
+                                    # Visiteur.se
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+
+                            <li class="nav-item">
+                                <a href="{% url 'information:home'%}" class="nav-link">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>Accueil</p>
+                                </a>
+                            </li>
+                            <li class="nav-item menu-close">
+                                <a href="" id="sidebar_my_local_group" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        Mon groupe local
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{% url 'information:collectivity_dashboard'%}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tableau de bord</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'proposition:collectivity_propositions'%}" id="sidebar_mlg_propositions" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Propositions</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'chat:collectivity_discussions'%}" id="sidebar_mlg_chat" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Discussions</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'vote:collectivity_votings'%}" id="sidebar_mlg_votings" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Votes</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item menu-close">
+                                <a href="#" id="sidebar_info" class="nav-link">
+                                    <i class="nav-icon fas fa-info-circle"></i>
+                                    <p>
+                                        Info
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{% url 'information:about'%}" id="sidebar_about" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>A propos</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'information:faq'%}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>FAQ</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'information:contact' %}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Contact</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'information:legal'%}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>CGU & Mentions légales</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                            </div>
+                            <li class="nav-item">
+                                <a href="{% url 'authentication:create_custom_user'%}" class="nav-link">
+                                    <i class="nav-icon fas fa-user-plus"></i>
+                                    <p>Créer un compte</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'authentication:login'%}" class="nav-link">
+                                    <i class="nav-icon fas fa-sign-in-alt"></i>
+                                    <p>Connexion</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'authentication:logout'%}" class="nav-link">
+                                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                                    <p>Déconnexion</p>
+                                </a>
+                            </li>
+                            <!-- /.sidebar-menu -->
+                        </ul>
+                    </nav>
+                </div>
+                <!-- /.sidebar -->
+            </aside>
+        </div>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            {% block content %}{% endblock %}
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="row">
+                <div class="col-2"><a href="{% url 'information:legal'%}">CGU & Mentions légales</a></div>
+                <div class="col-6 text-left"><a href="{% url 'information:contact' %}">Contact</a></div>
+                <div class="col-4 text-right"><b>Version</b> 1.0</div>
+            </div>
+        </footer> 
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </body>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'information/plugins/jquery/jquery.min.js' %}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{% static 'information/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'information/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- ChartJS -->
+    <script src="{% static 'information/plugins/chart.js/Chart.min.js' %}"></script>
+    <!-- Sparkline -->
+    <script src="{% static 'information/plugins/sparklines/sparkline.js' %}"></script>
     <!-- JQVMap -->
-    <link rel="stylesheet" href="{% static 'information/plugins/jqvmap/jqvmap.min.css' %}">
+    <script src="{% static 'information/plugins/jqvmap/jquery.vmap.min.js' %}"></script>
+    <script src="{% static 'information/plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="{% static 'information/plugins/jquery-knob/jquery.knob.min.js' %}"></script>
+    <!-- daterangepicker -->
+    <script src="{% static 'information/plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'information/plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{% static 'information/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
     <!-- Select2 -->
-    <link rel="stylesheet" href="{% static 'information/plugins/select2/css/select2.min.css' %}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{% static 'information/dist/css/adminlte.min.css' %}">
+    <script src="{% static 'information/plugins/select2/js/select2.full.min.js' %}"></script>
+    <!-- Summernote -->
+    <script src="{% static 'information/plugins/summernote/summernote-bs4.min.js' %}"></script>
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{% static 'information/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{% static 'information/plugins/daterangepicker/daterangepicker.css' %}">
-    <!-- summernote -->
-    <link rel="stylesheet" href="{% static 'information/plugins/summernote/summernote-bs4.min.css' %}">
-    <!--Leaflet-->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
+    <script src="{% static 'information/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'information/dist/js/adminlte.js' %}"></script>
+
+    <!-- AdminLTE dashboard -->
+    <script src="{% static 'information/dist/js/pages/dashboard.js' %}"></script>
+
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
-</head>
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-
-        <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{% static 'information/images/sele_blue.jpg' %}" alt="SeleLogo" height="60">
-        </div>
-
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{% url 'information:home'%}" class="nav-link">Accueil</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{% url 'information:about'%}" class="nav-link">Qu'est ce que sel-e ?</a>
-                </li>
-            </ul>
-
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <!-- User account settings Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="fas fa-cog"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">Gérer mon compte</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="{% url 'authentication:read_custom_user' %}" class="dropdown-item">
-                            <i class="fas fa-user-check mr-2"></i> Consulter
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="{% url 'authentication:update_custom_user' %}" class="dropdown-item">
-                            <i class="fas fa-user-edit mr-2"></i> Modifier
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="{% url 'authentication:delete_custom_user' %}" class="dropdown-item text-danger">
-                            <i class="fas fa-user-minus  mr-2"></i> Supprimer
-                        </a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'authentication:login' %}" class="nav-link">
-                        <button type="button" class="btn btn-block btn-primary btn-xs">Connexion</button>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="{% url 'information:home'%}" class="brand-link">
-                <img src="{% static 'information/images/sele_blue.jpg' %}" alt="Sel-e Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">sel-e</span>
-            </a>
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="info ">
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'authentication:read_custom_user'%}" class="d-block text-primary">
-                                # {{user.user_name}}
-                            </a>
-                        {% else %}
-                            <a href="{% url 'authentication:login'%}" class="d-block">
-                                # Visiteur.se
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                    with font-awesome or any other icon font library -->
-
-                        <li class="nav-item">
-                            <a href="{% url 'information:home'%}" class="nav-link">
-                                <i class="nav-icon fas fa-home"></i>
-                                <p>Accueil</p>
-                            </a>
-                        </li>
-                        <li class="nav-item menu-close">
-                            <a href="" id="sidebar_my_local_group" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    Mon groupe local
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{% url 'information:collectivity_dashboard'%}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tableau de bord</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'proposition:collectivity_propositions'%}" id="sidebar_mlg_propositions" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Propositions</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'chat:collectivity_discussions'%}" id="sidebar_mlg_chat" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Discussions</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'vote:collectivity_votings'%}" id="sidebar_mlg_votings" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Votes</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item menu-close">
-                            <a href="#" id="sidebar_info" class="nav-link">
-                                <i class="nav-icon fas fa-info-circle"></i>
-                                <p>
-                                    Info
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{% url 'information:about'%}" id="sidebar_about" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>A propos</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'information:faq'%}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>FAQ</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'information:contact' %}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Contact</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'information:legal'%}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Mention légale</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                        </div>
-                        <li class="nav-item">
-                            <a href="{% url 'authentication:create_custom_user'%}" class="nav-link">
-                                <i class="nav-icon fas fa-user-plus"></i>
-                                <p>Créer un compte</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'authentication:login'%}" class="nav-link">
-                                <i class="nav-icon fas fa-sign-in-alt"></i>
-                                <p>Connexion</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'authentication:logout'%}" class="nav-link">
-                                <i class="nav-icon fas fa-sign-out-alt"></i>
-                                <p>Déconnexion</p>
-                            </a>
-                        </li>
-                        <!-- /.sidebar-menu -->
-                    </ul>
-                </nav>
-            </div>
-            <!-- /.sidebar -->
-        </aside>
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        {% block content %}{% endblock %}
-    </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <div class="row">
-            <div class="col-2"><a href="{% url 'information:legal'%}">Mention légales</a></div>
-            <div class="col-6 text-left"><a href="{% url 'information:contact' %}">Contact</a></div>
-            <div class="col-4 text-right"><b>Version</b> 1.0</div>
-        </div>
-    </footer> 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="{% static 'information/plugins/jquery/jquery.min.js' %}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{% static 'information/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-    $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="{% static 'information/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<!-- ChartJS -->
-<script src="{% static 'information/plugins/chart.js/Chart.min.js' %}"></script>
-<!-- Sparkline -->
-<script src="{% static 'information/plugins/sparklines/sparkline.js' %}"></script>
-<!-- JQVMap -->
-<script src="{% static 'information/plugins/jqvmap/jquery.vmap.min.js' %}"></script>
-<script src="{% static 'information/plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{% static 'information/plugins/jquery-knob/jquery.knob.min.js' %}"></script>
-<!-- daterangepicker -->
-<script src="{% static 'information/plugins/moment/moment.min.js' %}"></script>
-<script src="{% static 'information/plugins/daterangepicker/daterangepicker.js' %}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{% static 'information/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
-<!-- Select2 -->
-<script src="{% static 'information/plugins/select2/js/select2.full.min.js' %}"></script>
-<!-- Summernote -->
-<script src="{% static 'information/plugins/summernote/summernote-bs4.min.js' %}"></script>
-<!-- overlayScrollbars -->
-<script src="{% static 'information/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
-<!-- AdminLTE App -->
-<script src="{% static 'information/dist/js/adminlte.js' %}"></script>
-
-
-<!-- AdminLTE for demo purposes -->
-<!-- <script src="{% static 'information/dist/js/demo.js' %}"></script> -->
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{% static 'information/dist/js/pages/dashboard.js' %}"></script>
-
-<!-- Leaflet map js scrip-->
-<script src="{% static 'information/dist/js/leaflet_map.js' %}"></script>
+    <!-- Leaflet map js scrip-->
+    <script src="{% static 'information/dist/js/leaflet_map.js' %}"></script>
 
 </html>

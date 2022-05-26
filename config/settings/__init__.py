@@ -59,6 +59,8 @@ elif ENV == 'staging':
     MAPBOX_TOKEN = TENV_MAPBOX_TOKEN
 
 elif ENV == 'production':
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
     from config.settings.env import (
         ENV_GDAL_DATA, ENV_PROJ_LIB, ENV_PATH, ENV_GDAL_LIBRARY_PATH, 
         ENV_SECRET_KEY, ENV_DEBUG, ENV_ALLOWED_HOSTS, ENV_DATABASES, 
@@ -78,6 +80,12 @@ elif ENV == 'production':
     SECURE_SSL_REDIRECT = ENV_SECURE_SSL_REDIRECT
     SECURE_PROXY_SSL_HEADER = ENV_SECURE_PROXY_SSL_HEADER
     MAPBOX_TOKEN = ENV_MAPBOX_TOKEN
+    sentry_sdk.init(
+        dsn="https://c77a79af78d1414db63f449bb0ab6685@o986725.ingest.sentry.io/5943517",
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=1.0,
+        send_default_pii=True
+    )
 
 # Application definition
 
