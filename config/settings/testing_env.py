@@ -1,5 +1,6 @@
 import os
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TENV_GDAL_DATA = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"
 TENV_PROJ_LIB = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"
 TENV_PATH= r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
@@ -21,6 +22,8 @@ TENV_DATABASES = {
         'PORT': '5432',
     }
 }
-TENV_STATIC_URL = '/static/'
+
 TENV_SECURE_SSL_REDIRECT = False
+TENV_STATIC_URL = '/static/'
+TENV_STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 TENV_MAPBOX_TOKEN = ''

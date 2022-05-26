@@ -20,13 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-ENV = 'staging'
+ENV = 'test'
 
 if ENV == 'test':
     from config.settings.testing_env import (
         TENV_GDAL_DATA, TENV_PROJ_LIB, TENV_PATH, TENV_GDAL_LIBRARY_PATH,
         TENV_SECRET_KEY, TENV_DEBUG, TENV_ALLOWED_HOSTS, TENV_DATABASES,
-        TENV_STATIC_URL, TENV_SECURE_SSL_REDIRECT, TENV_MAPBOX_TOKEN, 
+        TENV_STATIC_URL, TENV_SECURE_SSL_REDIRECT, TENV_STATIC_ROOT,
+        TENV_MAPBOX_TOKEN, 
     )
     os.environ['GDAL_DATA'] = TENV_GDAL_DATA
     os.environ['PROJ_LIB'] = TENV_PROJ_LIB
@@ -36,8 +37,9 @@ if ENV == 'test':
     DEBUG = TENV_DEBUG
     ALLOWED_HOSTS = TENV_ALLOWED_HOSTS
     DATABASES = TENV_DATABASES
-    STATIC_URL = TENV_STATIC_URL
     SECURE_SSL_REDIRECT = TENV_SECURE_SSL_REDIRECT
+    STATIC_URL = TENV_STATIC_URL
+    STATIC_ROOT = TENV_STATIC_ROOT
     MAPBOX_TOKEN = TENV_MAPBOX_TOKEN
 
 elif ENV == 'staging':
@@ -54,13 +56,16 @@ elif ENV == 'staging':
     DEBUG = TENV_DEBUG
     ALLOWED_HOSTS = TENV_ALLOWED_HOSTS
     DATABASES = TENV_DATABASES
-    STATIC_URL = TENV_STATIC_URL
     SECURE_SSL_REDIRECT = TENV_SECURE_SSL_REDIRECT
+    STATIC_URL = TENV_STATIC_URL
+    STATIC_ROOT = TENV_STATIC_ROOT
     MAPBOX_TOKEN = TENV_MAPBOX_TOKEN
 
 elif ENV == 'production':
     import sentry_sdk
+
     from sentry_sdk.integrations.django import DjangoIntegration
+    
     from config.settings.env import (
         ENV_GDAL_DATA, ENV_PROJ_LIB, ENV_PATH, ENV_GDAL_LIBRARY_PATH, 
         ENV_SECRET_KEY, ENV_DEBUG, ENV_ALLOWED_HOSTS, ENV_DATABASES, 
@@ -75,10 +80,10 @@ elif ENV == 'production':
     DEBUG = ENV_DEBUG
     ALLOWED_HOSTS = ENV_ALLOWED_HOSTS
     DATABASES = ENV_DATABASES
-    STATIC_URL = ENV_STATIC_URL
-    STATIC_ROOT = ENV_STATIC_ROOT
     SECURE_SSL_REDIRECT = ENV_SECURE_SSL_REDIRECT
     SECURE_PROXY_SSL_HEADER = ENV_SECURE_PROXY_SSL_HEADER
+    STATIC_URL = ENV_STATIC_URL
+    STATIC_ROOT = ENV_STATIC_ROOT
     MAPBOX_TOKEN = ENV_MAPBOX_TOKEN
     sentry_sdk.init(
         dsn="https://c77a79af78d1414db63f449bb0ab6685@o986725.ingest.sentry.io/5943517",

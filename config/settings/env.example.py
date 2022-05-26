@@ -1,23 +1,26 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-ENV = 'test'
+ENV_GDAL_DATA = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"
+ENV_PROJ_LIB = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"
+ENV_PATH= r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
+ENV_GDAL_LIBRARY_PATH = r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'
 ENV_SECRET_KEY = 'django-insecure-+f^i^1jx+g5*k$2a13t)^x-0b6$2@nbgd8v$ggufbyh62h*)gc'
-ENV_DEBUG = True
+ENV_DEBUG = False
 ENV_ALLOWED_HOSTS = []
 ENV_DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sele_db',  # le nom de notre base de données créée précédemment
-        'USER': 'postgres',  # attention : remplacez par votre nom d'utilisateur !!
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'xxxxx', 
+        'USER': 'xxxxx',
         'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
-ENV_SECURE_SSL_REDIRECT = False
+ENV_SECURE_SSL_REDIRECT = True
 ENV_SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ENV_STATIC_URL = '/static/'
-ENV_STATIC_ROOT = None
+ENV_STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+ENV_MAPBOX_TOKEN= 'xxxxxx'
 
