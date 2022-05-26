@@ -20,12 +20,7 @@ before_script:
   - sudo mv geckodriver /usr/local/bin
   - psql -U postgres -c "create extension postgis"
   - psql -c 'create database sele_db;' -U postgres
-  - wget https://sourceforge.net/projects/gdal-wheels-for-linux/files/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl/download
-  - pwd
-  - ls
-  - cd download
-  - ls
-  # - pip install /home/travis/build/ThomasPiergiovanni/sele/download/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+  - pip install https://sourceforge.net/projects/gdal-wheels-for-linux/files/GDAL-3.1.4-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl/download
   # - pip install /home/travis/build/ThomasPiergiovanni/sele/config/settings/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
   - cd /home/travis/build/ThomasPiergiovanni/sele/
 
