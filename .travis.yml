@@ -10,12 +10,22 @@ addons:
 
 before_script:
   - pip install -r requirements.txt
+  - pwd
+  - ls
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
+  - pwd
+  - ls
   - tar -zxvf geckodriver-v0.31.0-linux64.tar.gz
+  - ls
   - sudo mv geckodriver /usr/local/bin
   - psql -U postgres -c "create extension postgis"
   - psql -c 'create database sele_db;' -U postgres
-  # - wget https://sourceforge.net/projects/gdal-wheels-for-linux/files/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl/download
+  - wget https://sourceforge.net/projects/gdal-wheels-for-linux/files/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl/download
+  - pwd
+  - ls
+  - cd /home/travis/build/ThomasPiergiovanni/sele/download/
+  - pwd
+  - ls 
   # - pip install /home/travis/build/ThomasPiergiovanni/sele/download/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
   # - pip install /home/travis/build/ThomasPiergiovanni/sele/config/settings/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
   - cd /home/travis/build/ThomasPiergiovanni/sele/
