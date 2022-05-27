@@ -40,7 +40,7 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<h6 class="ml-1 mt-2 text-secondary"><b>Groupe local</b></h6>' + (props ?
-        '<p class="ml-1 mr-1 text-dark"><b><span class="text-primary">' + props.name + '</span></b> (' + props.insee_code +')</p>'
+        '<p class="ml-1 mr-1 text-dark"><b><span class="text-primary">' + props.name + '</span></b> (' + props.postal_code +')</p>'
         : '<p class="ml-1 mr-1 text-dark">Survolez une commune</p>');
 };
 

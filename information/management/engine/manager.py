@@ -51,7 +51,7 @@ class Manager():
             'geojson',
             Collectivity.objects.filter(activity__exact='yes'),
             geometry_field='feat_geom',
-            fields=('name', 'insee_code', 'activity')
+            fields=('name', 'postal_code', 'activity')
         )
         return data_json
 
