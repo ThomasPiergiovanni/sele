@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-ENV = 'test'
+ENV = 'staging'
 
 if ENV == 'test':
     from config.settings.testing_env import (
@@ -87,7 +87,7 @@ elif ENV == 'production':
     STATIC_ROOT = ENV_STATIC_ROOT
     MAPBOX_TOKEN = ENV_MAPBOX_TOKEN
     sentry_sdk.init(
-        dsn="https://c77a79af78d1414db63f449bb0ab6685@o986725.ingest.sentry.io/5943517",
+        dsn="https://f9a6192c052e4ac3b29955e440206ea6@o986725.ingest.sentry.io/6443080",
         integrations=[DjangoIntegration()],
         traces_sample_rate=1.0,
         send_default_pii=True
