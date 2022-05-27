@@ -8,7 +8,7 @@ from django.contrib.gis.utils import LayerMapping
 from django.core.management.base import BaseCommand
 
 from collectivity.models import Collectivity, PostalCode
-from config.settings import BASE_DIR
+from config.settings import BASE_DIR, ENV
 
 
 class Command(BaseCommand):
@@ -34,7 +34,7 @@ class Command(BaseCommand):
         """
         self.__drop_collectivity(),
         self.__drop_postal_code(),
-        if self.testing:
+        if ENV == 'test' or ENV == 'staging':
             self.postal_code_path = (
                 Path(BASE_DIR).resolve().parent/'config/settings/data/'
                 'postal_code_4_tests.json'

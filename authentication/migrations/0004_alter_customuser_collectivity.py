@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customuser',
             name='collectivity',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='collectivity.collectivity'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='collectivity.collectivity'),
         ),
     ]
