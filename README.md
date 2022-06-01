@@ -1,16 +1,16 @@
-# sel-e - système d'échange local - électronique (Electronic local exchange system).
+# sel-e - système d'échange local électronique (electronic local exchange system).
 
 ## 1. Introduction.
 
-This program is named "sel-e". It's an electronic local exchange system that fit into the perspective of an alternative to the current economic system.
+This program is named **sel-e**. It's an electronic local exchange system that fit into the perspective of an alternative to the current economic system.
 
-The web app backend is built with Django framework. The frontend uses mainly a template Dashboard provided by AdminLTE built with Bootstrap/Javascipt. The programm is hosted by Digital Ocean.
+The web app backend is built with Django framework. The frontend uses mainly a template Dashboard provided by AdminLTE built with Bootstrap/JavaScript. The programm is hosted by Digital Ocean.
 
-You can check it app on  [(https://sel-e.fr](https://sel-e.fr)
+You can check it app on  [https://sel-e.fr](https://sel-e.fr).
 
 The here below installation steps describes how to make the install on a dev and local environment.
 
-NB: It's a programm written in the context of a Django app eductation module delivered by [OpenClassRooms](https://openclassrooms.com).
+NB: This programm is written in the context of a Django app eductation module delivered by [OpenClassRooms](https://openclassrooms.com).
 
 ## 2. Prerequisite.
 
@@ -24,7 +24,7 @@ The others required program will be installed via pip using requirements.txt fil
 
 ## 3. Installation.
 
-These instructions are for deployment on a local machine i.e. for development use. It's described for install on a Windows OS. Installing on another OS might vary.
+These instructions are for deployment on a local machine i.e. for development use. It's described for install on a Windows OS. Installing on another OS might be slightly different.
 
 ### 3.1. Download.
 Download/clone this repository on your system, at the location that suits you best.
@@ -47,7 +47,7 @@ Create database.
 > createdb -h localhost -p 5432 -U yourusername yourdatabasename
 
 ### 3.5. Create Postgis extension.
- and Create Postgis extensiion.
+Create Postgis extensiion.
 
 1. Connect to the created database.
     > psql -U yourusername -d yourdatabasename
@@ -56,19 +56,19 @@ Create database.
     > yourdatabasename=# CREATE POSTGIS;
 
 Notes: 
-  * You need superuser privileges to execute this command.
+  * You need superuser privileges to execute *CREATE POSTGIS* command.
     > ALTER ROLE <user_name> SUPERUSER;
 
-  * On Linux OS you'll probably need to install first the postgis_extension_script first prior to execute the Postgis instruction.
+  * On Linux OS, you'll probably need to install *postgis_extension_script* prior to execute the *CREATE POSTGIS* instruction.
     > sudo apt install postgresql-12-postgis-scripts
 
 ### 3.6. Intsall GDAL library.
 
-You need to insatll GDAL library. The proposed intall here uses .whl file.
+You need to install GDAL library. The proposed intsall here uses .whl file.
 
 1. On Windows OS, download GDAL .whl on [unofficial Windows Binairies for Pythob Extension Packages by Christop Gohlke, University of California website](https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal) and choose the version that suits your OS and Python versions.
 
-Note: on Linux OS, download GDAL .whl on [https://sourceforge.net](https://sourceforge.net/projects/gdal-wheels-for-linux/files/) and choose the version that suits your OS and Python versions.
+    Note: on Linux OS, download GDAL .whl on [https://sourceforge.net](https://sourceforge.net/projects/gdal-wheels-for-linux/files/) and choose the version that suits your OS and Python versions.
 
 2. Install the GDAL.whl
     > pip install GDAL-3.4.1-cp38-cp38-win_amd64.whl
@@ -97,9 +97,11 @@ Note: On Linux OS you might also need to install the following packages:
 
 ### 3.9. Application mandatory settings.
 1. Change constants with the appropriate value into **config/settings.py/__init__.py** :
+
 * ENV = Depending on the environnement, set the appropriate value ('test', 'staging', 'production').
 
-If your environnement is 'test' set the appropriate value into **config/settings.py/testing_env.py**
+#### 3.9.1. If your environnement is 'test'.
+Set the appropriate value into **config/settings.py/testing_env.py**
 
 * BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 * TENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
@@ -125,7 +127,8 @@ If your environnement is 'test' set the appropriate value into **config/settings
 * TENV_STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 * TENV_MAPBOX_TOKEN = ''
 
-Aditionnaly, if your environnement is 'staging' and you use Travis for CI, set the approrpiate value into that same  **config/settings.py/testing_env.py**
+#### 3.9.2. If your environnement is 'test'.
+If your environnement is 'staging' and you use Travis for CI, set the approrpiate value into that same  **config/settings.py/testing_env.py**
 **config/settings.py/testing_env.py**
 
 * SENV_GDAL_DATA = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/gdal"
@@ -133,17 +136,18 @@ Aditionnaly, if your environnement is 'staging' and you use Travis for CI, set t
 * SENV_PATH = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo" +";" + os.environ['PATH']
 * SENV_GDAL_LIBRARY_PATH = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/lib/libgdal.so"
 
+#### 3.9.3. If your environnement is 'production'.
 Finally if your environnement is 'production', rename file **config/settings.py/env.example.py** into **env.py** and set the approrpiate value into that renamed **config/settings.py/env.py**
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
-ENV_PROJ_LIB = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\proj"
-ENV_PATH= r"\yourpath\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
-ENV_GDAL_LIBRARY_PATH = r'\yourpath\sele\env\Lib\site-packages\osgeo\gdal304.dll'
-ENV_SECRET_KEY = 'xxxxx'
-ENV_DEBUG = False
-ENV_ALLOWED_HOSTS = [xxx.xxx.xxx]
-ENV_DATABASES = {
+* BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+* ENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
+* ENV_PROJ_LIB = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\proj"
+* ENV_PATH= r"\yourpath\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
+* ENV_GDAL_LIBRARY_PATH = r'\yourpath\sele\env\Lib\site-packages\osgeo\gdal304.dll'
+* ENV_SECRET_KEY = 'xxxxx'
+* ENV_DEBUG = False
+* ENV_ALLOWED_HOSTS = [xxx.xxx.xxx]
+* ENV_DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'xxxxx', 
@@ -153,11 +157,11 @@ ENV_DATABASES = {
         'PORT': '5432',
     }
 }
-ENV_SECURE_SSL_REDIRECT = True
-ENV_SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-ENV_STATIC_URL = '/static/'
-ENV_STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-ENV_MAPBOX_TOKEN= 'xxxxxx'. 
+* ENV_SECURE_SSL_REDIRECT = True
+* ENV_SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+* ENV_STATIC_URL = '/static/'
+* ENV_STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+* ENV_MAPBOX_TOKEN= 'xxxxxx'. 
 
 You can check section **4. Settings** for description of these constants.
 
