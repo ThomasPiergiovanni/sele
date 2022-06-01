@@ -102,10 +102,10 @@ Note: On Linux OS you might also need to install the following packages:
 If your environnement is 'test' set the appropriate value into **config/settings.py/testing_env.py**
 
 * BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-* TENV_GDAL_DATA = r"yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
-* TENV_PROJ_LIB = r"yourpath\sele\env\Lib\site-packages\osgeo\data\proj"
-* TENV_PATH= r"yourpath\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
-* TENV_GDAL_LIBRARY_PATH = r'yourpath\sele\env\Lib\site-packages\osgeo\gdal304.dll'
+* TENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
+* TENV_PROJ_LIB = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\proj"
+* TENV_PATH= r"\yourpath\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
+* TENV_GDAL_LIBRARY_PATH = r'\yourpath\sele\env\Lib\site-packages\osgeo\gdal304.dll'
 * TENV_SECRET_KEY = 'django-insecure-+f^i^1jx+g5*k$2a13t)^x-0b6$2@nbgd8v$ggufbyh62h*)gc'
 * TENV_DEBUG = True
 * TENV_ALLOWED_HOSTS = []
@@ -136,10 +136,10 @@ Aditionnaly, if your environnement is 'staging' and you use Travis for CI, set t
 Finally if your environnement is 'production', rename file **config/settings.py/env.example.py** into **env.py** and set the approrpiate value into that renamed **config/settings.py/env.py**
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ENV_GDAL_DATA = r"yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
-ENV_PROJ_LIB = r"yourpath\sele\env\Lib\site-packages\osgeo\data\proj"
-ENV_PATH= r"yourpath\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
-ENV_GDAL_LIBRARY_PATH = r'yourpath\sele\env\Lib\site-packages\osgeo\gdal304.dll'
+ENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
+ENV_PROJ_LIB = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\proj"
+ENV_PATH= r"\yourpath\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
+ENV_GDAL_LIBRARY_PATH = r'\yourpath\sele\env\Lib\site-packages\osgeo\gdal304.dll'
 ENV_SECRET_KEY = 'xxxxx'
 ENV_DEBUG = False
 ENV_ALLOWED_HOSTS = [xxx.xxx.xxx]
@@ -170,8 +170,17 @@ Run migration to setup the DB correctly.
 On a production environnement on Linux OS, you'll also need to collect static files.
 > python manage.py collectstatic
 
+### 3.12. Start the program.
+All install steps are completed for dev environnment install. You can start teh app with the following command.
+> python manage.py runserver
 
+### 3.13. Test the program.
+If you want to perform test after having modified the code, you can run tests.
+> python manage.py test
 
-lancer 
-python manage.py collectstatic
+### 3.12. Deactivate the virtual environment.
+Once you're done using the program, you should leave the virtual environment. Simply type the following statement in your bash.
+> deactivate
 
+### 3.13. Uninstall.
+If you want to uninstall the program, simply delete the complete repository form your device.
