@@ -1,6 +1,6 @@
 language: python
 python:
-  - '3.9'
+  - '3.8'
 
 addons:
   postgresql: 10
@@ -15,7 +15,7 @@ before_script:
   - sudo mv geckodriver /usr/local/bin
   - psql -U postgres -c "create extension postgis"
   - psql -c 'create database sele_db;' -U postgres
-  - pip install /home/travis/build/ThomasPiergiovanni/sele/config/settings/GDAL-3.4.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+  - pip install /home/travis/build/ThomasPiergiovanni/sele/config/settings/GDAL-3.4.1-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
   - cd /home/travis/build/ThomasPiergiovanni/sele/
 
 env: DJANGO_SETTINGS_MODULE="config.settings.travis"
