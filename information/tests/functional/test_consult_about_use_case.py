@@ -45,6 +45,6 @@ class CreateVotingUseCaseTest(StaticLiveServerTestCase):
         self.browser.find_element_by_id('sidebar_about').click()
         self.assertIn(
             self.browser.find_element_by_tag_name('h1').text,
-            'Qu\'est-ce que sel-e?',
+            'A propos',
         )
         sleep(2)
