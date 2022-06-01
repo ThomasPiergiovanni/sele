@@ -1,4 +1,4 @@
-# sel-e - système d'échange local électronique (electronic local exchange system).
+# sel-e: système d'échange local électronique (electronic local exchange system).
 
 ## 1. Introduction.
 
