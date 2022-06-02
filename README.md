@@ -101,7 +101,7 @@ Note: On Linux OS you might also need to install the following packages:
 * ENV = Depending on the environnement, set the appropriate value ('test', 'staging', 'production').
 
 #### 3.9.1. If your environnement is 'test'.
-Set the appropriate value into **config/settings.py/testing_env.py**
+Change constants with the appropriate value into **config/settings.py/testing_env.py**
 
 * BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 * TENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
@@ -128,8 +128,7 @@ Set the appropriate value into **config/settings.py/testing_env.py**
 * TENV_MAPBOX_TOKEN = ''
 
 #### 3.9.2. If your environnement is 'test'.
-If your environnement is 'staging' and you use Travis for CI, set the approrpiate value into that same  **config/settings.py/testing_env.py**
-**config/settings.py/testing_env.py**
+If your environnement is 'staging' and you use Travis for CI, change constants with the appropriate value into  **config/settings.py/testing_env.py**.
 
 * SENV_GDAL_DATA = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/gdal"
 * SENV_PROJ_LIB = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/proj"
@@ -137,7 +136,7 @@ If your environnement is 'staging' and you use Travis for CI, set the approrpiat
 * SENV_GDAL_LIBRARY_PATH = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/lib/libgdal.so"
 
 #### 3.9.3. If your environnement is 'production'.
-Finally if your environnement is 'production', rename file **config/settings.py/env.example.py** into **env.py** and set the approrpiate value into that renamed **config/settings.py/env.py**
+If your environnement is 'production', rename file **config/settings.py/env.example.py** into **env.py** and change constants with the appropriate value into that renamed **config/settings.py/env.py**
 
 * BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 * ENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
@@ -188,3 +187,35 @@ Once you're done using the program, you should leave the virtual environment. Si
 
 ### 3.13. Uninstall.
 If you want to uninstall the program, simply delete the complete repository form your device.
+
+## 4. Settings.
+* Changing settings **must be** done in **config/settings.py/__init__.py** file.
+* Dedepending on you environnement, changes also **must be** in  **config/settings.py/testing_env.py** and in
+**config/settings.py/env.py (from renamed config/settings.py/env.example.py)** files.    
+Make sure to read section *3.9. Application mandatory settings* to proceed.
+
+### 4.1. config/settings.py/__init__.py
+#### 4.1.1. ENV.
+DESCRIPTION: Environnment variable. Defines the environnement in which the programm is deployed. 
+MANDATORY: Yes.  
+DEFAULT SETTINGS: 'test'.  
+CUSTOM SETTINGS: Value can either be set to *'test'*, *'staging'*, *'production'* depending your deploying environnement.
+
+### 4.2. config/settings.py/testing_env.py
+#### 4.2.1. BASE_DIR.
+DESCRIPTION: BASE_DIR points to top hierarchy of the project i.e. sele, All paths defined are all relative to BASE_DIR. 
+MANDATORY: Yes.  
+DEFAULT SETTINGS: os.path.dirname(os.path.dirname(os.path.abspath(__file__))).  
+CUSTOM SETTINGS: No.
+
+#### 4.2.1. TENV_GDAL_DATA.
+DESCRIPTION:  Variable os.environ['GDAL_DATA'] value. It's the path to gdal data module.
+MANDATORY: Yes.  
+DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"  
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\gdal"
+
+#### 4.2.2. TENV_PROJ_LIB.
+DESCRIPTION:  Variable os.environ['PROJ_LIB'] value. It's the path to proj lib module.
+MANDATORY: Yes.  
+DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"  
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\proj"
