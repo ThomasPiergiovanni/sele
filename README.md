@@ -114,9 +114,9 @@ Change constants with the appropriate value into **config/settings.py/testing_en
 * TENV_DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
-            'NAME': 'sele_db',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
+            'NAME': 'xxxxx',
+            'USER': 'xxxxx',
+            'PASSWORD': 'xxxxx',
             'HOST': '127.0.0.1',
             'PORT': '5432',
         }
@@ -209,13 +209,106 @@ DEFAULT SETTINGS: os.path.dirname(os.path.dirname(os.path.abspath(__file__))).
 CUSTOM SETTINGS: No.
 
 #### 4.2.1. TENV_GDAL_DATA.
-DESCRIPTION:  Variable os.environ['GDAL_DATA'] value. It's the path to gdal data module.
+DESCRIPTION:  Environmental variable 'GDAL_DATA' (os.environ['GDAL_DATA'])value. It's the path to gdal data module.
 MANDATORY: Yes.  
 DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"  
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\gdal"
 
 #### 4.2.2. TENV_PROJ_LIB.
-DESCRIPTION:  Variable os.environ['PROJ_LIB'] value. It's the path to proj lib module.
+DESCRIPTION:  Environmental variable 'PROJ_LIB' (os.environ['PROJ_LIB']) value. It's the path to proj lib module.
 MANDATORY: Yes.  
 DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"  
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\proj"
+
+#### 4.2.3. TENV_PATH.
+DESCRIPTION: Environmental variable 'PATH' () os.environ['PATH'] value. It's the path to osgeo module.
+MANDATORY: Yes.  
+DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH'] 
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
+
+#### 4.2.4. TENV_GDAL_LIBRARY_PATH.
+DESCRIPTION: Path variable to the gdal library'.
+MANDATORY: Yes.  
+DEFAULT SETTINGS: r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\gdal304.dll'
+
+#### 4.2.5. SENV_GDAL_DATA.
+DESCRIPTION: Same as TENV_GDAL_DATA but for continuous integration in a Linux OS. Environmental variable 'GDAL_DATA' (os.environ['GDAL_DATA'])value. It's the path to gdal data module.
+MANDATORY: No. Required only if planning continuous integration with Travis.  
+DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/gdal" 
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\gdal"
+
+#### 4.2.6. SENV_PROJ_LIB.
+DESCRIPTION: Same as TENV_PROJ_LIB but for continuous integration in a Linux OS. Environmental variable 'PROJ_LIB' (os.environ['PROJ_LIB']) value. It's the path to proj lib module.
+MANDATORY: No. Required only if planning continuous integration with Travis.  
+DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/proj" 
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\proj"
+
+#### 4.2.7. SENV_PATH.
+DESCRIPTION:  Same as TENV_PATH but for continuous integration in a Linux OS. Environmental variable 'PATH' () os.environ['PATH'] value. It's the path to osgeo module.
+MANDATORY:  No. Required only if planning continuous integration with Travis.  
+DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo" +";" + os.environ['PATH']
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
+
+#### 4.2.8. SENV_GDAL_LIBRARY_PATH.
+DESCRIPTION:  Same as TENV_GDAL_LIBRARY_PATH but for continuous integration in a Linux OS. Path variable to the gdal library'.
+MANDATORY:  No. Required only if planning continuous integration with Travis.  
+DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/lib/libgdal.so"
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\gdal304.dll' 
+
+#### 4.2.9. TENV_SECRET_KEY.
+DESCRIPTION:  Application secret key.
+MANDATORY:  Yes.  
+DEFAULT SETTINGS: "xxxxxx"
+CUSTOM SETTINGS: Yes.
+
+#### 4.2.10. TENV_DEBUG.
+DESCRIPTION:  Defines if the app is in debug mode or not.
+MANDATORY:  Yes.  
+DEFAULT SETTINGS: True
+CUSTOM SETTINGS: Either True or False. Never use True in a production environnement.
+
+#### 4.2.11. TENV_ALLOWED_HOSTS.
+DESCRIPTION:  List of allowed IP.
+MANDATORY:  No. Required when deploying app on a server.
+DEFAULT SETTINGS: []
+CUSTOM SETTINGS: Enter the differents allowed IP e.g. [190.325.65.211, www.myapp.whatever].
+
+#### 4.2.12. TENV_DATABASES.
+DESCRIPTION:  PostgreSQL/PostGIS database settings.
+MANDATORY:  Yes.  
+DEFAULT SETTINGS: {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'db_name',
+        'USER': 'user_name',
+        'PASSWORD': 'pwd',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+CUSTOM SETTINGS: NAME, USER, PASSWORD must be set according to your database configuration. See section 3.4.
+
+#### 4.2.13. TENV_SECURE_SSL_REDIRECT.
+DESCRIPTION:  Boolean defining to redirect every http request to HTTPS.
+MANDATORY:  Yes.
+DEFAULT SETTINGS: False.
+CUSTOM SETTINGS: Value can either be False or True.
+
+#### 4.2.14. TENV_STATIC_ROOT.
+DESCRIPTION:  The absolute path to the directory where collectstatic will collect static files for deployment.
+MANDATORY:  Yes.
+DEFAULT SETTINGS: os.path.join(BASE_DIR, 'static/')
+CUSTOM SETTINGS: Can be changed to any empty directory. Not remomended though.
+
+#### 4.2.15. TENV_STATIC_URL.
+DESCRIPTION:  URL to use when referring to static files located in STATIC_ROOT.
+MANDATORY:  Yes.
+DEFAULT SETTINGS: '/static/'
+CUSTOM SETTINGS: Can be changed to any name, url. Not remomended though.
+
+#### 4.2.15. TENV_MAPBOX_TOKEN.
+DESCRIPTION:  MapBox Token necessary to diplay a map background. A map background must be created and its token created. Check at [MapBox](https://www.mapbox.com/)
+MANDATORY:  No.
+DEFAULT SETTINGS: 'xxxxxx'
+CUSTOM SETTINGS: It need to be set.
