@@ -106,10 +106,10 @@
                                                 {{proposition.end_date}}
                                             </td class="text-center">
                                             <td class="text-center">
-                                                {{proposition.proposition_creator}}
+                                                {{proposition.proposition_creator.user_name}}
                                             </td>
                                             <td class="text-center">
-                                                {{proposition.proposition_taker}}
+                                                {{proposition.proposition_taker.user_name}}
                                             </td>
                                             <td>
                                                 <a href="{% url 'proposition:read_proposition' id_proposition=proposition.id %}" role="button">

@@ -214,13 +214,13 @@
                             </span></br>
                             Durée de travail:
                             <span class="text-secondary">
-                              60 minutes
+                              {{proposition.duration}} minutes
                             </span></br>
                             Description:
                             <span class="text-secondary">
                               {{proposition.description}}
                             </span></br>
-                            Créateur(type):
+                            Portée:
                             <span class="text-secondary">
                               {{proposition.proposition_creator_type}}
                             </span></br>
@@ -230,7 +230,7 @@
                             </span></br>
                           </p>
                           <div class="text-center">
-                            <a href="#" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{% url 'proposition:read_proposition' id_proposition=proposition.id %}" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
                           </div>
                         </div>
                       </div>
