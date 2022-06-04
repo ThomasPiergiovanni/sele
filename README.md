@@ -1,4 +1,4 @@
-# sel-e: système d'échange local électronique (electronic local exchange trading system).
+# sel-e (système d'échange local électronique).
 
 ## 1. Introduction.
 
@@ -380,7 +380,7 @@ The program provides the following functionalities:
 9. Vote in a votation.
 
 ### 5.2. How to.
-* Browse to the app url i.e. http://127.0.0.1:8000/ (on the dev environment) or https://sel-e.fr/ (official release). You can find instruction on how to use it on the **About page**. The main functionnalities are however described here.
+* Browse to the app url i.e. http://127.0.0.1:8000/ (on the dev environment) or https://sel-e.fr/ (official release). You can find instruction on how to use it on the **About** page. The main functionnalities are however described here below.
 
 #### 5.2.1. Sign up
 Provide email, password, username postal code and city name to create an account. "Proposition" can only be made in your belonging city.

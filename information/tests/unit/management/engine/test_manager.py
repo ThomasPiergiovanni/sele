@@ -140,12 +140,12 @@ class TestManager(TestCase):
     def test_set_stats_cu_counts(self):
         ref_dates = self.emulate_ref_dates()
         cu_counts = self.manager._Manager__set_stats_cu_counts(ref_dates)
-        self.assertEqual(cu_counts['cu_0'], 3)
+        self.assertEqual(cu_counts['cu_0'], 0)
 
     def test_set_cu_counts(self):
         ref_date = self.emulate_ref_date()
         cu_counts = self.manager._Manager__set_cu_counts(ref_date)
-        self.assertEqual(cu_counts, 3)
+        self.assertEqual(cu_counts, 0)
 
     def test_set_stats_p_counts(self):
         ref_dates = self.emulate_ref_dates()
