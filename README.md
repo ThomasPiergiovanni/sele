@@ -382,10 +382,10 @@ The program provides the following functionalities:
 ### 5.2. How to.
 * Browse to the app url i.e. http://127.0.0.1:8000/ (on the dev environment) or https://sel-e.fr/ (official release). You can find instruction on how to use it on the **About page**. The main functionnalities are however described here.
 
-#### Sign up
+#### 5.2.1. Sign up
 Provide email, password, username postal code and city name to create an account. "Proposition" can only be made in your belonging city.
 
-#### Proposition
+#### 5.2.2. Proposition
 Propsoition module allow exchanges. Propositions are of two types: Offer and Demands.
 
 A member (signed-in user) can make or repsond to Offer and Demand. At each stage of the Proposition, members  involved in the proposition ("creator" and "taker"), update the Proposition's status in order to report on the Proposition's progression.
@@ -394,8 +394,8 @@ Each Proposition ariving at its end i.e. when a "job" is achieved and validated 
 
 Note that Proposition of type Demand can be made on behalfs of the collectivity. In that case all "beneficiaries" i.e. all members of the collectivity are debited once the Proposition is completed. Proposition of Type Demand can be defined Collective at the Proposition creation by filling the field "Portée" with value "Collective". The modules Discussion and Votation allow members to discuss and decide when and for what making Collective Demand.
 
-#### Discussion
+#### 5.2.3. Discussion
 Discussion module allow members of a same Collectivity to create Discussions and to exchange with the chat. It's main purpose is to allow discussion for making Collective Demands.
 
-#### Votation
+#### 5.2.4. Votation
 Votation module allow members of a same Collectivity to create Votation and to vote on the Votation subject. It's main purpose is to allow the Collectivity to create Votation for deciding on Collective Demands.
