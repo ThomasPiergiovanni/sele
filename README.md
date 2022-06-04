@@ -111,24 +111,25 @@ Note: On Linux OS you might also need to install the following packages:
 > sudo apt install numpy, GDAL
 
 ### 3.9. Application mandatory settings.
-#### 3.9.1. **config/settings.py/__init__.py**. .
-Change constants with the appropriate value into **config/settings.py/__init__.py**.   
 Check section **4. Settings** for description of the followings variables.
 
-*ENV = 'test'
+#### 3.9.1. **config/settings.py/__init__.py**. .
+Change variable with the appropriate values.   
+
+* ENV = 'test'
 
 #### 3.9.2. **config/settings.py/testing_env.py**.
 
-##### If environnment is 'test'.
-If your environnement is 'staging', change constants with the appropriate value into **config/settings.py/testing_env.py**.  
-Check section **4. Settings** for description of the followings variables.
+##### 3.9.2.1. 'test'.
+If your environnement is 'staging', change variables with the appropriate values.  
+
 
 * BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 * TENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
 * TENV_PROJ_LIB = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\proj"
 * TENV_PATH= r"\yourpath\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
 * TENV_GDAL_LIBRARY_PATH = r'\yourpath\sele\env\Lib\site-packages\osgeo\gdal304.dll'
-* TENV_SECRET_KEY = 'django-insecure-+f^i^1jx+g5*k$2a13t)^x-0b6$2@nbgd8v$ggufbyh62h*)gc'
+* TENV_SECRET_KEY = 'django-insecure-+f^i^1jx+g5*k$2a13t)^x-0b6$2@nbgd8v$ggufbyh62h)gc'
 * TENV_DEBUG = True
 * TENV_ALLOWED_HOSTS = []
 * TENV_DATABASES = {
@@ -147,9 +148,8 @@ Check section **4. Settings** for description of the followings variables.
 * TENV_STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 * TENV_MAPBOX_TOKEN = ''
 
-##### If environnement is 'staging'.
-If your environnement is 'staging' and you use Travis for CI, change constants with the appropriate value into **config/settings.py/testing_env.py**.  
-Check section **4. Settings** for description of the followings variables.
+##### 3.9.2.2. 'staging'.
+If your environnement is 'staging' and you use Travis for CI, change variables with the appropriate values.
 
 * SENV_GDAL_DATA = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/gdal"
 * SENV_PROJ_LIB = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/proj"
@@ -157,8 +157,7 @@ Check section **4. Settings** for description of the followings variables.
 * SENV_GDAL_LIBRARY_PATH = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/lib/libgdal.so"
 
 #### 3.9.3. **config/settings.py/env.example.py**
-If your environnement is 'production', rename file **config/settings.py/env.example.py** into **env.py** and change constants with the appropriate value into that renamed **config/settings.py/env.py**.  
-Check section **4. Settings** for description of the followings variables.
+If your environnement is 'production', rename file **config/settings.py/env.example.py** into **env.py** and change variables with the appropriate value into that renamed file.  
 
 * BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 * ENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
@@ -209,10 +208,13 @@ Once you're done using the program, you should leave the virtual environment. Si
 If you want to uninstall the program, simply delete the complete repository form your device.
 
 ## 4. Settings.
-* Changing settings **must be** done in **config/settings.py/__init__.py** file.
-* Dedepending on you environnement, changes also **must be** in  **config/settings.py/testing_env.py** and in
-**config/settings.py/env.py (from renamed config/settings.py/env.example.py)** files.    
-Make sure to read section *3.9. Application mandatory settings* to proceed.
+As mentionned in section *3.9. Application mandatory settings* changing settings **must be** done in **config/settings.py/__init__.py**
+and, depending on you environnement, also in  **config/settings.py/testing_env.py** and in
+**config/settings.py/env.py (from renamed config/settings.py/env.example.py)**.  
+
+**Make sure to read section *3.9. Application mandatory settings* to proceed correctly.**
+
+
 
 ### 4.1. config/settings.py/__init__.py
 #### 4.1.1. ENV.
@@ -231,50 +233,50 @@ CUSTOM SETTINGS: No.
 #### 4.2.2. TENV_GDAL_DATA.
 DESCRIPTION:  Environmental variable 'GDAL_DATA' (os.environ['GDAL_DATA'])value. It's the path to gdal data module.  
 MANDATORY: Yes.   
-DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"   
-CUSTOM SETTINGS: Yes. Must be set according to the app path i.e.  r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\gdal"
+DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal".   
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e.  r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\gdal".
 
 #### 4.2.3. TENV_PROJ_LIB.
-DESCRIPTION:  Environmental variable 'PROJ_LIB' (os.environ['PROJ_LIB']) value. It's the path to proj lib module.  
+DESCRIPTION:  Environmental variable 'PROJ_LIB' (os.environ['PROJ_LIB'])value. It's the path to proj lib module.  
 MANDATORY: Yes.   
-DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"    
-CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\proj"  
+DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj".    
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\proj".  
 
 #### 4.2.4. TENV_PATH.
 DESCRIPTION: Environmental variable 'PATH' (os.environ['PATH']) value. It's the path to osgeo module.  
 MANDATORY: Yes.   
-DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']  
-CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']  
+DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH'].  
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH'].  
 
 #### 4.2.5. TENV_GDAL_LIBRARY_PATH.
 DESCRIPTION: Path variable to the gdal library'.  
 MANDATORY: Yes.  
-DEFAULT SETTINGS: r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'  
-CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\gdal304.dll'  
+DEFAULT SETTINGS: r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'.  
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\gdal304.dll'.  
 
 #### 4.2.6. SENV_GDAL_DATA.
 DESCRIPTION: Same as TENV_GDAL_DATA but for continuous integration in a Linux OS. Environmental variable 'GDAL_DATA' (os.environ['GDAL_DATA'])value. It's the path to gdal data module.  
 MANDATORY: No. Required only if planning continuous integration with Travis.  
-DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/gdal"   
-CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\gdal"  
+DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/gdal".   
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\gdal".  
 
 #### 4.2.7. SENV_PROJ_LIB.
 DESCRIPTION: Same as TENV_PROJ_LIB but for continuous integration in a Linux OS. Environmental variable 'PROJ_LIB' (os.environ['PROJ_LIB']) value. It's the path to proj lib module.  
 MANDATORY: No. Required only if planning continuous integration with Travis.  
-DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/proj"   
-CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\proj"  
+DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/proj".   
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\proj".  
 
 #### 4.2.8. SENV_PATH.
 DESCRIPTION:  Same as TENV_PATH but for continuous integration in a Linux OS. Environmental variable 'PATH' () os.environ['PATH'] value. It's the path to osgeo module.  
 MANDATORY:  No. Required only if planning continuous integration with Travis.    
-DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo" +";" + os.environ['PATH']  
-CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']  
+DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo" +";" + os.environ['PATH'].  
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH'].  
 
 #### 4.2.9. SENV_GDAL_LIBRARY_PATH.
 DESCRIPTION:  Same as TENV_GDAL_LIBRARY_PATH but for continuous integration in a Linux OS. Path variable to the gdal library'.  
 MANDATORY:  No. Required only if planning continuous integration with Travis.    
-DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/lib/libgdal.so"  
-CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\gdal304.dll'   
+DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/lib/libgdal.so".  
+CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\gdal304.dll'.   
 
 #### 4.2.10. TENV_SECRET_KEY.
 DESCRIPTION:  Application secret key.  
@@ -285,13 +287,13 @@ CUSTOM SETTINGS: Yes.
 #### 4.2.11. TENV_DEBUG.
 DESCRIPTION:  Defines if the app is in debug mode or not.  
 MANDATORY:  Yes.    
-DEFAULT SETTINGS: True  
+DEFAULT SETTINGS: True.  
 CUSTOM SETTINGS: Either True or False. Never use True in a production environnement.  
 
 #### 4.2.12. TENV_ALLOWED_HOSTS.
 DESCRIPTION:  List of allowed IP.  
 MANDATORY:  No. Required when deploying app on a server.  
-DEFAULT SETTINGS: []  
+DEFAULT SETTINGS: [].  
 CUSTOM SETTINGS: Enter the differents allowed IP e.g. [190.325.65.211, www.myapp.whatever].  
 
 #### 4.2.13. TENV_DATABASES.
@@ -306,7 +308,7 @@ DEFAULT SETTINGS: {
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
-}  
+}.  
 CUSTOM SETTINGS: NAME, USER, PASSWORD must be set according to your database configuration. See section 3.4.  
 
 #### 4.2.14. TENV_SECURE_SSL_REDIRECT.
@@ -318,17 +320,17 @@ CUSTOM SETTINGS: Value can either be False or True.
 #### 4.2.15. TENV_STATIC_ROOT.
 DESCRIPTION:  The absolute path to the directory where collectstatic will collect static files for deployment.  
 MANDATORY:  Yes.  
-DEFAULT SETTINGS: os.path.join(BASE_DIR, 'static/')  
+DEFAULT SETTINGS: os.path.join(BASE_DIR, 'static/').  
 CUSTOM SETTINGS: Can be changed to any empty directory. Not remomended though.  
 
 #### 4.2.16. TENV_STATIC_URL.
 DESCRIPTION:  URL to use when referring to static files located in STATIC_ROOT.  
 MANDATORY:  Yes.  
-DEFAULT SETTINGS: '/static/'  
+DEFAULT SETTINGS: '/static/'.  
 CUSTOM SETTINGS: Can be changed to any name, url. Not remomended though.  
 
 #### 4.2.17. TENV_MAPBOX_TOKEN.
-DESCRIPTION:  MapBox Token necessary to diplay a map background. A map background must be created and its token created. Check at [MapBox](https://www.mapbox.com/)  
+DESCRIPTION:  MapBox Token necessary to diplay a map background. A map background must be created and its token created. Check at [MapBox](https://www.mapbox.com/).  
 MANDATORY:  No.  
 DEFAULT SETTINGS: 'xxxxxx'    
 CUSTOM SETTINGS: It need to be set.  
@@ -371,5 +373,4 @@ Same as *"4.2.15. TENV_STATIC_ROOT"*.
 Same as *"4.2.16. TENV_STATIC_ROOT"*.
 
 #### 4.3.13. ENV_MAPBOX_TOKEN.
-Same as *"4.2.17. TENV_MAPBOX_TOKEN"*. but with  
-MANDATORY = True
+Same as *"4.2.17. TENV_MAPBOX_TOKEN"*. but with MANDATORY = True.
