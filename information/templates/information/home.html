@@ -229,9 +229,11 @@
                               {{proposition.proposition_creator.collectivity}}
                             </span></br>
                           </p>
-                          <div class="text-center">
-                            <a href="{% url 'proposition:read_proposition' id_proposition=proposition.id %}" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
-                          </div>
+                          {% if user.collectivity == proposition.proposition_creator.collectivity%}
+                            <div class="text-center">
+                              <a href="{% url 'proposition:read_proposition' id_proposition=proposition.id %}" class="card-link text-center">Plus d'infos <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                          {% endif %}
                         </div>
                       </div>
                     </div><!-- /.card -->
