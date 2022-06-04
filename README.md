@@ -2,19 +2,9 @@
 
 ## 1. Introduction.
 
-This program is named **sel-e**. It stands for *système d'échange local électronique* i.e. *electronic local exchange trading system*. *sel-e* fits into the perspective of an alternative to the current economic system. It's a trading web application of non-monetized goods and services carried out within the perimeter of a municipality.
+This program is named **sel-e**. It stands for *"système d'échange local électronique"* i.e. *"electronic local exchange trading system"*. *sel-e* fits into the perspective of an alternative to the current economic system. It's a trading web application of non-monetized goods and services carried out within the perimeter of a municipality.
 
 Wikipedia definition of *local exchange trading system* is the following : *"A local exchange trading system (also local employment and trading system or local energy transfer system; abbreviated LETS) is a locally initiated, democratically organised, not-for-profit community enterprise that provides a community information service and records transactions of members exchanging goods and services by using locally created currency.[1] LETS allow people to negotiate the value of their own hours or services,[2] and to keep wealth in the locality where it is created"*.
-
-In use, this app main functionality are:
-* Create account and login.
-* Make Proposition (Offer and Demand).
-* Select Propositions and execute them.
-* Comment a Proposition.
-* Create Discussion.
-* Make Comments into a Discussion.
-* Create Votation.
-* Vote in a VOtation.
 
 The web app backend is built in Python with Django framework. The frontend uses mainly a template Dashboard provided by AdminLTE built with Bootstrap/JavaScript. The programm is hosted by Digital Ocean.
 
@@ -36,7 +26,7 @@ The others required program will be installed via pip using requirements.txt fil
 
 ## 3. Installation.
 
-These instructions are for deployment on a local machine i.e. for development use. It's described for install on a Windows OS. Some notes are also provided for installing on another Linux but the full install steps is not provided for that OS.
+These instructions are for deployment on a local machine i.e. for development use. It's described for install on a Windows OS. Some notes are also provided for installing on Linux but the full install steps are not provided.
 
 ### 3.1. Download.
 Download/clone this repository on your system, at the location that suits you best.
@@ -181,7 +171,7 @@ If your environnement is 'production', rename file **config/settings.py/env.exam
 * ENV_SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 * ENV_STATIC_URL = '/static/'
 * ENV_STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-* ENV_MAPBOX_TOKEN= 'xxxxxx'. 
+* ENV_MAPBOX_TOKEN= 'xxxxxx'
 
 ### 3.10. Apply DB migrations.
 Run migration to setup the DB correctly.
@@ -208,11 +198,11 @@ Once you're done using the program, you should leave the virtual environment. Si
 If you want to uninstall the program, simply delete the complete repository form your device.
 
 ## 4. Settings.
-As mentionned in section *3.9. Application mandatory settings* changing settings **must be** done in **config/settings.py/__init__.py**
-and, depending on you environnement, also in  **config/settings.py/testing_env.py** and in
-**config/settings.py/env.py (from renamed config/settings.py/env.example.py)**.  
+As mentionned in section *3.9. Application mandatory settings*, changing settings **must be** done in *config/settings.py/__init__.py*
+and, depending on you environnement, also in  *config/settings.py/testing_env.py* and in
+*config/settings.py/env.py (from renamed config/settings.py/env.example.py)*.  
 
-**Make sure to read section *3.9. Application mandatory settings* to proceed correctly.**
+**Make sure to read section *"3.9. Application mandatory settings"* to proceed correctly.**
 
 
 
@@ -374,3 +364,38 @@ Same as *"4.2.16. TENV_STATIC_ROOT"*.
 
 #### 4.3.13. ENV_MAPBOX_TOKEN.
 Same as *"4.2.17. TENV_MAPBOX_TOKEN"*. but with MANDATORY = True.
+
+## 5. Users' guide.
+
+### 5.1. Program functionalities
+The program provides the following functionalities:
+1. Create account
+2. login.
+3. Make proposition (offer and demand).
+4. Select propositions and execute them.
+5. Comment a proposition.
+6. Create discussion.
+7. Make comments into a discussion.
+8. Create votation.
+9. Vote in a votation.
+
+### 5.2. How to.
+* Browse to the app url i.e. http://127.0.0.1:8000/ (on the dev environment) or https://sel-e.fr/ (official release). You can find instruction on how to use it on the **About page**. The main functionnalities are however described here.
+
+#### Sign up
+Provide email, password, username postal code and city name to create an account. "Proposition" can only be made in your belonging city.
+
+#### Proposition
+Propsoition module allow exchanges. Propositions are of two types: Offer and Demands.
+
+A member (signed-in user) can make or repsond to Offer and Demand. At each stage of the Proposition, members  involved in the proposition ("creator" and "taker"), update the Proposition's status in order to report on the Proposition's progression.
+
+Each Proposition ariving at its end i.e. when a "job" is achieved and validated by the "beneficiary", the defined "time of execution" mentionned originally in the proposition by the "creator" is  credited to the "performer" "time wallet" and debited to the "beneficiary" one.
+
+Note that Proposition of type Demand can be made on behalfs of the collectivity. In that case all "beneficiaries" i.e. all members of the collectivity are debited once the Proposition is completed. Proposition of Type Demand can be defined Collective at the Proposition creation by filling the field "Portée" with value "Collective". The modules Discussion and Votation allow members to discuss and decide when and for what making Collective Demand.
+
+#### Discussion
+Discussion module allow members of a same Collectivity to create Discussions and to exchange with the chat. It's main purpose is to allow discussion for making Collective Demands.
+
+#### Votation
+Votation module allow members of a same Collectivity to create Votation and to vote on the Votation subject. It's main purpose is to allow the Collectivity to create Votation for deciding on Collective Demands.
