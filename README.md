@@ -1,10 +1,22 @@
-# sel-e: système d'échange local électronique (electronic local exchange system).
+# sel-e: système d'échange local électronique (electronic local exchange trading system).
 
 ## 1. Introduction.
 
-This program is named **sel-e**. It's an electronic local exchange system that fit into the perspective of an alternative to the current economic system.
+This program is named **sel-e**. It stands for *système d'échange local électronique* i.e. *electronic local exchange trading system*. *sel-e* fits into the perspective of an alternative to the current economic system. It's a trading web application of non-monetized goods and services carried out within the perimeter of a municipality.
 
-The web app backend is built with Django framework. The frontend uses mainly a template Dashboard provided by AdminLTE built with Bootstrap/JavaScript. The programm is hosted by Digital Ocean.
+Wikipedia definition of *local exchange trading system* is the following : *"A local exchange trading system (also local employment and trading system or local energy transfer system; abbreviated LETS) is a locally initiated, democratically organised, not-for-profit community enterprise that provides a community information service and records transactions of members exchanging goods and services by using locally created currency.[1] LETS allow people to negotiate the value of their own hours or services,[2] and to keep wealth in the locality where it is created"*.
+
+In use, this app main functionality are:
+* Create account and login.
+* Make Proposition (Offer and Demand).
+* Select Propositions and execute them.
+* Comment a Proposition.
+* Create Discussion.
+* Make Comments into a Discussion.
+* Create Votation.
+* Vote in a VOtation.
+
+The web app backend is built in Python with Django framework. The frontend uses mainly a template Dashboard provided by AdminLTE built with Bootstrap/JavaScript. The programm is hosted by Digital Ocean.
 
 You can check it app on  [https://sel-e.fr](https://sel-e.fr).
 
@@ -24,7 +36,7 @@ The others required program will be installed via pip using requirements.txt fil
 
 ## 3. Installation.
 
-These instructions are for deployment on a local machine i.e. for development use. It's described for install on a Windows OS. Installing on another OS might be slightly different.
+These instructions are for deployment on a local machine i.e. for development use. It's described for install on a Windows OS. Some notes are also provided for installing on another Linux but the full install steps is not provided for that OS.
 
 ### 3.1. Download.
 Download/clone this repository on your system, at the location that suits you best.
@@ -59,19 +71,22 @@ Notes:
   * You need superuser privileges to execute *CREATE POSTGIS* command.
     > ALTER ROLE <user_name> SUPERUSER;
 
-  * On Linux OS, you'll probably need to install *postgis_extension_script* prior to execute the *CREATE POSTGIS* instruction.
+  * On Linux, you'll probably need to install *postgis_extension_script* prior to execute the *CREATE POSTGIS* instruction.
     > sudo apt install postgresql-12-postgis-scripts
 
-### 3.6. Intsall GDAL library.
+### 3.6. Install GDAL library.
 
 You need to install GDAL library. The proposed intsall here uses .whl file.
 
-1. On Windows OS, download GDAL .whl on [unofficial Windows Binairies for Pythob Extension Packages by Christop Gohlke, University of California website](https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal) and choose the version that suits your OS and Python versions.
+1. Download GDAL .whl from [https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal](https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal) provided by **Christop Gohlke, University of California** and choose the version that suits your OS and Python versions.
 
-    Note: on Linux OS, download GDAL .whl on [https://sourceforge.net](https://sourceforge.net/projects/gdal-wheels-for-linux/files/) and choose the version that suits your OS and Python versions.
 
 2. Install the GDAL.whl
     > pip install GDAL-3.4.1-cp38-cp38-win_amd64.whl
+
+
+Note: on Linux, download GDAL .whl on [https://sourceforge.net](https://sourceforge.net/projects/gdal-wheels-for-linux/files/) and choose the version that suits your OS and Python versions. If the OS don't handle .whl, consider usiong *apt* to get GDAL (and numpy...seems required).
+> sudo apt install numpy, GDAL
 
 ### 3.7. Create & activate a virtual environment (recommended).
 
@@ -96,12 +111,17 @@ Note: On Linux OS you might also need to install the following packages:
 > sudo apt install numpy, GDAL
 
 ### 3.9. Application mandatory settings.
-1. Change constants with the appropriate value into **config/settings.py/__init__.py** :
+#### 3.9.1. **config/settings.py/__init__.py**. .
+Change constants with the appropriate value into **config/settings.py/__init__.py**.   
+Check section **4. Settings** for description of the followings variables.
 
-* ENV = Depending on the environnement, set the appropriate value ('test', 'staging', 'production').
+*ENV = 'test'
 
-#### 3.9.1. If your environnement is 'test'.
-Change constants with the appropriate value into **config/settings.py/testing_env.py**
+#### 3.9.2. **config/settings.py/testing_env.py**.
+
+##### If environnment is 'test'.
+If your environnement is 'staging', change constants with the appropriate value into **config/settings.py/testing_env.py**.  
+Check section **4. Settings** for description of the followings variables.
 
 * BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 * TENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
@@ -127,16 +147,18 @@ Change constants with the appropriate value into **config/settings.py/testing_en
 * TENV_STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 * TENV_MAPBOX_TOKEN = ''
 
-#### 3.9.2. If your environnement is 'test'.
-If your environnement is 'staging' and you use Travis for CI, change constants with the appropriate value into  **config/settings.py/testing_env.py**.
+##### If environnement is 'staging'.
+If your environnement is 'staging' and you use Travis for CI, change constants with the appropriate value into **config/settings.py/testing_env.py**.  
+Check section **4. Settings** for description of the followings variables.
 
 * SENV_GDAL_DATA = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/gdal"
 * SENV_PROJ_LIB = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/proj"
 * SENV_PATH = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo" +";" + os.environ['PATH']
 * SENV_GDAL_LIBRARY_PATH = r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/lib/libgdal.so"
 
-#### 3.9.3. If your environnement is 'production'.
-If your environnement is 'production', rename file **config/settings.py/env.example.py** into **env.py** and change constants with the appropriate value into that renamed **config/settings.py/env.py**
+#### 3.9.3. **config/settings.py/env.example.py**
+If your environnement is 'production', rename file **config/settings.py/env.example.py** into **env.py** and change constants with the appropriate value into that renamed **config/settings.py/env.py**.  
+Check section **4. Settings** for description of the followings variables.
 
 * BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 * ENV_GDAL_DATA = r"\yourpath\sele\env\Lib\site-packages\osgeo\data\gdal"
@@ -162,30 +184,28 @@ If your environnement is 'production', rename file **config/settings.py/env.exam
 * ENV_STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 * ENV_MAPBOX_TOKEN= 'xxxxxx'. 
 
-You can check section **4. Settings** for description of these constants.
-
 ### 3.10. Apply DB migrations.
 Run migration to setup the DB correctly.
 > python manage.py migrate
 
 
-### (Optionnal) 3.11. Collectatic.
-On a production environnement on Linux OS, you'll also need to collect static files.
+### 3.11. Collectatic (production env only).
+On a production environnement, you'll also need to collect static files.
 > python manage.py collectstatic
 
 ### 3.12. Start the program.
 All install steps are completed for dev environnment install. You can start teh app with the following command.
 > python manage.py runserver
 
-### 3.13. Test the program.
+### 3.14. Test the program.
 If you want to perform test after having modified the code, you can run tests.
 > python manage.py test
 
-### 3.12. Deactivate the virtual environment.
+### 3.15. Deactivate the virtual environment.
 Once you're done using the program, you should leave the virtual environment. Simply type the following statement in your bash.
 > deactivate
 
-### 3.13. Uninstall.
+### 3.16. Uninstall.
 If you want to uninstall the program, simply delete the complete repository form your device.
 
 ## 4. Settings.
@@ -208,107 +228,148 @@ MANDATORY: Yes.
 DEFAULT SETTINGS: os.path.dirname(os.path.dirname(os.path.abspath(__file__))).    
 CUSTOM SETTINGS: No.  
 
-#### 4.2.1. TENV_GDAL_DATA.
+#### 4.2.2. TENV_GDAL_DATA.
 DESCRIPTION:  Environmental variable 'GDAL_DATA' (os.environ['GDAL_DATA'])value. It's the path to gdal data module.  
 MANDATORY: Yes.   
 DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"   
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e.  r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\gdal"
 
-#### 4.2.2. TENV_PROJ_LIB.
+#### 4.2.3. TENV_PROJ_LIB.
 DESCRIPTION:  Environmental variable 'PROJ_LIB' (os.environ['PROJ_LIB']) value. It's the path to proj lib module.  
 MANDATORY: Yes.   
 DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"    
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\proj"  
 
-#### 4.2.3. TENV_PATH.
-DESCRIPTION: Environmental variable 'PATH' () os.environ['PATH'] value. It's the path to osgeo module.  
+#### 4.2.4. TENV_PATH.
+DESCRIPTION: Environmental variable 'PATH' (os.environ['PATH']) value. It's the path to osgeo module.  
 MANDATORY: Yes.   
 DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']  
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']  
 
-#### 4.2.4. TENV_GDAL_LIBRARY_PATH.
+#### 4.2.5. TENV_GDAL_LIBRARY_PATH.
 DESCRIPTION: Path variable to the gdal library'.  
 MANDATORY: Yes.  
 DEFAULT SETTINGS: r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'  
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\gdal304.dll'  
 
-#### 4.2.5. SENV_GDAL_DATA.
+#### 4.2.6. SENV_GDAL_DATA.
 DESCRIPTION: Same as TENV_GDAL_DATA but for continuous integration in a Linux OS. Environmental variable 'GDAL_DATA' (os.environ['GDAL_DATA'])value. It's the path to gdal data module.  
 MANDATORY: No. Required only if planning continuous integration with Travis.  
 DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/gdal"   
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\gdal"  
 
-#### 4.2.6. SENV_PROJ_LIB.
+#### 4.2.7. SENV_PROJ_LIB.
 DESCRIPTION: Same as TENV_PROJ_LIB but for continuous integration in a Linux OS. Environmental variable 'PROJ_LIB' (os.environ['PROJ_LIB']) value. It's the path to proj lib module.  
 MANDATORY: No. Required only if planning continuous integration with Travis.  
 DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/data/proj"   
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\proj"  
 
-#### 4.2.7. SENV_PATH.
+#### 4.2.8. SENV_PATH.
 DESCRIPTION:  Same as TENV_PATH but for continuous integration in a Linux OS. Environmental variable 'PATH' () os.environ['PATH'] value. It's the path to osgeo module.  
 MANDATORY:  No. Required only if planning continuous integration with Travis.    
 DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo" +";" + os.environ['PATH']  
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']  
 
-#### 4.2.8. SENV_GDAL_LIBRARY_PATH.
+#### 4.2.9. SENV_GDAL_LIBRARY_PATH.
 DESCRIPTION:  Same as TENV_GDAL_LIBRARY_PATH but for continuous integration in a Linux OS. Path variable to the gdal library'.  
 MANDATORY:  No. Required only if planning continuous integration with Travis.    
 DEFAULT SETTINGS: r"/home/travis/virtualenv/python3.9.12/lib/python3.9/site-packages/osgeo/lib/libgdal.so"  
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\gdal304.dll'   
 
-#### 4.2.9. TENV_SECRET_KEY.
+#### 4.2.10. TENV_SECRET_KEY.
 DESCRIPTION:  Application secret key.  
 MANDATORY:  Yes.    
 DEFAULT SETTINGS: "xxxxxx"  
 CUSTOM SETTINGS: Yes.  
 
-#### 4.2.10. TENV_DEBUG.
+#### 4.2.11. TENV_DEBUG.
 DESCRIPTION:  Defines if the app is in debug mode or not.  
 MANDATORY:  Yes.    
 DEFAULT SETTINGS: True  
 CUSTOM SETTINGS: Either True or False. Never use True in a production environnement.  
 
-#### 4.2.11. TENV_ALLOWED_HOSTS.
+#### 4.2.12. TENV_ALLOWED_HOSTS.
 DESCRIPTION:  List of allowed IP.  
 MANDATORY:  No. Required when deploying app on a server.  
 DEFAULT SETTINGS: []  
 CUSTOM SETTINGS: Enter the differents allowed IP e.g. [190.325.65.211, www.myapp.whatever].  
 
-#### 4.2.12. TENV_DATABASES.
+#### 4.2.13. TENV_DATABASES.
 DESCRIPTION:  PostgreSQL/PostGIS database settings.  
 MANDATORY:  Yes.  
 DEFAULT SETTINGS: {  
-    'default': {  
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',  
-        'NAME': 'db_name',  
-        'USER': 'user_name',  
-        'PASSWORD': 'pwd',  
-        'HOST': '127.0.0.1',  
-        'PORT': '5432',  
-    }  
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'db_name',
+        'USER': 'user_name',
+        'PASSWORD': 'pwd',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 }  
 CUSTOM SETTINGS: NAME, USER, PASSWORD must be set according to your database configuration. See section 3.4.  
 
-#### 4.2.13. TENV_SECURE_SSL_REDIRECT.
+#### 4.2.14. TENV_SECURE_SSL_REDIRECT.
 DESCRIPTION:  Boolean defining to redirect every http request to HTTPS.  
 MANDATORY:  Yes.  
 DEFAULT SETTINGS: False.  
 CUSTOM SETTINGS: Value can either be False or True.  
 
-#### 4.2.14. TENV_STATIC_ROOT.
+#### 4.2.15. TENV_STATIC_ROOT.
 DESCRIPTION:  The absolute path to the directory where collectstatic will collect static files for deployment.  
 MANDATORY:  Yes.  
 DEFAULT SETTINGS: os.path.join(BASE_DIR, 'static/')  
 CUSTOM SETTINGS: Can be changed to any empty directory. Not remomended though.  
 
-#### 4.2.15. TENV_STATIC_URL.
+#### 4.2.16. TENV_STATIC_URL.
 DESCRIPTION:  URL to use when referring to static files located in STATIC_ROOT.  
 MANDATORY:  Yes.  
 DEFAULT SETTINGS: '/static/'  
 CUSTOM SETTINGS: Can be changed to any name, url. Not remomended though.  
 
-#### 4.2.15. TENV_MAPBOX_TOKEN.
+#### 4.2.17. TENV_MAPBOX_TOKEN.
 DESCRIPTION:  MapBox Token necessary to diplay a map background. A map background must be created and its token created. Check at [MapBox](https://www.mapbox.com/)  
 MANDATORY:  No.  
 DEFAULT SETTINGS: 'xxxxxx'    
 CUSTOM SETTINGS: It need to be set.  
+
+### 4.3. config/settings.py/env.py (from renamed config/settings.py/env.example.py)
+#### 4.3.1. BASE_DIR.
+Same as *"4.2.1 BASE DIR"*.
+
+#### 4.3.2. ENV_GDAL_DATA.
+Same as *"4.2.2. TENV_GDAL_DATA"*.
+
+#### 4.3.3. ENV_PROJ_LIB.
+Same as *"4.2.3. TENV_PROJ_LIB"*.
+
+#### 4.3.4. ENV_PATH.
+Same as *"4.2.4. TENV_PATH"*.
+
+#### 4.3.5. ENV_GDAL_LIBRARY_PATH.
+Same as *"4.2.5. TENV_GDAL_LIBRARY_PATH"*. 
+
+#### 4.3.6. ENV_SECRET_KEY.
+Same as *"4.2.10. TENV_SECRET_KEY"*.  
+
+#### 4.3.7. ENV_DEBUG.
+Same as *"4.2.11. TENV_DEBUG"*.   
+
+#### 4.3.8. ENV_ALLOWED_HOSTS.
+Same as *"4.2.12. TENV_ALLOWED_HOSTS"*.   
+
+#### 4.3.9. ENV_ALLOWED_HOSTS.
+Same as *"4.2.13. TENV_ALLOWED_HOSTS"*. 
+
+#### 4.3.10. ENV_SECURE_SSL_REDIRECT.
+Same as *"4.2.14. TENV_SECURE_SSL_REDIRECT"*. 
+
+#### 4.3.11. ENV_STATIC_ROOT.
+Same as *"4.2.15. TENV_STATIC_ROOT"*.
+
+#### 4.3.12. ENV_STATIC_ROOT.
+Same as *"4.2.16. TENV_STATIC_ROOT"*.
+
+#### 4.3.13. ENV_MAPBOX_TOKEN.
+Same as *"4.2.17. TENV_MAPBOX_TOKEN"*. but with  
+MANDATORY = True
