@@ -1,10 +1,10 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TENV_GDAL_DATA = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"
-TENV_PROJ_LIB = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"
-TENV_PATH= r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
-TENV_GDAL_LIBRARY_PATH = r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'
+TENV_GDAL_DATA = r"D:\projects\sele\env\Lib\site-packages\osgeo\data\gdal"
+TENV_PROJ_LIB = r"D:\projects\sele\env\Lib\site-packages\osgeo\data\proj"
+TENV_PATH= r"D:\projects\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
+TENV_GDAL_LIBRARY_PATH = r'D:\projects\sele\env\Lib\site-packages\osgeo\gdal304.dll'
 SENV_GDAL_DATA = r"/home/travis/virtualenv/python3.8.13/lib/python3.8/site-packages/osgeo/data/gdal"
 SENV_PROJ_LIB = r"/home/travis/virtualenv/python3.8.13/lib/python3.8/site-packages/osgeo/data/proj"
 SENV_PATH = r"/home/travis/virtualenv/python3.8.13/lib/python3.8/site-packages/osgeo" +";" + os.environ['PATH']

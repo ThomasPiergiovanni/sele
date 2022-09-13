@@ -1,10 +1,10 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ENV_GDAL_DATA = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal"
-ENV_PROJ_LIB = r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj"
-ENV_PATH= r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
-ENV_GDAL_LIBRARY_PATH = r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'
+ENV_GDAL_DATA = r"D:\projects\sele\env\Lib\site-packages\osgeo\data\gdal"
+ENV_PROJ_LIB = r"D:\projects\sele\env\Lib\site-packages\osgeo\data\proj"
+ENV_PATH= r"D:\projects\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH']
+ENV_GDAL_LIBRARY_PATH = r'D:\projects\sele\env\Lib\site-packages\osgeo\gdal304.dll'
 ENV_SECRET_KEY = 'django-insecure-+f^i^1jx+g5*k$2a13t)^x-0b6$2@nbgd8v$ggufbyh62h*)gc'
 ENV_DEBUG = False
 ENV_ALLOWED_HOSTS = []
