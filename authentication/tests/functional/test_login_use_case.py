@@ -18,7 +18,7 @@ class LoginUseCaseTest(StaticLiveServerTestCase):
             firefox_options.headless = False
             self.browser = webdriver.Firefox(
                 executable_path=str(
-                    r'D:\02_oc\13_p13\config\settings\geckodriver.exe'
+                    r'D:\projects\sele\config\settings\geckodriver.exe'
                 ),
                 options=firefox_options,
             )

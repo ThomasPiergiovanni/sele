@@ -223,25 +223,25 @@ CUSTOM SETTINGS: No.
 #### 4.2.2. TENV_GDAL_DATA.
 DESCRIPTION:  Environmental variable 'GDAL_DATA' (os.environ['GDAL_DATA'])value. It's the path to gdal data module.  
 MANDATORY: Yes.   
-DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\gdal".   
+DEFAULT SETTINGS: r"D:\projects\sele\env\Lib\site-packages\osgeo\data\gdal".   
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e.  r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\gdal".
 
 #### 4.2.3. TENV_PROJ_LIB.
 DESCRIPTION:  Environmental variable 'PROJ_LIB' (os.environ['PROJ_LIB'])value. It's the path to proj lib module.  
 MANDATORY: Yes.   
-DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo\data\proj".    
+DEFAULT SETTINGS: r"D:\projects\sele\env\Lib\site-packages\osgeo\data\proj".    
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\data\proj".  
 
 #### 4.2.4. TENV_PATH.
 DESCRIPTION: Environmental variable 'PATH' (os.environ['PATH']) value. It's the path to osgeo module.  
 MANDATORY: Yes.   
-DEFAULT SETTINGS: r"D:\02_oc\13_P13\env\Lib\site-packages\osgeo" +";" + os.environ['PATH'].  
+DEFAULT SETTINGS: r"D:\projects\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH'].  
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo" +";" + os.environ['PATH'].  
 
 #### 4.2.5. TENV_GDAL_LIBRARY_PATH.
 DESCRIPTION: Path variable to the gdal library'.  
 MANDATORY: Yes.  
-DEFAULT SETTINGS: r'D:\02_oc\13_P13\env\Lib\site-packages\osgeo\gdal304.dll'.  
+DEFAULT SETTINGS: r'D:\projects\sele\env\Lib\site-packages\osgeo\gdal304.dll'.  
 CUSTOM SETTINGS: Yes. Must be set according to the app path i.e. r"\pathtotheapp\sele\env\Lib\site-packages\osgeo\gdal304.dll'.  
 
 #### 4.2.6. SENV_GDAL_DATA.
